@@ -1,7 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import { useEffect, useState } from 'react';
 import { Appearance, StyleSheet, Text, View } from 'react-native';
-import { lightStyles, darkStyles } from './globalStyles';
 
 export default function App() {
   const [colorScheme, setColorScheme] = useState(Appearance.getColorScheme())
