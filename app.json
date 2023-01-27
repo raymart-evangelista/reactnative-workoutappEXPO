@@ -6,7 +6,6 @@
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
-    "scheme": "com.raymartevangelista.workoutappexpo",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
@@ -19,11 +18,9 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true,
-      "bundleIdentifier": "com.raymartevangelista.workoutappexpo"
+      "supportsTablet": true
     },
     "android": {
-      "package": "com.raymartevangelista.workoutappexpo",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
