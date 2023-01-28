@@ -2,23 +2,41 @@ import { NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { StatusBar } from 'expo-status-bar';
 import { useEffect, useState } from 'react';
-import { Appearance, StyleSheet, Text, View } from 'react-native';
+import { Appearance, Button, StyleSheet, Text, View } from 'react-native';
 import { lightStyles, darkStyles } from './globalStyles';
 import MainLoggedOut from './MainLoggedOut';
 
 
-function HomeScreen() {
+function HomeScreen({ navigation }) {
   return (
     <View style={styles.basic}>
       <Text>Home Screen</Text>
+      <Button
+        title="Go to Details"
+        onPress={() => navigation.navigate('Details')}
+      />
     </View>
   )
 }
 
-function DetailsScreen() {
+function DetailsScreen({ navigation }) {
   return (
     <View style={styles.basic}>
       <Text>Details Screen</Text>
+      <Button
+        title="Go to Details... again"
+        onPress={() => navigation.push('Details')}
+      />
+      <Button 
+        title="Go to Details... again.. at least try pressing the button.."
+        onPress={() => navigation.navigate('Details')}
+      />
+      <Button title="Go to Home" onPress={() => navigation.navigate('Home')} />
+      <Button title="Go back" onPress={() => navigation.goBack()} />
+      <Button 
+        title='Go back to first screen in stack'
+        onPress={() => navigation.popToTop()}
+      />
     </View>
   )
 }
