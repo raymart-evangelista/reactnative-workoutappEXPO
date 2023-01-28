@@ -9,8 +9,16 @@ import MainLoggedOut from './MainLoggedOut';
 
 function HomeScreen() {
   return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+    <View style={styles.basic}>
       <Text>Home Screen</Text>
+    </View>
+  )
+}
+
+function DetailsScreen() {
+  return (
+    <View style={styles.basic}>
+      <Text>Details Screen</Text>
     </View>
   )
 }
@@ -37,9 +45,18 @@ export default function App() {
         <MainLoggedOut />
         <StatusBar style="auto" />
       </View> */}
-      <Stack.Navigator>
-        <Stack.Screen name="Home Screen" component={HomeScreen} />
+      <Stack.Navigator initialRouteName='Home'>
+        <Stack.Screen name="Home" component={HomeScreen} options={{ title: 'Overview' }} />
+        <Stack.Screen name="Details" component={DetailsScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
 }
+
+const styles = StyleSheet.create({
+  basic: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center'
+  }
+})
