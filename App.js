@@ -2,16 +2,21 @@ import { NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { StatusBar } from 'expo-status-bar';
 import { useEffect, useState } from 'react';
-import { Appearance, Button, StyleSheet, Text, View } from 'react-native';
+import { Appearance, Button, StyleSheet, Text, View, TextInput } from 'react-native';
 import { lightStyles, darkStyles } from './globalStyles';
 import MainLoggedOut from './MainLoggedOut';
 
 
-function HomeScreen({ navigation }) {
+function HomeScreen({ navigation, route }) {
+  useEffect(() => {
+    if (route.params?.post) {
+
+    }
+  }, [route.params?.post])
   return (
     <View style={styles.basic}>
-      <Text>Home Screen</Text>
-      <Button
+      {/* <Text>Home Screen</Text> */}
+      {/* <Button
         title="Go to Details"
         onPress={() => {
           navigation.navigate('Details', {
@@ -19,8 +24,39 @@ function HomeScreen({ navigation }) {
             otherParam: 'anything you want here',
           })
         }}
+      /> */}
+      <Button 
+        title="Create post"
+        onPress={() => navigation.navigate('CreatePost')}
       />
+      <Text style={{ margin: 10 }}>Post: {route.params?.post}</Text>
     </View>
+  )
+}
+
+function CreatePostScreen({ navigation, route }) {
+  const [postText, setPostText] = useState('')
+
+  return (
+    <>
+      <TextInput 
+        multiline
+        placeholder="What's on your mind?"
+        style={{ height: 200, padding: 10, backgroundColor: 'white' }}
+        value={postText}
+        onChangeText={setPostText}
+      />
+      <Button
+        title="Done"
+        onPress={() => {
+          navigation.navigate({
+            name: 'Home',
+            params: { post: postText },
+            merge: true,
+          })
+        }}
+      />
+    </>
   )
 }
 
@@ -78,6 +114,7 @@ export default function App() {
       <Stack.Navigator initialRouteName='Home'>
         <Stack.Screen name="Home" component={HomeScreen} options={{ title: 'Overview' }} />
         <Stack.Screen name="Details" component={DetailsScreen} initialParams={{ itemId: 443 }} />
+        <Stack.Screen name="CreatePost" component={CreatePostScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
