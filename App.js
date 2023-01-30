@@ -112,22 +112,35 @@ export default function App() {
         <StatusBar style="auto" />
       </View> */}
       <Stack.Navigator 
-        screenOptions={{
-          headerStyle: {
-            backgroundColor: '#f4511e',
-          },
-          headerTintColor: '#fff',
-          headerTitleStyle: {
-            fontWeight: 'bold'
-          },
-        }}
+        // screenOptions={{
+        //   headerStyle: {
+        //     backgroundColor: '#f4511e',
+        //   },
+        //   headerTintColor: '#fff',
+        //   headerTitleStyle: {
+        //     fontWeight: 'bold'
+        //   },
+        // }}
         initialRouteName='Home'
       >
         <Stack.Screen 
           name="Home" 
           component={HomeScreen} 
           options={{ 
-            title: 'Overview Sure Thing',
+            headerRight: () => (
+              <Button
+                onPress={() => alert('This is a button!')}
+                title="Info"
+                color="#00cc00"
+              />
+            ),
+            headerLeft: () => (
+              <Button
+                onPress={() => alert('This is a left button')}
+                title="Programs"
+                color="#00cc00"
+              />
+            )
            }}
         />
         <Stack.Screen name="Details" component={DetailsScreen} initialParams={{ itemId: 443 }} />
