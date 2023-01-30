@@ -111,19 +111,23 @@ export default function App() {
         <MainLoggedOut />
         <StatusBar style="auto" />
       </View> */}
-      <Stack.Navigator initialRouteName='Home'>
+      <Stack.Navigator 
+        screenOptions={{
+          headerStyle: {
+            backgroundColor: '#f4511e',
+          },
+          headerTintColor: '#fff',
+          headerTitleStyle: {
+            fontWeight: 'bold'
+          },
+        }}
+        initialRouteName='Home'
+      >
         <Stack.Screen 
           name="Home" 
           component={HomeScreen} 
           options={{ 
             title: 'Overview Sure Thing',
-            headerStyle: {
-              backgroundColor: '#f4511e',
-            },
-            headerTintColor: '#fff',
-            headerTitleStyle: {
-              fontWeight: 'bold'
-            },
            }}
         />
         <Stack.Screen name="Details" component={DetailsScreen} initialParams={{ itemId: 443 }} />
