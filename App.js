@@ -8,11 +8,18 @@ import MainLoggedOut from './MainLoggedOut';
 
 
 function HomeScreen({ navigation, route }) {
+  const [count, setCount] = useState(0)
   useEffect(() => {
     if (route.params?.post) {
 
     }
-  }, [route.params?.post])
+
+    navigation.setOptions({
+      headerRight: () => (
+        <Button onPress={() => setCount((c) => c + 1)} title="Update count" />
+      )
+    })
+  }, [route.params?.post, navigation])
   return (
     <View style={styles.basic}>
       {/* <Text>Home Screen</Text> */}
@@ -30,6 +37,7 @@ function HomeScreen({ navigation, route }) {
         onPress={() => navigation.navigate('CreatePost')}
       />
       <Text style={{ margin: 10 }}>Post: {route.params?.post}</Text>
+      <Text>Count: {count}</Text>
     </View>
   )
 }
