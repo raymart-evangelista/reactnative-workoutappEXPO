@@ -170,8 +170,26 @@ export default function App() {
             ),
           }}
         />
-        <Tab.Screen name="Settings" component={SettingsScreen} />
-        <Tab.Screen name="Workouts" component={ProgramsScreen} />
+        <Tab.Screen
+          name="Settings" 
+          component={SettingsScreen} 
+          options={{
+            tabBarLabel: 'Settings',
+            tabBarIcon: ({ color, size }) => (
+              <Ionicons name='ios-settings' color={color} size={size} />
+            ),
+          }}
+        />
+        <Tab.Screen 
+          name="Workouts" 
+          component={ProgramsScreen} 
+          options={{
+            tabBarLabel: 'Workouts',
+            tabBarIcon: ({ color, size }) => (
+              <Ionicons name='ios-barbell' color={color} size={size} />
+            )
+          }}
+        />
       </Tab.Navigator>
     </NavigationContainer>
   );
