@@ -6,7 +6,10 @@ import { Appearance, Button, StyleSheet, Text, View, TextInput } from 'react-nat
 import { lightStyles, darkStyles } from './globalStyles';
 import MainLoggedOut from './MainLoggedOut';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import Ionicons from 'react-native-vector-icons/Ionicons'
 
+const Stack = createNativeStackNavigator()
+const Tab = createBottomTabNavigator()
 
 function HomeScreen({ navigation, route }) {
   const [count, setCount] = useState(0)
@@ -85,7 +88,6 @@ function CreatePostScreen({ navigation, route }) {
   )
 }
 
-
 function DetailsScreen({ route, navigation }) {
   const { itemId, otherParam } = route.params
   return (
@@ -115,8 +117,7 @@ function DetailsScreen({ route, navigation }) {
   )
 }
 
-const Stack = createNativeStackNavigator()
-const Tab = createBottomTabNavigator()
+
 
 export default function App() {
   // const [colorScheme, setColorScheme] = useState(Appearance.getColorScheme())
@@ -159,7 +160,16 @@ export default function App() {
         <Stack.Screen name="CreatePost" component={CreatePostScreen} />
       </Stack.Navigator> */}
       <Tab.Navigator>
-        <Tab.Screen name="Home" component={HomeScreen} />
+        <Tab.Screen
+          name="Home" 
+          component={HomeScreen}
+          options={{
+            tabBarLabel: 'Home',
+            tabBarIcon: ({ color, size }) => (
+              <Ionicons name='ios-home' color={color} size={size} />
+            ),
+          }}
+        />
         <Tab.Screen name="Settings" component={SettingsScreen} />
         <Tab.Screen name="Workouts" component={ProgramsScreen} />
       </Tab.Navigator>
