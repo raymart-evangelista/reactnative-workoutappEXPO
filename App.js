@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import { Appearance, Button, StyleSheet, Text, View, TextInput } from 'react-native';
 import { lightStyles, darkStyles } from './globalStyles';
 import MainLoggedOut from './MainLoggedOut';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 
 function HomeScreen({ navigation, route }) {
@@ -42,6 +43,22 @@ function HomeScreen({ navigation, route }) {
   )
 }
 
+function SettingsScreen() {
+  return (
+    <View style={styles.basic}>
+      <Text>Settings!</Text>
+    </View>
+  )
+}
+
+function ProgramsScreen() {
+  return (
+    <View style={styles.basic}>
+      <Text>Workout Programs</Text>
+    </View>
+  )
+}
+
 function CreatePostScreen({ navigation, route }) {
   const [postText, setPostText] = useState('')
 
@@ -67,6 +84,7 @@ function CreatePostScreen({ navigation, route }) {
     </>
   )
 }
+
 
 function DetailsScreen({ route, navigation }) {
   const { itemId, otherParam } = route.params
@@ -98,6 +116,7 @@ function DetailsScreen({ route, navigation }) {
 }
 
 const Stack = createNativeStackNavigator()
+const Tab = createBottomTabNavigator()
 
 export default function App() {
   // const [colorScheme, setColorScheme] = useState(Appearance.getColorScheme())
@@ -115,22 +134,7 @@ export default function App() {
 
   return (
     <NavigationContainer>
-      {/* <View style={themeStyles.container}>
-        <MainLoggedOut />
-        <StatusBar style="auto" />
-      </View> */}
-      <Stack.Navigator 
-        // screenOptions={{
-        //   headerStyle: {
-        //     backgroundColor: '#f4511e',
-        //   },
-        //   headerTintColor: '#fff',
-        //   headerTitleStyle: {
-        //     fontWeight: 'bold'
-        //   },
-        // }}
-        initialRouteName='Home'
-      >
+      {/* <Stack.Navigator initialRouteName='Home'>
         <Stack.Screen 
           name="Home" 
           component={HomeScreen} 
@@ -153,7 +157,12 @@ export default function App() {
         />
         <Stack.Screen name="Details" component={DetailsScreen} initialParams={{ itemId: 443 }} />
         <Stack.Screen name="CreatePost" component={CreatePostScreen} />
-      </Stack.Navigator>
+      </Stack.Navigator> */}
+      <Tab.Navigator>
+        <Tab.Screen name="Home" component={HomeScreen} />
+        <Tab.Screen name="Settings" component={SettingsScreen} />
+        <Tab.Screen name="Workouts" component={ProgramsScreen} />
+      </Tab.Navigator>
     </NavigationContainer>
   );
 }
