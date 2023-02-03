@@ -3,48 +3,50 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { StatusBar } from 'expo-status-bar';
 import { useEffect, useState } from 'react';
 import { Appearance, Button, StyleSheet, Text, View, TextInput } from 'react-native';
-import { lightStyles, darkStyles } from './globalStyles';
+import { defaultStyles, lightStyles, darkStyles } from './globalStyles';
 import MainLoggedOut from './MainLoggedOut';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons'
 
+import HomeScreen from './HomeScreen';
+
 const Stack = createNativeStackNavigator()
 const Tab = createBottomTabNavigator()
 
-function HomeScreen({ navigation, route }) {
-  const [count, setCount] = useState(0)
-  useEffect(() => {
-    if (route.params?.post) {
+// function HomeScreen({ navigation, route }) {
+//   const [count, setCount] = useState(0)
+//   useEffect(() => {
+//     if (route.params?.post) {
 
-    }
+//     }
 
-    navigation.setOptions({
-      headerRight: () => (
-        <Button onPress={() => setCount((c) => c + 1)} title="Update count" />
-      )
-    })
-  }, [route.params?.post, navigation])
-  return (
-    <View style={styles.basic}>
-      {/* <Text>Home Screen</Text> */}
-      {/* <Button
-        title="Go to Details"
-        onPress={() => {
-          navigation.navigate('Details', {
-            itemId: 86,
-            otherParam: 'anything you want here',
-          })
-        }}
-      /> */}
-      <Button 
-        title="Create post"
-        onPress={() => navigation.navigate('CreatePost')}
-      />
-      <Text style={{ margin: 10 }}>Post: {route.params?.post}</Text>
-      <Text>Count: {count}</Text>
-    </View>
-  )
-}
+//     navigation.setOptions({
+//       headerRight: () => (
+//         <Button onPress={() => setCount((c) => c + 1)} title="Update count" />
+//       )
+//     })
+//   }, [route.params?.post, navigation])
+//   return (
+//     <View style={styles.basic}>
+//       {/* <Text>Home Screen</Text> */}
+//       {/* <Button
+//         title="Go to Details"
+//         onPress={() => {
+//           navigation.navigate('Details', {
+//             itemId: 86,
+//             otherParam: 'anything you want here',
+//           })
+//         }}
+//       /> */}
+//       <Button 
+//         title="Create post"
+//         onPress={() => navigation.navigate('CreatePost')}
+//       />
+//       <Text style={{ margin: 10 }}>Post: {route.params?.post}</Text>
+//       <Text>Count: {count}</Text>
+//     </View>
+//   )
+// }
 
 function SettingsScreen() {
   return (
@@ -179,7 +181,14 @@ export default function App() {
               <Ionicons name='ios-settings' color={color} size={size} />
             ),
           }}
-        />
+        >
+          {/* <Stack.Navigator>
+            <Stack.Screen 
+              name="Screen1"
+              component={DetailsScreen}
+            />
+          </Stack.Navigator> */}
+        </Tab.Screen>
         <Tab.Screen 
           name="Workouts" 
           component={ProgramsScreen} 

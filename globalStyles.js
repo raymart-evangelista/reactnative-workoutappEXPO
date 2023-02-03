@@ -4,6 +4,14 @@ const mainColor = '#000';
 const mainTextColor = '#ffffff';
 const secondaryColor = '#f9a825';
 
+const defaultStyles = StyleSheet.create({
+  basic: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center'
+  }
+}) 
+
 const lightStyles = StyleSheet.create({
   container: {
     flex: 1,
@@ -110,4 +118,4 @@ const darkStyles = StyleSheet.create({
   }
 });
 
-export { lightStyles, darkStyles}
+export { defaultStyles, lightStyles, darkStyles}
