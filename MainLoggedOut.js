@@ -1,6 +1,9 @@
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import React from "react";
 import { View, Text, TextInput, TouchableOpacity } from 'react-native'
 import { defaultStyles } from "./globalStyles";
+
+const Stack = createNativeStackNavigator()
 
 export default function MainLoggedOut() {
   return (
