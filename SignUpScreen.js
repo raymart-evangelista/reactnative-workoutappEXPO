@@ -16,7 +16,7 @@ export default function SignUpScreen() {
       <TextInput
         style={{height: 40}}
         placeholder="Password"
-        onChangeText={newPassword => setPassword(newPas)}
+        onChangeText={newPassword => setPassword(newPassword)}
       />
     </View>
   )

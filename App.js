@@ -11,6 +11,7 @@ import HomeScreen from './HomeScreen';
 import SettingsScreen from './SettingsScreen';
 import WorkoutsScreen from './WorkoutsScreen';
 import MainLoggedOut from './MainLoggedOut';
+import TabNavigator from './TabNavigator';
 
 const Stack = createNativeStackNavigator()
 const Tab = createBottomTabNavigator()
@@ -139,6 +140,7 @@ export default function App() {
 
   return (
     <NavigationContainer>
+      <TabNavigator />
       {/* <Stack.Navigator initialRouteName='Home'>
         <Stack.Screen 
           name="Home" 
@@ -163,7 +165,7 @@ export default function App() {
         <Stack.Screen name="Details" component={DetailsScreen} initialParams={{ itemId: 443 }} />
         <Stack.Screen name="CreatePost" component={CreatePostScreen} />
       </Stack.Navigator> */}
-      <Tab.Navigator>
+      {/* <Tab.Navigator>
         <Tab.Screen
             name="Log In" 
             component={MainLoggedOut}
@@ -194,12 +196,6 @@ export default function App() {
             ),
           }}
         >
-          {/* <Stack.Navigator>
-            <Stack.Screen 
-              name="Screen1"
-              component={DetailsScreen}
-            />
-          </Stack.Navigator> */}
         </Tab.Screen>
         <Tab.Screen 
           name="Workouts" 
@@ -211,7 +207,7 @@ export default function App() {
             )
           }}
         />
-      </Tab.Navigator>
+      </Tab.Navigator> */}
     </NavigationContainer>
   );
 }

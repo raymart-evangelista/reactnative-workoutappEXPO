@@ -1,4 +1,4 @@
-import { Text } from "react-native"
+import { Text, View } from "react-native"
 import { defaultStyles } from "./globalStyles"
 
 export default function LogInScreen() {
