@@ -9,6 +9,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons'
 
 import HomeScreen from './HomeScreen';
+import SettingsScreen from './SettingsScreen';
 
 const Stack = createNativeStackNavigator()
 const Tab = createBottomTabNavigator()
@@ -48,13 +49,13 @@ const Tab = createBottomTabNavigator()
 //   )
 // }
 
-function SettingsScreen() {
-  return (
-    <View style={styles.basic}>
-      <Text>Settings!</Text>
-    </View>
-  )
-}
+// function SettingsScreen() {
+//   return (
+//     <View style={styles.basic}>
+//       <Text>Settings!</Text>
+//     </View>
+//   )
+// }
 
 function ProgramsScreen() {
   return (
