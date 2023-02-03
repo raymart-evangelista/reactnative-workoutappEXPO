@@ -4,13 +4,13 @@ import { StatusBar } from 'expo-status-bar';
 import { useEffect, useState } from 'react';
 import { Appearance, Button, StyleSheet, Text, View, TextInput } from 'react-native';
 import { defaultStyles, lightStyles, darkStyles } from './globalStyles';
-import MainLoggedOut from './MainLoggedOut';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons'
 
 import HomeScreen from './HomeScreen';
 import SettingsScreen from './SettingsScreen';
 import WorkoutsScreen from './WorkoutsScreen';
+import MainLoggedOut from './MainLoggedOut';
 
 const Stack = createNativeStackNavigator()
 const Tab = createBottomTabNavigator()
@@ -164,6 +164,16 @@ export default function App() {
         <Stack.Screen name="CreatePost" component={CreatePostScreen} />
       </Stack.Navigator> */}
       <Tab.Navigator>
+        <Tab.Screen
+            name="Log In" 
+            component={MainLoggedOut}
+            options={{
+              tabBarLabel: 'Log In',
+              tabBarIcon: ({ color, size }) => (
+                <Ionicons name='ios-log-in' color={color} size={size} />
+              ),
+            }}
+          />
         <Tab.Screen
           name="Home" 
           component={HomeScreen}

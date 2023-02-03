@@ -1,9 +1,10 @@
 import React from "react";
 import { View, Text, TouchableOpacity } from 'react-native'
+import { defaultStyles } from "./globalStyles";
 
 export default function MainLoggedOut() {
   return (
-    <View>
+    <View style={defaultStyles.basic}>
       <TouchableOpacity
 
       >
