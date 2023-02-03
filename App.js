@@ -10,6 +10,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons'
 
 import HomeScreen from './HomeScreen';
 import SettingsScreen from './SettingsScreen';
+import WorkoutsScreen from './WorkoutsScreen';
 
 const Stack = createNativeStackNavigator()
 const Tab = createBottomTabNavigator()
@@ -57,13 +58,13 @@ const Tab = createBottomTabNavigator()
 //   )
 // }
 
-function ProgramsScreen() {
-  return (
-    <View style={styles.basic}>
-      <Text>Workout Programs</Text>
-    </View>
-  )
-}
+// function ProgramsScreen() {
+//   return (
+//     <View style={styles.basic}>
+//       <Text>Workout Programs</Text>
+//     </View>
+//   )
+// }
 
 function CreatePostScreen({ navigation, route }) {
   const [postText, setPostText] = useState('')
@@ -192,7 +193,7 @@ export default function App() {
         </Tab.Screen>
         <Tab.Screen 
           name="Workouts" 
-          component={ProgramsScreen} 
+          component={WorkoutsScreen} 
           options={{
             tabBarLabel: 'Workouts',
             tabBarIcon: ({ color, size }) => (
