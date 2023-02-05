@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { TextInput, View } from "react-native";
+import { Button, TextInput, View } from "react-native";
 import { defaultStyles } from "./globalStyles";
 
 export default function SignUpScreen() {
@@ -17,6 +17,9 @@ export default function SignUpScreen() {
         style={{height: 40}}
         placeholder="Password"
         onChangeText={newPassword => setPassword(newPassword)}
+      />
+      <Button
+        title="Sign Up"
       />
     </View>
   )
