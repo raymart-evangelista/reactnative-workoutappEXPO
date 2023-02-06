@@ -9,7 +9,7 @@ const Stack = createNativeStackNavigator()
 
 export default function MainLoggedOut() {
   return (
-    <Stack.Navigator initialRouteName="SignUpScreen">
+    <Stack.Navigator initialRouteName="LogInScreen">
       {/* <Stack.Group
         screenOptions={{ headerStyle: { backgroundColor: 'papayawhip' } }}
       > */}
@@ -17,22 +17,5 @@ export default function MainLoggedOut() {
         <Stack.Screen name="SignUpScreen" component={SignUpScreen} />
       {/* </Stack.Group> */}
     </Stack.Navigator>
-    // <View style={defaultStyles.basic}>
-    //   <TextInput
-    //     style={{height: 40}}
-    //     placeholder="Username"
-    //     onChangeText={newText => setText(newText)}
-    //   />
-    //   <TouchableOpacity>
-    //     <Text>Log in</Text>
-    //   </TouchableOpacity>
-    //   <TouchableOpacity>
-    //     <Text>Sign up</Text>
-    //   </TouchableOpacity>
-    //   <TouchableOpacity
-    //   >
-    //     <Text>Create an account</Text>
-    //   </TouchableOpacity>
-    // </View>
   )
 }
