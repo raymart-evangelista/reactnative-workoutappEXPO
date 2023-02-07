@@ -7,8 +7,33 @@ const secondaryColor = '#f9a825';
 const defaultStyles = StyleSheet.create({
   basic: {
     flex: 1,
-    alignItems: 'center',
+    // alignItems: 'center',
     justifyContent: 'center'
+  },
+  signupText: {
+    fontSize: 30,
+    textAlign: 'center'
+  },
+  signupInput: {
+    borderBottomWidth: 0.5,
+    height: 48,
+    borderBottomColor: '#8e93a1',
+    marginBottom: 30,
+  },
+  buttonStyle: {
+    backgroundColor: "green",
+    height: 50,
+    marginBottom: 20,
+    justifyContent: "center",
+    marginHorizontal: 15,
+    borderRadius: 15,
+  },
+  buttonText: {
+    fontSize: 20,
+    textAlign: 'center',
+    color: '#fff',
+    textTransform: 'uppercase',
+    fontWeight: 'bold'
   }
 }) 
 
