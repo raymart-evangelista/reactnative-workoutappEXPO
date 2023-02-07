@@ -63,7 +63,10 @@ export default function LogInScreen({ navigation }) {
             Submit
           </Text>
         </TouchableOpacity>
-        <Text style={{  fontSize: 12, textAlign: 'center' }}>
+        <Text 
+          style={{  color: 'black', fontWeight: 'bold', fontSize: 12, textAlign: 'center' }}
+          onPress={() => navigation.navigate("SignUp")}
+        >
           Not registered? Sign Up
         </Text>
         <Text style={{  fontSize: 12, textAlign: 'center', marginTop: 10 }}>

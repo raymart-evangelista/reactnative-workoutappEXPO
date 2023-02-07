@@ -3,7 +3,7 @@ import { Button, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { defaultStyles } from "./globalStyles";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
-export default function SignUpScreen() {
+export default function SignUpScreen({ navigation }) {
   const [username, setUsername] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -63,8 +63,11 @@ export default function SignUpScreen() {
             Submit
           </Text>
         </TouchableOpacity>
-        <Text style={{  fontSize: 12, textAlign: 'center' }}>
-          Log In
+        <Text 
+          style={{ color: 'black', fontWeight: 'bold', fontSize: 12, textAlign: 'center' }}
+          onPress={() => navigation.navigate("LogIn")}
+        >
+          Already Joined? Log In
         </Text>
       </View>
     </KeyboardAwareScrollView>
