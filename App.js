@@ -12,6 +12,8 @@ import SettingsScreen from './SettingsScreen';
 import WorkoutsScreen from './WorkoutsScreen';
 import MainLoggedOut from './MainLoggedOut';
 import TabNavigator from './TabNavigator';
+import SignUpScreen from './SignUpScreen';
+import LogInScreen from './LogInScreen';
 
 const Stack = createNativeStackNavigator()
 const Tab = createBottomTabNavigator()
@@ -139,76 +141,8 @@ export default function App() {
   // console.log(colorScheme)
 
   return (
-    <NavigationContainer>
-      <TabNavigator />
-      {/* <Stack.Navigator initialRouteName='Home'>
-        <Stack.Screen 
-          name="Home" 
-          component={HomeScreen} 
-          options={{ 
-            headerRight: () => (
-              <Button
-                onPress={() => alert('This is a button!')}
-                title="Info"
-                color="#00cc00"
-              />
-            ),
-            headerLeft: () => (
-              <Button
-                onPress={() => alert('This is a left button')}
-                title="Programs"
-                color="#00cc00"
-              />
-            )
-           }}
-        />
-        <Stack.Screen name="Details" component={DetailsScreen} initialParams={{ itemId: 443 }} />
-        <Stack.Screen name="CreatePost" component={CreatePostScreen} />
-      </Stack.Navigator> */}
-      {/* <Tab.Navigator>
-        <Tab.Screen
-            name="Log In" 
-            component={MainLoggedOut}
-            options={{
-              tabBarLabel: 'Log In',
-              tabBarIcon: ({ color, size }) => (
-                <Ionicons name='ios-log-in' color={color} size={size} />
-              ),
-            }}
-          />
-        <Tab.Screen
-          name="Home" 
-          component={HomeScreen}
-          options={{
-            tabBarLabel: 'Home',
-            tabBarIcon: ({ color, size }) => (
-              <Ionicons name='ios-home' color={color} size={size} />
-            ),
-          }}
-        />
-        <Tab.Screen
-          name="Settings" 
-          component={SettingsScreen} 
-          options={{
-            tabBarLabel: 'Settings',
-            tabBarIcon: ({ color, size }) => (
-              <Ionicons name='ios-settings' color={color} size={size} />
-            ),
-          }}
-        >
-        </Tab.Screen>
-        <Tab.Screen 
-          name="Workouts" 
-          component={WorkoutsScreen} 
-          options={{
-            tabBarLabel: 'Workouts',
-            tabBarIcon: ({ color, size }) => (
-              <Ionicons name='ios-barbell' color={color} size={size} />
-            )
-          }}
-        />
-      </Tab.Navigator> */}
-    </NavigationContainer>
+    <LogInScreen />
+    // <SignUpScreen />
   );
 }
 
