@@ -12,6 +12,7 @@ import SettingsScreen from './SettingsScreen';
 import WorkoutsScreen from './WorkoutsScreen';
 import MainLoggedOut from './MainLoggedOut';
 import TabNavigator from './TabNavigator';
+
 import SignUpScreen from './SignUpScreen';
 import LogInScreen from './LogInScreen';
 
@@ -141,8 +142,12 @@ export default function App() {
   // console.log(colorScheme)
 
   return (
-    <LogInScreen />
-    // <SignUpScreen />
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName='LogIn'>
+        <Stack.Screen name="LogIn" component={LogInScreen} />
+        <Stack.Screen name="SignUp" component={SignUpScreen} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
 

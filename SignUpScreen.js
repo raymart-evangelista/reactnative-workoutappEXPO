@@ -63,7 +63,6 @@ export default function SignUpScreen() {
             Submit
           </Text>
         </TouchableOpacity>
-        <Text style={{ marginHorizontal: 24 }}>{JSON.stringify({ username, email, password})}</Text>
         <Text style={{  fontSize: 12, textAlign: 'center' }}>
           Log In
         </Text>
