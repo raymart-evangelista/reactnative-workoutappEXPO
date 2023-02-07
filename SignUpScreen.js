@@ -7,8 +7,14 @@ export default function SignUpScreen() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
-  function handleSubmit() {
+  const handleSubmit = async () => {
+    if (username === '' || email === '' || password === '' ) {
+      alert("All fields are required")
+      return
+    }
 
+    await axios.post("http://localhost:8001/api/signup", { username, email, password })
+    alert("Sign Up Successful")
   }
 
   return (
