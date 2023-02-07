@@ -1,9 +1,11 @@
-import { MongoClient } from "mongodb";
+// import { MongoClient } from "mongodb";
+const { MongoClient } = require('mongodb');
 
-const uri = `mongodb://0.0.0.0:27017/`
+const uri = `mongodb://localhost:27017/workoutappexpoDB`
 const client = new MongoClient(uri, { useNewUrlParser: true })
 
-const database = client.db('test')
+// const database = client.db('test')
+// const collection = database.collection('user')
 
 client.connect((err) => {
   if (err) throw err
