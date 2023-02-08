@@ -1,7 +1,7 @@
 import User from "../models/user";
 import { hashPassword, comparePassword } from "../helpers/auth";
 import jwt from "jsonwebtoken";
-import nanoid from "nanoid";
+import shortid from "shortid"
 
 // sendgrid
 require("dotenv").config();
@@ -102,7 +102,8 @@ export const forgotPassword = async (req, res) => {
     return res.json({ error: "User not found" });
   }
   // generate code
-  const resetCode = nanoid(5).toUpperCase();
+  // const resetCode = nanoid(5).toUpperCase();
+  const resetCode = shortid.generate()
   // save to db
   user.resetCode = resetCode;
   user.save();
