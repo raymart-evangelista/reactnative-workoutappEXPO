@@ -8,8 +8,9 @@ const Model = require('../models/model')
 router.post('/post', async (req, res) => {
   // res.send('Post API')
   const data = new Model({
-    name: req.body.name,
-    age: req.body.age
+    username: req.body.username,
+    email: req.body.email,
+    password: req.body.password
   })
 
   try {
@@ -69,5 +70,40 @@ router.delete('/delete/:id', async (req, res) => {
     res.status(400).json({ message: error.message })
   }
 })
+
+// sign up
+// router.post('/signup', async (req, res) => {
+//   try {
+//     const newData = new Data({
+//       username,
+//       email,
+//       password
+//     })
+
+//     newData.save()
+//       .then(data => {
+//         res.json(data)
+//       })
+//   } catch (error) {
+//     res.status(400).json 
+//   }
+// })
+router.post('/signup', async (req, res) => {
+  const data = new Model({
+    username: req.body.username,
+    email: req.body.email,
+    password: req.body.password
+  })
+
+  try {
+    const dataToSave = await data.save()
+    res.status(200).json(dataToSave)
+
+  } catch (error) {
+    res.status(400).json({ message: error.message })
+
+  }
+})
+
 
 module.exports = router;

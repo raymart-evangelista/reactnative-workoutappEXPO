@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Button, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { defaultStyles } from "./globalStyles";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import axios from "axios";
 
 export default function SignUpScreen({ navigation }) {
   const [username, setUsername] = useState('')
@@ -14,8 +15,10 @@ export default function SignUpScreen({ navigation }) {
       return
     }
 
-    await axios.post("http://localhost:8001/api/signup", { username, email, password })
+    // await axios.post("http://localhost:8001/api/signup", { username, email, password })
+    await axios.post("http://localhost:3000/api/signup", { username, email, password })
     alert("Sign Up Successful")
+
   }
 
   return (
