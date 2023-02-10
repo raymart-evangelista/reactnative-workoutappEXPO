@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Button, StyleSheet, Text, View } from 'react-native'
-import { defaultStyles } from './globalStyles';
+import { defaultStyles } from '../styles/globalStyles';
 
 export default function HomeScreen({ navigation, route }) {
   const [count, setCount] = useState(0)

@@ -1,5 +1,5 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import MainLoggedOut from "./MainLoggedOut";
+import MainLoggedOut from "../../MainLoggedOut";
 
 const Tab = createBottomTabNavigator()
 
