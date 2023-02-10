@@ -18,7 +18,4 @@ const signUp = async (username, email, password) => {
   }
 }
 
-export default {
-  getAll: getAll,
-  signUp: signUp,
-}
+export default { getAll, signUp }
