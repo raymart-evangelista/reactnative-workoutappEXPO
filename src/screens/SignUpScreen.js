@@ -17,9 +17,14 @@ export default function SignUpScreen({ navigation }) {
       return
     }
 
-    await signUpService.signUp(username, email, password)
-    // await axios.post("http://localhost:3000/api/signup", { username, email, password })
-    alert("Sign Up Successful")
+    try {
+      const returnedInfo = await signUpService.signUp(username, email, password)
+      console.log(returnedInfo)
+      alert("Sign Up Successful.")
+    } catch (error) {
+      console.error(error)
+      alert("Something went wrong. Please try again.")
+    }
 
   }
 
