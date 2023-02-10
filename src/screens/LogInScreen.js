@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { Button, Text, TextInput, TouchableOpacity, View } from "react-native"
-import { defaultStyles } from "./globalStyles"
+import { defaultStyles } from "../styles/globalStyles"
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 export default function LogInScreen({ navigation }) {
