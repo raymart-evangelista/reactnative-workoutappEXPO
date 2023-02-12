@@ -1,12 +1,12 @@
-import { View } from "react-native"
+import { Text, View } from "react-native"
 
-const Notification = ({ message }) => {
+const Notification = ({ message, color }) => {
   if (!message) {
     return null
   }
 
   return (
-    <View style={{ backgroundColor: 'red' }}>
+    <View style={{ backgroundColor: color }}>
       <Text style={{ color: 'white' }}>{message}</Text>
     </View>
   )

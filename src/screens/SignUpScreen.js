@@ -5,25 +5,34 @@ import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view
 import axios from "axios";
 
 import signUpService from '../services/api'
+import Notification from "../components/Notification";
 
 export default function SignUpScreen({ navigation }) {
   const [username, setUsername] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
+  const [notificationMessage, setNotificationMessage] = useState('')
+  const [notificationColor, setNotificationColor] = useState('')
+
   const handleSubmit = async () => {
     if (username === '' || email === '' || password === '' ) {
-      alert("All fields are required")
+      setNotificationMessage("All fields are required")
+      setNotificationColor('red')
       return
     }
 
     try {
       const returnedInfo = await signUpService.signUp(username, email, password)
       console.log(returnedInfo)
-      alert("Sign Up Successful.")
+      // alert("Sign Up Successful.")
+      setNotificationMessage("Success")
+      setNotificationColor('green')
     } catch (error) {
       console.error(error)
-      alert("Something went wrong. Please try again.")
+      setNotificationMessage("Sign up failed")
+      setNotificationColor('red')
+      // alert("Something went wrong. Please try again.")
     }
 
   }
@@ -31,6 +40,7 @@ export default function SignUpScreen({ navigation }) {
   return (
     <KeyboardAwareScrollView contentContainerStyle={defaultStyles.basic}>
       <View style={defaultStyles.basic}>
+        <Notification message={notificationMessage} color={notificationColor} />
         <Text style={defaultStyles.signupText}>Sign Up</Text>
         <View style={{ marginHorizontal: 24 }}>
           <TextInput
