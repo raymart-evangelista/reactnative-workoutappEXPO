@@ -34,12 +34,13 @@ router.get('/getAll', async (req, res) => {
 })
 
 // get by ID method
+// router.get('/users/:id', async (req, res) => {
 router.get('/getOne/:id', async (req, res) => {
   try {
     const data = await Model.findById(req.params.id)
     res.json(data)
   } catch (error) {
-    res.status(500).json({ message: error.message })
+    res.status(404).json({ message: error.message })
   }
 })
 
