@@ -1,6 +1,7 @@
 require('dotenv').config()
 
 const mongoString = process.env.DATABASE_URL
+const cors = require('cors')
 import express from "express"
 import mongoose from "mongoose"
 
@@ -18,6 +19,7 @@ database.once('connected', () => {
 const app = express()
 
 app.use(express.json())
+app.use(cors())
 
 const routes = require('./routes/routes');
 app.use('/api', routes)
@@ -27,6 +29,7 @@ const unknownEndpoint = (req, res) => {
 }
 
 app.use(unknownEndpoint)
+
 
 app.listen(3000, () => {
   console.log(`Server Started at ${3000}`)
