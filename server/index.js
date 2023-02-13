@@ -22,6 +22,12 @@ app.use(express.json())
 const routes = require('./routes/routes');
 app.use('/api', routes)
 
+const unknownEndpoint = (req, res) => {
+  res.status(404).send({ error: 'unknown endpoint' })
+}
+
+app.use(unknownEndpoint)
+
 app.listen(3000, () => {
   console.log(`Server Started at ${3000}`)
 })
