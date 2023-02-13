@@ -2,8 +2,8 @@ require('dotenv').config()
 
 const mongoString = process.env.DATABASE_URL
 const cors = require('cors')
-import express from "express"
-import mongoose from "mongoose"
+const express = require('express')
+const mongoose = require('mongoose')
 
 mongoose.connect(mongoString)
 const database = mongoose.connection
