@@ -31,8 +31,8 @@ const unknownEndpoint = (req, res) => {
 app.use(unknownEndpoint)
 
 
-app.listen(3000, () => {
-  console.log(`Server Started at ${3000}`)
+app.listen(process.env.PORT, () => {
+  console.log(`Server Started at ${process.env.PORT}`)
 })
 
 

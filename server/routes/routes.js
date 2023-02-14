@@ -1,13 +1,13 @@
 const express = require('express');
 
 const router = express.Router()
-const Model = require('../models/model')
+const User = require('../models/user')
 
 
 // post
 router.post('/post', async (req, res) => {
   // res.send('Post API')
-  const data = new Model({
+  const data = new User({
     username: req.body.username,
     email: req.body.email,
     password: req.body.password
@@ -26,7 +26,7 @@ router.post('/post', async (req, res) => {
 // get all
 router.get('/getAll', async (req, res) => {
   try {
-    const data = await Model.find()
+    const data = await User.find()
     res.json(data)
   } catch (error) {
     res.status(500).json({ message: error.message })
@@ -37,7 +37,7 @@ router.get('/getAll', async (req, res) => {
 // router.get('/users/:id', async (req, res) => {
 router.get('/getOne/:id', async (req, res) => {
   try {
-    const data = await Model.findById(req.params.id)
+    const data = await User.findById(req.params.id)
     res.json(data)
   } catch (error) {
     res.status(404).json({ message: error.message })
@@ -51,7 +51,7 @@ router.patch('/update/:id', async (req, res) => {
     const updatedData = req.body
     const options = { new: true }
 
-    const result = await Model.findByIdAndUpdate(
+    const result = await User.findByIdAndUpdate(
       id, updatedData, options
     )
 
@@ -65,7 +65,7 @@ router.patch('/update/:id', async (req, res) => {
 router.delete('/delete/:id', async (req, res) => {
   try {
     const id = req.params.id
-    const data = await Model.findByIdAndDelete(id)
+    const data = await User.findByIdAndDelete(id)
     res.send(`Document with username, ${data.username}, has been deleted`)
   } catch (error) {
     res.status(400).json({ message: error.message })
@@ -90,15 +90,15 @@ router.delete('/delete/:id', async (req, res) => {
 //   }
 // })
 router.post('/signup', async (req, res) => {
-  const data = new Model({
+  const user = new User({
     username: req.body.username,
     email: req.body.email,
     password: req.body.password
   })
 
   try {
-    const dataToSave = await data.save()
-    res.status(200).json(dataToSave)
+    const userToSave = await user.save()
+    res.status(200).json(userToSave)
 
   } catch (error) {
     res.status(400).json({ message: error.message })
