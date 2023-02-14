@@ -90,11 +90,6 @@ router.delete('/delete/:id', async (req, res) => {
 //   }
 // })
 router.post('/signup', async (req, res) => {
-
-  if (req.body.content === undefined) {
-    return res.status(400).json({ error: 'information missing'})
-  }
-
   const user = new User({
     username: req.body.username,
     email: req.body.email,
