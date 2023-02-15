@@ -37,10 +37,15 @@ router.get('/getAll', async (req, res) => {
 // router.get('/users/:id', async (req, res) => {
 router.get('/getOne/:id', async (req, res) => {
   try {
-    const data = await User.findById(req.params.id)
-    res.json(data)
+    const user = await User.findById(req.params.id)
+    if (user) {
+      res.json(user)
+    } else {
+      res.status(404).end()
+    }
   } catch (error) {
-    res.status(404).json({ message: error.message })
+    // res.status(404).json({ message: error.message })
+    res.status(400).send({ error: 'malformatted id' })
   }
 })
 
@@ -65,8 +70,8 @@ router.patch('/update/:id', async (req, res) => {
 router.delete('/delete/:id', async (req, res) => {
   try {
     const id = req.params.id
-    const data = await User.findByIdAndDelete(id)
-    res.send(`Document with username, ${data.username}, has been deleted`)
+    const user = await User.findByIdAndDelete(id)
+    res.send(`Document with username and id, ${user.username}: ${user.id},  has been deleted`)
   } catch (error) {
     res.status(400).json({ message: error.message })
   }
