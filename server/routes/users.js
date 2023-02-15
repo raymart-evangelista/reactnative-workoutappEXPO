@@ -1,11 +1,11 @@
 const express = require('express');
 
-const router = express.Router()
+const usersRouter = express.Router()
 const User = require('../models/user')
 
 
 // post
-router.post('/post', async (req, res) => {
+usersRouter.post('/', async (req, res) => {
   // res.send('Post API')
   const data = new User({
     username: req.body.username,
@@ -24,7 +24,7 @@ router.post('/post', async (req, res) => {
 })
 
 // get all
-router.get('/getAll', async (req, res) => {
+usersRouter.get('/', async (req, res) => {
   try {
     const data = await User.find()
     res.json(data)
@@ -35,7 +35,7 @@ router.get('/getAll', async (req, res) => {
 
 // get by ID method
 // router.get('/users/:id', async (req, res) => {
-router.get('/getOne/:id', async (req, res) => {
+usersRouter.get('/:id', async (req, res) => {
   try {
     const user = await User.findById(req.params.id)
     if (user) {
@@ -50,7 +50,7 @@ router.get('/getOne/:id', async (req, res) => {
 })
 
 // update by ID method
-router.patch('/update/:id', async (req, res) => {
+usersRouter.patch('/:id', async (req, res) => {
   try {
     const id = req.params.id
     const updatedData = req.body
@@ -67,7 +67,7 @@ router.patch('/update/:id', async (req, res) => {
 })
 
 // delete by ID method
-router.delete('/delete/:id', async (req, res) => {
+usersRouter.delete('/:id', async (req, res) => {
   try {
     const id = req.params.id
     const user = await User.findByIdAndDelete(id)
@@ -94,7 +94,7 @@ router.delete('/delete/:id', async (req, res) => {
 //     res.status(400).json 
 //   }
 // })
-router.post('/signup', async (req, res) => {
+usersRouter.post('/signup', async (req, res) => {
   const user = new User({
     username: req.body.username,
     email: req.body.email,
@@ -112,4 +112,4 @@ router.post('/signup', async (req, res) => {
 })
 
 
-module.exports = router;
+module.exports = usersRouter;
