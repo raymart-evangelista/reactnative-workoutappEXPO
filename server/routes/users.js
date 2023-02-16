@@ -31,8 +31,8 @@ usersRouter.post('/', async (req, res) => {
 // get all
 usersRouter.get('/', async (req, res) => {
   try {
-    const data = await User.find()
-    res.json(data)
+    const users = await User.find()
+    res.json(users)
   } catch (error) {
     res.status(500).json({ message: error.message })
   }
