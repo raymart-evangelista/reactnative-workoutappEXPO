@@ -21,8 +21,11 @@ const app = express()
 app.use(express.json())
 app.use(cors())
 
-const usersRouter = require('./routes/users');
+const usersRouter = require('./routes/users')
 app.use('/api/users', usersRouter)
+
+const loginRouter = require('./routes/login')
+app.use('/api/login', loginRouter)
 
 const unknownEndpoint = (req, res) => {
   res.status(404).send({ error: 'unknown endpoint' })
