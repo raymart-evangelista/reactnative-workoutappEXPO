@@ -3,24 +3,42 @@ import { Button, Text, TextInput, TouchableOpacity, View } from "react-native"
 import { defaultStyles } from "../styles/globalStyles"
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
+import Notification from "../components/Notification";
+
 export default function LogInScreen({ navigation }) {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
-  const [email, setEmail] = useState('')
+
+  const [notificationMessage, setNotificationMessage] = useState('')
+  const [notificationColor, setNotificationColor] = useState('')
 
   const handleSubmit = async () => {
-    if (username === '' || email === '' || password === '' ) {
-      alert("All fields are required")
+    if (username === '' || password === '' ) {
+      setNotificationMessage('All fields are required')
+      setNotificationColor('red')
       return
     }
 
-    await axios.post("http://localhost:8001/api/login", { username, email, password })
-    alert("Log In Successful")
+    try {
+      console.log('logging in with', username, password)
+
+      setNotificationMessage('Success')
+      setNotificationColor('green')
+
+    } catch (error) {
+      console.error(error)
+
+      setNotificationMessage('Log in failed')
+      setNotificationColor('red')
+    }
+
+    // await axios.post("http://localhost:8001/api/login", { username, email, password })
   }
 
   return (
     <KeyboardAwareScrollView contentContainerStyle={defaultStyles.basic}>
       <View style={defaultStyles.basic}>
+        <Notification message={notificationMessage} color={notificationColor} />
         <Text style={defaultStyles.signupText}>Log In</Text>
         <View style={{ marginHorizontal: 24 }}>
           <TextInput
