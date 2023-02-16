@@ -1,4 +1,6 @@
 const jwt = require('jsonwebtoken')
+const JWT_SECRET = process.env.JWT_SECRET
+
 const bcrypt = require('bcrypt')
 
 const express = require('express')
@@ -26,7 +28,7 @@ loginRouter.post('/', async (req, res) => {
       id: user._id
     }
 
-    const token = jwt.sign(userForToken, process.env.JWT_SECRET)
+    const token = jwt.sign(userForToken, JWT_SECRET)
 
     res.status(200).send({ token, username: user.username, email: user.email })
 
