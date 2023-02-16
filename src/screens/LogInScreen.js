@@ -3,11 +3,13 @@ import { Button, Text, TextInput, TouchableOpacity, View } from "react-native"
 import { defaultStyles } from "../styles/globalStyles"
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
+import loginService from '../services/login'
 import Notification from "../components/Notification";
 
 export default function LogInScreen({ navigation }) {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
+  const [user, setUser] = useState(null)
 
   const [notificationMessage, setNotificationMessage] = useState('')
   const [notificationColor, setNotificationColor] = useState('')
@@ -20,15 +22,17 @@ export default function LogInScreen({ navigation }) {
     }
 
     try {
-      console.log('logging in with', username, password)
-
+      const user = await loginService.login({
+        username, password
+      })
+      setUser(user)
+      setUsername('')
+      setPassword('')
       setNotificationMessage('Success')
       setNotificationColor('green')
-
     } catch (error) {
       console.error(error)
-
-      setNotificationMessage('Log in failed')
+      setNotificationMessage('Log in failed. Wrong credentials')
       setNotificationColor('red')
     }
 
