@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Button, Text, TextInput, TouchableOpacity, View } from "react-native"
 import { defaultStyles } from "../styles/globalStyles"
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
@@ -26,8 +26,8 @@ export default function LogInScreen({ navigation }) {
         username, password
       })
       setUser(user)
-      setUsername('')
-      setPassword('')
+      // setUsername('')
+      // setPassword('')
       setNotificationMessage('Success')
       setNotificationColor('green')
     } catch (error) {
@@ -38,6 +38,11 @@ export default function LogInScreen({ navigation }) {
 
     // await axios.post("http://localhost:8001/api/login", { username, email, password })
   }
+
+  // useEffect(() => {
+  //   setUsername('')
+  //   setPassword('')
+  // }, [user])
 
   return (
     <KeyboardAwareScrollView contentContainerStyle={defaultStyles.basic}>
@@ -77,7 +82,11 @@ export default function LogInScreen({ navigation }) {
         </View>
         <TouchableOpacity
           onPress={handleSubmit}
-          style={defaultStyles.buttonStyle}
+          style={[
+            defaultStyles.buttonStyle,
+            user !== null && { opacity: 0.5 },
+          ]}
+          disabled={user !== null}
         >
           <Text
             style={defaultStyles.buttonText}
