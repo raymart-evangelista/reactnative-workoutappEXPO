@@ -28,7 +28,7 @@ export default function LogInScreen({ navigation }) {
       setUser(user)
       // setUsername('')
       // setPassword('')
-      setNotificationMessage('Success')
+      setNotificationMessage(`Success. Welcome ${user.username}.`)
       setNotificationColor('green')
     } catch (error) {
       console.error(error)
