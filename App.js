@@ -10,7 +10,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons'
 import LogInScreen from './src/screens/LogInScreen';
 import SignUpScreen from './src/screens/SignUpScreen';
 import HomeScreen from './src/screens/HomeScreen';
-import { ProgramNameInputScreen, WeeksInputScreen, WeeksSelectableScreen, WeekDetailsScreen, ProgramDetailsScreen } from './src/screens/CreateProgramScreen';
+import { ProgramNameInputScreen, WeeksInputScreen, WeeksSelectableScreen, WeekDetailsScreen, DayDetailsScreen, ProgramDetailsScreen } from './src/screens/CreateProgramScreen';
 
 const Stack = createNativeStackNavigator()
 const Tab = createBottomTabNavigator()
@@ -83,6 +83,7 @@ export default function App() {
         <Stack.Screen name="Weeks" component={WeeksInputScreen} />
         <Stack.Screen name="WeeksSelectable" component={WeeksSelectableScreen} />
         <Stack.Screen name="WeekDetails" component={WeekDetailsScreen} />
+        <Stack.Screen name="DayDetails" component={DayDetailsScreen} />
         <Stack.Screen name="Details" component={ProgramDetailsScreen} />
       </Stack.Navigator>
     </NavigationContainer>

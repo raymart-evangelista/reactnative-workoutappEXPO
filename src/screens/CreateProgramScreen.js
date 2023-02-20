@@ -1,5 +1,5 @@
-import { useState } from "react"
-import { Button, Text, TextInput, TouchableHighlight, View } from "react-native"
+import { useEffect, useState } from "react"
+import { Button, Modal, Text, TextInput, TouchableOpacity, View } from "react-native"
 
 export function ProgramNameInputScreen({ navigation }) {
   const [programName, setProgramName] = useState('')
@@ -70,21 +70,122 @@ export function WeeksSelectableScreen({ navigation, route }) {
     <View>
       <Text>Select a week to add information to.</Text>
       {Array.from({ length: weeks}, (_, index) => index + 1).map((weekNum) => (
-        <TouchableHighlight key={weekNum} onPress={() => handleWeekPress(weekNum)}>
+        <TouchableOpacity key={weekNum} onPress={() => handleWeekPress(weekNum)}>
           <Text>Week {weekNum}</Text>
-        </TouchableHighlight>
+        </TouchableOpacity>
       ))}
 
     </View>
   )
 }
 
-export function WeekDetailsScreen({ route }) {
+export function WeekDetailsScreen({ navigation, route }) {
   const { programName, weekNum } = route.params
+
+  const handleDayPress = (dayNum) => {
+    navigation.navigate('DayDetails', { weekNum, dayNum })
+  }
 
   return (
     <View>
       <Text>You are adding information for Week {weekNum} of {programName}</Text>
+      <TouchableOpacity onPress={() => handleDayPress(1)}>
+        <Text>Day 1</Text>
+      </TouchableOpacity>
+      <TouchableOpacity onPress={() => handleDayPress(2)}>
+        <Text>Day 2</Text>
+      </TouchableOpacity>
+      <TouchableOpacity onPress={() => handleDayPress(3)}>
+        <Text>Day 3</Text>
+      </TouchableOpacity>
+      <TouchableOpacity onPress={() => handleDayPress(4)}>
+        <Text>Day 4</Text>
+      </TouchableOpacity>
+      <TouchableOpacity onPress={() => handleDayPress(5)}>
+        <Text>Day 5</Text>
+      </TouchableOpacity>
+      <TouchableOpacity onPress={() => handleDayPress(6)}>
+        <Text>Day 6</Text>
+      </TouchableOpacity>
+      <TouchableOpacity onPress={() => handleDayPress(7)}>
+        <Text>Day 7</Text>
+      </TouchableOpacity>
+    </View>
+  )
+}
+
+export function DayDetailsScreen({ route }) {
+  const [modalVisible, setModalVisible] = useState(false)
+
+  const [exercises, setExercises] = useState([])
+
+  const [exerciseName, setExerciseName] = useState('')
+  const [workingSets, setWorkingSets] = useState('')
+  const [reps, setReps] = useState('')
+
+  const { weekNum, dayNum } = route.params
+
+  const handleAddExercise = () => {
+    if (exerciseName && workingSets && reps) {
+      setExercises(
+        [
+          ...exercises,
+          {
+            name: exerciseName,
+            sets: workingSets,
+            reps: reps,
+          }
+        ]
+      )
+      setExerciseName('')
+      setWorkingSets('')
+      setReps('')
+    }
+
+    console.log('Add exercise', exerciseName, workingSets, reps)
+    setModalVisible(false)
+  }
+
+  return (
+    <View>
+      <Text>Week {weekNum}, Day {dayNum} Details</Text>
+      {exercises.map((exercise, index) => (
+        <View key={index}>
+          <Text>{exercise.name}</Text>
+          <Text>Sets: {exercise.sets}</Text>
+          <Text>Reps: {exercise.reps}</Text>
+        </View>
+      ))}
+      <Button title="Add Exercise" onPress={() => setModalVisible(true)} />
+
+      <Modal visible={modalVisible} animationType="fade">
+        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+          <Text>Add exercise</Text>
+          <TextInput 
+            placeholder="Exercise name"
+            value={exerciseName}
+            onChangeText={setExerciseName}
+          />
+          <TextInput 
+            placeholder="Working sets"
+            value={workingSets}
+            onChangeText={setWorkingSets}
+          />
+          <TextInput
+            placeholder="Reps"
+            value={reps}
+            onChangeText={setReps}
+          />
+          <Button 
+            title="Add"
+            onPress={handleAddExercise}
+          />
+          <Button 
+            title="Cancel"
+            onPress={() => setModalVisible(false)}
+          />
+        </View>
+      </Modal>
     </View>
   )
 }
