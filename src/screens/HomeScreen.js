@@ -27,12 +27,21 @@ export default function HomeScreen({ navigation, route }) {
           })
         }}
       /> */}
-      <Button 
+      {/* <Button 
         title="Create post"
         onPress={() => navigation.navigate('CreatePost')}
+      /> */}
+      <Button 
+        title="Create program"
       />
-      <Text style={{ margin: 10 }}>Post: {route.params?.post}</Text>
-      <Text>Count: {count}</Text>
+            <Button 
+        title="Edit existing program"
+      />
+      <Button 
+        title="Continue program"
+      />
+      {/* <Text style={{ margin: 10 }}>Post: {route.params?.post}</Text> */}
+      {/* <Text>Count: {count}</Text> */}
     </View>
   )
 }
