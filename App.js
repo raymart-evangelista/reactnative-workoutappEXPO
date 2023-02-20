@@ -10,7 +10,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons'
 import LogInScreen from './src/screens/LogInScreen';
 import SignUpScreen from './src/screens/SignUpScreen';
 import HomeScreen from './src/screens/HomeScreen';
-import CreateProgramScreen from './src/screens/CreateProgramScreen';
+import CreateProgramScreen, { WeeksScreen, ProgramDetailsScreen } from './src/screens/CreateProgramScreen';
 
 const Stack = createNativeStackNavigator()
 const Tab = createBottomTabNavigator()
@@ -41,34 +41,34 @@ function CreatePostScreen({ navigation, route }) {
   )
 }
 
-function DetailsScreen({ route, navigation }) {
-  const { itemId, otherParam } = route.params
-  return (
-    <View style={styles.basic}>
-      <Text>Details Screen</Text>
-      <Text>itemId: {JSON.stringify(itemId)}</Text>
-      <Text>otherParam: {JSON.stringify(otherParam)}</Text>
-      <Button
-        title="Go to Details... again"
-        onPress={() => 
-          navigation.push('Details', {
-            itemId: Math.floor(Math.random() * 100),
-          })
-        }
-      />
-      <Button 
-        title="Go to Details... again.. at least try pressing the button.."
-        onPress={() => navigation.navigate('Details')}
-      />
-      <Button title="Go to Home" onPress={() => navigation.navigate('Home')} />
-      <Button title="Go back" onPress={() => navigation.goBack()} />
-      <Button 
-        title='Go back to first screen in stack'
-        onPress={() => navigation.popToTop()}
-      />
-    </View>
-  )
-}
+// function DetailsScreen({ route, navigation }) {
+//   const { itemId, otherParam } = route.params
+//   return (
+//     <View style={styles.basic}>
+//       <Text>Details Screen</Text>
+//       <Text>itemId: {JSON.stringify(itemId)}</Text>
+//       <Text>otherParam: {JSON.stringify(otherParam)}</Text>
+//       <Button
+//         title="Go to Details... again"
+//         onPress={() => 
+//           navigation.push('Details', {
+//             itemId: Math.floor(Math.random() * 100),
+//           })
+//         }
+//       />
+//       <Button 
+//         title="Go to Details... again.. at least try pressing the button.."
+//         onPress={() => navigation.navigate('Details')}
+//       />
+//       <Button title="Go to Home" onPress={() => navigation.navigate('Home')} />
+//       <Button title="Go back" onPress={() => navigation.goBack()} />
+//       <Button 
+//         title='Go back to first screen in stack'
+//         onPress={() => navigation.popToTop()}
+//       />
+//     </View>
+//   )
+// }
 
 
 
@@ -80,6 +80,8 @@ export default function App() {
         <Stack.Screen name="SignUp" component={SignUpScreen} />
         <Stack.Screen name="Home" component={HomeScreen} />
         <Stack.Screen name="CreateProgram" component={CreateProgramScreen} />
+        <Stack.Screen name="Weeks" component={WeeksScreen} />
+        <Stack.Screen name="Details" component={ProgramDetailsScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
