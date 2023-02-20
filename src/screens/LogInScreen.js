@@ -10,6 +10,7 @@ export default function LogInScreen({ navigation }) {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [user, setUser] = useState(null)
+  const [loading, setLoading] = useState(false)
 
   const [notificationMessage, setNotificationMessage] = useState('')
   const [notificationColor, setNotificationColor] = useState('')
@@ -22,6 +23,7 @@ export default function LogInScreen({ navigation }) {
     }
 
     try {
+      setLoading(true)
       const user = await loginService.login({
         username, password
       })
@@ -30,24 +32,20 @@ export default function LogInScreen({ navigation }) {
       // setPassword('')
       setNotificationMessage(`Success. Welcome ${user.username}.`)
       setNotificationColor('green')
+      navigation.replace("Home")
     } catch (error) {
       console.error(error)
       setNotificationMessage('Log in failed. Wrong credentials')
       setNotificationColor('red')
+    } finally {
+      setLoading(false)
     }
-
-    // await axios.post("http://localhost:8001/api/login", { username, email, password })
   }
 
-  useEffect(() => {
-    if (user) {
-      navigation.navigate("Home")
-    }
-  }, [user])
-
   // useEffect(() => {
-  //   setUsername('')
-  //   setPassword('')
+  //   if (user) {
+  //     navigation.navigate("Home")
+  //   }
   // }, [user])
 
   return (
@@ -64,17 +62,6 @@ export default function LogInScreen({ navigation }) {
             autoCorrect={false}
           />
         </View>
-        {/* <View style={{ marginHorizontal: 24 }}>
-          <TextInput
-            style={defaultStyles.signupInput}
-            placeholder="Email"
-            onChangeText={newEmail => setEmail(newEmail)}
-            autoCapitalize={false}
-            autoCorrect={false}
-            autoComplete="email"
-            keyboardType="email-address"
-          />
-        </View> */}
         <View style={{ marginHorizontal: 24 }}>
           <TextInput
             style={defaultStyles.signupInput}
@@ -94,11 +81,10 @@ export default function LogInScreen({ navigation }) {
           ]}
           disabled={user !== null}
         >
-          <Text
-            style={defaultStyles.buttonText}
-          >
-            Submit
-          </Text>
+          {loading ? <Text style={defaultStyles.buttonText}>Loading</Text>
+            : <Text style={defaultStyles.buttonText}>Submit</Text>
+          }
+
         </TouchableOpacity>
         <Text 
           style={{  color: 'black', fontWeight: 'bold', fontSize: 12, textAlign: 'center' }}
