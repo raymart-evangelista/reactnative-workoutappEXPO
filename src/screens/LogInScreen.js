@@ -39,6 +39,12 @@ export default function LogInScreen({ navigation }) {
     // await axios.post("http://localhost:8001/api/login", { username, email, password })
   }
 
+  useEffect(() => {
+    if (user) {
+      navigation.navigate("Home")
+    }
+  }, [user])
+
   // useEffect(() => {
   //   setUsername('')
   //   setPassword('')
