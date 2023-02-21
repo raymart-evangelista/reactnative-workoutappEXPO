@@ -11,10 +11,37 @@ const programSchema = new mongoose.Schema({
   },
   weekDetails: [{
     weekNum: {
-      type: Number,
-      required: true      
+      type: Number,      
     },
-  }]
+    days: [{
+      dayNum: {
+        type: Number,
+      },
+      exercises: [{
+        name: {
+          type: String,
+        },
+        sets: {
+          type: String,
+        },
+        reps: {
+          type: {
+            min: Number,
+            max: Number
+          }
+        },
+        required
+      }]
+    }]
+  }],
+  createdAt: {
+    type: Date,
+    default: Date.now
+  },
+  updatedAt: {
+    type: Date,
+    default: Date.now
+  }
 })
 
 module.exports = mongoose.model('Program', programSchema)
