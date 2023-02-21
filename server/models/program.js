@@ -14,31 +14,31 @@ const programSchema = new mongoose.Schema({
     type: Number,
     required: true
   },
-  weekDetails: [{
-    weekNum: {
-      type: Number,      
-    },
-    days: [{
-      dayNum: {
-        type: Number,
-      },
-      exercises: [{
-        name: {
-          type: String,
-        },
-        sets: {
-          type: String,
-        },
-        reps: {
-          type: {
-            min: Number,
-            max: Number
-          }
-        },
-        required
-      }]
-    }]
-  }],
+  // weekDetails: [{
+  //   weekNum: {
+  //     type: Number,      
+  //   },
+  //   days: [{
+  //     dayNum: {
+  //       type: Number,
+  //     },
+  //     exercises: [{
+  //       name: {
+  //         type: String,
+  //       },
+  //       sets: {
+  //         type: String,
+  //       },
+  //       reps: {
+  //         type: {
+  //           min: Number,
+  //           max: Number
+  //         }
+  //       },
+  //       required
+  //     }]
+  //   }]
+  // }],
   createdAt: {
     type: Date,
     default: Date.now

@@ -27,6 +27,9 @@ app.use('/api/users', usersRouter)
 const loginRouter = require('./routes/login')
 app.use('/api/login', loginRouter)
 
+const programsRouter = require('./routes/programs')
+app.use('/api/programs', programsRouter)
+
 const unknownEndpoint = (req, res) => {
   res.status(404).send({ error: 'unknown endpoint' })
 }
