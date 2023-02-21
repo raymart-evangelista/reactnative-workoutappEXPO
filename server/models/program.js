@@ -16,7 +16,7 @@ const programSchema = new mongoose.Schema({
   },
   weekDetails: [{
     weekNum: {
-      type: Number,      
+      type: Number,    
     },
     days: [{
       dayNum: {
@@ -27,7 +27,10 @@ const programSchema = new mongoose.Schema({
           type: String,
         },
         sets: {
-          type: String,
+          type: {
+            min: Number,
+            max: Number
+          },
         },
         reps: {
           type: {
@@ -47,5 +50,13 @@ const programSchema = new mongoose.Schema({
     default: Date.now
   }
 })
+
+// programSchema.set('toJSON', {
+//   transform: (document, returnedObject) => {
+//     returnedObject.id = returnedObject.id = returnedObject._id.toString()
+//     delete returnedObject._id
+//     delete returnedObject.__v
+//   }
+// })
 
 module.exports = mongoose.model('Program', programSchema)
