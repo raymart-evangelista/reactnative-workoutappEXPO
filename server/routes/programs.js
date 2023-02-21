@@ -20,4 +20,13 @@ programsRouter.post('/', async (req, res) => {
   }
 })
 
+programsRouter.get('/', async (req, res) => {
+  try {
+    const programs = await Program.find()
+    res.json(programs)
+  } catch (error) {
+    res.status(500).json({ message: error.message })
+  }
+})
+
 module.exports = programsRouter
