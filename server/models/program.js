@@ -17,9 +17,7 @@ const programSchema = new mongoose.Schema({
   weekDetails: [{
     weekNum: Number,
     dayDetails: [{
-      dayNum: {
-        type: Number,
-      },
+      dayNum: Number,
       exercises: [{
         name: {
           type: String,
@@ -44,7 +42,7 @@ const programSchema = new mongoose.Schema({
         },
         weight: {
           value: Number,
-          uint: {
+          unit: {
             type: String,
             enum: ['kgs', 'lbs']
           }
