@@ -51,8 +51,14 @@ export function WeeksInputScreen({ navigation, route }) {
       />
       <Button 
         title="Next"
-        onPress={() => navigation.navigate('WeeksSelectable', { programName, weeks })}
-        disabled={!programName}
+        onPress={() => navigation.reset({
+          index: 0,
+          routes: [{
+            name: 'WeeksSelectable',
+            params: { programName, weeks }
+          }]
+        })}
+        disabled={!weeks}
       />
 
     </View>
