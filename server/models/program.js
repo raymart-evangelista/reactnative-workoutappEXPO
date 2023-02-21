@@ -15,10 +15,8 @@ const programSchema = new mongoose.Schema({
     required: true
   },
   weekDetails: [{
-    weekNum: {
-      type: Number,    
-    },
-    days: [{
+    weekNum: Number,
+    dayDetails: [{
       dayNum: {
         type: Number,
       },
@@ -26,7 +24,13 @@ const programSchema = new mongoose.Schema({
         name: {
           type: String,
         },
-        sets: {
+        warmupSets: {
+          type: {
+            min: Number,
+            max: Number
+          }
+        },
+        workingSets: {
           type: {
             min: Number,
             max: Number
@@ -38,6 +42,27 @@ const programSchema = new mongoose.Schema({
             max: Number
           }
         },
+        weight: {
+          value: Number,
+          uint: {
+            type: String,
+            enum: ['kgs', 'lbs']
+          }
+        },
+        rpe: {
+          type: {
+            min: Number,
+            max: Number
+          }
+        },
+        rest: {
+          value: Number,
+          unit: {
+            type: String,
+            enum: ['seconds', 'minutes']
+          }
+        },
+        notes: String
       }]
     }]
   }],
