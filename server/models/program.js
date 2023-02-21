@@ -1,6 +1,11 @@
 const mongoose = require('mongoose')
 
 const programSchema = new mongoose.Schema({
+  _id: {
+    type: mongoose.Types.ObjectId,
+    required: true,
+    auto: true
+  },
   name: {
     type: String,
     required: true
