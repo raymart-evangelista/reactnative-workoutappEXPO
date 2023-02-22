@@ -45,4 +45,17 @@ programsRouter.get('/:id', async (req, res) => {
   }
 })
 
+// delete by ID
+programsRouter.delete('/:id', async (req, res) => {
+  try {
+    console.log("****___****")
+    console.log(req.params.id)
+    const program = await Program.findByIdAndDelete(req.params.id)
+    console.log(`Program with name: ${program.name} and id: ${program._id} has been deleted.`)
+    res.send(`Program with name: ${program.name} and id: ${program._id} has been deleted.`)
+  } catch (error) {
+    res.status(400).json({ message: error.message })
+  }
+})
+
 module.exports = programsRouter

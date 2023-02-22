@@ -1,7 +1,7 @@
 import axios from "axios"
 const baseUrl = 'http://localhost:3000/api/programs'
 
-const getExistingPrograms = async () => {
+const getProgram = async () => {
   try {
     const res = await axios.get(baseUrl)
     const programs = res.data.map(program => {
@@ -19,4 +19,15 @@ const getExistingPrograms = async () => {
   }
 }
 
-export default { getExistingPrograms }
+const deleteProgram = async (id) => {
+  try {
+    console.log("****___****")
+    console.log(id)
+    const res = await axios.delete(`${baseUrl}/${id}`)
+    return res.data
+  } catch (error) {
+    
+  }
+}
+
+export default { getProgram, deleteProgram }
