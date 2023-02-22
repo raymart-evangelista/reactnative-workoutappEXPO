@@ -1,5 +1,5 @@
 import axios from "axios"
-const baseUrl = 'http://localhost:3000/api'
+const baseUrl = 'http://localhost:3000/api/users'
 
 const getAll = () => {
 
@@ -11,7 +11,7 @@ const getAll = () => {
 
 const signUp = async (username, email, password) => {
   try {
-    const response = await axios.post(`${baseUrl}/signup`, { username, email, password })
+    const response = await axios.post(`${baseUrl}`, { username, email, password })
     return response.data
   } catch (error) {
     console.error(error)

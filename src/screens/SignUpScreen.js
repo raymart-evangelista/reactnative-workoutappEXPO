@@ -4,7 +4,7 @@ import { defaultStyles } from "../styles/globalStyles"
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import axios from "axios";
 
-import signUpService from '../services/api'
+import signUpService from '../services/users'
 import Notification from "../components/Notification";
 
 export default function SignUpScreen({ navigation }) {
