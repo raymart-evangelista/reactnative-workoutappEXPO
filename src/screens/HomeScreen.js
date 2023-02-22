@@ -35,8 +35,9 @@ export default function HomeScreen({ navigation, route }) {
         title="Create program"
         onPress={() => navigation.navigate('CreateProgram')}
       />
-            <Button 
+      <Button 
         title="Edit existing program"
+        onPress={() => navigation.navigate('ExistingPrograms')}
       />
       <Button 
         title="Continue program"
