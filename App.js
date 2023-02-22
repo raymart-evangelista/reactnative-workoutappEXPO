@@ -11,7 +11,7 @@ import LogInScreen from './src/screens/LogInScreen';
 import SignUpScreen from './src/screens/SignUpScreen';
 import HomeScreen from './src/screens/HomeScreen';
 import { ProgramNameInputScreen, WeeksInputScreen, WeeksSelectableScreen, WeekDetailsScreen, DayDetailsScreen, ProgramDetailsScreen } from './src/screens/CreateProgramScreen';
-import { AllExistingProgramsScreen } from './src/screens/EditExistingProgramScreen';
+import { ExistingProgramsScreen } from './src/screens/ExistingProgramScreen';
 
 const Stack = createNativeStackNavigator()
 const Tab = createBottomTabNavigator()
@@ -76,7 +76,7 @@ function CreatePostScreen({ navigation, route }) {
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName='LogIn'>
+      <Stack.Navigator initialRouteName='Home'>
         <Stack.Screen name="LogIn" component={LogInScreen} />
         <Stack.Screen name="SignUp" component={SignUpScreen} />
         <Stack.Screen name="Home" component={HomeScreen} />
@@ -86,7 +86,7 @@ export default function App() {
         <Stack.Screen name="WeekDetails" component={WeekDetailsScreen} />
         <Stack.Screen name="DayDetails" component={DayDetailsScreen} />
         <Stack.Screen name="Details" component={ProgramDetailsScreen} />
-        <Stack.Screen name="ExistingPrograms" component={AllExistingProgramsScreen} />
+        <Stack.Screen name="ExistingPrograms" component={ExistingProgramsScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
