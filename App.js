@@ -11,7 +11,7 @@ import LogInScreen from './src/screens/LogInScreen';
 import SignUpScreen from './src/screens/SignUpScreen';
 import HomeScreen from './src/screens/HomeScreen';
 import { ProgramNameInputScreen, WeeksInputScreen, WeeksSelectableScreen, WeekDetailsScreen, DayDetailsScreen, ProgramDetailsScreen } from './src/screens/CreateProgramScreen';
-import { ExistingProgramsScreen } from './src/screens/ExistingProgramScreen';
+import { ExistingProgramsScreen, EditProgramScreen } from './src/screens/ExistingProgramScreen';
 
 const Stack = createNativeStackNavigator()
 const Tab = createBottomTabNavigator()
@@ -87,6 +87,7 @@ export default function App() {
         <Stack.Screen name="DayDetails" component={DayDetailsScreen} />
         <Stack.Screen name="Details" component={ProgramDetailsScreen} />
         <Stack.Screen name="ExistingPrograms" component={ExistingProgramsScreen} />
+        <Stack.Screen name="EditProgram" component={EditProgramScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

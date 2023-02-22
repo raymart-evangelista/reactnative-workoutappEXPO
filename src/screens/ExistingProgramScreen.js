@@ -1,10 +1,16 @@
 import { useEffect, useState } from "react";
-import { View, Text } from "react-native";
+import { View, Text, TouchableOpacity } from "react-native";
 
 import programsService from "../services/programs";
 
-export function ExistingProgramsScreen({  }) {
+export function ExistingProgramsScreen({ navigation }) {
   const [programs, setPrograms] = useState([])
+
+  const handleProgramPress = (program) => {
+    console.log(program)
+    // navigate to new screen to edit program
+    navigation.navigate('EditProgram', { program })
+  }
 
   useEffect(() => {
     const fetchPrograms = async () => {
@@ -19,12 +25,24 @@ export function ExistingProgramsScreen({  }) {
   return (
     <View>
       {programs.map((program) => (
-        <View key={program._id}>
-          <Text key={program._id}>{program._id}</Text>
+        <TouchableOpacity key={program._id} onPress={() => handleProgramPress(program)}>
           <Text>{program.name}</Text>
-          <Text>{program.weeks}</Text>
-        </View>
+        </TouchableOpacity>
       ))}
+    </View>
+  )
+}
+
+export function EditProgramScreen({ navigation }) {
+
+  const deleteProgramPress = () => {
+
+  }
+  return (
+    <View>
+      {/* <TouchableOpacity onPress={() => deleteProgramPress()}>
+        Delete program
+      </TouchableOpacity> */}
     </View>
   )
 }
