@@ -23,11 +23,15 @@ export function ExistingProgramsScreen({ navigation }) {
   console.log(programs)
   return (
     <View>
-      {programs.map((program) => (
-        <TouchableOpacity key={program._id} onPress={() => handleProgramPress(program)}>
-          <Text>{program.name}</Text>
-        </TouchableOpacity>
-      ))}
+      {programs.length === 0 ? (
+        <Text>No programs currently exist</Text>
+      ) : (
+        programs.map((program) => (
+          <TouchableOpacity key={program._id} onPress={() => handleProgramPress(program)}>
+            <Text>{program.name}</Text>
+          </TouchableOpacity>
+        ))
+      )}
     </View>
   )
 }
