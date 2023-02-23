@@ -30,4 +30,14 @@ const deleteProgram = async (id) => {
   }
 }
 
-export default { getProgram, deleteProgram }
+const updateProgram = async (id, updatedFields) => {
+  try {
+    const res = await axios.put(`${baseUrl}/${id}`, updatedFields)
+    return res.data
+  } catch (error) {
+    console.error(error)
+    throw new Error('Failed to update program')
+  }
+}
+
+export default { getProgram, deleteProgram, updateProgram }
