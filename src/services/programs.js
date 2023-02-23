@@ -32,7 +32,7 @@ const deleteProgram = async (id) => {
 
 const updateProgram = async (id, updatedFields) => {
   try {
-    const res = await axios.put(`${baseUrl}/${id}`, updatedFields)
+    const res = await axios.patch(`${baseUrl}/${id}`, updatedFields)
     return res.data
   } catch (error) {
     console.error(error)
