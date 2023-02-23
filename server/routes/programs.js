@@ -58,4 +58,15 @@ programsRouter.delete('/:id', async (req, res) => {
   }
 })
 
+// PATCH (update) by ID
+programsRouter.patch('/:id', async (req, res) => {
+  try {
+    const updatedProgram = await Program.findByIdAndUpdate(req.params.id, req.body, { new: true })
+    res.json(updatedProgram)
+  } catch (error) {
+    console.error(error)
+    res.status(500).json({ message: 'Failed to updated program' })
+  }
+})
+
 module.exports = programsRouter
