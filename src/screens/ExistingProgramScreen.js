@@ -18,7 +18,7 @@ export function ExistingProgramsScreen({ navigation }) {
     }
 
     fetchPrograms()
-  }, [])
+  }, [programs])
 
   console.log(programs)
   return (
