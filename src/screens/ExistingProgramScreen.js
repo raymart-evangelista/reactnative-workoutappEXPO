@@ -5,6 +5,7 @@ import programsService from "../services/programs";
 
 export function ExistingProgramsScreen({ navigation }) {
   const [programs, setPrograms] = useState([])
+  const [deletedProgramId, setDeletedProgramId] = useState([]) = useState(null)
 
   const handleProgramPress = (program) => {
     // navigate to new screen to edit program
@@ -18,7 +19,7 @@ export function ExistingProgramsScreen({ navigation }) {
     }
 
     fetchPrograms()
-  }, [])
+  }, [deletedProgramId])
 
   console.log(programs)
   return (
