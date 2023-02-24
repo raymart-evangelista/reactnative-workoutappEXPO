@@ -49,6 +49,13 @@ export function WeeksInputScreen({ navigation, route }) {
       name: programName,
       weeks: weeks
     })
+    navigation.reset({
+      index: 0,
+      routes: [{
+        name: 'WeeksSelectable',
+        params: { programName, weeks }
+      }]
+    })
     // console.log(`newProgram: ${newProgram}`)
   }
 
@@ -72,7 +79,7 @@ export function WeeksInputScreen({ navigation, route }) {
         //     params: { programName, weeks }
         //   }]
         // })}
-        // disabled={!weeks}
+        disabled={!weeks}
       />
 
     </View>
