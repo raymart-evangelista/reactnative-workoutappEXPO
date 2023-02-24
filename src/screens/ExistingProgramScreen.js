@@ -18,7 +18,7 @@ export function ExistingProgramsScreen({ navigation }) {
     }
 
     fetchPrograms()
-  }, [programs])
+  }, [])
 
   console.log(programs)
   return (
@@ -73,7 +73,7 @@ export function EditProgramScreen({ navigation, route }) {
     console.log(`New program name: ${newProgramName}`)
     try {
     } catch (error) {
-      
+
     }
     setModalVisible(false)
   }
