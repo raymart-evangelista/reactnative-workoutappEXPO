@@ -5,11 +5,14 @@ import programsService from "../services/programs";
 
 export function ExistingProgramsScreen({ navigation }) {
   const [programs, setPrograms] = useState([])
-  const [deletedProgramId, setDeletedProgramId] = useState([]) = useState(null)
+  const [deletedProgramId, setDeletedProgramId] = useState(null)
 
   const handleProgramPress = (program) => {
     // navigate to new screen to edit program
-    navigation.navigate('EditProgram', { program: program })
+    navigation.navigate('EditProgram', {
+      program: program,
+      onProgramDeleted: handleProgramDeleted 
+    })
   }
 
   useEffect(() => {
@@ -20,6 +23,10 @@ export function ExistingProgramsScreen({ navigation }) {
 
     fetchPrograms()
   }, [deletedProgramId])
+  
+  const handleProgramDeleted = (programId) => {
+    setDeletedProgramId(programId)
+  }
 
   console.log(programs)
   return (
@@ -42,6 +49,7 @@ export function EditProgramScreen({ navigation, route }) {
   const program = route.params.program
   const [modalVisible, setModalVisible] = useState(false)
   const [newProgramName, setNewProgramName] = useState(program.name)
+  const onProgramDeleted = route.params.onProgramDeleted
   
   const deleteProgramPress = () => {
     Alert.alert(
@@ -59,6 +67,7 @@ export function EditProgramScreen({ navigation, route }) {
               console.log(program.id)
               await programsService.deleteProgram(program.id)
               navigation.goBack()
+              onProgramDeleted(program.id)
             } catch (error) {
               console.log(error)
             }
