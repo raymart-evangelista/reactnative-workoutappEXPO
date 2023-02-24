@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react"
 import { Button, Modal, Text, TextInput, TouchableOpacity, View } from "react-native"
 
+import programsService from "../services/programs";
+
 export function ProgramNameInputScreen({ navigation }) {
   const [programName, setProgramName] = useState('')
   const [numWeeks, setNumWeeks] = useState('')
@@ -40,6 +42,16 @@ export function WeeksInputScreen({ navigation, route }) {
   const { programName } = route.params
   const [weeks, setWeeks] = useState('')
 
+
+  const handleNewProgram = async () => {
+    // console.log(`inside handleNewProgram`)
+    const newProgram = await programsService.createProgram({
+      name: programName,
+      weeks: weeks
+    })
+    // console.log(`newProgram: ${newProgram}`)
+  }
+
   return (
     <View>
       <Text>How many weeks will {programName} run?</Text>
@@ -49,16 +61,18 @@ export function WeeksInputScreen({ navigation, route }) {
         value={weeks.toString()}
         onChangeText={(weeks) => setWeeks(parseInt(weeks))}
       />
+      {/* Next will handleNewProgram */}
       <Button 
         title="Next"
-        onPress={() => navigation.reset({
-          index: 0,
-          routes: [{
-            name: 'WeeksSelectable',
-            params: { programName, weeks }
-          }]
-        })}
-        disabled={!weeks}
+        onPress={handleNewProgram}
+        // onPress={() => navigation.reset({
+        //   index: 0,
+        //   routes: [{
+        //     name: 'WeeksSelectable',
+        //     params: { programName, weeks }
+        //   }]
+        // })}
+        // disabled={!weeks}
       />
 
     </View>

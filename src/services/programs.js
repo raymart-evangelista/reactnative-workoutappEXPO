@@ -42,4 +42,16 @@ const updateProgram = async (id, updatedFields) => {
   }
 }
 
-export default { getProgram, deleteProgram, updateProgram }
+// post new program, createProgram function
+const createProgram = async (programData) => {
+  try {
+    console.log(programData)
+    const res = await axios.post(`${baseUrl}`, programData)
+    return res.data
+  } catch (error) {
+    console.error(error)
+  }
+
+}
+
+export default { getProgram, deleteProgram, updateProgram, createProgram }
