@@ -35,7 +35,7 @@ export function ExistingProgramsScreen({ navigation }) {
         <Text>No programs currently exist</Text>
       ) : (
         programs.map((program) => (
-          <TouchableOpacity key={program._id} onPress={() => handleProgramPress(program)}>
+          <TouchableOpacity key={program.id} onPress={() => handleProgramPress(program)}>
             <Text>{program.name}</Text>
           </TouchableOpacity>
         ))
@@ -80,12 +80,15 @@ export function EditProgramScreen({ navigation, route }) {
 
   const handleSaveNameChange = async () => {
     // TODO: Update program name in the database and navigate back
+    await programsService.updateProgram(program.id, { name: newProgramName })
+    setModalVisible(false)
+    navigation.goBack()
     console.log(`New program name: ${newProgramName}`)
     try {
     } catch (error) {
-
+      console.error(error)
+    } finally {
     }
-    setModalVisible(false)
   }
 
   return (
