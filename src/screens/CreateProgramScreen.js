@@ -93,6 +93,15 @@ export function WeeksSelectableScreen({ navigation, route }) {
     navigation.navigate('WeekDetails', { programName, weekNum })
   }
 
+  const handleFinishLater = () => {
+    navigation.reset({
+      index: 0,
+      routes: [{
+        name: 'Home'
+      }]
+    })
+  }
+
   return (
     <View>
       <Text>Select a week to add information to.</Text>
@@ -101,7 +110,10 @@ export function WeeksSelectableScreen({ navigation, route }) {
           <Text>Week {weekNum}</Text>
         </TouchableOpacity>
       ))}
-
+      <Button 
+        title="Finish Later"
+        onPress={handleFinishLater}
+      />
     </View>
   )
 }
