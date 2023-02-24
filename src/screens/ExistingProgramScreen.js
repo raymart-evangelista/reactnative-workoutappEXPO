@@ -6,12 +6,14 @@ import programsService from "../services/programs";
 export function ExistingProgramsScreen({ navigation }) {
   const [programs, setPrograms] = useState([])
   const [deletedProgramId, setDeletedProgramId] = useState(null)
+  const [lastModified, setLastModified] = useState(Date.now())
 
   const handleProgramPress = (program) => {
     // navigate to new screen to edit program
     navigation.navigate('EditProgram', {
       program: program,
-      onProgramDeleted: handleProgramDeleted 
+      // onProgramDeleted: handleProgramDeleted 
+      onProgramModified: handleProgramModified
     })
   }
 
@@ -22,10 +24,14 @@ export function ExistingProgramsScreen({ navigation }) {
     }
 
     fetchPrograms()
-  }, [deletedProgramId])
+  }, [deletedProgramId, lastModified])
   
   const handleProgramDeleted = (programId) => {
     setDeletedProgramId(programId)
+  }
+
+  const handleProgramModified = () => {
+    setLastModified(Date.now())
   }
 
   console.log(programs)
@@ -49,7 +55,8 @@ export function EditProgramScreen({ navigation, route }) {
   const program = route.params.program
   const [modalVisible, setModalVisible] = useState(false)
   const [newProgramName, setNewProgramName] = useState(program.name)
-  const onProgramDeleted = route.params.onProgramDeleted
+  // const onProgramDeleted = route.params.onProgramDeleted
+  const onProgramModified = route.params.onProgramModified
   
   const deleteProgramPress = () => {
     Alert.alert(
@@ -67,7 +74,8 @@ export function EditProgramScreen({ navigation, route }) {
               console.log(program.id)
               await programsService.deleteProgram(program.id)
               navigation.goBack()
-              onProgramDeleted(program.id)
+              // onProgramDeleted(program.id)
+              onProgramModified()
             } catch (error) {
               console.log(error)
             }
@@ -83,7 +91,7 @@ export function EditProgramScreen({ navigation, route }) {
     await programsService.updateProgram(program.id, { name: newProgramName })
     setModalVisible(false)
     navigation.goBack()
-    console.log(`New program name: ${newProgramName}`)
+    onProgramModified()
     try {
     } catch (error) {
       console.error(error)
