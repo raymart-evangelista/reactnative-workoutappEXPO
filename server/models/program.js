@@ -12,7 +12,6 @@ const programSchema = new mongoose.Schema({
   },
   weeks: {
     type: Number,
-    required: true
   },
   weekDetails: [{
     weekNum: Number,
