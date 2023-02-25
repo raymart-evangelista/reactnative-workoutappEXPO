@@ -48,15 +48,13 @@ export function AddWeeksScreen({ navigation, route }) {
     setWeeks([...weeks, newWeek])
   }
 
-  const handleSaveProgram = async () => {
-    await programsService.updateProgram(newProgram._id, { weeks: weeks.length, weekDetails: weeks })
-    navigation.reset({
-      index: 0,
-      routes: [{
-        name: 'Home'
-      }]
-    })
+  const handleUpdateProgram = async () => {
+    const updatedProgram = await programsService.updateProgram(newProgram._id, { weeks: weeks.length, weekDetails: weeks })
   }
+
+  useEffect(() => {
+    handleUpdateProgram()
+  }, [weeks])
 
   return (
     <View>
@@ -69,41 +67,6 @@ export function AddWeeksScreen({ navigation, route }) {
           <Text>Week {week.weekNum}</Text>
         </TouchableOpacity>
       ))}
-      <TouchableOpacity onPress={handleSaveProgram}>
-        <Text>Save Program</Text>
-      </TouchableOpacity>
-    </View>
-  )
-}
-
-export function WeeksSelectableScreen({ navigation, route }) {
-  const { programName, weeks } = route.params
-
-  const handleWeekPress = (weekNum) => {
-    navigation.navigate('WeekDetails', { programName, weekNum })
-  }
-
-  const handleFinishLater = () => {
-    navigation.reset({
-      index: 0,
-      routes: [{
-        name: 'Home'
-      }]
-    })
-  }
-
-  return (
-    <View>
-      <Text>Select a week to add information to.</Text>
-      {Array.from({ length: weeks}, (_, index) => index + 1).map((weekNum) => (
-        <TouchableOpacity key={weekNum} onPress={() => handleWeekPress(weekNum)}>
-          <Text>Week {weekNum}</Text>
-        </TouchableOpacity>
-      ))}
-      <Button 
-        title="Finish Later"
-        onPress={handleFinishLater}
-      />
     </View>
   )
 }
@@ -139,6 +102,38 @@ export function WeekDetailsScreen({ navigation, route }) {
       <TouchableOpacity onPress={() => handleDayPress(7)}>
         <Text>Day 7</Text>
       </TouchableOpacity>
+    </View>
+  )
+}
+
+export function WeeksSelectableScreen({ navigation, route }) {
+  const { programName, weeks } = route.params
+
+  const handleWeekPress = (weekNum) => {
+    navigation.navigate('WeekDetails', { programName, weekNum })
+  }
+
+  const handleFinishLater = () => {
+    navigation.reset({
+      index: 0,
+      routes: [{
+        name: 'Home'
+      }]
+    })
+  }
+
+  return (
+    <View>
+      <Text>Select a week to add information to.</Text>
+      {Array.from({ length: weeks}, (_, index) => index + 1).map((weekNum) => (
+        <TouchableOpacity key={weekNum} onPress={() => handleWeekPress(weekNum)}>
+          <Text>Week {weekNum}</Text>
+        </TouchableOpacity>
+      ))}
+      <Button 
+        title="Finish Later"
+        onPress={handleFinishLater}
+      />
     </View>
   )
 }
