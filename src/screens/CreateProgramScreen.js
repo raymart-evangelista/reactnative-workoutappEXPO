@@ -5,10 +5,21 @@ import programsService from "../services/programs";
 
 export function ProgramNameInputScreen({ navigation }) {
   const [programName, setProgramName] = useState('')
-  const [numWeeks, setNumWeeks] = useState('')
 
-  const handleCreateProgram = () => {
+  const handleCreateProgram = async () => {
 
+    // TODO: backend portion
+    const newProgram = await programsService.createProgram({
+      name: programName
+    })
+    console.log(`The new program id is: ${newProgram._id}`)
+    navigation.reset({
+      index: 0,
+      routes: [{
+        name: 'AddWeeks',
+        params: { newProgram }
+      }]
+    })
   }
 
   return (
@@ -21,67 +32,46 @@ export function ProgramNameInputScreen({ navigation }) {
       />
       <Button 
         title="Next"
-        onPress={() => navigation.navigate('Weeks', { programName })}
+        onPress={handleCreateProgram}
         disabled={!programName}
       />
-      {/* <Text>Number of weeks: </Text>
-      <TextInput 
-        keyboardType="numeric"
-        value={numWeeks.toString()}
-        onChangeText={value => setNumWeeks(parseInt(value))}
-      />
-      <Button 
-        title="Create program"
-        onPress={handleCreateProgram}
-      /> */}
     </View>
   )
 }
 
-export function WeeksInputScreen({ navigation, route }) {
-  const { programName } = route.params
-  const [weeks, setWeeks] = useState('')
+export function AddWeeksScreen({ navigation, route }) {
+  const { newProgram } = route.params
+  const [weeks, setWeeks] = useState([])
 
+  const handleNewWeek = () => {
+    const newWeek = { weekNum: weeks.length + 1, dayDetails: [] }
+    setWeeks([...weeks, newWeek])
+  }
 
-  const handleNewProgram = async () => {
-    // console.log(`inside handleNewProgram`)
-    const newProgram = await programsService.createProgram({
-      name: programName,
-      weeks: weeks
-    })
+  const handleSaveProgram = async () => {
+    await programsService.updateProgram(newProgram._id, { weeks: weeks.length, weekDetails: weeks })
     navigation.reset({
       index: 0,
       routes: [{
-        name: 'WeeksSelectable',
-        params: { programName, weeks }
+        name: 'Home'
       }]
     })
-    // console.log(`newProgram: ${newProgram}`)
   }
 
   return (
     <View>
-      <Text>How many weeks will {programName} run?</Text>
-      <TextInput 
-        placeholder="# of weeks"
-        keyboardType="numeric"
-        value={weeks.toString()}
-        onChangeText={(weeks) => setWeeks(parseInt(weeks))}
-      />
-      {/* Next will handleNewProgram */}
       <Button 
-        title="Next"
-        onPress={handleNewProgram}
-        // onPress={() => navigation.reset({
-        //   index: 0,
-        //   routes: [{
-        //     name: 'WeeksSelectable',
-        //     params: { programName, weeks }
-        //   }]
-        // })}
-        disabled={!weeks}
+        title={`Add new week to ${newProgram.name}`}
+        onPress={handleNewWeek}
       />
-
+      {weeks.map((week) => (
+        <TouchableOpacity key={week.weekNum}>
+          <Text>Week {week.weekNum}</Text>
+        </TouchableOpacity>
+      ))}
+      <TouchableOpacity onPress={handleSaveProgram}>
+        <Text>Save Program</Text>
+      </TouchableOpacity>
     </View>
   )
 }
