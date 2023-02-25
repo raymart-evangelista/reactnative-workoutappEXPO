@@ -52,6 +52,10 @@ export function AddWeeksScreen({ navigation, route }) {
     const updatedProgram = await programsService.updateProgram(newProgram._id, { weeks: weeks.length, weekDetails: weeks })
   }
 
+  const handleWeekPress = (week) => {
+    navigation.navigate('WeekDetails', { week })
+  }
+
   useEffect(() => {
     handleUpdateProgram()
   }, [weeks])
@@ -63,7 +67,7 @@ export function AddWeeksScreen({ navigation, route }) {
         onPress={handleNewWeek}
       />
       {weeks.map((week) => (
-        <TouchableOpacity key={week.weekNum}>
+        <TouchableOpacity key={week.weekNum} onPress={() => handleWeekPress(week)}>
           <Text>Week {week.weekNum}</Text>
         </TouchableOpacity>
       ))}
@@ -72,15 +76,16 @@ export function AddWeeksScreen({ navigation, route }) {
 }
 
 export function WeekDetailsScreen({ navigation, route }) {
-  const { programName, weekNum } = route.params
+  const { programName, week } = route.params
+  console.log(`this is the week ${week}`)
 
   const handleDayPress = (dayNum) => {
-    navigation.navigate('DayDetails', { weekNum, dayNum })
+    navigation.navigate('DayDetails', { dayNum })
   }
 
   return (
     <View>
-      <Text>You are adding information for Week {weekNum} of {programName}</Text>
+      <Text>You are adding information for Week {week.weekNum} of {programName}</Text>
       <TouchableOpacity onPress={() => handleDayPress(1)}>
         <Text>Day 1</Text>
       </TouchableOpacity>
