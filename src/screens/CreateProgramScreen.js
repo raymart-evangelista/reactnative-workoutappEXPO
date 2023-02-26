@@ -42,6 +42,7 @@ export function ProgramNameInputScreen({ navigation }) {
 export function AddWeeksScreen({ navigation, route }) {
   const { newProgram } = route.params
   const [weeks, setWeeks] = useState([])
+  const [updatedWeek, setUpdatedWeek] = useState(null)
 
   const handleNewWeek = () => {
     const newWeek = { weekNum: weeks.length + 1, dayDetails: [] }
@@ -53,12 +54,21 @@ export function AddWeeksScreen({ navigation, route }) {
   }
 
   const handleWeekPress = (week) => {
-    navigation.navigate('WeekDetails', { newProgram, week })
+    // pass in setWeeks as props such that the weeks state isn't lost
+    navigation.navigate('AddDays', { newProgram, week, onUpdateWeek: setUpdatedWeek })
   }
 
   useEffect(() => {
     handleUpdateProgram()
   }, [weeks])
+
+  useEffect(() => {
+    if (updatedWeek) {
+      const updatedWeeks = weeks.map(w => w.weekNum === updatedWeek.weekNum ? updatedWeek : w)
+      setWeeks(updatedWeeks)
+      setUpdatedWeek(null)
+    }
+  }, [updatedWeek])
 
   return (
     <View>
@@ -75,25 +85,44 @@ export function AddWeeksScreen({ navigation, route }) {
   )
 }
 
-export function WeekDetailsScreen({ navigation, route }) {
-  const { newProgram, week } = route.params
-  const [days, setDays] = useState([])
+export function AddDaysScreen({ navigation, route }) {
+  const { newProgram, week, onUpdateWeek } = route.params
+  const [days, setDays] = useState(week.dayDetails)
 
   const handleNewDay = () => {
     if (days.length >= 7) {
       return
     }
-    const newDay = { dayNum: days.length + 1, exercise: [] }
+    const newDay = { dayNum: days.length + 1, exercises: [] }
     setDays([...days, newDay])
   }
 
-  const handleUpdateProgram = async () => {
-    // TODO: update dayDetails for the certain week
+  // const handleUpdateProgram = async () => {
+  //   // TODO: update dayDetails for the certain week
+  //   const updatedWeeks = weeks.map((w) => {
+  //     if (w.weekNum === week.weekNum) {
+  //       return { ...w, dayDetails: days }
+  //     } else {
+  //       return w
+  //     }
+  //   })
+  //   setWeeks(updatedWeeks)
+  //   // const updatedProgram = await programsService.updateProgram(newProgram._id, { weeks: updatedWeeks.length, weekDetails: updatedWeeks })
+  // }
+
+  const handleUpdateWeek = async () => {
+    const updatedWeek = { ...week, dayDetails: days }
+    await programsService.updateWeekInProgram(newProgram._id, updatedWeek)
+    onUpdateWeek(updatedWeek)
   }
 
   const handleDayPress = (day) => {
     navigation.navigate('DayDetails', { day })
   }
+
+  useEffect(() => {
+    handleUpdateWeek()
+  }, [days])
 
   return (
     <View>
