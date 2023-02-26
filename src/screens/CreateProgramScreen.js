@@ -32,7 +32,7 @@ export function ProgramNameInputScreen({ navigation }) {
       />
       <Button 
         title="Next"
-        onPress={handleCreateProgram}
+        onPress={() => handleCreateProgram()}
         disabled={!programName}
       />
     </View>
