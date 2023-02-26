@@ -53,7 +53,7 @@ export function AddWeeksScreen({ navigation, route }) {
   }
 
   const handleWeekPress = (week) => {
-    navigation.navigate('WeekDetails', { week })
+    navigation.navigate('WeekDetails', { newProgram, week })
   }
 
   useEffect(() => {
@@ -76,37 +76,37 @@ export function AddWeeksScreen({ navigation, route }) {
 }
 
 export function WeekDetailsScreen({ navigation, route }) {
-  const { programName, week } = route.params
-  console.log(`this is the week ${week}`)
+  const { newProgram, week } = route.params
+  const [days, setDays] = useState([])
 
-  const handleDayPress = (dayNum) => {
-    navigation.navigate('DayDetails', { dayNum })
+  const handleNewDay = () => {
+    if (days.length >= 7) {
+      return
+    }
+    const newDay = { dayNum: days.length + 1, exercise: [] }
+    setDays([...days, newDay])
+  }
+
+  const handleUpdateProgram = async () => {
+    // TODO: update dayDetails for the certain week
+  }
+
+  const handleDayPress = (day) => {
+    navigation.navigate('DayDetails', { day })
   }
 
   return (
     <View>
-      <Text>You are adding information for Week {week.weekNum} of {programName}</Text>
-      <TouchableOpacity onPress={() => handleDayPress(1)}>
-        <Text>Day 1</Text>
-      </TouchableOpacity>
-      <TouchableOpacity onPress={() => handleDayPress(2)}>
-        <Text>Day 2</Text>
-      </TouchableOpacity>
-      <TouchableOpacity onPress={() => handleDayPress(3)}>
-        <Text>Day 3</Text>
-      </TouchableOpacity>
-      <TouchableOpacity onPress={() => handleDayPress(4)}>
-        <Text>Day 4</Text>
-      </TouchableOpacity>
-      <TouchableOpacity onPress={() => handleDayPress(5)}>
-        <Text>Day 5</Text>
-      </TouchableOpacity>
-      <TouchableOpacity onPress={() => handleDayPress(6)}>
-        <Text>Day 6</Text>
-      </TouchableOpacity>
-      <TouchableOpacity onPress={() => handleDayPress(7)}>
-        <Text>Day 7</Text>
-      </TouchableOpacity>
+      <Button 
+        // title={`Add new day for week ${week.weekNum} of ${newProgram.name}`}
+        title={`Add new day`}
+        onPress={() => handleNewDay()}
+      />
+      {days.map((day) => (
+        <TouchableOpacity key={day.dayNum} onPress={() => handleDayPress(day)}>
+          <Text>Day {day.dayNum}</Text>
+        </TouchableOpacity>
+      ))}
     </View>
   )
 }
