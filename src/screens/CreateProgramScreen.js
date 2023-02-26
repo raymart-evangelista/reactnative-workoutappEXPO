@@ -42,6 +42,7 @@ export function ProgramNameInputScreen({ navigation }) {
 export function AddWeeksScreen({ navigation, route }) {
   const { newProgram } = route.params
   const [weeks, setWeeks] = useState([])
+  const [program, setProgram] = useState(null)
 
   const handleNewWeek = () => {
     const newWeek = { weekNum: weeks.length + 1, dayDetails: [] }
@@ -50,10 +51,11 @@ export function AddWeeksScreen({ navigation, route }) {
 
   const handleUpdateProgram = async () => {
     const updatedProgram = await programsService.updateProgram(newProgram._id, { weeks: weeks.length, weekDetails: weeks })
+    setProgram(updatedProgram)
   }
 
   const handleWeekPress = (week) => {
-    navigation.navigate('WeekDetails', { newProgram, week })
+    navigation.navigate('WeekDetails', { program, week })
   }
 
   useEffect(() => {
@@ -76,8 +78,11 @@ export function AddWeeksScreen({ navigation, route }) {
 }
 
 export function WeekDetailsScreen({ navigation, route }) {
-  const { newProgram, week } = route.params
+  const { program, week } = route.params
   const [days, setDays] = useState([])
+
+  console.log(`THIS IS THE PROGRAM _-------`)
+  console.log(program)
 
   const handleNewDay = () => {
     if (days.length >= 7) {
