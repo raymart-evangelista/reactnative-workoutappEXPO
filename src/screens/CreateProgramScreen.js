@@ -76,7 +76,7 @@ export function AddWeeksScreen({ navigation, route }) {
     </View>
   )
 }
-
+// TODO: In WeekDetailsScreen, when a new day is added, set up the dayDetails Array and push to backend
 export function WeekDetailsScreen({ navigation, route }) {
   const { program, week } = route.params
   const [days, setDays] = useState([])
