@@ -84,13 +84,21 @@ export function WeekDetailsScreen({ navigation, route }) {
   console.log(`THIS IS THE PROGRAM _-------`)
   console.log(program)
 
+  console.log(`THIS IS THE WEEK _-------`)
+  console.log(week)
+
   const handleNewDay = () => {
     if (days.length >= 7) {
       return
     }
-    const newDay = { dayNum: days.length + 1, exercise: [] }
+    const newDay = { dayNum: days.length + 1, exercises: [] }
     setDays([...days, newDay])
   }
+
+  useEffect(() => {
+    console.log(`THIS IS DAYS________`)
+    console.log(days)
+  }, [days])
 
   const handleUpdateProgram = async () => {
     // TODO: update dayDetails for the certain week
