@@ -55,7 +55,7 @@ export function AddWeeksScreen({ navigation, route }) {
   }
 
   const handleWeekPress = (week) => {
-    navigation.navigate('WeekDetails', { program, week })
+    navigation.navigate('AddDays', { program, week })
   }
 
   useEffect(() => {
@@ -77,7 +77,7 @@ export function AddWeeksScreen({ navigation, route }) {
   )
 }
 // TODO: In WeekDetailsScreen, when a new day is added, set up the dayDetails Array and push to backend
-export function WeekDetailsScreen({ navigation, route }) {
+export function AddDaysScreen({ navigation, route }) {
   const { program, week } = route.params
   const [days, setDays] = useState([])
 
