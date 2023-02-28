@@ -57,7 +57,17 @@ export function AddWeeksScreen({ navigation, route }) {
   }
 
   const handleWeekPress = (week) => {
-    navigation.navigate('AddDays', { program, week })
+    navigation.navigate('AddDays', { program, week, onDaysUpdate: handleDaysUpdate })
+  }
+
+  const handleDaysUpdate = (updatedDays, weekNum) => {
+    const updatedWeeks = weeks.map((week) => {
+      if (week.weekNum === weekNum) {
+        return { ...week, dayDetails: updatedDays}
+      }
+      return week
+    })
+    setWeeks(updatedWeeks)
   }
 
   useEffect(() => {
