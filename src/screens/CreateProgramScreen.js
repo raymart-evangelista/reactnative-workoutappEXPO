@@ -12,7 +12,6 @@ export function ProgramNameInputScreen({ navigation }) {
     const newProgram = await programsService.createProgram({
       name: programName
     })
-    console.log(`The new program id is: ${newProgram._id}`)
     navigation.reset({
       index: 0,
       routes: [{
@@ -51,6 +50,9 @@ export function AddWeeksScreen({ navigation, route }) {
 
   const handleUpdateProgram = async () => {
     const updatedProgram = await programsService.updateProgram(newProgram._id, { weeks: weeks.length, weekDetails: weeks })
+    console.log('/// inside AddWeeksScreen/handleUpdateProgram ///')
+    console.log(updatedProgram)
+    console.log('/// inside AddWeeksScreen/handleUpdateProgram ///')
     setProgram(updatedProgram)
   }
 
@@ -76,16 +78,10 @@ export function AddWeeksScreen({ navigation, route }) {
     </View>
   )
 }
-// TODO: In WeekDetailsScreen, when a new day is added, set up the dayDetails Array and push to backend
 export function AddDaysScreen({ navigation, route }) {
   const { program, week } = route.params
   const [days, setDays] = useState([])
 
-  console.log(`THIS IS THE PROGRAM _-------`)
-  console.log(program)
-
-  console.log(`THIS IS THE WEEK _-------`)
-  console.log(week)
 
   const handleNewDay = () => {
     if (days.length >= 7) {
@@ -95,13 +91,32 @@ export function AddDaysScreen({ navigation, route }) {
     setDays([...days, newDay])
   }
 
+  
+
   useEffect(() => {
-    console.log(`THIS IS DAYS________`)
+    console.log('---- days ----')
     console.log(days)
+    console.log('---- days ----')
+    handleUpdateProgram()
   }, [days])
 
   const handleUpdateProgram = async () => {
     // TODO: update dayDetails for the certain week
+    try {
+      const updatedProgram = { ...program }
+
+      console.log("---- updatedProgram ------")
+      console.log(updatedProgram.weekDetails[week.weekNum - 1].weekNum === week.weekNum)
+      console.log("------ \t before ------")
+      console.log(updatedProgram.weekDetails[week.weekNum - 1].dayDetails)
+      updatedProgram.weekDetails[week.weekNum - 1].dayDetails = days
+      console.log("------ \t after ------")
+      console.log(updatedProgram.weekDetails[week.weekNum - 1].dayDetails)
+      console.log("---- updatedProgram ------")
+      await programsService.updateProgram(program._id, updatedProgram)
+    } catch (error) {
+      console.error(error)
+    }
   }
 
   const handleDayPress = (day) => {

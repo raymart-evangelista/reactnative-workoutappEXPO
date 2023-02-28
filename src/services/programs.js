@@ -31,8 +31,10 @@ const deleteProgram = async (id) => {
 }
 
 const updateProgram = async (id, updatedFields) => {
-  console.log(` this is id ${id}`)
+  console.log("/// inside services ///")
   console.log(updatedFields)
+  console.log("/// inside services ///")
+
   try {
     const res = await axios.patch(`${baseUrl}/${id}`, updatedFields)
     return res.data
