@@ -1,3 +1,5 @@
 - ISSUES
   - UI shows success even though it should fail when user already exists in DB
-  - Going to AddDaysScreen will make the updatedProgram object different
+  - When days are added to the DB, going back to AddWeeksScreen and doing either will clear the days from the DB:
+    - 1. Selecting a week
+    - 2. Adding a new week
