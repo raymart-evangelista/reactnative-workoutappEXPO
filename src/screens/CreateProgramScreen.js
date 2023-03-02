@@ -6,19 +6,19 @@ import programsService from "../services/programs";
 export function ProgramNameInputScreen({ navigation }) {
   const [programName, setProgramName] = useState('')
 
-  const handleCreateProgram = async () => {
+  const handleSaveProgram = async () => {
 
     // TODO: backend portion
-    const newProgram = await programsService.createProgram({
-      name: programName
-    })
-    navigation.reset({
-      index: 0,
-      routes: [{
-        name: 'AddWeeks',
-        params: { newProgram }
-      }]
-    })
+    // const newProgram = await programsService.createProgram({
+    //   name: programName
+    // })
+    // navigation.reset({
+    //   index: 0,
+    //   routes: [{
+    //     name: 'AddWeeks',
+    //     params: { newProgram }
+    //   }]
+    // })
   }
 
   return (
@@ -30,8 +30,12 @@ export function ProgramNameInputScreen({ navigation }) {
         onChangeText={(text) => setProgramName(text)}
       />
       <Button 
-        title="Next"
-        onPress={() => handleCreateProgram()}
+        title="Add Week"
+        onPress={() => navigation.navigate('AddWeeks')}
+      />
+      <Button 
+        title="Save"
+        onPress={() => handleSaveProgram()}
         disabled={!programName}
       />
     </View>
