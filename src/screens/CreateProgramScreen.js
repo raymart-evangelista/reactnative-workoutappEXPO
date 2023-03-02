@@ -57,21 +57,39 @@ export function AddWeeksScreen({ navigation, route }) {
   }
 
   const handleWeekPress = (week) => {
-    navigation.navigate('AddDays', { program, week, onDaysUpdate: handleDaysUpdate })
+    navigation.navigate('AddDays', { program, week, handleDaysUpdate })
   }
 
   const handleDaysUpdate = (updatedDays, weekNum) => {
+
     const updatedWeeks = weeks.map((week) => {
       if (week.weekNum === weekNum) {
-        return { ...week, dayDetails: updatedDays}
+        return { ...week, dayDetails: updatedDays }
       }
       return week
     })
+    console.log('---- \t \t updated weeks')
+    console.log(updatedWeeks)
+
+    // weeks[weekNum - 1].dayDetails = updatedDays
+
+    // updatedWeeks[weekNum - 1].dayDetails = updatedDays
+    // const updatedWeeks = weeks.map((week) => {
+    //   if (week.weekNum === weekNum) {
+    //     return { ...week, dayDetails: updatedDays}
+    //   }
+    //   return week
+    // })
     setWeeks(updatedWeeks)
   }
 
   useEffect(() => {
-    handleUpdateProgram()
+    console.log('---- weeks ----')
+    console.log(weeks[0])
+    console.log('---- weeks ----')
+    if (program) {
+      handleUpdateProgram()
+    }
   }, [weeks])
 
   return (
@@ -89,10 +107,10 @@ export function AddWeeksScreen({ navigation, route }) {
   )
 }
 export function AddDaysScreen({ navigation, route }) {
-  const { program, week } = route.params
+  const { program, week, handleDaysUpdate } = route.params
   const [days, setDays] = useState([])
 
-
+  
   const handleNewDay = () => {
     if (days.length >= 7) {
       return
@@ -100,28 +118,31 @@ export function AddDaysScreen({ navigation, route }) {
     const newDay = { dayNum: days.length + 1, exercises: [] }
     setDays([...days, newDay])
   }
-
   
-
+  
+  
   useEffect(() => {
     console.log('---- days ----')
     console.log(days)
     console.log('---- days ----')
-    handleUpdateProgram()
+    // handleUpdateProgram function should be called after handleDaysUpdate to ensure that weeks is updated before updatedProgram is updated in the database
+    handleDaysUpdate(days, week.weekNum)
   }, [days])
 
   const handleUpdateProgram = async () => {
     // TODO: update dayDetails for the certain week
     try {
       const updatedProgram = { ...program }
+      const weekIndex = week.weekNum - 1
+      console.log(`**** **** week index ${weekIndex}`)
 
       console.log("---- updatedProgram ------")
-      console.log(updatedProgram.weekDetails[week.weekNum - 1].weekNum === week.weekNum)
+      console.log(updatedProgram)
       console.log("------ \t before ------")
-      console.log(updatedProgram.weekDetails[week.weekNum - 1].dayDetails)
-      updatedProgram.weekDetails[week.weekNum - 1].dayDetails = days
+      console.log(updatedProgram.weekDetails[weekIndex].dayDetails)
+      updatedProgram.weekDetails[weekIndex].dayDetails = days
       console.log("------ \t after ------")
-      console.log(updatedProgram.weekDetails[week.weekNum - 1].dayDetails)
+      console.log(updatedProgram.weekDetails[weekIndex].dayDetails)
       console.log("---- updatedProgram ------")
       await programsService.updateProgram(program._id, updatedProgram)
     } catch (error) {
@@ -131,6 +152,10 @@ export function AddDaysScreen({ navigation, route }) {
 
   const handleDayPress = (day) => {
     navigation.navigate('DayDetails', { day })
+  }
+
+  const handleSavePress = () => {
+    handleUpdateProgram()
   }
 
   return (
@@ -145,6 +170,10 @@ export function AddDaysScreen({ navigation, route }) {
           <Text>Day {day.dayNum}</Text>
         </TouchableOpacity>
       ))}
+      <Button 
+        title='Save'
+        onPress={handleSavePress}
+      />
     </View>
   )
 }
