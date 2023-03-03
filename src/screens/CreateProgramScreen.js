@@ -35,6 +35,10 @@ export function ProgramNameInputScreen({ navigation }) {
            ) {
             errors.email = 'Invalid email address'
           }
+
+          if (!values.password) {
+            errors.password = 'Required'
+          }
           return errors
         }}
         onSubmit={(values, { setSubmitting }) => {
