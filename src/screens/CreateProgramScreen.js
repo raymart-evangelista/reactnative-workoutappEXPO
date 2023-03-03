@@ -32,7 +32,7 @@ export function ProgramNameInputScreen({ navigation }) {
             errors.email = 'Required'
           } else if (
             !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
-          ) {
+           ) {
             errors.email = 'Invalid email address'
           }
           return errors
@@ -44,37 +44,27 @@ export function ProgramNameInputScreen({ navigation }) {
           }, 400)
         }}
       >
-        {({
-          values,
-          errors,
-          touched,
-          handleChange,
-          handleBlur,
-          handleSubmit,
-          isSubmitting,
-        }) => (
-          <form onSubmit={handleSubmit}>
-            <input 
-              type="email"
-              name="email"
-              onChange={handleChange}
-              onBlur={handleBlur}
-              value={values.email}
+        {({ handleChange, handleBlur, handleSubmit, values, errors, isSubmitting }) => (
+          <View>
+            <TextInput
+              placeholder="Email"
+              onChangeText={handleChange('email')}
+              onBlur={handleBlur('email')}
+              value={values.email}            
             />
-            {errors.email && touched.email && errors.email}
-            <input 
-              type="password"
-              name="password"
-              onChange={handleChange}
-              onBlur={handleBlur}
-              values={values.password}
+            {errors.email && <Text style={{ color: 'red' }}>{errors.email}</Text>}
+            <TextInput
+              placeholder="Password"
+              secureTextEntry
+              onChangeText={handleChange('password')}
+              onBlur={handleBlur('password')}
+              value={values.password}
             />
-            {errors.password && touched.password && errors.password}
-            <Button
-              title="Submit"
-              disabled={isSubmitting}
-            />
-          </form>
+            {errors.password && <Text style={{ color: 'red' }}>{errors.password}</Text>}
+            <TouchableOpacity onPress={handleSubmit} disabled={isSubmitting}>
+              <Text style={{ backgroundColor: isSubmitting ? '#ccc' : '#007AFF', color: '#fff', padding: 10, textAlign: 'center' }}>Submit</Text>
+            </TouchableOpacity>
+          </View>
         )}
       </Formik>
       <Text>What is the name of your workout program?</Text>
