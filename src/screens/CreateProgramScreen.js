@@ -72,6 +72,9 @@ export function ProgramNameInputScreen({ navigation }) {
         )}
       </Formik>
       <Text>What is the name of your workout program?</Text>
+      <Formik>
+        {/* TODO: ADD WORKOUT FORM INFO */}
+      </Formik>
       <TextInput 
         placeholder="Workout program name"
         value={programName}
