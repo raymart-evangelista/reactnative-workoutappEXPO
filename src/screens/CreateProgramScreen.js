@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { Button, Modal, Text, TextInput, TouchableOpacity, View } from "react-native"
-import { Formik } from "formik";
+import { Formik, Form, Field, ErrorMessage } from "formik";
 
 import programsService from "../services/programs";
 
@@ -30,9 +30,7 @@ export function ProgramNameInputScreen({ navigation }) {
           const errors = {}
           if (!values.email) {
             errors.email = 'Required'
-          } else if (
-            !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
-           ) {
+          } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)) {
             errors.email = 'Invalid email address'
           }
 
@@ -48,7 +46,7 @@ export function ProgramNameInputScreen({ navigation }) {
           }, 400)
         }}
       >
-        {({ handleChange, handleBlur, handleSubmit, values, errors, isSubmitting }) => (
+        {({ handleChange, handleBlur, handleSubmit, values, errors, touched, isSubmitting }) => (
           <View>
             <TextInput
               placeholder="Email"
@@ -56,7 +54,7 @@ export function ProgramNameInputScreen({ navigation }) {
               onBlur={handleBlur('email')}
               value={values.email}            
             />
-            {errors.email && <Text style={{ color: 'red' }}>{errors.email}</Text>}
+            {touched.email && errors.email && <Text style={{ color: 'red' }}>{errors.email}</Text>}
             <TextInput
               placeholder="Password"
               secureTextEntry
@@ -64,7 +62,7 @@ export function ProgramNameInputScreen({ navigation }) {
               onBlur={handleBlur('password')}
               value={values.password}
             />
-            {errors.password && <Text style={{ color: 'red' }}>{errors.password}</Text>}
+            {touched.password && errors.password && <Text style={{ color: 'red' }}>{errors.password}</Text>}
             <TouchableOpacity onPress={handleSubmit} disabled={isSubmitting}>
               <Text style={{ backgroundColor: isSubmitting ? '#ccc' : '#007AFF', color: '#fff', padding: 10, textAlign: 'center' }}>Submit</Text>
             </TouchableOpacity>
