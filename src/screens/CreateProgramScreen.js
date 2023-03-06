@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { Button, Modal, Text, TextInput, TouchableOpacity, View } from "react-native"
-import { Formik, Form, Field, ErrorMessage } from "formik";
+import { Formik, Form, Field, FieldArray, ErrorMessage } from "formik";
 
 import programsService from "../services/programs";
 
@@ -23,43 +23,44 @@ export function ProgramNameInputScreen({ navigation }) {
   }
 
   const initialValues = {
-    name: '',
-    weeks: '',
+    name: 'UPPER/LOWER 4x WEEK',
+    weeks: 1,
     weekDetails: [
       {
-        weekNum: '',
+        weekNum: 1,
         dayDetails: [
           {
             name: '',
-            dayNum: '',
+            dayNum: 1,
             exercises: [
               {
-                name: '',
+                name: 'SEATED CABLE ROW',
                 warmupSets: {
-                  min: '',
-                  max: '',
+                  min: 1,
+                  max: 1,
                 },
                 workingSets: {
-                  min: '',
-                  max: '',
+                  min: 2,
+                  max: 2,
                 },
                 reps: {
-                  min: '',
-                  max: '',
+                  min: 10,
+                  max: 12,
+                  notes: 'drop set',
                 },
                 weight: {
-                  value: '',
-                  unit: ''
+                  value: 145,
+                  unit: 'lbs',
                 },
                 rpe: {
-                  min: '',
-                  max: '',
+                  min: 9,
+                  max: 10,
                 },
                 rest: {
-                  value: '',
-                  unit: '',
+                  value: 2,
+                  unit: 'minutes',
                 },
-                notes: '',
+                notes: 'Focus on squeezing your shoulder blades together, drive your elbows down and back. Last set only do a dropset: perform 10-12 reps, drop the weight by ~50%, perform an additional 10-12 reps.',
               }
             ]
           }
@@ -69,22 +70,68 @@ export function ProgramNameInputScreen({ navigation }) {
   }
 
   return (
+      // <View>
+      //   <Text>Friend List</Text>
+      //   <Formik
+      //     initialValues={{ friends: ['jared', 'ian', 'brent'] }}
+      //     onSubmit={values =>
+      //       setTimeout(() => {
+      //         alert(JSON.stringify(values, null, 2));
+      //       }, 500)
+      //     }
+      //   >
+      //     {({ values }) => (
+      //       <View>
+      //         <FieldArray
+      //           name="friends"
+      //           render={arrayHelpers => (
+      //             <View>
+      //               {values.friends && values.friends.length > 0 ? (
+      //                 values.friends.map((friend, index) => (
+      //                   <View key={index}>
+      //                     <Field name={`friends.${index}`}>
+      //                       {({ field }) => (
+      //                         <TextInput
+      //                           onChangeText={field.onChange(field.name)}
+      //                           onBlur={field.onBlur(field.name)}
+      //                           value={field.value}
+      //                         />
+      //                       )}
+      //                     </Field>
+      //                     <TouchableOpacity
+      //                       onPress={() => arrayHelpers.remove(index)}
+      //                     >
+      //                       <Text>-</Text>
+      //                     </TouchableOpacity>
+      //                     <TouchableOpacity
+      //                       onPress={() => arrayHelpers.insert(index, '')}
+      //                     >
+      //                       <Text>+</Text>
+      //                     </TouchableOpacity>
+      //                   </View>
+      //                 ))
+      //               ) : (
+      //                 <TouchableOpacity onPress={() => arrayHelpers.push('')}>
+      //                   {/* show this when user has removed all friends from the list */}
+      //                   <Text>Add a friend</Text>
+      //                 </TouchableOpacity>
+      //               )}
+      //               <View>
+      //                 <TouchableOpacity type="submit">
+      //                   <Text>Submit</Text>
+      //                 </TouchableOpacity>
+      //               </View>
+      //             </View>
+      //           )}
+      //         />
+      //       </View>
+      //     )}
+      //   </Formik>
+      // </View>
+
     <View>
       <Formik
-        initialValues={{ email: '', password: ''}}
-        validate={values => {
-          const errors = {}
-          if (!values.email) {
-            errors.email = 'Required'
-          } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)) {
-            errors.email = 'Invalid email address'
-          }
-
-          if (!values.password) {
-            errors.password = 'Required'
-          }
-          return errors
-        }}
+        initialValues={initialValues}
         onSubmit={(values, { setSubmitting }) => {
           setTimeout(() => {
             alert(JSON.stringify(values, null, 2))
@@ -92,48 +139,111 @@ export function ProgramNameInputScreen({ navigation }) {
           }, 400)
         }}
       >
-        {({ handleChange, handleBlur, handleSubmit, values, errors, touched, isSubmitting }) => (
+        {({ handlePush, handleRemove, handleChange, handleBlur, handleSubmit, values, errors, touched, isSubmitting }) => (
           <View>
-            <TextInput
-              placeholder="Email"
-              onChangeText={handleChange('email')}
-              onBlur={handleBlur('email')}
-              value={values.email}    
-            />
-            {touched.email && errors.email && <Text style={{ color: 'red' }}>{errors.email}</Text>}
-            <TextInput
-              placeholder="Password"
-              secureTextEntry
-              onChangeText={handleChange('password')}
-              onBlur={handleBlur('password')}
-              value={values.password}
-            />
-            {touched.password && errors.password && <Text style={{ color: 'red' }}>{errors.password}</Text>}
-            <TouchableOpacity onPress={handleSubmit} disabled={isSubmitting}>
-              <Text style={{ backgroundColor: isSubmitting ? '#ccc' : '#007AFF', color: '#fff', padding: 10, textAlign: 'center' }}>Submit</Text>
-            </TouchableOpacity>
+            {values.weekDetails && values.weekDetails.length > 0 ? (
+              <View>
+                <Text>Weeks greater than 0. {JSON.stringify(values.weekDetails)}</Text>
+                <Text>{alert(JSON.stringify(values.weekDetails, null, 2))}</Text>
+              </View>
+            ) : (
+              <View>
+                <Text>Weeks less than 0</Text>
+              </View>
+            )}
+            {/* {values.initialValues.weekDetails.map((week, index) =>(
+              <View key={index}>
+
+              </View>
+            ))} */}
           </View>
         )}
       </Formik>
-      <Text>What is the name of your workout program?</Text>
-      <Formik>
-        {/* TODO: ADD WORKOUT FORM INFO */}
-      </Formik>
-      <TextInput 
-        placeholder="Workout program name"
-        value={programName}
-        onChangeText={(text) => setProgramName(text)}
-      />
-      <Button 
-        title="Add Week"
-        onPress={() => navigation.navigate('AddWeeks')}
-      />
-      <Button 
-        title="Save"
-        onPress={() => handleSaveProgram()}
-        disabled={!programName}
-      />
     </View>
+
+    // <View>
+    //   <Formik
+    //     initialValues={{ email: '', password: ''}}
+    //     validate={values => {
+    //       const errors = {}
+    //       if (!values.email) {
+    //         errors.email = 'Required'
+    //       } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)) {
+    //         errors.email = 'Invalid email address'
+    //       }
+
+    //       if (!values.password) {
+    //         errors.password = 'Required'
+    //       }
+    //       return errors
+    //     }}
+    //     onSubmit={(values, { setSubmitting }) => {
+    //       setTimeout(() => {
+    //         alert(JSON.stringify(values, null, 2))
+    //         setSubmitting(false)
+    //       }, 400)
+    //     }}
+    //   >
+    //     {({ handleChange, handleBlur, handleSubmit, values, errors, touched, isSubmitting }) => (
+    //       <View>
+    //         <TextInput
+    //           placeholder="Email"
+    //           onChangeText={handleChange('email')}
+    //           onBlur={handleBlur('email')}
+    //           value={values.email}    
+    //         />
+    //         {touched.email && errors.email && <Text style={{ color: 'red' }}>{errors.email}</Text>}
+    //         <TextInput
+    //           placeholder="Password"
+    //           secureTextEntry
+    //           onChangeText={handleChange('password')}
+    //           onBlur={handleBlur('password')}
+    //           value={values.password}
+    //         />
+    //         {touched.password && errors.password && <Text style={{ color: 'red' }}>{errors.password}</Text>}
+    //         <TouchableOpacity onPress={handleSubmit} disabled={isSubmitting}>
+    //           <Text style={{ backgroundColor: isSubmitting ? '#ccc' : '#007AFF', color: '#fff', padding: 10, textAlign: 'center' }}>Submit</Text>
+    //         </TouchableOpacity>
+    //       </View>
+    //     )}
+    //   </Formik>
+    //   <Text>What is the name of your workout program?</Text>
+    //   <Formik
+    //     initialValues={initialValues}
+    //     onSubmit={async (values) => {
+    //       await new Promise((r) => setTimeout(r, 500))
+    //       alert(JSON.stringify(values, null, 2))
+    //     }}
+    //   >
+    //     {/* TODO: ADD WORKOUT FORM INFO */}
+    //     {({ values }) => (
+    //       <Form>
+    //         <FieldArray name="weekDetails">
+    //           {({ insert, remove, push }) => (
+    //             <View>
+
+    //             </View>
+    //           )}
+    //         </FieldArray>
+    //       </Form>
+    //     )}
+
+    //   </Formik>
+    //   <TextInput 
+    //     placeholder="Workout program name"
+    //     value={programName}
+    //     onChangeText={(text) => setProgramName(text)}
+    //   />
+    //   <Button 
+    //     title="Add Week"
+    //     onPress={() => navigation.navigate('AddWeeks')}
+    //   />
+    //   <Button 
+    //     title="Save"
+    //     onPress={() => handleSaveProgram()}
+    //     disabled={!programName}
+    //   />
+    // </View>
   )
 }
 
