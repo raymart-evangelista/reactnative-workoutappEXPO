@@ -22,6 +22,52 @@ export function ProgramNameInputScreen({ navigation }) {
     // })
   }
 
+  const initialValues = {
+    name: '',
+    weeks: '',
+    weekDetails: [
+      {
+        weekNum: '',
+        dayDetails: [
+          {
+            name: '',
+            dayNum: '',
+            exercises: [
+              {
+                name: '',
+                warmupSets: {
+                  min: '',
+                  max: '',
+                },
+                workingSets: {
+                  min: '',
+                  max: '',
+                },
+                reps: {
+                  min: '',
+                  max: '',
+                },
+                weight: {
+                  value: '',
+                  unit: ''
+                },
+                rpe: {
+                  min: '',
+                  max: '',
+                },
+                rest: {
+                  value: '',
+                  unit: '',
+                },
+                notes: '',
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+
   return (
     <View>
       <Formik
@@ -52,7 +98,7 @@ export function ProgramNameInputScreen({ navigation }) {
               placeholder="Email"
               onChangeText={handleChange('email')}
               onBlur={handleBlur('email')}
-              value={values.email}            
+              value={values.email}    
             />
             {touched.email && errors.email && <Text style={{ color: 'red' }}>{errors.email}</Text>}
             <TextInput
