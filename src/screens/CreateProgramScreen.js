@@ -24,13 +24,53 @@ export function ProgramNameInputScreen({ navigation }) {
 
   const initialValues = {
     name: 'UPPER/LOWER 4x WEEK',
-    weeks: 1,
+    weeks: 2,
     weekDetails: [
       {
         weekNum: 1,
         dayDetails: [
           {
-            name: '',
+            name: 'UPPER BODY',
+            dayNum: 1,
+            exercises: [
+              {
+                name: 'SEATED CABLE ROW',
+                warmupSets: {
+                  min: 1,
+                  max: 1,
+                },
+                workingSets: {
+                  min: 2,
+                  max: 2,
+                },
+                reps: {
+                  min: 10,
+                  max: 12,
+                  notes: 'drop set',
+                },
+                weight: {
+                  value: 145,
+                  unit: 'lbs',
+                },
+                rpe: {
+                  min: 9,
+                  max: 10,
+                },
+                rest: {
+                  value: 2,
+                  unit: 'minutes',
+                },
+                notes: 'Focus on squeezing your shoulder blades together, drive your elbows down and back. Last set only do a dropset: perform 10-12 reps, drop the weight by ~50%, perform an additional 10-12 reps.',
+              }
+            ]
+          }
+        ]
+      },
+      {
+        weekNum: 2,
+        dayDetails: [
+          {
+            name: 'UPPER BODY',
             dayNum: 1,
             exercises: [
               {
@@ -141,10 +181,61 @@ export function ProgramNameInputScreen({ navigation }) {
       >
         {({ handlePush, handleRemove, handleChange, handleBlur, handleSubmit, values, errors, touched, isSubmitting }) => (
           <View>
+            <FieldArray
+              name="weekDetails"
+              render={arrayHelpers => (
+                <View>
+                  {values.weekDetails && values.weekDetails.length > 0 ? (
+                    values.weekDetails.map((week, index) => (
+                      <View key={index}>
+                        <Field name={`week.${index}`}>
+                          {({ field }) => (
+                            <TextInput 
+                              style={{
+                                borderWidth: 1
+                              }}
+                              onChangeText={field.onChange(field.name)}
+                              onBlur={field.onBlur(field.name)}
+                              value={field.value}
+                              defaultValue={`Week ${index + 1}`}
+                            />
+                          )}
+                        </Field>
+                        <TouchableOpacity
+                          onPress={() => arrayHelpers.remove(index)}
+                        >
+                          <Text>Remove week</Text>
+                        </TouchableOpacity>
+                      </View>
+                    ))
+                  ) : (
+                    <Text>No weeks</Text>
+                  )}
+                  <View>
+                    <TouchableOpacity onPress={() => arrayHelpers.push('')}>
+                      <Text>Add a week</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={handleSubmit} disabled={isSubmitting}>
+                      <Text>Submit</Text>
+                    </TouchableOpacity>
+                  </View>
+                </View>
+              )}
+            />
             {values.weekDetails && values.weekDetails.length > 0 ? (
               <View>
-                <Text>Weeks greater than 0. {JSON.stringify(values.weekDetails)}</Text>
-                <Text>{alert(JSON.stringify(values.weekDetails, null, 2))}</Text>
+                <Text>Weeks greater than 0. Amt of weeks: {JSON.stringify(values.weekDetails.length)}</Text>
+                {/* <Text>{alert(JSON.stringify(values.weekDetails, null, 2))}</Text> */}
+
+
+                {/* <Text>{JSON.stringify(values.weekDetails.dayDetails.dayNum)}</Text> */}
+                {/* {values.weekDetails.dayDetails.map((day) => {
+                  <Text>{JSON.stringify(day.dayNum)}</Text>
+                })} */}
+
+                {/* {values.weekDetails.map((week) => {
+                  {alert(JSON.stringify(week.dayDetails))}
+                })} */}
               </View>
             ) : (
               <View>
