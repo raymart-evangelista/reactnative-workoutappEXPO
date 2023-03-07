@@ -108,6 +108,92 @@ export function ProgramNameInputScreen({ navigation }) {
       }
     ]
   }
+  const wantedValues = {
+    name: 'UPPER/LOWER 4x WEEK',
+    weeks: 2,
+    weekDetails: [
+      {
+        weekNum: 1,
+        dayDetails: [
+          {
+            name: 'UPPER BODY',
+            dayNum: 1,
+            exercises: [
+              {
+                name: 'SEATED CABLE ROW',
+                warmupSets: {
+                  min: 1,
+                  max: 1,
+                },
+                workingSets: {
+                  min: 2,
+                  max: 2,
+                },
+                reps: {
+                  min: 10,
+                  max: 12,
+                  notes: 'drop set',
+                },
+                weight: {
+                  value: 145,
+                  unit: 'lbs',
+                },
+                rpe: {
+                  min: 9,
+                  max: 10,
+                },
+                rest: {
+                  value: 2,
+                  unit: 'minutes',
+                },
+                notes: 'Focus on squeezing your shoulder blades together, drive your elbows down and back. Last set only do a dropset: perform 10-12 reps, drop the weight by ~50%, perform an additional 10-12 reps.',
+              }
+            ]
+          }
+        ]
+      },
+      {
+        weekNum: 2,
+        dayDetails: [
+          {
+            name: 'UPPER BODY',
+            dayNum: 1,
+            exercises: [
+              {
+                name: 'SEATED CABLE ROW',
+                warmupSets: {
+                  min: 1,
+                  max: 1,
+                },
+                workingSets: {
+                  min: 2,
+                  max: 2,
+                },
+                reps: {
+                  min: 10,
+                  max: 12,
+                  notes: 'drop set',
+                },
+                weight: {
+                  value: 145,
+                  unit: 'lbs',
+                },
+                rpe: {
+                  min: 9,
+                  max: 10,
+                },
+                rest: {
+                  value: 2,
+                  unit: 'minutes',
+                },
+                notes: 'Focus on squeezing your shoulder blades together, drive your elbows down and back. Last set only do a dropset: perform 10-12 reps, drop the weight by ~50%, perform an additional 10-12 reps.',
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
 
   return (
       // <View>
@@ -186,9 +272,9 @@ export function ProgramNameInputScreen({ navigation }) {
               render={arrayHelpers => (
                 <View>
                   {values.weekDetails && values.weekDetails.length > 0 ? (
-                    values.weekDetails.map((week, index) => (
-                      <View key={index}>
-                        <Field name={`week.${index}`}>
+                    values.weekDetails.map((week, weekIndex) => (
+                      <View key={weekIndex}>
+                        <Field name={`weekDetails.${weekIndex}.weekNum`}>
                           {({ field }) => (
                             <TextInput 
                               style={{
@@ -196,13 +282,14 @@ export function ProgramNameInputScreen({ navigation }) {
                               }}
                               onChangeText={field.onChange(field.name)}
                               onBlur={field.onBlur(field.name)}
-                              value={field.value}
-                              defaultValue={`Week ${index + 1}`}
+                              value={parseInt(field.value)}
+                              keyboardType='numeric'
+                              placeholder={`Week ${weekIndex + 1}`}
                             />
                           )}
                         </Field>
                         <TouchableOpacity
-                          onPress={() => arrayHelpers.remove(index)}
+                          onPress={() => arrayHelpers.remove(weekIndex)}
                         >
                           <Text>Remove week</Text>
                         </TouchableOpacity>
@@ -225,7 +312,7 @@ export function ProgramNameInputScreen({ navigation }) {
             {values.weekDetails && values.weekDetails.length > 0 ? (
               <View>
                 <Text>Weeks greater than 0. Amt of weeks: {JSON.stringify(values.weekDetails.length)}</Text>
-                {/* <Text>{alert(JSON.stringify(values.weekDetails, null, 2))}</Text> */}
+                <Text>{(JSON.stringify(values, null, 2))}</Text>
 
 
                 {/* <Text>{JSON.stringify(values.weekDetails.dayDetails.dayNum)}</Text> */}
@@ -242,6 +329,7 @@ export function ProgramNameInputScreen({ navigation }) {
                 <Text>Weeks less than 0</Text>
               </View>
             )}
+            <Text>{(JSON.stringify(wantedValues, null, 2))}</Text>
             {/* {values.initialValues.weekDetails.map((week, index) =>(
               <View key={index}>
 
