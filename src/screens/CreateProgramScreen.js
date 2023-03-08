@@ -255,7 +255,7 @@ export function ProgramNameInputScreen({ navigation }) {
       //   </Formik>
       // </View>
 
-    <ScrollView>
+    <ScrollView style={{ margin: '2%' }}>
       <Formik
         initialValues={initialValues}
         onSubmit={(values, { setSubmitting }) => {
@@ -267,6 +267,32 @@ export function ProgramNameInputScreen({ navigation }) {
       >
         {({ handlePush, handleRemove, handleChange, handleBlur, handleSubmit, values, errors, touched, isSubmitting }) => (
           <View>
+            <Field name="name">
+              {({ field }) => (
+                <View>
+                  <Text>Program name: </Text>
+                  <TextInput
+                    style={{ borderWidth: 1, padding: 5 }}
+                    onChangeText={field.onChange(field.name)}
+                    onBlur={field.onBlur(field.name)}
+                    value={field.value}
+                  />
+                </View>
+              )}
+            </Field>
+            <Field name="weeks">
+              {({ field }) => (
+                <View>
+                  <Text>Weeks: {JSON.stringify(values.weekDetails.length)}</Text>
+                  <TextInput
+                    style={{ borderWidth: 1, padding: 5 }}
+                    onChangeText={field.onChange(field.name)}
+                    onBlur={field.onBlur(field.name)}
+                    value={field.value ? field.value.toString() : ''}
+                  />
+                </View>
+              )}
+            </Field>
             <FieldArray
               name="weekDetails"
               render={arrayHelpers => (
@@ -276,46 +302,54 @@ export function ProgramNameInputScreen({ navigation }) {
                       <View key={weekIndex}>
                         <Field name={`weekDetails.${weekIndex}.weekNum`}>
                           {({ field }) => (
-                            <TextInput 
-                              style={{
-                                borderWidth: 1
-                              }}
-                              onChangeText={field.onChange(field.name)}
-                              onBlur={field.onBlur(field.name)}
-                              value={field.value.toString()}
-                              keyboardType='numeric'
-                              placeholder={`Week ${weekIndex + 1}`}
-                            />
+                            <View style={{ flexDirection: 'row' }}>
+                              <Text>Week Number</Text>
+                              <TextInput 
+                                style={{
+                                  borderWidth: 1
+                                }}
+                                onChangeText={field.onChange(field.name)}
+                                onBlur={field.onBlur(field.name)}
+                                value={field.value ? field.value.toString() : ''}
+                                keyboardType='numeric'
+                                placeholder={`Week ${weekIndex + 1}`}
+                              />
+                            </View>
                           )}
                         </Field>
-                        {/*  */}
                         {week.dayDetails && week.dayDetails.length > 0 ? (
                           week.dayDetails.map((day, dayIndex) => (
                             <View key={dayIndex}>
                               <Field name={`weekDetails.${weekIndex}.dayDetails.${dayIndex}.name`}>
                                 {({ field }) => (
-                                  <TextInput 
-                                    style={{
-                                      borderWidth: 1
-                                    }}
-                                    onChangeText={field.onChange(field.name)}
-                                    onBlur={field.onBlur(field.name)}
-                                    value={field.value.toString()}
-                                    placeholder={`Day ${dayIndex + 1} Name`}
-                                  />
+                                  <View style={{ flexDirection: 'row' }}>
+                                    <Text>Day name: </Text>
+                                    <TextInput 
+                                      style={{
+                                        borderWidth: 1
+                                      }}
+                                      onChangeText={field.onChange(field.name)}
+                                      onBlur={field.onBlur(field.name)}
+                                      value={field.value ? field.value.toString() : ''}
+                                      placeholder={`Day ${dayIndex + 1} Name`}
+                                    />
+                                  </View>
                                 )}
                               </Field>
                               <Field name={`weekDetails.${weekIndex}.dayDetails.${dayIndex}.dayNum`}>
                                 {({ field }) => (
-                                  <TextInput
-                                    style={{
-                                      borderWidth: 1
-                                    }}
-                                    onChangeText={field.onChange(field.name)}
-                                    onBlur={field.onBlur(field.name)}
-                                    value={field.value.toString()}
-                                    placeholder={`Day ${dayIndex + 1} Number`}
-                                  />
+                                  <View style={{ flexDirection: 'row' }}>
+                                    <Text>Day number of week: </Text>
+                                    <TextInput
+                                      style={{
+                                        borderWidth: 1
+                                      }}
+                                      onChangeText={field.onChange(field.name)}
+                                      onBlur={field.onBlur(field.name)}
+                                      value={field.value ? field.value.toString() : ''}
+                                      placeholder={`Day ${dayIndex + 1} Number`}
+                                    />
+                                  </View>
                                 )}
                               </Field>
                               {day.exercises && day.exercises.length > 0 ? (
@@ -323,15 +357,18 @@ export function ProgramNameInputScreen({ navigation }) {
                                   <View key={exerciseIndex}>
                                     <Field name={`weekDetails.${weekIndex}.dayDetails.${dayIndex}.exercises.${exerciseIndex}.name`}>
                                       {({ field }) => (
-                                        <TextInput
-                                          style={{
-                                            borderWidth: 1
-                                          }}
-                                          onChangeText={field.onChange(field.name)}
-                                          onBlur={field.onBlur(field.name)}
-                                          value={field.value.toString()}
-                                          placeholder={`Exercise ${exerciseIndex + 1} Name`}
-                                        />
+                                        <View style={{ flexDirection: 'row' }}>
+                                          <Text>Exercise name: </Text>
+                                          <TextInput
+                                            style={{
+                                              borderWidth: 1
+                                            }}
+                                            onChangeText={field.onChange(field.name)}
+                                            onBlur={field.onBlur(field.name)}
+                                            value={field.value ? field.value.toString() : ''}
+                                            placeholder={`Exercise ${exerciseIndex + 1} Name`}
+                                          />
+                                        </View>
                                       )}
                                     </Field>
                                     <Text>warmup sets: </Text>
@@ -346,7 +383,7 @@ export function ProgramNameInputScreen({ navigation }) {
                                               }}
                                               onChangeText={field.onChange(field.name)}
                                               onBlur={field.onBlur(field.name)}
-                                              value={field.value.toString()}
+                                              value={field.value ? field.value.toString() : ''}
                                               placeholder={`Exercise ${exerciseIndex + 1} min warmup sets`}
                                             />
                                           </View>
@@ -363,7 +400,7 @@ export function ProgramNameInputScreen({ navigation }) {
                                               }}
                                               onChangeText={field.onChange(field.name)}
                                               onBlur={field.onBlur(field.name)}
-                                              value={field.value.toString()}
+                                              value={field.value ? field.value.toString() : ''}
                                               placeholder={`Exercise ${exerciseIndex + 1} max warmup sets`}
                                             />
                                           </View>
@@ -382,7 +419,7 @@ export function ProgramNameInputScreen({ navigation }) {
                                               }}
                                               onChangeText={field.onChange(field.name)}
                                               onBlur={field.onBlur(field.name)}
-                                              value={field.value.toString()}
+                                              value={field.value ? field.value.toString() : ''}
                                               placeholder={`Exercise ${exerciseIndex + 1} min working sets`}
                                             />
                                           </View>
@@ -399,7 +436,7 @@ export function ProgramNameInputScreen({ navigation }) {
                                               }}
                                               onChangeText={field.onChange(field.name)}
                                               onBlur={field.onBlur(field.name)}
-                                              value={field.value.toString()}
+                                              value={field.value ? field.value.toString() : ''}
                                               placeholder={`Exercise ${exerciseIndex + 1} max working sets`}
                                             />
                                           </View>
@@ -418,7 +455,7 @@ export function ProgramNameInputScreen({ navigation }) {
                                               }}
                                               onChangeText={field.onChange(field.name)}
                                               onBlur={field.onBlur(field.name)}
-                                              value={field.value.toString()}
+                                              value={field.value ? field.value.toString() : ''}
                                               placeholder={`Exercise ${exerciseIndex + 1} min reps`}
                                             />
                                           </View>
@@ -435,7 +472,7 @@ export function ProgramNameInputScreen({ navigation }) {
                                               }}
                                               onChangeText={field.onChange(field.name)}
                                               onBlur={field.onBlur(field.name)}
-                                              value={field.value.toString()}
+                                              value={field.value ? field.value.toString() : ''}
                                               placeholder={`Exercise ${exerciseIndex + 1} max reps`}
                                             />
                                           </View>
@@ -451,7 +488,7 @@ export function ProgramNameInputScreen({ navigation }) {
                                               }}
                                               onChangeText={field.onChange(field.name)}
                                               onBlur={field.onBlur(field.name)}
-                                              value={field.value.toString()}
+                                              value={field.value ? field.value.toString() : ''}
                                               placeholder={`Exercise ${exerciseIndex + 1} reps notes`}
                                             />
                                           </View>
@@ -470,7 +507,7 @@ export function ProgramNameInputScreen({ navigation }) {
                                               }}
                                               onChangeText={field.onChange(field.name)}
                                               onBlur={field.onBlur(field.name)}
-                                              value={field.value.toString()}
+                                              value={field.value ? field.value.toString() : ''}
                                               placeholder={`Exercise ${exerciseIndex + 1} rest value`}
                                             />
                                           </View>
@@ -487,7 +524,7 @@ export function ProgramNameInputScreen({ navigation }) {
                                               }}
                                               onChangeText={field.onChange(field.name)}
                                               onBlur={field.onBlur(field.name)}
-                                              value={field.value.toString()}
+                                              value={field.value ? field.value.toString() : ''}
                                               placeholder={`Exercise ${exerciseIndex + 1} rest unit`}
                                             />
                                           </View>
@@ -506,7 +543,7 @@ export function ProgramNameInputScreen({ navigation }) {
                                               }}
                                               onChangeText={field.onChange(field.name)}
                                               onBlur={field.onBlur(field.name)}
-                                              value={field.value.toString()}
+                                              value={field.value ? field.value.toString() : ''}
                                               placeholder={`Exercise ${exerciseIndex + 1} min rpe`}
                                             />
                                           </View>
@@ -523,7 +560,7 @@ export function ProgramNameInputScreen({ navigation }) {
                                               }}
                                               onChangeText={field.onChange(field.name)}
                                               onBlur={field.onBlur(field.name)}
-                                              value={field.value.toString()}
+                                              value={field.value ? field.value.toString() : ''}
                                               placeholder={`Exercise ${exerciseIndex + 1} max rpe`}
                                             />
                                           </View>
@@ -542,7 +579,7 @@ export function ProgramNameInputScreen({ navigation }) {
                                               }}
                                               onChangeText={field.onChange(field.name)}
                                               onBlur={field.onBlur(field.name)}
-                                              value={field.value.toString()}
+                                              value={field.value ? field.value.toString() : ''}
                                               placeholder={`Exercise ${exerciseIndex + 1} rest value`}
                                               keyboardType='numeric'
                                             />
@@ -561,7 +598,7 @@ export function ProgramNameInputScreen({ navigation }) {
                                               }}
                                               onChangeText={field.onChange(field.name)}
                                               onBlur={field.onBlur(field.name)}
-                                              value={field.value.toString()}
+                                              value={field.value ? field.value.toString() : ''}
                                               placeholder={`Exercise ${exerciseIndex + 1} rest unit`}
                                             />
                                           </View>
@@ -580,7 +617,7 @@ export function ProgramNameInputScreen({ navigation }) {
                                               }}
                                               onChangeText={field.onChange(field.name)}
                                               onBlur={field.onBlur(field.name)}
-                                              value={field.value.toString()}
+                                              value={field.value ? field.value.toString() : ''}
                                               placeholder={`Exercise ${exerciseIndex + 1} notes`}
                                             />
                                           </View>
@@ -609,7 +646,48 @@ export function ProgramNameInputScreen({ navigation }) {
                     <Text>No weeks</Text>
                   )}
                   <View>
-                    <TouchableOpacity onPress={() => arrayHelpers.push('')}>
+                    <TouchableOpacity onPress={() => arrayHelpers.push(
+                      { 
+                        weekNum: '',
+                        dayDetails: [
+                          {
+                            name: '', 
+                            dayNum: '', 
+                            exercises: [
+                              {
+                                name: '',
+                                warmupSets: {
+                                  min: '',
+                                  max: '',
+                                },
+                                workingSets: {
+                                  min: '',
+                                  max: '',
+                                },
+                                reps: {
+                                  min: '',
+                                  max: '',
+                                  notes: '',
+                                },
+                                weight: {
+                                  value: '',
+                                  unit: '',
+                                },
+                                rpe: {
+                                  min: '',
+                                  max: '',
+                                },
+                                rest: {
+                                  value: '',
+                                  unit: ''
+                                },
+                                notes: ''
+                              },
+                            ]
+                          }
+                        ]
+                      }
+                    )}>
                       <Text>Add a week</Text>
                     </TouchableOpacity>
                     <TouchableOpacity onPress={handleSubmit} disabled={isSubmitting}>
