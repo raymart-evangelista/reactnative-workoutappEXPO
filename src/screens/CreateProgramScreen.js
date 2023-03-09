@@ -4,6 +4,72 @@ import { Formik, Form, Field, FieldArray, ErrorMessage } from "formik";
 
 import programsService from "../services/programs";
 
+
+const Days = ({ week, name }) => (
+  <FieldArray
+    name={name}
+    render={arrayHelpers => (
+      <View>
+        {week.dayDetails.length ? (
+          week.dayDetails.map((day, dayIndex) => (
+            <View key={dayIndex}>
+              <Field name={`${name}.${dayIndex}.dayNum`}
+              >
+                {({ field }) => (
+                  <View style={{ flexDirection: 'row' }}>
+                  <Text>Day number: {dayIndex + 1}</Text>
+                  <Button
+                    onPress={() => arrayHelpers.remove(day)}
+                    title="remove day"
+                  />
+                  {/* <TextInput 
+                    style={{
+                      borderWidth: 1
+                    }}
+                    onChangeText={field.onChange(field.name)}
+                    onBlur={field.onBlur(field.name)}
+                    value={field.value ? field.value.toString() : ''}
+                    placeholder={`Day ${dayIndex + 1}`}
+                  /> */}
+                </View>
+                )}
+              </Field>
+              <Field name={`${name}.${dayIndex}.name`}>
+                {({ field }) => (
+                  <View style={{ flexDirection: 'row' }}>
+                    <Text>Day name: </Text>
+                    <TextInput 
+                      style={{
+                        borderWidth: 1
+                      }}
+                      onChangeText={field.onChange(field.name)}
+                      onBlur={field.onBlur(field.name)}
+                      value={field.value ? field.value.toString() : ''}
+                      placeholder={`Day ${dayIndex + 1} Name`}
+                    />
+                  </View>
+                )}
+              </Field>
+            </View>
+          ))
+        ) : (
+          <View>
+            <Text>No days right now</Text>
+          </View>
+        )}
+        {week.dayDetails.length < 7 ? (
+          <TouchableOpacity onPress={() => arrayHelpers.push('')}>
+            <Text>Add a day</Text>
+          </TouchableOpacity>
+        ): (
+          <Text>Reached max days for week</Text>
+        )}
+      </View>
+    )}
+  >
+  </FieldArray>
+)
+
 export function ProgramNameInputScreen({ navigation }) {
   const [programName, setProgramName] = useState('')
 
@@ -317,26 +383,48 @@ export function ProgramNameInputScreen({ navigation }) {
                             </View>
                           )}
                         </Field>
+
+                        <Days
+                          name={`weekDetails.${weekIndex}.dayDetails`}
+                          week={week}
+                        />
+
+                        {/*  */}
+                        {/* <FieldArray
+                          name="dayDetails"
+                          render={arrayHelpers => (
+                            <View>
+                              {week.dayDetails && week.dayDetails.length > 0 ? (
+                                <View>
+                                  <Text>days are greater than 0</Text>
+                                </View>
+
+                              ): (
+                                <View>
+                                  <Text>days are less than 1</Text>
+                                </View>
+                              )}
+                              <TouchableOpacity onPress={() => arrayHelpers.push(
+                                {
+                                  name: '', 
+                                  dayNum: '', 
+                                  exercises: []
+                                }
+                              )}
+                              >
+                                <Text>Add a day</Text>
+                              </TouchableOpacity>
+                            </View>
+                          )}
+                        >
+                        </FieldArray> */}
+                        {/*  */}
+                        
                         {week.dayDetails && week.dayDetails.length > 0 ? (
                           week.dayDetails.map((day, dayIndex) => (
                             <View key={dayIndex}>
-                              <Field name={`weekDetails.${weekIndex}.dayDetails.${dayIndex}.name`}>
-                                {({ field }) => (
-                                  <View style={{ flexDirection: 'row' }}>
-                                    <Text>Day name: </Text>
-                                    <TextInput 
-                                      style={{
-                                        borderWidth: 1
-                                      }}
-                                      onChangeText={field.onChange(field.name)}
-                                      onBlur={field.onBlur(field.name)}
-                                      value={field.value ? field.value.toString() : ''}
-                                      placeholder={`Day ${dayIndex + 1} Name`}
-                                    />
-                                  </View>
-                                )}
-                              </Field>
-                              <Field name={`weekDetails.${weekIndex}.dayDetails.${dayIndex}.dayNum`}>
+
+                              {/* <Field name={`weekDetails.${weekIndex}.dayDetails.${dayIndex}.dayNum`}>
                                 {({ field }) => (
                                   <View style={{ flexDirection: 'row' }}>
                                     <Text>Day number of week: </Text>
@@ -351,7 +439,22 @@ export function ProgramNameInputScreen({ navigation }) {
                                     />
                                   </View>
                                 )}
-                              </Field>
+                              </Field> */}
+
+
+                              {/* <FieldArray
+                                name="exercises"
+                                render={arrayHelpers => (
+                                  <View>
+                                    weekDetails.${weekIndex}.dayDetails.${dayIndex}.exercises.map
+                                  </View>
+                                )}
+                              >
+
+                              </FieldArray> */}
+
+
+
                               {day.exercises && day.exercises.length > 0 ? (
                                 day.exercises.map((exercise, exerciseIndex) => (
                                   <View key={exerciseIndex}>
@@ -634,7 +737,7 @@ export function ProgramNameInputScreen({ navigation }) {
                         ) : (
                           <View></View>
                         )}
-                        {/*  */}
+
                         <TouchableOpacity
                           onPress={() => arrayHelpers.remove(weekIndex)}
                         >
@@ -650,41 +753,41 @@ export function ProgramNameInputScreen({ navigation }) {
                       { 
                         weekNum: '',
                         dayDetails: [
-                          {
-                            name: '', 
-                            dayNum: '', 
-                            exercises: [
-                              {
-                                name: '',
-                                warmupSets: {
-                                  min: '',
-                                  max: '',
-                                },
-                                workingSets: {
-                                  min: '',
-                                  max: '',
-                                },
-                                reps: {
-                                  min: '',
-                                  max: '',
-                                  notes: '',
-                                },
-                                weight: {
-                                  value: '',
-                                  unit: '',
-                                },
-                                rpe: {
-                                  min: '',
-                                  max: '',
-                                },
-                                rest: {
-                                  value: '',
-                                  unit: ''
-                                },
-                                notes: ''
-                              },
-                            ]
-                          }
+                          // {
+                          //   name: '', 
+                          //   dayNum: '', 
+                          //   exercises: [
+                          //     {
+                          //       name: '',
+                          //       warmupSets: {
+                          //         min: '',
+                          //         max: '',
+                          //       },
+                          //       workingSets: {
+                          //         min: '',
+                          //         max: '',
+                          //       },
+                          //       reps: {
+                          //         min: '',
+                          //         max: '',
+                          //         notes: '',
+                          //       },
+                          //       weight: {
+                          //         value: '',
+                          //         unit: '',
+                          //       },
+                          //       rpe: {
+                          //         min: '',
+                          //         max: '',
+                          //       },
+                          //       rest: {
+                          //         value: '',
+                          //         unit: ''
+                          //       },
+                          //       notes: ''
+                          //     },
+                          //   ]
+                          // }
                         ]
                       }
                     )}>
