@@ -4,8 +4,7 @@ import { Formik, Form, Field, FieldArray, ErrorMessage } from "formik";
 
 import programsService from "../services/programs";
 
-
-const Days = ({ week, name }) => (
+const Days = ({ weekIndex, week, name }) => (
   <FieldArray
     name={name}
     render={arrayHelpers => (
@@ -50,6 +49,12 @@ const Days = ({ week, name }) => (
                   </View>
                 )}
               </Field>
+              <Exercises
+                week={week}
+                // name={`dayDetails.${dayIndex}.exercises`}
+                name={`weekDetails.${weekIndex}.dayDetails.${dayIndex}.exercises`}
+                day={day}
+              />
             </View>
           ))
         ) : (
@@ -58,8 +63,22 @@ const Days = ({ week, name }) => (
           </View>
         )}
         {week.dayDetails.length < 7 ? (
-          <TouchableOpacity onPress={() => arrayHelpers.push('')}>
-            <Text>Add a day</Text>
+          <TouchableOpacity 
+            onPress={() => arrayHelpers.push(
+              {
+                name: '',
+                dayNum: '',
+                exercises: [],
+              }
+            )}
+            style={{
+              backgroundColor: 'green',
+              borderRadius: 5,
+              padding: 10,
+              alignItems: 'center',
+            }}
+          >
+            <Text style={{ color: 'white', fontWeight: 'bold' }}>Add a day</Text>
           </TouchableOpacity>
         ): (
           <Text>Reached max days for week</Text>
@@ -67,6 +86,90 @@ const Days = ({ week, name }) => (
       </View>
     )}
   >
+  </FieldArray>
+)
+
+const Exercises = ({ week, day, name }) => (
+  <FieldArray
+    name={`name.${exerciseIndex}.name`}
+    render={arrayHelpers => (
+      // <View>
+      //   {week.dayDetails.exercises.length ? (
+      //     week.dayDetails.exercises.map((exercise, exerciseIndex) => (
+      //       <View key={exerciseIndex}>
+      //         <Field name={`${name}.${exerciseIndex}.name`}
+      //         >
+      //           {({ field }) => (
+      //             <View style={{ flexDirection: 'row' }}>
+      //               <TextInput
+      //                 style={{ borderWidth: 1 }}
+      //                 onChangeText={field.onChange(field.name)}
+      //                 onBlur={field.onBlur(field.name)}
+      //                 value={field.value ? field.value.toString() : ''}
+      //                 placeholder={`Exercise ${exerciseIndex + 1} name`}
+      //               />
+      //               <Button 
+      //                 onPress={() => arrayHelpers.remove(exercise)}
+      //                 title="remove exercise"
+      //               />
+      //             </View>
+      //           )}
+      //         </Field>
+      //       </View>
+      //     ))
+      //   ) : (
+      //     <View>
+      //       <Text>No exercises currently</Text>
+      //     </View>
+      //   )}
+      //   <TouchableOpacity
+      //     onPress={() => arrayHelpers.push({
+      //       name: '',
+      //       warmupSets: {
+      //         min: '1',
+      //         max: '2',
+      //       }
+      //     })}
+      //     style={{
+      //       backgroundColor: 'green',
+      //       borderRadius: 5,
+      //       padding: 10,
+      //       alignItems: 'center',
+      //     }}
+      //   >
+      //     <Text style={{ color: 'white', fontWeight: 'bold' }}>Add a new exercise</Text>
+      //   </TouchableOpacity>
+      // </View>
+      <View>
+        {day.exercises.length ? (
+          day.exercises.map((exercise, exerciseIndex) => (
+            <View key={exerciseIndex}>
+              <Field name={`${name}.${exerciseIndex}.name`}>
+                {({ field }) => (
+                  <View style={{ flexDirection: 'row' }}>
+                    <TextInput
+                      style={{ borderWidth: 1 }}
+                      onChangeText={field.onChange(field.name)}
+                      onBlur={field.onBlur(field.name)}
+                      value={field.value ? field.value.toString() : ''}
+                      placeholder={`Exercise ${exerciseIndex + 1} name`}
+                    />
+                  </View>
+                )}
+              </Field>
+            </View>
+
+          ))
+        ): (
+          <View></View>
+        )}
+        <Text>{JSON.stringify(day.exercises.length)}</Text>
+        <Text>----</Text>
+        {/* <Text>{JSON.stringify(week)}</Text> */}
+      </View>
+    )}
+  >
+
   </FieldArray>
 )
 
@@ -127,6 +230,70 @@ export function ProgramNameInputScreen({ navigation }) {
                   unit: 'minutes',
                 },
                 notes: 'Focus on squeezing your shoulder blades together, drive your elbows down and back. Last set only do a dropset: perform 10-12 reps, drop the weight by ~50%, perform an additional 10-12 reps.',
+              },
+              {
+                name: 'CABLE PRESS',
+                warmupSets: {
+                  min: 1,
+                  max: 1,
+                },
+                workingSets: {
+                  min: 2,
+                  max: 2,
+                },
+                reps: {
+                  min: 10,
+                  max: 12,
+                  notes: 'drop set',
+                },
+                weight: {
+                  value: 145,
+                  unit: 'lbs',
+                },
+                rpe: {
+                  min: 9,
+                  max: 10,
+                },
+                rest: {
+                  value: 2,
+                  unit: 'minutes',
+                },
+                notes: 'push chest together.',
+              }
+            ]
+          },
+          {
+            name: 'LOWER BODY',
+            dayNum: 2,
+            exercises: [
+              {
+                name: 'SQUAT',
+                warmupSets: {
+                  min: 1,
+                  max: 1,
+                },
+                workingSets: {
+                  min: 2,
+                  max: 2,
+                },
+                reps: {
+                  min: 10,
+                  max: 12,
+                  notes: 'drop set',
+                },
+                weight: {
+                  value: 145,
+                  unit: 'lbs',
+                },
+                rpe: {
+                  min: 9,
+                  max: 10,
+                },
+                rest: {
+                  value: 2,
+                  unit: 'minutes',
+                },
+                notes: "don't use momentum"
               }
             ]
           }
@@ -740,8 +907,14 @@ export function ProgramNameInputScreen({ navigation }) {
 
                         <TouchableOpacity
                           onPress={() => arrayHelpers.remove(weekIndex)}
+                          style={{
+                            backgroundColor: 'red',
+                            borderRadius: 5,
+                            padding: 10,
+                            alignItems: 'center',
+                          }}
                         >
-                          <Text>Remove week</Text>
+                          <Text style={{ color: 'white', fontWeight: 'bold'}}>Remove week</Text>
                         </TouchableOpacity>
                       </View>
                     ))
@@ -749,7 +922,8 @@ export function ProgramNameInputScreen({ navigation }) {
                     <Text>No weeks</Text>
                   )}
                   <View>
-                    <TouchableOpacity onPress={() => arrayHelpers.push(
+                    <TouchableOpacity 
+                    onPress={() => arrayHelpers.push(
                       { 
                         weekNum: '',
                         dayDetails: [
@@ -790,8 +964,15 @@ export function ProgramNameInputScreen({ navigation }) {
                           // }
                         ]
                       }
-                    )}>
-                      <Text>Add a week</Text>
+                    )}
+                    style={{
+                      backgroundColor: 'purple',
+                      borderRadius: 5,
+                      padding: 10,
+                      alignItems: 'center'
+                    }}
+                    >
+                      <Text style={{ color: 'white', fontWeight: 'bold'}}>Add a week</Text>
                     </TouchableOpacity>
                     <TouchableOpacity onPress={handleSubmit} disabled={isSubmitting}>
                       <Text>Submit</Text>
