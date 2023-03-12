@@ -90,6 +90,7 @@ const Days = ({ weekIndex, week, name }) => (
 )
 
 const Exercises = ({ week, day, name }) => (
+  // TODO: make field after mapping
   <FieldArray
     name={`name.${exerciseIndex}.name`}
     render={arrayHelpers => (
