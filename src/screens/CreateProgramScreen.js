@@ -67,7 +67,7 @@ const Days = ({ weekIndex, week, name }) => (
             onPress={() => arrayHelpers.push(
               {
                 name: '',
-                dayNum: '',
+                dayNum: week.dayDetails.length + 1,
                 exercises: [],
               }
             )}
@@ -91,9 +91,9 @@ const Days = ({ weekIndex, week, name }) => (
 
 const Exercises = ({ week, day, name }) => (
   // TODO: make field after mapping
-  
+
   <FieldArray
-    name={`name.${exerciseIndex}.name`}
+    name={name}
     render={arrayHelpers => (
       // <View>
       //   {week.dayDetails.exercises.length ? (
@@ -165,6 +165,26 @@ const Exercises = ({ week, day, name }) => (
         ): (
           <View></View>
         )}
+        <TouchableOpacity
+          onPress={() => arrayHelpers.push(
+            {
+              name: 'ads',
+              warmupSets: {
+                min: '1',
+                max: '2',
+              }
+            }
+          )}
+          style={{
+            backgroundColor: 'green',
+            borderRadius: 5,
+            padding: 10,
+            alignItems: 'center',
+          }}
+        >
+          <Text style={{ color: 'white', fontWeight: 'bold' }}>Add a new exercise</Text>
+        </TouchableOpacity>
+        <Text>{JSON.stringify(day)}</Text>
         <Text>{JSON.stringify(day.exercises.length)}</Text>
         <Text>----</Text>
         {/* <Text>{JSON.stringify(week)}</Text> */}
@@ -927,7 +947,7 @@ export function ProgramNameInputScreen({ navigation }) {
                     <TouchableOpacity 
                     onPress={() => arrayHelpers.push(
                       { 
-                        weekNum: '',
+                        weekNum: values.weekDetails.length + 1,
                         dayDetails: [
                           // {
                           //   name: '', 
