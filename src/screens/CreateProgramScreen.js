@@ -9,6 +9,7 @@ const Days = ({ weekIndex, week, name }) => (
     name={name}
     render={arrayHelpers => (
       <View>
+        <Text>weekIndex: {weekIndex}</Text>
         {week.dayDetails.length ? (
           week.dayDetails.map((day, dayIndex) => (
             <View key={dayIndex}>
@@ -184,8 +185,13 @@ const Exercises = ({ week, day, name }) => (
         >
           <Text style={{ color: 'white', fontWeight: 'bold' }}>Add a new exercise</Text>
         </TouchableOpacity>
+        {/* <Text>{JSON.stringify(day)}</Text> */}
+        {/* <Text>{JSON.stringify(day.exercises.length)}</Text> */}
+        <Text>{name}</Text>
+        <Text>-- Week details --</Text>
+        <Text>{JSON.stringify(week)}</Text>
+        <Text>-- Day details --</Text>
         <Text>{JSON.stringify(day)}</Text>
-        <Text>{JSON.stringify(day.exercises.length)}</Text>
         <Text>----</Text>
         {/* <Text>{JSON.stringify(week)}</Text> */}
       </View>
@@ -558,6 +564,7 @@ export function ProgramNameInputScreen({ navigation }) {
                         <Field name={`weekDetails.${weekIndex}.weekNum`}>
                           {({ field }) => (
                             <View style={{ flexDirection: 'row' }}>
+                              <Text>{`weekDetails.${weekIndex}.weekNum`}</Text>
                               <Text>Week Number</Text>
                               <TextInput 
                                 style={{
@@ -572,8 +579,9 @@ export function ProgramNameInputScreen({ navigation }) {
                             </View>
                           )}
                         </Field>
-
+                        <Text>weekIndex: {weekIndex}</Text>
                         <Days
+                          weekIndex={weekIndex}
                           name={`weekDetails.${weekIndex}.dayDetails`}
                           week={week}
                         />
