@@ -680,6 +680,7 @@ export function ProgramNameInputScreen({ navigation }) {
           try {
             const createdProgram = await programsService.createProgram(values);
             alert('Program created successfully')
+            navigation.navigate('Home')
           } catch (error) {
             console.error(error)
             alert('An error occurred while creating the program')
