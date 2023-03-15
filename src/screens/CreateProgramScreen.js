@@ -745,7 +745,10 @@ export function ProgramNameInputScreen({ navigation }) {
                           week={week}
                         />
                         <TouchableOpacity
-                          onPress={() => arrayHelpers.remove(weekIndex)}
+                          onPress={() => {
+                            arrayHelpers.remove(weekIndex)
+                            setFieldValue('weeks', values.weekDetails.length - 1)
+                          }}
                           style={{
                             backgroundColor: 'red',
                             borderRadius: 5,
