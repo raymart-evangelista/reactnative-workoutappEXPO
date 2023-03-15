@@ -676,11 +676,20 @@ export function ProgramNameInputScreen({ navigation }) {
     <ScrollView style={{ margin: '2%' }}>
       <Formik
         initialValues={initialValues}
-        onSubmit={(values, { setSubmitting }) => {
-          setTimeout(() => {
-            alert(JSON.stringify(values, null, 2))
+        onSubmit={async (values, { setSubmitting }) => {
+          try {
+            const createdProgram = await programsService.createProgram(values);
+            alert('Program created successfully')
+          } catch (error) {
+            console.error(error)
+            alert('An error occurred while creating the program')
+          } finally {
             setSubmitting(false)
-          }, 400)
+          }
+          // setTimeout(() => {
+          //   alert(JSON.stringify(values, null, 2))
+          //   setSubmitting(false)
+          // }, 400)
         }}
       >
         {({ handlePush, handleRemove, handleChange, handleBlur, handleSubmit, setFieldValue, values, errors, touched, isSubmitting }) => (
@@ -782,8 +791,19 @@ export function ProgramNameInputScreen({ navigation }) {
                     >
                       <Text style={{ color: 'white', fontWeight: 'bold'}}>Add a week</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={handleSubmit} disabled={isSubmitting}>
-                      <Text>Submit</Text>
+                    <TouchableOpacity 
+                      onPress={handleSubmit} 
+                      disabled={isSubmitting}
+                      style={{
+                        backgroundColor: '#4CAF50',
+                        borderRadius: 5,
+                        paddingVertical: 10,
+                        paddingHorizontal: 20,
+                        alignSelf: 'center',
+                        marginTop: 20,
+                      }}
+                    >
+                      <Text style={{ color: 'white', fontSize: 16, fontWeight: 'bold' }}>Submit</Text>
                     </TouchableOpacity>
                   </View>
                 </View>
