@@ -96,53 +96,6 @@ const Exercises = ({ week, day, name }) => (
   <FieldArray
     name={name}
     render={arrayHelpers => (
-      // <View>
-      //   {week.dayDetails.exercises.length ? (
-      //     week.dayDetails.exercises.map((exercise, exerciseIndex) => (
-      //       <View key={exerciseIndex}>
-      //         <Field name={`${name}.${exerciseIndex}.name`}
-      //         >
-      //           {({ field }) => (
-      //             <View style={{ flexDirection: 'row' }}>
-      //               <TextInput
-      //                 style={{ borderWidth: 1 }}
-      //                 onChangeText={field.onChange(field.name)}
-      //                 onBlur={field.onBlur(field.name)}
-      //                 value={field.value ? field.value.toString() : ''}
-      //                 placeholder={`Exercise ${exerciseIndex + 1} name`}
-      //               />
-      //               <Button 
-      //                 onPress={() => arrayHelpers.remove(exercise)}
-      //                 title="remove exercise"
-      //               />
-      //             </View>
-      //           )}
-      //         </Field>
-      //       </View>
-      //     ))
-      //   ) : (
-      //     <View>
-      //       <Text>No exercises currently</Text>
-      //     </View>
-      //   )}
-      //   <TouchableOpacity
-      //     onPress={() => arrayHelpers.push({
-      //       name: '',
-      //       warmupSets: {
-      //         min: '1',
-      //         max: '2',
-      //       }
-      //     })}
-      //     style={{
-      //       backgroundColor: 'green',
-      //       borderRadius: 5,
-      //       padding: 10,
-      //       alignItems: 'center',
-      //     }}
-      //   >
-      //     <Text style={{ color: 'white', fontWeight: 'bold' }}>Add a new exercise</Text>
-      //   </TouchableOpacity>
-      // </View>
       <View>
         {day.exercises.length ? (
           day.exercises.map((exercise, exerciseIndex) => (
