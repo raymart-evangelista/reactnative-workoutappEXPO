@@ -6,9 +6,10 @@ const Program = require('../models/program')
 // post
 programsRouter.post('/', async (req, res) => {
   try {
-    const { name } = req.body
+    const { name, weekDetails } = req.body 
     const program = new Program({
-      name
+      name,
+      weekDetails
     })
 
     const programToSave = await program.save()
