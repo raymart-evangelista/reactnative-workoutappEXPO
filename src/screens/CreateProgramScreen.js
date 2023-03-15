@@ -724,8 +724,7 @@ export function ProgramNameInputScreen({ navigation }) {
                           {({ field }) => (
                             <View style={{ flexDirection: 'row' }}>
                               <Text>{`weekDetails.${weekIndex}.weekNum`}</Text>
-                              <Text>Week Number</Text>
-                              <TextInput 
+                              {/* <TextInput 
                                 style={{
                                   borderWidth: 1
                                 }}
@@ -734,7 +733,7 @@ export function ProgramNameInputScreen({ navigation }) {
                                 value={field.value ? field.value.toString() : ''}
                                 keyboardType='numeric'
                                 placeholder={`Week ${weekIndex + 1}`}
-                              />
+                              /> */}
                             </View>
                           )}
                         </Field>
