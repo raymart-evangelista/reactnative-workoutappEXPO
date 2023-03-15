@@ -49,6 +49,7 @@ const Days = ({ weekIndex, week, name }) => (
                     />
                   </View>
                 )}
+                
               </Field>
               <Exercises
                 week={week}
@@ -103,16 +104,273 @@ const Exercises = ({ week, day, name }) => (
               <Field name={`${name}.${exerciseIndex}.name`}>
                 {({ field }) => (
                   <View style={{ flexDirection: 'row' }}>
+                    <Text>Exercise name: </Text>
                     <TextInput
-                      style={{ borderWidth: 1 }}
+                      style={{
+                        borderWidth: 1
+                      }}
                       onChangeText={field.onChange(field.name)}
                       onBlur={field.onBlur(field.name)}
                       value={field.value ? field.value.toString() : ''}
-                      placeholder={`Exercise ${exerciseIndex + 1} name`}
+                      placeholder={`Exercise ${exerciseIndex + 1} Name`}
                     />
                   </View>
                 )}
               </Field>
+              <Text>warmup sets: </Text>
+              <View style={{ flexDirection: 'row' }}>
+                <Field name={`${name}.${exerciseIndex}.warmupSets.min`}>
+                  {({ field }) => (
+                    <View style={{ flexDirection: 'row' }}>
+                      <Text>min: </Text>
+                      <TextInput
+                        style={{
+                          borderWidth: 1
+                        }}
+                        onChangeText={field.onChange(field.name)}
+                        onBlur={field.onBlur(field.name)}
+                        value={field.value ? field.value.toString() : ''}
+                        placeholder={`Exercise ${exerciseIndex + 1} min warmup sets`}
+                      />
+                    </View>
+                  )}
+                </Field>
+                <Text> - </Text>
+                <Field name={`${name}.${exerciseIndex}.warmupSets.max`}>
+                  {({ field }) => (
+                    <View style={{ flexDirection: 'row' }}>
+                      <Text>max: </Text>
+                      <TextInput
+                        style={{
+                          borderWidth: 1
+                        }}
+                        onChangeText={field.onChange(field.name)}
+                        onBlur={field.onBlur(field.name)}
+                        value={field.value ? field.value.toString() : ''}
+                        placeholder={`Exercise ${exerciseIndex + 1} max warmup sets`}
+                      />
+                    </View>
+                  )}
+                </Field>
+              </View>
+              <Text>working sets: </Text>
+              <View style={{ flexDirection: 'row' }}>
+                <Field name={`${name}.${exerciseIndex}.workingSets.min`}>
+                  {({ field }) => (
+                    <View style={{ flexDirection: 'row' }}>
+                      <Text>min: </Text>
+                      <TextInput
+                        style={{
+                          borderWidth: 1
+                        }}
+                        onChangeText={field.onChange(field.name)}
+                        onBlur={field.onBlur(field.name)}
+                        value={field.value ? field.value.toString() : ''}
+                        placeholder={`Exercise ${exerciseIndex + 1} min working sets`}
+                      />
+                    </View>
+                  )}
+                </Field>
+                <Text> - </Text>
+                <Field name={`${name}.${exerciseIndex}.workingSets.max`}>
+                  {({ field }) => (
+                    <View style={{ flexDirection: 'row' }}>
+                      <Text>max: </Text>
+                      <TextInput
+                        style={{
+                          borderWidth: 1
+                        }}
+                        onChangeText={field.onChange(field.name)}
+                        onBlur={field.onBlur(field.name)}
+                        value={field.value ? field.value.toString() : ''}
+                        placeholder={`Exercise ${exerciseIndex + 1} max working sets`}
+                      />
+                    </View>
+                  )}
+                </Field>
+              </View>
+              <Text>reps: </Text>
+              <View style={{ flexDirection: 'row' }}>
+                <Field name={`${name}.${exerciseIndex}.reps.min`}>
+                  {({ field }) => (
+                    <View style={{ flexDirection: 'row' }}>
+                      <Text>min: </Text>
+                      <TextInput
+                        style={{
+                          borderWidth: 1
+                        }}
+                        onChangeText={field.onChange(field.name)}
+                        onBlur={field.onBlur(field.name)}
+                        value={field.value ? field.value.toString() : ''}
+                        placeholder={`Exercise ${exerciseIndex + 1} min reps`}
+                      />
+                    </View>
+                  )}
+                </Field>
+                <Text> - </Text>
+                <Field name={`${name}.${exerciseIndex}.reps.max`}>
+                  {({ field }) => (
+                    <View style={{ flexDirection: 'row' }}>
+                      <Text>max: </Text>
+                      <TextInput
+                        style={{
+                          borderWidth: 1
+                        }}
+                        onChangeText={field.onChange(field.name)}
+                        onBlur={field.onBlur(field.name)}
+                        value={field.value ? field.value.toString() : ''}
+                        placeholder={`Exercise ${exerciseIndex + 1} max reps`}
+                      />
+                    </View>
+                  )}
+                </Field>
+                <Field name={`${name}.${exerciseIndex}.reps.notes`}>
+                  {({ field }) => (
+                    <View style={{ flexDirection: 'row' }}>
+                      <Text>notes: </Text>
+                      <TextInput
+                        style={{
+                          borderWidth: 1
+                        }}
+                        onChangeText={field.onChange(field.name)}
+                        onBlur={field.onBlur(field.name)}
+                        value={field.value ? field.value.toString() : ''}
+                        placeholder={`Exercise ${exerciseIndex + 1} reps notes`}
+                      />
+                    </View>
+                  )}
+                </Field>
+              </View>
+              <Text>weight:</Text>
+              <View style={{ flexDirection: 'row' }}>
+                <Field name={`${name}.${exerciseIndex}.weight.value`}>
+                  {({ field }) => (
+                    <View style={{ flexDirection: 'row' }}>
+                      <Text>value: </Text>
+                      <TextInput
+                        style={{
+                          borderWidth: 1
+                        }}
+                        onChangeText={field.onChange(field.name)}
+                        onBlur={field.onBlur(field.name)}
+                        value={field.value ? field.value.toString() : ''}
+                        placeholder={`Exercise ${exerciseIndex + 1} rest value`}
+                      />
+                    </View>
+                  )}
+                </Field>
+                <Text> - </Text>
+                <Field name={`${name}.${exerciseIndex}.weight.unit`}>
+                  {({ field }) => (
+                    <View style={{ flexDirection: 'row' }}>
+                      <Text>unit: </Text>
+                      <TextInput
+                        style={{
+                          borderWidth: 1
+                        }}
+                        onChangeText={field.onChange(field.name)}
+                        onBlur={field.onBlur(field.name)}
+                        value={field.value ? field.value.toString() : ''}
+                        placeholder={`Exercise ${exerciseIndex + 1} rest unit`}
+                      />
+                    </View>
+                  )}
+                </Field>
+              </View>
+              <Text>rpe: </Text>
+              <View style={{ flexDirection: 'row' }}>
+                <Field name={`${name}.${exerciseIndex}.rpe.min`}>
+                  {({ field }) => (
+                    <View style={{ flexDirection: 'row' }}>
+                      <Text>min: </Text>
+                      <TextInput
+                        style={{
+                          borderWidth: 1
+                        }}
+                        onChangeText={field.onChange(field.name)}
+                        onBlur={field.onBlur(field.name)}
+                        value={field.value ? field.value.toString() : ''}
+                        placeholder={`Exercise ${exerciseIndex + 1} min rpe`}
+                      />
+                    </View>
+                  )}
+                </Field>
+                <Text> - </Text>
+                <Field name={`${name}.${exerciseIndex}.rpe.max`}>
+                  {({ field }) => (
+                    <View style={{ flexDirection: 'row' }}>
+                      <Text>max: </Text>
+                      <TextInput
+                        style={{
+                          borderWidth: 1
+                        }}
+                        onChangeText={field.onChange(field.name)}
+                        onBlur={field.onBlur(field.name)}
+                        value={field.value ? field.value.toString() : ''}
+                        placeholder={`Exercise ${exerciseIndex + 1} max rpe`}
+                      />
+                    </View>
+                  )}
+                </Field>
+              </View>
+              <Text>rest: </Text>
+              <View style={{ flexDirection: 'row' }}>
+                <Field name={`${name}.${exerciseIndex}.rest.value`}>
+                  {({ field }) => (
+                    <View style={{ flexDirection: 'row' }}>
+                      <Text>value: </Text>
+                      <TextInput
+                        style={{
+                          borderWidth: 1
+                        }}
+                        onChangeText={field.onChange(field.name)}
+                        onBlur={field.onBlur(field.name)}
+                        value={field.value ? field.value.toString() : ''}
+                        placeholder={`Exercise ${exerciseIndex + 1} rest value`}
+                        keyboardType='numeric'
+                      />
+                      
+                    </View>
+                  )}
+                </Field>
+                <Text> - </Text>
+                <Field name={`${name}.${exerciseIndex}.rest.unit`}>
+                  {({ field }) => (
+                    <View style={{ flexDirection: 'row' }}>
+                      <Text>unit: </Text>
+                      <TextInput
+                        style={{
+                          borderWidth: 1
+                        }}
+                        onChangeText={field.onChange(field.name)}
+                        onBlur={field.onBlur(field.name)}
+                        value={field.value ? field.value.toString() : ''}
+                        placeholder={`Exercise ${exerciseIndex + 1} rest unit`}
+                      />
+                    </View>
+                  )}
+                </Field>
+              </View>
+              <Text>notes: </Text>
+              <View style={{ flexDirection: 'row' }}>
+                <Field name={`${name}.${exerciseIndex}.notes`}>
+                  {({ field }) => (
+                    <View style={{ flexDirection: 'row' }}>
+                      <Text>value: </Text>
+                      <TextInput
+                        style={{
+                          borderWidth: 1
+                        }}
+                        onChangeText={field.onChange(field.name)}
+                        onBlur={field.onBlur(field.name)}
+                        value={field.value ? field.value.toString() : ''}
+                        placeholder={`Exercise ${exerciseIndex + 1} notes`}
+                      />
+                    </View>
+                  )}
+                </Field>
+              </View>
+              <Text>-------</Text>
             </View>
 
           ))
