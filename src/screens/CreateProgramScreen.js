@@ -400,15 +400,6 @@ const Exercises = ({ week, day, name }) => (
         >
           <Text style={{ color: 'white', fontWeight: 'bold' }}>Add a new exercise</Text>
         </TouchableOpacity>
-        {/* <Text>{JSON.stringify(day)}</Text> */}
-        {/* <Text>{JSON.stringify(day.exercises.length)}</Text> */}
-        <Text>{name}</Text>
-        <Text>-- Week details --</Text>
-        <Text>{JSON.stringify(week)}</Text>
-        <Text>-- Day details --</Text>
-        <Text>{JSON.stringify(day)}</Text>
-        <Text>----</Text>
-        {/* <Text>{JSON.stringify(week)}</Text> */}
       </View>
     )}
   >
@@ -671,6 +662,16 @@ export function ProgramNameInputScreen({ navigation }) {
     ]
   }
 
+  const [values, setValues] = useState(initialValues)
+
+  useEffect(() => {
+    setValues((prevValues) => ({
+      ...prevValues,
+      weeks: prevValues.weekDetails.length
+    }))
+  }, [values.weekDetails])
+
+
   return (
     <ScrollView style={{ margin: '2%' }}>
       <Formik
@@ -682,7 +683,7 @@ export function ProgramNameInputScreen({ navigation }) {
           }, 400)
         }}
       >
-        {({ handlePush, handleRemove, handleChange, handleBlur, handleSubmit, values, errors, touched, isSubmitting }) => (
+        {({ handlePush, handleRemove, handleChange, handleBlur, handleSubmit, setFieldValue, values, errors, touched, isSubmitting }) => (
           <View>
             <Field name="name">
               {({ field }) => (
@@ -697,10 +698,11 @@ export function ProgramNameInputScreen({ navigation }) {
                 </View>
               )}
             </Field>
-            <Field name="weeks">
+            {/* <Field name="weeks">
               {({ field }) => (
                 <View>
                   <Text>Weeks: {JSON.stringify(values.weekDetails.length)}</Text>
+                  <Text>Weeks: {values.weekDetails.length}</Text>
                   <TextInput
                     style={{ borderWidth: 1, padding: 5 }}
                     onChangeText={field.onChange(field.name)}
@@ -709,7 +711,8 @@ export function ProgramNameInputScreen({ navigation }) {
                   />
                 </View>
               )}
-            </Field>
+            </Field> */}
+            <Text>Weeks: {values.weeks}</Text>
             <FieldArray
               name="weekDetails"
               render={arrayHelpers => (
@@ -759,12 +762,15 @@ export function ProgramNameInputScreen({ navigation }) {
                   )}
                   <View>
                     <TouchableOpacity 
-                    onPress={() => arrayHelpers.push(
-                      { 
-                        weekNum: values.weekDetails.length + 1,
-                        dayDetails: []
-                      }
-                    )}
+                    onPress={() => {
+                      arrayHelpers.push(
+                        { 
+                          weekNum: values.weekDetails.length + 1,
+                          dayDetails: []
+                        }
+                      )
+                      setFieldValue('weeks', values.weekDetails.length + 1)
+                    }}
                     style={{
                       backgroundColor: 'purple',
                       borderRadius: 5,
@@ -801,12 +807,7 @@ export function ProgramNameInputScreen({ navigation }) {
                 <Text>Weeks less than 0</Text>
               </View>
             )}
-            <Text>{(JSON.stringify(wantedValues, null, 2))}</Text>
-            {/* {values.initialValues.weekDetails.map((week, index) =>(
-              <View key={index}>
-
-              </View>
-            ))} */}
+            {/* <Text>{(JSON.stringify(wantedValues, null, 2))}</Text> */}
           </View>
         )}
       </Formik>
