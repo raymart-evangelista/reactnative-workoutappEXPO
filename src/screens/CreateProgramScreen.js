@@ -17,11 +17,11 @@ const Days = ({ weekIndex, week, name }) => (
               >
                 {({ field }) => (
                   <View style={{ flexDirection: 'row' }}>
-                  <Text>Day number: {dayIndex + 1}</Text>
-                  <Button
-                    onPress={() => arrayHelpers.remove(day)}
-                    title="remove day"
-                  />
+                    <Text>Day number: {dayIndex + 1}</Text>
+                    <Button
+                      onPress={() => arrayHelpers.remove(day)}
+                      title="remove day"
+                    />
                   {/* <TextInput 
                     style={{
                       borderWidth: 1
@@ -101,6 +101,10 @@ const Exercises = ({ week, day, name }) => (
         {day.exercises.length ? (
           day.exercises.map((exercise, exerciseIndex) => (
             <View key={exerciseIndex}>
+              <Button
+                onPress={() => arrayHelpers.remove(exercise)}
+                title="remove exercise"
+              />
               <Field name={`${name}.${exerciseIndex}.name`}>
                 {({ field }) => (
                   <View style={{ flexDirection: 'row' }}>
