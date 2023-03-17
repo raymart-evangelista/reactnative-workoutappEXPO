@@ -92,7 +92,7 @@ const Days = ({ weekIndex, week, name }) => (
 )
 
 const Exercises = ({ week, day, name }) => (
-  // TODO: add fields
+  // TODO: add weight units + rest time units
 
   <FieldArray
     name={name}
@@ -406,6 +406,10 @@ const Exercises = ({ week, day, name }) => (
 
   </FieldArray>
 )
+
+const Weeks = ({}) => {
+  // TODO: move code into here
+}
 
 export function ProgramNameInputScreen({ navigation }) {
   const [programName, setProgramName] = useState('')
