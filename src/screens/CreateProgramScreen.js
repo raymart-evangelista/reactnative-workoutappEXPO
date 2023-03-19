@@ -92,8 +92,6 @@ const Days = ({ weekIndex, week, name }) => (
 )
 
 const Exercises = ({ week, day, name }) => (
-  // TODO: add weight units + rest time units
-
   <FieldArray
     name={name}
     render={arrayHelpers => (
@@ -277,6 +275,7 @@ const Exercises = ({ week, day, name }) => (
                         value={field.value ? field.value.toString() : ''}
                         placeholder={`Exercise ${exerciseIndex + 1} rest unit`}
                       />
+                      {/* add radio buttons */}
                     </View>
                   )}
                 </Field>
@@ -407,7 +406,7 @@ const Exercises = ({ week, day, name }) => (
   </FieldArray>
 )
 
-const Weeks = ({ values }) => (
+const Weeks = ({ values, setFieldValue }) => (
   // TODO: move code into here
   <FieldArray
   name="weekDetails"
@@ -778,6 +777,7 @@ export function ProgramNameInputScreen({ navigation }) {
             <Text>Weeks: {values.weeks}</Text>
             <Weeks
               values={values}
+              setFieldValue={setFieldValue}
             />
             {values.weekDetails && values.weekDetails.length > 0 ? (
               <View>
