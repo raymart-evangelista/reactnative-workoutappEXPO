@@ -407,9 +407,72 @@ const Exercises = ({ week, day, name }) => (
   </FieldArray>
 )
 
-const Weeks = ({}) => {
+const Weeks = ({ values }) => (
   // TODO: move code into here
-}
+  <FieldArray
+  name="weekDetails"
+  render={arrayHelpers => (
+    <View>
+        {values.weekDetails && values.weekDetails.length > 0 ? (
+          values.weekDetails.map((week, weekIndex) => (
+            <View key={weekIndex}>
+              <Field name={`weekDetails.${weekIndex}.weekNum`}>
+                {({ field }) => (
+                  <View style={{ flexDirection: 'row' }}>
+                    <Text>{`weekDetails.${weekIndex}.weekNum`}</Text>
+                  </View>
+                )}
+              </Field>
+              <Text>weekIndex: {weekIndex}</Text>
+              <Days
+                weekIndex={weekIndex}
+                name={`weekDetails.${weekIndex}.dayDetails`}
+                week={week}
+              />
+              <TouchableOpacity
+                onPress={() => {
+                  arrayHelpers.remove(weekIndex)
+                  setFieldValue('weeks', values.weekDetails.length - 1)
+                }}
+                style={{
+                  backgroundColor: 'red',
+                  borderRadius: 5,
+                  padding: 10,
+                  alignItems: 'center',
+                }}
+              >
+                <Text style={{ color: 'white', fontWeight: 'bold'}}>Remove week</Text>
+              </TouchableOpacity>
+            </View>
+          ))
+        ) : (
+          <Text>No weeks</Text>
+        )}
+        <View>
+          <TouchableOpacity 
+          onPress={() => {
+            arrayHelpers.push(
+              { 
+                weekNum: values.weekDetails.length + 1,
+                dayDetails: []
+              }
+            )
+            setFieldValue('weeks', values.weekDetails.length + 1)
+          }}
+          style={{
+            backgroundColor: 'purple',
+            borderRadius: 5,
+            padding: 10,
+            alignItems: 'center'
+          }}
+          >
+            <Text style={{ color: 'white', fontWeight: 'bold'}}>Add a week</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+    )}
+  />
+)
 
 export function ProgramNameInputScreen({ navigation }) {
   const [programName, setProgramName] = useState('')
@@ -712,129 +775,34 @@ export function ProgramNameInputScreen({ navigation }) {
                 </View>
               )}
             </Field>
-            {/* <Field name="weeks">
-              {({ field }) => (
-                <View>
-                  <Text>Weeks: {JSON.stringify(values.weekDetails.length)}</Text>
-                  <Text>Weeks: {values.weekDetails.length}</Text>
-                  <TextInput
-                    style={{ borderWidth: 1, padding: 5 }}
-                    onChangeText={field.onChange(field.name)}
-                    onBlur={field.onBlur(field.name)}
-                    value={field.value ? field.value.toString() : ''}
-                  />
-                </View>
-              )}
-            </Field> */}
             <Text>Weeks: {values.weeks}</Text>
-            <FieldArray
-              name="weekDetails"
-              render={arrayHelpers => (
-                <View>
-                  {values.weekDetails && values.weekDetails.length > 0 ? (
-                    values.weekDetails.map((week, weekIndex) => (
-                      <View key={weekIndex}>
-                        <Field name={`weekDetails.${weekIndex}.weekNum`}>
-                          {({ field }) => (
-                            <View style={{ flexDirection: 'row' }}>
-                              <Text>{`weekDetails.${weekIndex}.weekNum`}</Text>
-                              {/* <TextInput 
-                                style={{
-                                  borderWidth: 1
-                                }}
-                                onChangeText={field.onChange(field.name)}
-                                onBlur={field.onBlur(field.name)}
-                                value={field.value ? field.value.toString() : ''}
-                                keyboardType='numeric'
-                                placeholder={`Week ${weekIndex + 1}`}
-                              /> */}
-                            </View>
-                          )}
-                        </Field>
-                        <Text>weekIndex: {weekIndex}</Text>
-                        <Days
-                          weekIndex={weekIndex}
-                          name={`weekDetails.${weekIndex}.dayDetails`}
-                          week={week}
-                        />
-                        <TouchableOpacity
-                          onPress={() => {
-                            arrayHelpers.remove(weekIndex)
-                            setFieldValue('weeks', values.weekDetails.length - 1)
-                          }}
-                          style={{
-                            backgroundColor: 'red',
-                            borderRadius: 5,
-                            padding: 10,
-                            alignItems: 'center',
-                          }}
-                        >
-                          <Text style={{ color: 'white', fontWeight: 'bold'}}>Remove week</Text>
-                        </TouchableOpacity>
-                      </View>
-                    ))
-                  ) : (
-                    <Text>No weeks</Text>
-                  )}
-                  <View>
-                    <TouchableOpacity 
-                    onPress={() => {
-                      arrayHelpers.push(
-                        { 
-                          weekNum: values.weekDetails.length + 1,
-                          dayDetails: []
-                        }
-                      )
-                      setFieldValue('weeks', values.weekDetails.length + 1)
-                    }}
-                    style={{
-                      backgroundColor: 'purple',
-                      borderRadius: 5,
-                      padding: 10,
-                      alignItems: 'center'
-                    }}
-                    >
-                      <Text style={{ color: 'white', fontWeight: 'bold'}}>Add a week</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity 
-                      onPress={handleSubmit} 
-                      disabled={isSubmitting}
-                      style={{
-                        backgroundColor: '#4CAF50',
-                        borderRadius: 5,
-                        paddingVertical: 10,
-                        paddingHorizontal: 20,
-                        alignSelf: 'center',
-                        marginTop: 20,
-                      }}
-                    >
-                      <Text style={{ color: 'white', fontSize: 16, fontWeight: 'bold' }}>Submit</Text>
-                    </TouchableOpacity>
-                  </View>
-                </View>
-              )}
+            <Weeks
+              values={values}
             />
             {values.weekDetails && values.weekDetails.length > 0 ? (
               <View>
                 <Text>Weeks greater than 0. Amt of weeks: {JSON.stringify(values.weekDetails.length)}</Text>
-                <Text>{(JSON.stringify(values, null, 2))}</Text>
-
-
-                {/* <Text>{JSON.stringify(values.weekDetails.dayDetails.dayNum)}</Text> */}
-                {/* {values.weekDetails.dayDetails.map((day) => {
-                  <Text>{JSON.stringify(day.dayNum)}</Text>
-                })} */}
-
-                {/* {values.weekDetails.map((week) => {
-                  {alert(JSON.stringify(week.dayDetails))}
-                })} */}
+                {/* <Text>{(JSON.stringify(values, null, 2))}</Text> */}
               </View>
             ) : (
               <View>
                 <Text>Weeks less than 0</Text>
               </View>
             )}
-            {/* <Text>{(JSON.stringify(wantedValues, null, 2))}</Text> */}
+            <TouchableOpacity 
+            onPress={handleSubmit} 
+            disabled={isSubmitting}
+            style={{
+              backgroundColor: '#4CAF50',
+              borderRadius: 5,
+              paddingVertical: 10,
+              paddingHorizontal: 20,
+              alignSelf: 'center',
+              marginTop: 20,
+            }}
+          >
+            <Text style={{ color: 'white', fontSize: 16, fontWeight: 'bold' }}>Submit</Text>
+          </TouchableOpacity>
           </View>
         )}
       </Formik>
