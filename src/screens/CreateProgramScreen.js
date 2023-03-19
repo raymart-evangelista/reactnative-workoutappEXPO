@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react"
-import { Button, Modal, ScrollView, Text, TextInput, TouchableOpacity, View } from "react-native"
+import { Modal, ScrollView, Text, TouchableOpacity, View } from "react-native"
 import { Formik, Form, Field, FieldArray, ErrorMessage } from "formik";
+import { Button, Title, TextInput, RadioButton } from 'react-native-paper'
 
 import programsService from "../services/programs";
 
-const Days = ({ weekIndex, week, name }) => (
+const Days = ({ weekIndex, week, name, handleChange }) => (
   <FieldArray
     name={name}
     render={arrayHelpers => (
@@ -56,6 +57,7 @@ const Days = ({ weekIndex, week, name }) => (
                 // name={`dayDetails.${dayIndex}.exercises`}
                 name={`weekDetails.${weekIndex}.dayDetails.${dayIndex}.exercises`}
                 day={day}
+                handleChange={handleChange}
               />
             </View>
           ))
@@ -91,7 +93,7 @@ const Days = ({ weekIndex, week, name }) => (
   </FieldArray>
 )
 
-const Exercises = ({ week, day, name }) => (
+const Exercises = ({ week, day, name, handleChange }) => (
   <FieldArray
     name={name}
     render={arrayHelpers => (
@@ -276,6 +278,19 @@ const Exercises = ({ week, day, name }) => (
                         placeholder={`Exercise ${exerciseIndex + 1} rest unit`}
                       />
                       {/* add radio buttons */}
+                      <RadioButton.Group
+                        onValueChange={handleChange(field.name)}
+                        value={field.name}
+                      >
+                        <View>
+                          <Text>pounds</Text>
+                          <RadioButton value='lbs'></RadioButton>
+                        </View>
+                        <View>
+                          <Text>kilograms</Text>
+                          <RadioButton value='kgs'></RadioButton>
+                        </View>
+                      </RadioButton.Group>
                     </View>
                   )}
                 </Field>
@@ -406,7 +421,7 @@ const Exercises = ({ week, day, name }) => (
   </FieldArray>
 )
 
-const Weeks = ({ values, setFieldValue }) => (
+const Weeks = ({ values, setFieldValue, handleChange }) => (
   // TODO: move code into here
   <FieldArray
   name="weekDetails"
@@ -427,6 +442,7 @@ const Weeks = ({ values, setFieldValue }) => (
                 weekIndex={weekIndex}
                 name={`weekDetails.${weekIndex}.dayDetails`}
                 week={week}
+                handleChange={handleChange}
               />
               <TouchableOpacity
                 onPress={() => {
@@ -778,6 +794,7 @@ export function ProgramNameInputScreen({ navigation }) {
             <Weeks
               values={values}
               setFieldValue={setFieldValue}
+              handleChange={handleChange}
             />
             {values.weekDetails && values.weekDetails.length > 0 ? (
               <View>
