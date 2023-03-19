@@ -98,8 +98,7 @@ const Exercises = ({ week, day, name }) => {
     {
       id: '1',
       label: 'pounds',
-      value: 'lbs',
-      selected: true
+      value: 'lbs'
     },
     {
       id: '2',
@@ -108,8 +107,8 @@ const Exercises = ({ week, day, name }) => {
     }
   ])
 
-  const onPressWeightRadioButton = (radioButtonsArray, { field }) => {
-    console.log(field)
+  const onPressWeightRadioButton = (radioButtonsArray) => {
+    setWeightUnitButtons(radioButtonsArray)
   }
 
   return (
