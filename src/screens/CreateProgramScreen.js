@@ -277,7 +277,6 @@ const Exercises = ({ week, day, name, handleChange }) => (
                         value={field.value ? field.value.toString() : ''}
                         placeholder={`Exercise ${exerciseIndex + 1} rest unit`}
                       />
-                      {/* add radio buttons */}
                       <RadioButton.Group
                         onValueChange={handleChange(field.name)}
                         value={field.name}
@@ -347,7 +346,6 @@ const Exercises = ({ week, day, name, handleChange }) => (
                         placeholder={`Exercise ${exerciseIndex + 1} rest value`}
                         keyboardType='numeric'
                       />
-                      
                     </View>
                   )}
                 </Field>
@@ -365,6 +363,19 @@ const Exercises = ({ week, day, name, handleChange }) => (
                         value={field.value ? field.value.toString() : ''}
                         placeholder={`Exercise ${exerciseIndex + 1} rest unit`}
                       />
+                      <RadioButton.Group
+                        onValueChange={handleChange(field.name)}
+                        value={field.name}
+                      >
+                        <View>
+                          <Text>minutes</Text>
+                          <RadioButton value='minutes'></RadioButton>
+                        </View>
+                        <View>
+                          <Text>seconds</Text>
+                          <RadioButton value='seconds'></RadioButton>
+                        </View>
+                      </RadioButton.Group>
                     </View>
                   )}
                 </Field>
