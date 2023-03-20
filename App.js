@@ -13,83 +13,30 @@ import HomeScreen from './src/screens/HomeScreen';
 import { ProgramNameInputScreen, AddWeeksScreen, WeeksSelectableScreen, AddDaysScreen, DayDetailsScreen, ProgramDetailsScreen } from './src/screens/CreateProgramScreen';
 import { ExistingProgramsScreen, EditProgramScreen } from './src/screens/ExistingProgramScreen';
 
+import { Provider as PaperProvider } from 'react-native-paper'
+
 const Stack = createNativeStackNavigator()
 const Tab = createBottomTabNavigator()
 
-function CreatePostScreen({ navigation, route }) {
-  const [postText, setPostText] = useState('')
-
-  return (
-    <>
-      <TextInput 
-        multiline
-        placeholder="What's on your mind?"
-        style={{ height: 200, padding: 10, backgroundColor: 'white' }}
-        value={postText}
-        onChangeText={setPostText}
-      />
-      <Button
-        title="Done"
-        onPress={() => {
-          navigation.navigate({
-            name: 'Home',
-            params: { post: postText },
-            merge: true,
-          })
-        }}
-      />
-    </>
-  )
-}
-
-// function DetailsScreen({ route, navigation }) {
-//   const { itemId, otherParam } = route.params
-//   return (
-//     <View style={styles.basic}>
-//       <Text>Details Screen</Text>
-//       <Text>itemId: {JSON.stringify(itemId)}</Text>
-//       <Text>otherParam: {JSON.stringify(otherParam)}</Text>
-//       <Button
-//         title="Go to Details... again"
-//         onPress={() => 
-//           navigation.push('Details', {
-//             itemId: Math.floor(Math.random() * 100),
-//           })
-//         }
-//       />
-//       <Button 
-//         title="Go to Details... again.. at least try pressing the button.."
-//         onPress={() => navigation.navigate('Details')}
-//       />
-//       <Button title="Go to Home" onPress={() => navigation.navigate('Home')} />
-//       <Button title="Go back" onPress={() => navigation.goBack()} />
-//       <Button 
-//         title='Go back to first screen in stack'
-//         onPress={() => navigation.popToTop()}
-//       />
-//     </View>
-//   )
-// }
-
-
-
 export default function App() {
   return (
-    <NavigationContainer>
-      <Stack.Navigator initialRouteName='Home'>
-        <Stack.Screen name="LogIn" component={LogInScreen} />
-        <Stack.Screen name="SignUp" component={SignUpScreen} />
-        <Stack.Screen name="Home" component={HomeScreen} />
-        <Stack.Screen name="CreateProgram" component={ProgramNameInputScreen} />
-        <Stack.Screen name="AddWeeks" component={AddWeeksScreen} />
-        <Stack.Screen name="WeeksSelectable" component={WeeksSelectableScreen} />
-        <Stack.Screen name="AddDays" component={AddDaysScreen} />
-        <Stack.Screen name="DayDetails" component={DayDetailsScreen} />
-        <Stack.Screen name="Details" component={ProgramDetailsScreen} />
-        <Stack.Screen name="ExistingPrograms" component={ExistingProgramsScreen} />
-        <Stack.Screen name="EditProgram" component={EditProgramScreen} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <PaperProvider>
+      <NavigationContainer>
+        <Stack.Navigator initialRouteName='Home'>
+          <Stack.Screen name="LogIn" component={LogInScreen} />
+          <Stack.Screen name="SignUp" component={SignUpScreen} />
+          <Stack.Screen name="Home" component={HomeScreen} />
+          <Stack.Screen name="CreateProgram" component={ProgramNameInputScreen} />
+          <Stack.Screen name="AddWeeks" component={AddWeeksScreen} />
+          <Stack.Screen name="WeeksSelectable" component={WeeksSelectableScreen} />
+          <Stack.Screen name="AddDays" component={AddDaysScreen} />
+          <Stack.Screen name="DayDetails" component={DayDetailsScreen} />
+          <Stack.Screen name="Details" component={ProgramDetailsScreen} />
+          <Stack.Screen name="ExistingPrograms" component={ExistingProgramsScreen} />
+          <Stack.Screen name="EditProgram" component={EditProgramScreen} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </PaperProvider>
   );
 }
 
