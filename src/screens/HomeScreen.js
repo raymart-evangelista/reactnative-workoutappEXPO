@@ -3,7 +3,6 @@ import { Button, StyleSheet, Text, View } from 'react-native'
 import { defaultStyles } from '../styles/globalStyles';
 
 export default function HomeScreen({ navigation, route }) {
-  const [count, setCount] = useState(0)
   useEffect(() => {
     if (route.params?.post) {
 
