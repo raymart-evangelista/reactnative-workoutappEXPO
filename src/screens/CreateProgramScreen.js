@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
-import { Modal, ScrollView, Text, TouchableOpacity, View } from "react-native"
+import { Modal, ScrollView, TouchableOpacity, View, StyleSheet } from "react-native"
 import { Formik, Form, Field, FieldArray, ErrorMessage } from "formik";
-import { Button, Title, TextInput, RadioButton } from 'react-native-paper'
+import { Button, Text, Title, TextInput, RadioButton, List, useTheme } from 'react-native-paper'
 
 import programsService from "../services/programs";
 
@@ -281,13 +281,13 @@ const Exercises = ({ week, day, name, handleChange }) => (
                         onValueChange={handleChange(field.name)}
                         value={field.name}
                       >
-                        <View>
+                        <View style={styles.row}>
                           <Text>pounds</Text>
-                          <RadioButton value='lbs'></RadioButton>
+                          <RadioButton.Android value='lbs'/>
                         </View>
-                        <View>
+                        <View style={styles.row}>
                           <Text>kilograms</Text>
-                          <RadioButton value='kgs'></RadioButton>
+                          <RadioButton.Android value='kgs'/>
                         </View>
                       </RadioButton.Group>
                     </View>
@@ -367,13 +367,13 @@ const Exercises = ({ week, day, name, handleChange }) => (
                         onValueChange={handleChange(field.name)}
                         value={field.name}
                       >
-                        <View>
+                        <View style={styles.row}>
                           <Text>minutes</Text>
-                          <RadioButton value='minutes'></RadioButton>
+                          <RadioButton.Android value='minutes'/>
                         </View>
-                        <View>
+                        <View style={styles.row}>
                           <Text>seconds</Text>
-                          <RadioButton value='seconds'></RadioButton>
+                          <RadioButton.Android value='seconds'/>
                         </View>
                       </RadioButton.Group>
                     </View>
@@ -764,9 +764,47 @@ export function ProgramNameInputScreen({ navigation }) {
     }))
   }, [values.weekDetails])
 
+  const [value, setValue] = useState('first');
+  const [value2, setValue2] = useState('first');
+
+  const { colors, isV3 } = useTheme();
+  const TextComponent = isV3 ? Text : Paragraph;
 
   return (
     <ScrollView style={{ margin: '2%' }}>
+      <List.Section title="With RadioButton">
+        <RadioButton.Group
+          value={value}
+          onValueChange={(value) => setValue(value)}
+        >
+          <View style={styles.row}>
+            <TextComponent>First</TextComponent>
+            <RadioButton.Android value="first" />
+          </View>
+          <View style={styles.row}>
+            <TextComponent>Second</TextComponent>
+            <RadioButton.Android value="second" />
+          </View>
+          <View style={styles.row}>
+            <TextComponent>Third</TextComponent>
+            <RadioButton.Android value="third" />
+          </View>
+        </RadioButton.Group>
+      </List.Section>
+      <List.Section title="With RadioButton.Item">
+        <RadioButton.Group
+          value={value2}
+          onValueChange={(value) => setValue2(value)}
+        >
+          <RadioButton.Item label="First item" value="first" />
+          <RadioButton.Item label="Second item" value="second" />
+          <RadioButton.Item
+            label="Third item"
+            value="third"
+            labelStyle={{ color: colors?.primary }}
+          />
+        </RadioButton.Group>
+      </List.Section>
       <Formik
         initialValues={initialValues}
         onSubmit={async (values, { setSubmitting }) => {
@@ -1097,3 +1135,13 @@ export function ProgramDetailsScreen({ route }) {
     </View>
   )
 }
+
+const styles = StyleSheet.create({
+  row: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingVertical: 8,
+    paddingHorizontal: 16,
+  },
+});
