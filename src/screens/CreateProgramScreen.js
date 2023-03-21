@@ -359,7 +359,7 @@ const Exercises = ({ week, day, name, handleChange }) => {
                         />
                         <RadioButton.Group
                           onValueChange={handleChange(field.name)}
-                          value={field.name}
+                          value={field.value}
                         >
                           <View style={styles.row}>
                             <Text>minutes</Text>
