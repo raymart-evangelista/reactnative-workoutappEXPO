@@ -271,24 +271,7 @@ const Exercises = ({ week, day, name, handleChange }) => {
                   <Field name={`${name}.${exerciseIndex}.weight.unit`}>
                     {({ field }) => (
                       <View style={{ flexDirection: 'row' }}>
-                        {/* <Text>unit: </Text> */}
-                        {/* <TextInput
-                          style={{
-                            borderWidth: 1
-                          }}
-                          onChangeText={field.onChange(field.name)}
-                          onBlur={field.onBlur(field.name)}
-                          value={field.value ? field.value.toString() : ''}
-                          placeholder={`Exercise ${exerciseIndex + 1} rest unit`}
-                        /> */}
                         <RadioButton.Group
-                          // onValueChange={(weightUnits) => {
-                          //   setWeightUnits(weightUnits)
-                          //   field.onChange(weightUnits)
-                          //   console.log(weightUnits)
-                          //   console.log(field.value)
-                          // }}
-                          // value={weightUnits}
                           onValueChange={handleChange(field.name)}
                           value={field.value}
                         >
