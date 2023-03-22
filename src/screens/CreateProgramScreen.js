@@ -433,7 +433,7 @@ const Weeks = ({ values, setFieldValue, handleChange }) => (
   name="weekDetails"
   render={arrayHelpers => (
     <View>
-        <View style={{ alignItems: 'center', justifyContent: 'center' }}>
+        <View style={{ alignItems: 'flex-start', justifyContent: 'center' }}>
           <Button 
             icon='plus' 
             mode='elevated' 
@@ -454,34 +454,35 @@ const Weeks = ({ values, setFieldValue, handleChange }) => (
           values.weekDetails.map((week, weekIndex) => (
             
             <View key={weekIndex}>
-              <Field name={`weekDetails.${weekIndex}.weekNum`}>
-                {({ field }) => (
-                  <View style={{ flexDirection: 'row' }}>
-                    <Text>{`weekDetails.${weekIndex}.weekNum`}</Text>
-                  </View>
-                )}
-              </Field>
-              <Text>weekIndex: {weekIndex}</Text>
-              <Days
-                weekIndex={weekIndex}
-                name={`weekDetails.${weekIndex}.dayDetails`}
-                week={week}
-                handleChange={handleChange}
-              />
-              <TouchableOpacity
-                onPress={() => {
-                  arrayHelpers.remove(weekIndex)
-                  setFieldValue('weeks', values.weekDetails.length - 1)
-                }}
-                style={{
-                  backgroundColor: 'red',
-                  borderRadius: 5,
-                  padding: 10,
-                  alignItems: 'center',
-                }}
-              >
-                <Text style={{ color: 'white', fontWeight: 'bold'}}>Remove week</Text>
-              </TouchableOpacity>
+              <List.Section title={`Week ${weekIndex + 1}`}>
+                <View style={{ alignItems:'flex-start', justifyContent: 'center' }}>
+                <Button 
+                  icon='minus' 
+                  mode='elevated' 
+                  onPress={() => {
+                    arrayHelpers.remove(weekIndex)
+                    setFieldValue('weeks', values.weekDetails.length - 1)
+                  }}
+                  style={{ borderRadius: 5}}>
+                  remove week {weekIndex + 1}
+                </Button>
+                </View>
+                <Field name={`weekDetails.${weekIndex}.weekNum`}>
+                  {({ field }) => (
+                    <View style={{ flexDirection: 'row' }}>
+                      <Text>{`weekDetails.${weekIndex}.weekNum`}</Text>
+                    </View>
+                  )}
+                </Field>
+                <Text>weekIndex: {weekIndex}</Text>
+                <Days
+                  weekIndex={weekIndex}
+                  name={`weekDetails.${weekIndex}.dayDetails`}
+                  week={week}
+                  handleChange={handleChange}
+                />
+
+              </List.Section>
             </View>
           ))
         ) : (
