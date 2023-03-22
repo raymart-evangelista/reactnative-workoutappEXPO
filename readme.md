@@ -3,6 +3,7 @@
   - When days are added to the DB, going back to AddWeeksScreen and doing either will clear the days from the DB:
     - 1. Selecting a week
     - 2. Adding a new week
+  - When adding/removing a new week/day/exercise, the backend doesn't update the correct index
 
 - TODO
   - change design of screens handling data--instead pass params back to MAIN screen where the user can click SAVE
