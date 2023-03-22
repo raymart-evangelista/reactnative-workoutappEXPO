@@ -469,26 +469,22 @@ const Weeks = ({ values, setFieldValue, handleChange }) => (
         ) : (
           <Text>No weeks</Text>
         )}
-        <View>
-          <TouchableOpacity 
-          onPress={() => {
-            arrayHelpers.push(
-              { 
-                weekNum: values.weekDetails.length + 1,
-                dayDetails: []
-              }
-            )
-            setFieldValue('weeks', values.weekDetails.length + 1)
-          }}
-          style={{
-            backgroundColor: 'purple',
-            borderRadius: 5,
-            padding: 10,
-            alignItems: 'center'
-          }}
-          >
-            <Text style={{ color: 'white', fontWeight: 'bold'}}>Add a week</Text>
-          </TouchableOpacity>
+        <View style={{ alignItems: 'center', justifyContent: 'center' }}>
+          <Button 
+            icon='plus' 
+            mode='elevated' 
+            onPress={() => {
+              arrayHelpers.push(
+                { 
+                  weekNum: values.weekDetails.length + 1,
+                  dayDetails: []
+                }
+              )
+              setFieldValue('weeks', values.weekDetails.length + 1)
+            }}
+            style={{ borderRadius: 5}}>
+            add week
+          </Button>
         </View>
       </View>
     )}
@@ -767,39 +763,6 @@ export function ProgramNameInputScreen({ navigation }) {
 
   return (
     <ScrollView style={{ margin: '2%' }}>
-      <List.Section title="With RadioButton">
-        <RadioButton.Group
-          value={value}
-          onValueChange={(value) => setValue(value)}
-        >
-          <View style={styles.row}>
-            <TextComponent>First</TextComponent>
-            <RadioButton.Android value="first" />
-          </View>
-          <View style={styles.row}>
-            <TextComponent>Second</TextComponent>
-            <RadioButton.Android value="second" />
-          </View>
-          <View style={styles.row}>
-            <TextComponent>Third</TextComponent>
-            <RadioButton.Android value="third" />
-          </View>
-        </RadioButton.Group>
-      </List.Section>
-      <List.Section title="With RadioButton.Item">
-        <RadioButton.Group
-          value={value2}
-          onValueChange={(value) => setValue2(value)}
-        >
-          <RadioButton.Item label="First item" value="first" />
-          <RadioButton.Item label="Second item" value="second" />
-          <RadioButton.Item
-            label="Third item"
-            value="third"
-            labelStyle={{ color: colors?.primary }}
-          />
-        </RadioButton.Group>
-      </List.Section>
       <Formik
         initialValues={initialValues}
         onSubmit={async (values, { setSubmitting }) => {
