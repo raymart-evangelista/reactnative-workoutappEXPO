@@ -433,8 +433,26 @@ const Weeks = ({ values, setFieldValue, handleChange }) => (
   name="weekDetails"
   render={arrayHelpers => (
     <View>
+        <View style={{ alignItems: 'center', justifyContent: 'center' }}>
+          <Button 
+            icon='plus' 
+            mode='elevated' 
+            onPress={() => {
+              arrayHelpers.push(
+                { 
+                  weekNum: values.weekDetails.length + 1,
+                  dayDetails: []
+                }
+              )
+              setFieldValue('weeks', values.weekDetails.length + 1)
+            }}
+            style={{ borderRadius: 5}}>
+            add week
+          </Button>
+        </View>
         {values.weekDetails && values.weekDetails.length > 0 ? (
           values.weekDetails.map((week, weekIndex) => (
+            
             <View key={weekIndex}>
               <Field name={`weekDetails.${weekIndex}.weekNum`}>
                 {({ field }) => (
@@ -469,23 +487,7 @@ const Weeks = ({ values, setFieldValue, handleChange }) => (
         ) : (
           <Text>No weeks</Text>
         )}
-        <View style={{ alignItems: 'center', justifyContent: 'center' }}>
-          <Button 
-            icon='plus' 
-            mode='elevated' 
-            onPress={() => {
-              arrayHelpers.push(
-                { 
-                  weekNum: values.weekDetails.length + 1,
-                  dayDetails: []
-                }
-              )
-              setFieldValue('weeks', values.weekDetails.length + 1)
-            }}
-            style={{ borderRadius: 5}}>
-            add week
-          </Button>
-        </View>
+
       </View>
     )}
   />
