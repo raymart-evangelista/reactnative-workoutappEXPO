@@ -5,7 +5,7 @@ import { Button, Text, Title, TextInput, RadioButton, List, useTheme } from 'rea
 
 import programsService from "../services/programs";
 
-const Days = ({ weekIndex, week, name, handleChange }) => (
+const Days = ({ weekIndex, week, name, handleChange, setFieldValue }) => (
   <FieldArray
     name={name}
     render={arrayHelpers => (
@@ -24,10 +24,17 @@ const Days = ({ weekIndex, week, name, handleChange }) => (
                         icon='minus' 
                         mode='elevated' 
                         onPress={() => {
-                          arrayHelpers.remove(day)
+                          // arrayHelpers.remove(day)
+                          const newDayDetails = week.dayDetails.filter((day, index) => index !== dayIndex )
+                          const updatedDayDetails = newDayDetails.map((day, index) => ({
+                            ...day,
+                            dayNum: index + 1
+                          }))
+                          setFieldValue(`weekDetails.${weekIndex}.dayDetails`, updatedDayDetails)
                           // setFieldValue('weeks', values.weekDetails.length - 1)
                         }}
                         style={{ borderRadius: 5}}>
+                        {/* remove day ({dayIndex + 1}/7) */}
                         remove day {dayIndex + 1}
                       </Button>
                   </View>
@@ -66,42 +73,23 @@ const Days = ({ weekIndex, week, name, handleChange }) => (
           </View>
         )}
         {week.dayDetails && week.dayDetails.length < 7 ? (
-          // <TouchableOpacity 
-          //   onPress={() => arrayHelpers.push(
-          //     {
-          //       name: '',
-          //       dayNum: week.dayDetails.length + 1,
-          //       exercises: [],
-          //     }
-          //   )}
-          //   style={{
-          //     backgroundColor: 'green',
-          //     borderRadius: 5,
-          //     padding: 10,
-          //     alignItems: 'center',
-          //   }}
-          // >
-          //   <Text style={{ color: 'white', fontWeight: 'bold' }}>Add day to week {weekIndex + 1}</Text>
-          // </TouchableOpacity>
-          <View style={{ alignItems: 'flex-start', justifyContent: 'center' }}>
-            <Button
-              icon='plus'
-              mode='contained'
-              onPress={() => {
-                arrayHelpers.push(
-                  {
-                    name: '',
-                    dayNum: week.dayDetails.length + 1,
-                    exercises: [],
-                  }
-                )
-                console.log(week.dayDetails)
-              }}
-              style={{ borderRadius: 5 }}
-            >
-              add day to week {weekIndex + 1}
-            </Button>
-          </View>
+          <TouchableOpacity 
+            onPress={() => arrayHelpers.push(
+              {
+                name: '',
+                dayNum: week.dayDetails.length + 1,
+                exercises: [],
+              }
+            )}
+            style={{
+              backgroundColor: 'green',
+              borderRadius: 5,
+              padding: 10,
+              alignItems: 'center',
+            }}
+          >
+            <Text style={{ color: 'white', fontWeight: 'bold' }}>Add a day</Text>
+          </TouchableOpacity>
         ): (
           <Text>Reached max days for week</Text>
         )}
@@ -506,6 +494,7 @@ const Weeks = ({ values, setFieldValue, handleChange }) => (
                   name={`weekDetails.${weekIndex}.dayDetails`}
                   week={week}
                   handleChange={handleChange}
+                  setFieldValue={setFieldValue}
                 />
 
               </List.Section>
