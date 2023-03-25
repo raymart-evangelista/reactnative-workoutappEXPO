@@ -103,7 +103,7 @@ const Days = ({ weekIndex, week, name, handleChange, setFieldValue }) => (
             )}
             style={{ borderRadius: 5 }}
           >
-            Add day
+            add day
           </Button>
         </View>
         ): (
