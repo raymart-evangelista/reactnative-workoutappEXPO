@@ -438,27 +438,6 @@ const Weeks = ({ values, setFieldValue, handleChange }) => (
   name="weekDetails"
   render={arrayHelpers => (
     <View>
-        <View style={{ alignItems: 'flex-start', justifyContent: 'center' }}>
-          <Button 
-            icon='plus' 
-            mode='elevated' 
-            onPress={() => {
-              arrayHelpers.push(
-                { 
-                  weekNum: values.weekDetails.length + 1,
-                  dayDetails: []
-                }
-              )
-              // update weekNum for existing weeks
-              values.weekDetails.forEach((week, index) => {
-                setFieldValue(`weekDetails.${index}.weekNum`, index + 1)
-              })
-              setFieldValue('weeks', values.weekDetails.length + 1)
-            }}
-            style={{ borderRadius: 5}}>
-            add week
-          </Button>
-        </View>
         {values.weekDetails && values.weekDetails.length > 0 ? (
           values.weekDetails.map((week, weekIndex) => (
             <View key={weekIndex}>
@@ -503,7 +482,27 @@ const Weeks = ({ values, setFieldValue, handleChange }) => (
         ) : (
           <Text>No weeks</Text>
         )}
-
+        <View style={{ alignItems: 'flex-start', justifyContent: 'center' }}>
+          <Button 
+            icon='plus' 
+            mode='elevated' 
+            onPress={() => {
+              arrayHelpers.push(
+                { 
+                  weekNum: values.weekDetails.length + 1,
+                  dayDetails: []
+                }
+              )
+              // update weekNum for existing weeks
+              values.weekDetails.forEach((week, index) => {
+                setFieldValue(`weekDetails.${index}.weekNum`, index + 1)
+              })
+              setFieldValue('weeks', values.weekDetails.length + 1)
+            }}
+            style={{ borderRadius: 5}}>
+            add week
+          </Button>
+        </View>
       </View>
     )}
   />
