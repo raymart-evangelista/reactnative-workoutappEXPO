@@ -66,23 +66,42 @@ const Days = ({ weekIndex, week, name, handleChange }) => (
           </View>
         )}
         {week.dayDetails && week.dayDetails.length < 7 ? (
-          <TouchableOpacity 
-            onPress={() => arrayHelpers.push(
-              {
-                name: '',
-                dayNum: week.dayDetails.length + 1,
-                exercises: [],
-              }
-            )}
-            style={{
-              backgroundColor: 'green',
-              borderRadius: 5,
-              padding: 10,
-              alignItems: 'center',
-            }}
-          >
-            <Text style={{ color: 'white', fontWeight: 'bold' }}>Add a day</Text>
-          </TouchableOpacity>
+          // <TouchableOpacity 
+          //   onPress={() => arrayHelpers.push(
+          //     {
+          //       name: '',
+          //       dayNum: week.dayDetails.length + 1,
+          //       exercises: [],
+          //     }
+          //   )}
+          //   style={{
+          //     backgroundColor: 'green',
+          //     borderRadius: 5,
+          //     padding: 10,
+          //     alignItems: 'center',
+          //   }}
+          // >
+          //   <Text style={{ color: 'white', fontWeight: 'bold' }}>Add day to week {weekIndex + 1}</Text>
+          // </TouchableOpacity>
+          <View style={{ alignItems: 'flex-start', justifyContent: 'center' }}>
+            <Button
+              icon='plus'
+              mode='contained'
+              onPress={() => {
+                arrayHelpers.push(
+                  {
+                    name: '',
+                    dayNum: week.dayDetails.length + 1,
+                    exercises: [],
+                  }
+                )
+                console.log(week.dayDetails)
+              }}
+              style={{ borderRadius: 5 }}
+            >
+              add day to week {weekIndex + 1}
+            </Button>
+          </View>
         ): (
           <Text>Reached max days for week</Text>
         )}
