@@ -468,44 +468,48 @@ const Weeks = ({ values, setFieldValue, handleChange }) => (
     <View>
         {values.weekDetails && values.weekDetails.length > 0 ? (
           values.weekDetails.map((week, weekIndex) => (
-            <View key={weekIndex}>
-              <List.Section title={`Week ${weekIndex + 1}`}>
-                <View style={{ alignItems:'flex-start', justifyContent: 'center' }}>
-                <Button 
-                  icon='minus' 
-                  mode='elevated' 
-                  onPress={() => {
-                    const newWeekDetails = values.weekDetails.filter((week, index) => index !== weekIndex )
-                    const updatedWeekDetails = newWeekDetails.map((week, index) => ({
-                      ...week,
-                      weekNum: index + 1,
-                    }))
-                    const newValues = { ...values, weekDetails: updatedWeekDetails }
-                    setFieldValue('weekDetails', newValues.weekDetails)
-                    setFieldValue('weeks', values.weekDetails.length - 1)
-                  }}
-                  style={{ borderRadius: 5}}>
-                  remove week {weekIndex + 1}
-                </Button>
-                </View>
-                <Field name={`weekDetails.${weekIndex}.weekNum`}>
-                  {({ field }) => (
-                    <View style={{ flexDirection: 'row' }}>
-                      <Text>{`weekDetails.${weekIndex}.weekNum`}</Text>
+            <List.AccordionGroup>
+              <List.Section title='Weeks'>                
+                <View key={weekIndex}>
+                  <List.Accordion title={`Week ${weekIndex + 1}`} id={`${weekIndex}`}>
+                    <View style={{ alignItems:'flex-start', justifyContent: 'center' }}>
+                    <Button 
+                      icon='minus' 
+                      mode='elevated' 
+                      onPress={() => {
+                        const newWeekDetails = values.weekDetails.filter((week, index) => index !== weekIndex )
+                        const updatedWeekDetails = newWeekDetails.map((week, index) => ({
+                          ...week,
+                          weekNum: index + 1,
+                        }))
+                        const newValues = { ...values, weekDetails: updatedWeekDetails }
+                        setFieldValue('weekDetails', newValues.weekDetails)
+                        setFieldValue('weeks', values.weekDetails.length - 1)
+                      }}
+                      style={{ borderRadius: 5}}>
+                      remove week {weekIndex + 1}
+                    </Button>
                     </View>
-                  )}
-                </Field>
-                <Text>weekIndex: {weekIndex}</Text>
-                <Days
-                  weekIndex={weekIndex}
-                  name={`weekDetails.${weekIndex}.dayDetails`}
-                  week={week}
-                  handleChange={handleChange}
-                  setFieldValue={setFieldValue}
-                />
+                    <Field name={`weekDetails.${weekIndex}.weekNum`}>
+                      {({ field }) => (
+                        <View style={{ flexDirection: 'row' }}>
+                          <Text>{`weekDetails.${weekIndex}.weekNum`}</Text>
+                        </View>
+                      )}
+                    </Field>
+                    <Text>weekIndex: {weekIndex}</Text>
+                    <Days
+                      weekIndex={weekIndex}
+                      name={`weekDetails.${weekIndex}.dayDetails`}
+                      week={week}
+                      handleChange={handleChange}
+                      setFieldValue={setFieldValue}
+                    />
 
+                  </List.Accordion>
+                </View>
               </List.Section>
-            </View>
+            </List.AccordionGroup>
           ))
         ) : (
           <Text>No weeks</Text>
