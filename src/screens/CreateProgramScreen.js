@@ -471,7 +471,11 @@ const Weeks = ({ values, setFieldValue, handleChange }) => (
             <List.AccordionGroup>
               <List.Section title='Weeks'>                
                 <View key={weekIndex}>
-                  <List.Accordion title={`Week ${weekIndex + 1}`} id={`${weekIndex}`}>
+                  <List.Accordion 
+                    left={(props) => <List.Icon {...props} icon='calendar-week' /> }
+                    title={`Week ${weekIndex + 1}`} 
+                    id={`${weekIndex}`}
+                  >
                     <View style={{ alignItems:'flex-start', justifyContent: 'center' }}>
                     <Button 
                       icon='minus' 
