@@ -11,7 +11,7 @@ const Days = ({ weekIndex, week, name, handleChange }) => (
     render={arrayHelpers => (
       <View>
         <Text>weekIndex: {weekIndex}</Text>
-        {week.dayDetails.length ? (
+        {week.dayDetails && week.dayDetails.length ? (
           week.dayDetails.map((day, dayIndex) => (
             <View key={dayIndex}>
               <List.Section title={`Week ${weekIndex + 1}, Day ${dayIndex + 1}`}>           
@@ -65,7 +65,7 @@ const Days = ({ weekIndex, week, name, handleChange }) => (
             <Text>No days right now</Text>
           </View>
         )}
-        {week.dayDetails.length < 7 ? (
+        {week.dayDetails && week.dayDetails.length < 7 ? (
           <TouchableOpacity 
             onPress={() => arrayHelpers.push(
               {
@@ -427,7 +427,6 @@ const Exercises = ({ week, day, name, handleChange }) => {
 }
 
 const Weeks = ({ values, setFieldValue, handleChange }) => (
-  // TODO: move code into here
   <FieldArray
   name="weekDetails"
   render={arrayHelpers => (
@@ -443,6 +442,10 @@ const Weeks = ({ values, setFieldValue, handleChange }) => (
                   dayDetails: []
                 }
               )
+              // update weekNum for existing weeks
+              values.weekDetails.forEach((week, index) => {
+                setFieldValue(`weekDetails.${index}.weekNum`, index + 1)
+              })
               setFieldValue('weeks', values.weekDetails.length + 1)
             }}
             style={{ borderRadius: 5}}>
@@ -458,7 +461,13 @@ const Weeks = ({ values, setFieldValue, handleChange }) => (
                   icon='minus' 
                   mode='elevated' 
                   onPress={() => {
-                    arrayHelpers.remove(weekIndex)
+                    const newWeekDetails = values.weekDetails.filter((week, index) => index !== weekIndex )
+                    const updatedWeekDetails = newWeekDetails.map((week, index) => ({
+                      ...week,
+                      weekNum: index + 1,
+                    }))
+                    const newValues = { ...values, weekDetails: updatedWeekDetails }
+                    setFieldValue('weekDetails', newValues.weekDetails)
                     setFieldValue('weeks', values.weekDetails.length - 1)
                   }}
                   style={{ borderRadius: 5}}>
