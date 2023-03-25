@@ -10,7 +10,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons'
 import LogInScreen from './src/screens/LogInScreen';
 import SignUpScreen from './src/screens/SignUpScreen';
 import HomeScreen from './src/screens/HomeScreen';
-import { ProgramNameInputScreen, AddWeeksScreen, WeeksSelectableScreen, AddDaysScreen, DayDetailsScreen, ProgramDetailsScreen } from './src/screens/CreateProgramScreen';
+import { ProgramNameInputScreen } from './src/screens/CreateProgramScreen';
 import { ExistingProgramsScreen, EditProgramScreen } from './src/screens/ExistingProgramScreen';
 
 import { Provider as PaperProvider } from 'react-native-paper'
@@ -27,11 +27,6 @@ export default function App() {
           <Stack.Screen name="SignUp" component={SignUpScreen} />
           <Stack.Screen name="Home" component={HomeScreen} />
           <Stack.Screen name="CreateProgram" component={ProgramNameInputScreen} />
-          <Stack.Screen name="AddWeeks" component={AddWeeksScreen} />
-          <Stack.Screen name="WeeksSelectable" component={WeeksSelectableScreen} />
-          <Stack.Screen name="AddDays" component={AddDaysScreen} />
-          <Stack.Screen name="DayDetails" component={DayDetailsScreen} />
-          <Stack.Screen name="Details" component={ProgramDetailsScreen} />
           <Stack.Screen name="ExistingPrograms" component={ExistingProgramsScreen} />
           <Stack.Screen name="EditProgram" component={EditProgramScreen} />
         </Stack.Navigator>
