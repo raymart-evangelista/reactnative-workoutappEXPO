@@ -73,23 +73,6 @@ const Days = ({ weekIndex, week, name, handleChange, setFieldValue }) => (
           </View>
         )}
         {week.dayDetails && week.dayDetails.length < 7 ? (
-          // <TouchableOpacity 
-          //   onPress={() => arrayHelpers.push(
-          //     {
-          //       name: '',
-          //       dayNum: week.dayDetails.length + 1,
-          //       exercises: [],
-          //     }
-          //   )}
-          //   style={{
-          //     backgroundColor: 'green',
-          //     borderRadius: 5,
-          //     padding: 10,
-          //     alignItems: 'center',
-          //   }}
-          // >
-          //   <Text style={{ color: 'white', fontWeight: 'bold' }}>Add a day</Text>
-          // </TouchableOpacity>
         <View style={{ alignItems: 'flex-start', justifyContent: 'center' }}>
           <Button
             icon='plus'
