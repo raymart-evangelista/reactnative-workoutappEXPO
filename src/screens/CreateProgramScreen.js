@@ -458,85 +458,88 @@ const Exercises = ({ week, day, name, handleChange }) => {
   )
 }
 
-const Weeks = ({ values, setFieldValue, handleChange }) => (
-  <FieldArray
-  name="weekDetails"
-  render={arrayHelpers => (
-    <View>
-        {values.weekDetails && values.weekDetails.length > 0 ? (
-          values.weekDetails.map((week, weekIndex) => (
-            <List.AccordionGroup>           
-              <View key={weekIndex}>
-                <List.Accordion 
-                  left={(props) => <List.Icon {...props} icon='calendar-week' /> }
-                  title={`Week ${weekIndex + 1}`} 
-                  id={`${weekIndex}`}
-                >
-                  <View style={{ alignItems:'flex-start', justifyContent: 'center' }}>
-                  <Button 
-                    icon='minus' 
-                    mode='elevated' 
-                    onPress={() => {
-                      const newWeekDetails = values.weekDetails.filter((week, index) => index !== weekIndex )
-                      const updatedWeekDetails = newWeekDetails.map((week, index) => ({
-                        ...week,
-                        weekNum: index + 1,
-                      }))
-                      const newValues = { ...values, weekDetails: updatedWeekDetails }
-                      setFieldValue('weekDetails', newValues.weekDetails)
-                      setFieldValue('weeks', values.weekDetails.length - 1)
-                    }}
-                    style={{ borderRadius: 5}}>
-                    remove week {weekIndex + 1}
-                  </Button>
-                  </View>
-                  <Field name={`weekDetails.${weekIndex}.weekNum`}>
-                    {({ field }) => (
-                      <View style={{ flexDirection: 'row' }}>
-                        <Text>{`weekDetails.${weekIndex}.weekNum`}</Text>
-                      </View>
-                    )}
-                  </Field>
-                  <Days
-                    weekIndex={weekIndex}
-                    name={`weekDetails.${weekIndex}.dayDetails`}
-                    week={week}
-                    handleChange={handleChange}
-                    setFieldValue={setFieldValue}
-                  />
+const Weeks = ({ values, setFieldValue, handleChange }) => {
 
-                </List.Accordion>
-              </View>
-            </List.AccordionGroup>
-          ))
-        ) : (
-          <Text>No weeks</Text>
-        )}
-        <View style={{ alignItems: 'flex-start', justifyContent: 'center' }}>
-          <Button 
-            icon='plus' 
-            mode='elevated' 
-            onPress={() => {
-              arrayHelpers.push(
-                { 
-                  weekNum: values.weekDetails.length + 1,
-                  dayDetails: []
-                }
-              )
-              // update weekNum for existing weeks
-              values.weekDetails.forEach((week, index) => {
-                setFieldValue(`weekDetails.${index}.weekNum`, index + 1)
-              })
-              setFieldValue('weeks', values.weekDetails.length + 1)
-            }}
-            style={{ borderRadius: 5}}>
-            add week
-          </Button>
+  return (
+    <FieldArray
+    name="weekDetails"
+    render={arrayHelpers => (
+      <View>
+          {values.weekDetails && values.weekDetails.length > 0 ? (
+            values.weekDetails.map((week, weekIndex) => (
+              <List.AccordionGroup>           
+                <View key={weekIndex}>
+                  <List.Accordion 
+                    left={(props) => <List.Icon {...props} icon='calendar-week' /> }
+                    title={`Week ${weekIndex + 1}`} 
+                    id={`${weekIndex}`}
+                  >
+                    <View style={{ alignItems:'flex-start', justifyContent: 'center' }}>
+                    <Button 
+                      icon='minus' 
+                      mode='elevated' 
+                      onPress={() => {
+                        const newWeekDetails = values.weekDetails.filter((week, index) => index !== weekIndex )
+                        const updatedWeekDetails = newWeekDetails.map((week, index) => ({
+                          ...week,
+                          weekNum: index + 1,
+                        }))
+                        const newValues = { ...values, weekDetails: updatedWeekDetails }
+                        setFieldValue('weekDetails', newValues.weekDetails)
+                        setFieldValue('weeks', values.weekDetails.length - 1)
+                      }}
+                      style={{ borderRadius: 5}}>
+                      remove week {weekIndex + 1}
+                    </Button>
+                    </View>
+                    <Field name={`weekDetails.${weekIndex}.weekNum`}>
+                      {({ field }) => (
+                        <View style={{ flexDirection: 'row' }}>
+                          <Text>{`weekDetails.${weekIndex}.weekNum`}</Text>
+                        </View>
+                      )}
+                    </Field>
+                    <Days
+                      weekIndex={weekIndex}
+                      name={`weekDetails.${weekIndex}.dayDetails`}
+                      week={week}
+                      handleChange={handleChange}
+                      setFieldValue={setFieldValue}
+                    />
+  
+                  </List.Accordion>
+                </View>
+              </List.AccordionGroup>
+            ))
+          ) : (
+            <Text>No weeks</Text>
+          )}
+          <View style={{ alignItems: 'flex-start', justifyContent: 'center' }}>
+            <Button 
+              icon='plus' 
+              mode='elevated' 
+              onPress={() => {
+                arrayHelpers.push(
+                  { 
+                    weekNum: values.weekDetails.length + 1,
+                    dayDetails: []
+                  }
+                )
+                // update weekNum for existing weeks
+                values.weekDetails.forEach((week, index) => {
+                  setFieldValue(`weekDetails.${index}.weekNum`, index + 1)
+                })
+                setFieldValue('weeks', values.weekDetails.length + 1)
+              }}
+              style={{ borderRadius: 5}}>
+              add week
+            </Button>
+          </View>
         </View>
-      </View>
-    )}
-  />
-)
+      )}
+    />
+  )
+}
 
 export function ProgramNameInputScreen({ navigation }) {
   const [programName, setProgramName] = useState('')
