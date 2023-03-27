@@ -10,62 +10,68 @@ const Days = ({ weekIndex, week, name, handleChange, setFieldValue }) => (
     name={name}
     render={arrayHelpers => (
       <View>
-        <Text>weekIndex: {weekIndex}</Text>
         {week.dayDetails && week.dayDetails.length ? (
           week.dayDetails.map((day, dayIndex) => (
-            <View key={dayIndex}>
-              <List.Section title={`Week ${weekIndex + 1}, Day ${dayIndex + 1}`}>           
-                <Field name={`${name}.${dayIndex}.dayNum`}
-                >
-                  {({ field }) => (
-                    <View style={{ flexDirection: 'row' }}>
-                      {/* <Text>Day number: {dayIndex + 1}</Text> */}
-                      <Button 
-                        icon='minus' 
-                        mode='elevated' 
-                        onPress={() => {
-                          // arrayHelpers.remove(day)
-                          const newDayDetails = week.dayDetails.filter((day, index) => index !== dayIndex )
-                          const updatedDayDetails = newDayDetails.map((day, index) => ({
-                            ...day,
-                            dayNum: index + 1
-                          }))
-                          setFieldValue(`weekDetails.${weekIndex}.dayDetails`, updatedDayDetails)
-                          // setFieldValue('weeks', values.weekDetails.length - 1)
-                        }}
-                        style={{ borderRadius: 5}}>
-                        {/* remove day ({dayIndex + 1}/7) */}
-                        remove day {dayIndex + 1}
-                      </Button>
-                  </View>
-                  )}
-                </Field>
-                <Field name={`${name}.${dayIndex}.name`}>
-                  {({ field }) => (
-                    <View style={{ flexDirection: 'row' }}>
-                      <Text>Day name: </Text>
-                      <TextInput 
-                        style={{
-                          borderWidth: 1
-                        }}
-                        onChangeText={field.onChange(field.name)}
-                        onBlur={field.onBlur(field.name)}
-                        value={field.value ? field.value.toString() : ''}
-                        placeholder={`Day ${dayIndex + 1} Name`}
-                      />
+            <List.AccordionGroup>
+              <View key={dayIndex}>
+                <List.Accordion 
+                  left={(props) => <List.Icon {...props} icon='calendar-today' /> }
+                  title={`Week ${weekIndex + 1}, Day ${dayIndex + 1}`} 
+                  id={`${dayIndex}`}
+                >  
+                  <Field name={`${name}.${dayIndex}.dayNum`}
+                  >
+                    {({ field }) => (
+                      <View style={{ flexDirection: 'row' }}>
+                        {/* <Text>Day number: {dayIndex + 1}</Text> */}
+                        <Button 
+                          icon='minus' 
+                          mode='elevated' 
+                          onPress={() => {
+                            // arrayHelpers.remove(day)
+                            const newDayDetails = week.dayDetails.filter((day, index) => index !== dayIndex )
+                            const updatedDayDetails = newDayDetails.map((day, index) => ({
+                              ...day,
+                              dayNum: index + 1
+                            }))
+                            setFieldValue(`weekDetails.${weekIndex}.dayDetails`, updatedDayDetails)
+                            // setFieldValue('weeks', values.weekDetails.length - 1)
+                          }}
+                          style={{ borderRadius: 5}}>
+                          {/* remove day ({dayIndex + 1}/7) */}
+                          remove day {dayIndex + 1}
+                        </Button>
                     </View>
-                  )}
-                  
-                </Field>
-                <Exercises
-                  week={week}
-                  // name={`dayDetails.${dayIndex}.exercises`}
-                  name={`weekDetails.${weekIndex}.dayDetails.${dayIndex}.exercises`}
-                  day={day}
-                  handleChange={handleChange}
-                />
-              </List.Section>
-            </View>
+                    )}
+                  </Field>
+                  <Field name={`${name}.${dayIndex}.name`}>
+                    {({ field }) => (
+                      <View style={{ flexDirection: 'row' }}>
+                        <Text>Day name: </Text>
+                        <TextInput 
+                          style={{
+                            borderWidth: 1
+                          }}
+                          onChangeText={field.onChange(field.name)}
+                          onBlur={field.onBlur(field.name)}
+                          value={field.value ? field.value.toString() : ''}
+                          placeholder={`Day ${dayIndex + 1} Name`}
+                        />
+                      </View>
+                    )}
+                    
+                  </Field>
+                  <Exercises
+                    week={week}
+                    // name={`dayDetails.${dayIndex}.exercises`}
+                    name={`weekDetails.${weekIndex}.dayDetails.${dayIndex}.exercises`}
+                    day={day}
+                    handleChange={handleChange}
+                  />
+                </List.Accordion>
+              </View>
+            </List.AccordionGroup>
+
           ))
         ) : (
           <View>
@@ -90,7 +96,8 @@ const Days = ({ weekIndex, week, name, handleChange, setFieldValue }) => (
           </Button>
         </View>
         ): (
-          <Text>Reached max days for week</Text>
+          // <Text>Reached max days for week</Text>
+          <View></View>
         )}
       </View>
     )}
@@ -451,51 +458,48 @@ const Weeks = ({ values, setFieldValue, handleChange }) => (
     <View>
         {values.weekDetails && values.weekDetails.length > 0 ? (
           values.weekDetails.map((week, weekIndex) => (
-            <List.AccordionGroup>
-              <List.Section title='Weeks'>                
-                <View key={weekIndex}>
-                  <List.Accordion 
-                    left={(props) => <List.Icon {...props} icon='calendar-week' /> }
-                    title={`Week ${weekIndex + 1}`} 
-                    id={`${weekIndex}`}
-                  >
-                    <View style={{ alignItems:'flex-start', justifyContent: 'center' }}>
-                    <Button 
-                      icon='minus' 
-                      mode='elevated' 
-                      onPress={() => {
-                        const newWeekDetails = values.weekDetails.filter((week, index) => index !== weekIndex )
-                        const updatedWeekDetails = newWeekDetails.map((week, index) => ({
-                          ...week,
-                          weekNum: index + 1,
-                        }))
-                        const newValues = { ...values, weekDetails: updatedWeekDetails }
-                        setFieldValue('weekDetails', newValues.weekDetails)
-                        setFieldValue('weeks', values.weekDetails.length - 1)
-                      }}
-                      style={{ borderRadius: 5}}>
-                      remove week {weekIndex + 1}
-                    </Button>
-                    </View>
-                    <Field name={`weekDetails.${weekIndex}.weekNum`}>
-                      {({ field }) => (
-                        <View style={{ flexDirection: 'row' }}>
-                          <Text>{`weekDetails.${weekIndex}.weekNum`}</Text>
-                        </View>
-                      )}
-                    </Field>
-                    <Text>weekIndex: {weekIndex}</Text>
-                    <Days
-                      weekIndex={weekIndex}
-                      name={`weekDetails.${weekIndex}.dayDetails`}
-                      week={week}
-                      handleChange={handleChange}
-                      setFieldValue={setFieldValue}
-                    />
+            <List.AccordionGroup>           
+              <View key={weekIndex}>
+                <List.Accordion 
+                  left={(props) => <List.Icon {...props} icon='calendar-week' /> }
+                  title={`Week ${weekIndex + 1}`} 
+                  id={`${weekIndex}`}
+                >
+                  <View style={{ alignItems:'flex-start', justifyContent: 'center' }}>
+                  <Button 
+                    icon='minus' 
+                    mode='elevated' 
+                    onPress={() => {
+                      const newWeekDetails = values.weekDetails.filter((week, index) => index !== weekIndex )
+                      const updatedWeekDetails = newWeekDetails.map((week, index) => ({
+                        ...week,
+                        weekNum: index + 1,
+                      }))
+                      const newValues = { ...values, weekDetails: updatedWeekDetails }
+                      setFieldValue('weekDetails', newValues.weekDetails)
+                      setFieldValue('weeks', values.weekDetails.length - 1)
+                    }}
+                    style={{ borderRadius: 5}}>
+                    remove week {weekIndex + 1}
+                  </Button>
+                  </View>
+                  <Field name={`weekDetails.${weekIndex}.weekNum`}>
+                    {({ field }) => (
+                      <View style={{ flexDirection: 'row' }}>
+                        <Text>{`weekDetails.${weekIndex}.weekNum`}</Text>
+                      </View>
+                    )}
+                  </Field>
+                  <Days
+                    weekIndex={weekIndex}
+                    name={`weekDetails.${weekIndex}.dayDetails`}
+                    week={week}
+                    handleChange={handleChange}
+                    setFieldValue={setFieldValue}
+                  />
 
-                  </List.Accordion>
-                </View>
-              </List.Section>
+                </List.Accordion>
+              </View>
             </List.AccordionGroup>
           ))
         ) : (
