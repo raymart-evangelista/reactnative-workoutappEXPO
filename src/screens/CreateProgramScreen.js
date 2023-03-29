@@ -12,7 +12,7 @@ const Days = ({ weekIndex, week, name, handleChange, setFieldValue }) => (
       <View>
         {week.dayDetails && week.dayDetails.length ? (
           week.dayDetails.map((day, dayIndex) => (
-            <List.AccordionGroup>
+            <List.AccordionGroup key={dayIndex}>
               <View key={dayIndex}>
                 <List.Accordion 
                   left={(props) => <List.Icon {...props} icon='calendar-today' /> }
@@ -116,7 +116,7 @@ const Exercises = ({ week, day, name, handleChange }) => {
         <View>
           {day.exercises.length ? (
             day.exercises.map((exercise, exerciseIndex) => (
-              <List.AccordionGroup>
+              <List.AccordionGroup key={exerciseIndex}>
                 <View key={exerciseIndex}>
                   <List.Accordion 
                     left={(props) => <List.Icon {...props} icon='calendar-today' /> }
@@ -129,7 +129,7 @@ const Exercises = ({ week, day, name, handleChange }) => {
                       mode='contained'
                       onPress={() => arrayHelpers.remove(exercise)}
                       title="remove exercise"
-                      style={{ borderRadius: 5, backgroundColor: 'red' }}
+                      style={{ borderRadius: 5}}
                     >
                       remove exercise
                     </Button>
@@ -467,7 +467,7 @@ const Weeks = ({ values, setFieldValue, handleChange }) => {
       <View>
           {values.weekDetails && values.weekDetails.length > 0 ? (
             values.weekDetails.map((week, weekIndex) => (
-              <List.AccordionGroup>           
+              <List.AccordionGroup key={weekIndex}>           
                 <View key={weekIndex}>
                   <List.Accordion 
                     left={(props) => <List.Icon {...props} icon='calendar-week' /> }
