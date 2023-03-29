@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import { Modal, ScrollView, TouchableOpacity, View, StyleSheet } from "react-native"
 import { Formik, Form, Field, FieldArray, ErrorMessage } from "formik";
 import { Button, Text, Title, TextInput, RadioButton, List, useTheme } from 'react-native-paper'
+import * as Yup from 'yup';
 
 import programsService from "../services/programs";
 
@@ -811,10 +812,18 @@ export function ProgramNameInputScreen({ navigation }) {
   const { colors, isV3 } = useTheme();
   const TextComponent = isV3 ? Text : Paragraph;
 
+  const NameSchema = Yup.object().shape({
+    name: Yup.string()
+      .min(2, 'Too short!')
+      .max(25, 'Too long!')
+      .required('Required'),
+  })
+
   return (
     <ScrollView style={{ margin: '2%' }}>
       <Formik
         initialValues={initialValues}
+        validationSchema={NameSchema}
         onSubmit={async (values, { setSubmitting }) => {
           try {
             const createdProgram = await programsService.createProgram(values);
@@ -844,6 +853,11 @@ export function ProgramNameInputScreen({ navigation }) {
                     onBlur={field.onBlur(field.name)}
                     value={field.value}
                   />
+                  {errors.name && touched.name ? (
+                    <Text>{errors.name}</Text>
+                  ) : (
+                    <Text></Text>
+                  )}
                 </View>
               )}
             </Field>
