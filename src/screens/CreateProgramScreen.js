@@ -846,9 +846,10 @@ export function ProgramNameInputScreen({ navigation }) {
             <Field name="name">
               {({ field }) => (
                 <View>
-                  <Text>Program name: </Text>
                   <TextInput
-                    style={{ borderWidth: 1, padding: 5 }}
+                    // theme={{ roundness: 10 }}
+                    mode='outlined'
+                    label='program name'
                     onChangeText={field.onChange(field.name)}
                     onBlur={field.onBlur(field.name)}
                     value={field.value}
