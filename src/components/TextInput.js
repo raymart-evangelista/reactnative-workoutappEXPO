@@ -1,6 +1,6 @@
 import { TextInput as PaperTextInput } from 'react-native-paper'
 
-const TextInput = ({field, label, placeholder}) => {
+const TextInput = ({field, label, placeholder, style}) => {
   return (
     <PaperTextInput
       mode='outlined'
@@ -9,6 +9,7 @@ const TextInput = ({field, label, placeholder}) => {
       onBlur={field.onBlur(field.name)}
       value={field.value ? field.value.toString() : ''}
       placeholder={placeholder}
+      style={style}
     />
   )
 }
