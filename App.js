@@ -6,6 +6,7 @@ import { Appearance, Button, StyleSheet, Text, View, TextInput } from 'react-nat
 import { defaultStyles, lightStyles, darkStyles } from './src/styles/globalStyles'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons'
+import { DefaultTheme, Provider as PaperProvider } from 'react-native-paper'
 
 import LogInScreen from './src/screens/LogInScreen';
 import SignUpScreen from './src/screens/SignUpScreen';
@@ -13,14 +14,26 @@ import HomeScreen from './src/screens/HomeScreen';
 import { ProgramNameInputScreen } from './src/screens/CreateProgramScreen';
 import { ExistingProgramsScreen, EditProgramScreen } from './src/screens/ExistingProgramScreen';
 
-import { Provider as PaperProvider } from 'react-native-paper'
 
 const Stack = createNativeStackNavigator()
 const Tab = createBottomTabNavigator()
 
+const theme = {
+  ...DefaultTheme,
+  colors: {
+    ...DefaultTheme.colors,
+    primary: 'tomato',
+    accent: 'yellow',
+  },
+  animation: {
+    scale: 1.0
+  }
+}
+
+
 export default function App() {
   return (
-    <PaperProvider>
+    <PaperProvider theme={theme}>
       <NavigationContainer>
         <Stack.Navigator initialRouteName='Home'>
           <Stack.Screen name="LogIn" component={LogInScreen} />
@@ -34,11 +47,3 @@ export default function App() {
     </PaperProvider>
   );
 }
-
-const styles = StyleSheet.create({
-  basic: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center'
-  }
-}) 
