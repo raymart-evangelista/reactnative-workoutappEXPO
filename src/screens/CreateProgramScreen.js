@@ -188,16 +188,6 @@ const Exercises = ({ week, day, name, handleChange }) => {
                         <Field name={`${name}.${exerciseIndex}.workingSets.max`}>
                           {({ field }) => (
                             <View>
-                              {/* <Text>max: </Text>
-                              <TextInput
-                                style={{
-                                  borderWidth: 1
-                                }}
-                                onChangeText={field.onChange(field.name)}
-                                onBlur={field.onBlur(field.name)}
-                                value={field.value ? field.value.toString() : ''}
-                                placeholder={`Exercise ${exerciseIndex + 1} max working sets`}
-                              /> */}
                               <TextInput
                                 field={field}
                                 label={`max`}
