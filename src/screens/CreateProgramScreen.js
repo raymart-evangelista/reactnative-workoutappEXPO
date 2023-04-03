@@ -171,39 +171,41 @@ const Exercises = ({ week, day, name, handleChange }) => {
                     </View>
                     <Text>working sets: </Text>
                     <View style={{ flexDirection: 'row' }}>
-                      <Field name={`${name}.${exerciseIndex}.workingSets.min`}>
-                        {({ field }) => (
-                          <View>
-                            {/* <Text>min: </Text>
+                      <View style={{ flex: 1 }}>
+                        <Field name={`${name}.${exerciseIndex}.workingSets.min`}>
+                          {({ field }) => (
+                            <View>
                             <TextInput
-                              style={{
-                                borderWidth: 1
-                              }}
-                              onChangeText={field.onChange(field.name)}
-                              onBlur={field.onBlur(field.name)}
-                              value={field.value ? field.value.toString() : ''}
-                              placeholder={`Exercise ${exerciseIndex + 1} min working sets`}
-                            /> */}
+                              field={field}
+                              label={`min`}
+                            />
                           </View>
-                        )}
-                      </Field>
+                          )}
+                        </Field>
+                      </View>
                       <Text> - </Text>
-                      <Field name={`${name}.${exerciseIndex}.workingSets.max`}>
-                        {({ field }) => (
-                          <View>
-                            {/* <Text>max: </Text>
-                            <TextInput
-                              style={{
-                                borderWidth: 1
-                              }}
-                              onChangeText={field.onChange(field.name)}
-                              onBlur={field.onBlur(field.name)}
-                              value={field.value ? field.value.toString() : ''}
-                              placeholder={`Exercise ${exerciseIndex + 1} max working sets`}
-                            /> */}
-                          </View>
-                        )}
-                      </Field>
+                      <View style={{ flex: 1 }}>
+                        <Field name={`${name}.${exerciseIndex}.workingSets.max`}>
+                          {({ field }) => (
+                            <View>
+                              {/* <Text>max: </Text>
+                              <TextInput
+                                style={{
+                                  borderWidth: 1
+                                }}
+                                onChangeText={field.onChange(field.name)}
+                                onBlur={field.onBlur(field.name)}
+                                value={field.value ? field.value.toString() : ''}
+                                placeholder={`Exercise ${exerciseIndex + 1} max working sets`}
+                              /> */}
+                              <TextInput
+                                field={field}
+                                label={`max`}
+                              />
+                            </View>
+                          )}
+                        </Field>
+                      </View>
                     </View>
                     <Text>reps: </Text>
                     <View>
