@@ -198,53 +198,41 @@ const Exercises = ({ week, day, name, handleChange }) => {
                       </View>
                     </View>
                     <Text>reps: </Text>
-                    <View>
-                      <Field name={`${name}.${exerciseIndex}.reps.min`}>
-                        {({ field }) => (
-                          <View>
-                            {/* <Text>min: </Text>
-                            <TextInput
-                              style={{
-                                borderWidth: 1
-                              }}
-                              onChangeText={field.onChange(field.name)}
-                              onBlur={field.onBlur(field.name)}
-                              value={field.value ? field.value.toString() : ''}
-                              placeholder={`Exercise ${exerciseIndex + 1} min reps`}
-                            /> */}
-                          </View>
-                        )}
-                      </Field>
+                    <View style={{ flexDirection: 'row' }}>
+                      <View style={{ flex: 1 }}>
+                        <Field name={`${name}.${exerciseIndex}.reps.min`}>
+                          {({ field }) => (
+                            <View>
+                              <TextInput
+                                field={field}
+                                label={`min`}
+                              />
+                            </View>
+                          )}
+                        </Field>
+                      </View>
                       <Text> - </Text>
-                      <Field name={`${name}.${exerciseIndex}.reps.max`}>
-                        {({ field }) => (
-                          <View>
-                            {/* <Text>max: </Text>
-                            <TextInput
-                              style={{
-                                borderWidth: 1
-                              }}
-                              onChangeText={field.onChange(field.name)}
-                              onBlur={field.onBlur(field.name)}
-                              value={field.value ? field.value.toString() : ''}
-                              placeholder={`Exercise ${exerciseIndex + 1} max reps`}
-                            /> */}
-                          </View>
-                        )}
-                      </Field>
+                      <View style={{ flex: 1 }}>
+                        <Field name={`${name}.${exerciseIndex}.reps.max`}>
+                          {({ field }) => (
+                            <View>
+                              <TextInput
+                                field={field}
+                                label={`min`}
+                              />
+                            </View>
+                          )}
+                        </Field>
+                      </View>
+                    </View>
+                    <View style={{ flex: 1 }}>
                       <Field name={`${name}.${exerciseIndex}.reps.notes`}>
                         {({ field }) => (
                           <View>
-                            {/* <Text>notes: </Text>
                             <TextInput
-                              style={{
-                                borderWidth: 1
-                              }}
-                              onChangeText={field.onChange(field.name)}
-                              onBlur={field.onBlur(field.name)}
-                              value={field.value ? field.value.toString() : ''}
-                              placeholder={`Exercise ${exerciseIndex + 1} reps notes`}
-                            /> */}
+                              field={field}
+                              label={`notes`}
+                            />
                           </View>
                         )}
                       </Field>
@@ -254,16 +242,10 @@ const Exercises = ({ week, day, name, handleChange }) => {
                       <Field name={`${name}.${exerciseIndex}.weight.value`}>
                         {({ field }) => (
                           <View>
-                            {/* <Text>value: </Text>
                             <TextInput
-                              style={{
-                                borderWidth: 1
-                              }}
-                              onChangeText={field.onChange(field.name)}
-                              onBlur={field.onBlur(field.name)}
-                              value={field.value ? field.value.toString() : ''}
-                              placeholder={`Exercise ${exerciseIndex + 1} rest value`}
-                            /> */}
+                              field={field}
+                              label={`number`}
+                            />
                           </View>
                         )}
                       </Field>
