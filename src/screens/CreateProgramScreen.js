@@ -254,27 +254,34 @@ const Exercises = ({ week, day, name, handleChange }) => {
                       </View>
                       <View style={{ flex: 1 }}>
                         <Field name={`${name}.${exerciseIndex}.weight.unit`}>
-                          {({ field }) => (
+                          {({ field, form }) => (
                             <View>
-                              <RadioButton.Group
-                                onValueChange={handleChange(field.name)}
-                                value={field.value}
-                              >
-                                <View style={{ flexDirection: 'row'}}>
-                                  <Text>pounds</Text>
-                                  <RadioButton.Android value='lbs' status={field.value === 'lbs' ? 'checked' : 'unchecked'}/>
-                                </View>
-                                <View style={{ flexDirection:'row' }}>
-                                  <Text>kilograms</Text>
-                                  <RadioButton.Android value='kgs' status={field.value === 'kgs' ? 'checked' : 'unchecked'}/>
-                                </View>
-                              </RadioButton.Group>
+                              <SegmentedButtonWithSelectedCheck
+                                field={field}
+                                handleChange={handleChange}
+                                // handleChange={(value) => form.setFieldValue(field.name, value)}
+                              />
                             </View>
+                            // <View>
+                            //   <RadioButton.Group
+                            //     onValueChange={handleChange(field.name)}
+                            //     value={field.value}
+                            //   >
+                            //     <View style={{ flexDirection: 'row'}}>
+                            //       <Text>pounds</Text>
+                            //       <RadioButton.Android value='lbs' status={field.value === 'lbs' ? 'checked' : 'unchecked'}/>
+                            //     </View>
+                            //     <View style={{ flexDirection:'row' }}>
+                            //       <Text>kilograms</Text>
+                            //       <RadioButton.Android value='kgs' status={field.value === 'kgs' ? 'checked' : 'unchecked'}/>
+                            //     </View>
+                            //   </RadioButton.Group>
+                            // </View>
                           )}
                         </Field>
                       </View>
                     </View>
-                    <SegmentedButtonWithSelectedCheck/>
+                    {/* <SegmentedButtonWithSelectedCheck/> */}
                     <Text>rpe: </Text>
                     <View style={{ flexDirection: 'row' }}>
                       <Field name={`${name}.${exerciseIndex}.rpe.min`}>

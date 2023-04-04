@@ -2,14 +2,16 @@ import { useState } from 'react';
 import { StyleSheet } from 'react-native';
 import { List, SegmentedButtons } from 'react-native-paper';
 
-const SegmentedButtonWithSelectedCheck = () => {
-  const [value, setValue] = useState('');
+const SegmentedButtonWithSelectedCheck = ({ field, handleChange }) => {
+  // const [value, setValue] = useState('');
+  console.log(field)
 
   return (
     // <List.Section title={`Segmented Button - show selected check`}>
       <SegmentedButtons
-        onValueChange={setValue}
-        value={value}
+        onValueChange={handleChange(field.name)}
+        // onValueChange='yes'
+        value={field.value ? field.value.toString() : ''}
         style={styles.group}
         buttons={[
           {
