@@ -254,16 +254,16 @@ const Exercises = ({ week, day, name, handleChange }) => {
                       <View style={{ flex: 1 }}>
                         <Field name={`${name}.${exerciseIndex}.weight.unit`}>
                           {({ field }) => (
-                            <View style={{ flexDirection: 'row' }}>
+                            <View>
                               <RadioButton.Group
                                 onValueChange={handleChange(field.name)}
                                 value={field.value}
                               >
-                                <View style={styles.row}>
+                                <View style={{ flexDirection: 'row'}}>
                                   <Text>pounds</Text>
                                   <RadioButton.Android value='lbs' status={field.value === 'lbs' ? 'checked' : 'unchecked'}/>
                                 </View>
-                                <View style={styles.row}>
+                                <View style={{ flexDirection:'row' }}>
                                   <Text>kilograms</Text>
                                   <RadioButton.Android value='kgs' status={field.value === 'kgs' ? 'checked' : 'unchecked'}/>
                                 </View>
