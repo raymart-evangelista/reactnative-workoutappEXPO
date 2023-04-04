@@ -5,6 +5,7 @@ import { Button, Text, Title, RadioButton, List, useTheme } from 'react-native-p
 import * as Yup from 'yup';
 
 import TextInput from "../components/TextInput";
+import SegmentedButtonWithSelectedCheck from "../components/SegmentedButtonWithSelectedCheck";
 
 import programsService from "../services/programs";
 
@@ -273,6 +274,7 @@ const Exercises = ({ week, day, name, handleChange }) => {
                         </Field>
                       </View>
                     </View>
+                    <SegmentedButtonWithSelectedCheck/>
                     <Text>rpe: </Text>
                     <View style={{ flexDirection: 'row' }}>
                       <Field name={`${name}.${exerciseIndex}.rpe.min`}>
