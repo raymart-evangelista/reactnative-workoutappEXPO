@@ -260,29 +260,16 @@ const Exercises = ({ week, day, name, handleChange }) => {
                               <SegmentedButtonWithSelectedCheck
                                 field={field}
                                 handleChange={handleChange}
-                                // handleChange={(value) => form.setFieldValue(field.name, value)}
+                                valueOptions={[
+                                  { value: 'pounds', label: 'Pounds', icon: 'weight-pound', showSelectedCheck: true },
+                                  { value: 'kilograms', label: 'Kilograms', icon: 'weight-kilogram', showSelectedCheck: true }
+                                ]}
                               />
                             </View>
-                            // <View>
-                            //   <RadioButton.Group
-                            //     onValueChange={handleChange(field.name)}
-                            //     value={field.value}
-                            //   >
-                            //     <View style={{ flexDirection: 'row'}}>
-                            //       <Text>pounds</Text>
-                            //       <RadioButton.Android value='lbs' status={field.value === 'lbs' ? 'checked' : 'unchecked'}/>
-                            //     </View>
-                            //     <View style={{ flexDirection:'row' }}>
-                            //       <Text>kilograms</Text>
-                            //       <RadioButton.Android value='kgs' status={field.value === 'kgs' ? 'checked' : 'unchecked'}/>
-                            //     </View>
-                            //   </RadioButton.Group>
-                            // </View>
                           )}
                         </Field>
                       </View>
                     </View>
-                    {/* <SegmentedButtonWithSelectedCheck/> */}
                     <Text>rpe: </Text>
                     <View style={{ flexDirection: 'row' }}>
                       <View style={{ flex: 1 }}>
@@ -325,36 +312,45 @@ const Exercises = ({ week, day, name, handleChange }) => {
                           )}
                         </Field>
                       </View>
-                      <Text> - </Text>
-                      <Field name={`${name}.${exerciseIndex}.rest.unit`}>
-                        {({ field }) => (
-                          <View>
-                            {/* <Text>unit: </Text>
-                            <TextInput
-                              style={{
-                                borderWidth: 1
-                              }}
-                              onChangeText={field.onChange(field.name)}
-                              onBlur={field.onBlur(field.name)}
-                              value={field.value ? field.value.toString() : ''}
-                              placeholder={`Exercise ${exerciseIndex + 1} rest unit`}
-                            /> */}
-                            <RadioButton.Group
-                              onValueChange={handleChange(field.name)}
-                              value={field.value}
-                            >
-                              <View style={styles.row}>
-                                <Text>minutes</Text>
-                                <RadioButton.Android value='minutes'/>
-                              </View>
-                              <View style={styles.row}>
-                                <Text>seconds</Text>
-                                <RadioButton.Android value='seconds'/>
-                              </View>
-                            </RadioButton.Group>
-                          </View>
-                        )}
-                      </Field>
+                      <View style={{ flex: 1 }}>
+                        <Field name={`${name}.${exerciseIndex}.rest.unit`}>
+                          {({ field }) => (
+                            <View>
+                              {/* <Text>unit: </Text>
+                              <TextInput
+                                style={{
+                                  borderWidth: 1
+                                }}
+                                onChangeText={field.onChange(field.name)}
+                                onBlur={field.onBlur(field.name)}
+                                value={field.value ? field.value.toString() : ''}
+                                placeholder={`Exercise ${exerciseIndex + 1} rest unit`}
+                              /> */}
+                                <SegmentedButtonWithSelectedCheck
+                                  field={field}
+                                  handleChange={handleChange}
+                                  valueOptions={[
+                                    { value: 'minutes', label: 'Minutes', showSelectedCheck: true },
+                                    { value: 'seconds', label: 'Seconds', showSelectedCheck: true }
+                                  ]}
+                                />
+                              {/* <RadioButton.Group
+                                onValueChange={handleChange(field.name)}
+                                value={field.value}
+                              >
+                                <View style={styles.row}>
+                                  <Text>minutes</Text>
+                                  <RadioButton.Android value='minutes'/>
+                                </View>
+                                <View style={styles.row}>
+                                  <Text>seconds</Text>
+                                  <RadioButton.Android value='seconds'/>
+                                </View>
+                              </RadioButton.Group> */}
+                            </View>
+                          )}
+                        </Field>
+                      </View>
                     </View>
                     <Text>notes: </Text>
                     <View style={{ flexDirection: 'row' }}>
