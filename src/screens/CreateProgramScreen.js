@@ -298,6 +298,10 @@ const Exercises = ({ week, day, name, handleChange }) => {
                               value={field.value ? field.value.toString() : ''}
                               placeholder={`Exercise ${exerciseIndex + 1} min rpe`}
                             /> */}
+                            <TextInput
+                             field={field}
+                             label={`min`}
+                            />
                           </View>
                         )}
                       </Field>
@@ -315,6 +319,10 @@ const Exercises = ({ week, day, name, handleChange }) => {
                               value={field.value ? field.value.toString() : ''}
                               placeholder={`Exercise ${exerciseIndex + 1} max rpe`}
                             /> */}
+                            <TextInput
+                              field={field}
+                              label={`max`}
+                            />
                           </View>
                         )}
                       </Field>
