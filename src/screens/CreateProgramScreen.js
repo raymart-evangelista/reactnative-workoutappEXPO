@@ -288,16 +288,6 @@ const Exercises = ({ week, day, name, handleChange }) => {
                       <Field name={`${name}.${exerciseIndex}.rpe.min`}>
                         {({ field }) => (
                           <View>
-                            {/* <Text>min: </Text>
-                            <TextInput
-                              style={{
-                                borderWidth: 1
-                              }}
-                              onChangeText={field.onChange(field.name)}
-                              onBlur={field.onBlur(field.name)}
-                              value={field.value ? field.value.toString() : ''}
-                              placeholder={`Exercise ${exerciseIndex + 1} min rpe`}
-                            /> */}
                             <TextInput
                              field={field}
                              label={`min`}
@@ -309,16 +299,6 @@ const Exercises = ({ week, day, name, handleChange }) => {
                       <Field name={`${name}.${exerciseIndex}.rpe.max`}>
                         {({ field }) => (
                           <View>
-                            {/* <Text>max: </Text>
-                            <TextInput
-                              style={{
-                                borderWidth: 1
-                              }}
-                              onChangeText={field.onChange(field.name)}
-                              onBlur={field.onBlur(field.name)}
-                              value={field.value ? field.value.toString() : ''}
-                              placeholder={`Exercise ${exerciseIndex + 1} max rpe`}
-                            /> */}
                             <TextInput
                               field={field}
                               label={`max`}
