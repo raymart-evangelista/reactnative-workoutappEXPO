@@ -285,27 +285,31 @@ const Exercises = ({ week, day, name, handleChange }) => {
                     {/* <SegmentedButtonWithSelectedCheck/> */}
                     <Text>rpe: </Text>
                     <View style={{ flexDirection: 'row' }}>
-                      <Field name={`${name}.${exerciseIndex}.rpe.min`}>
-                        {({ field }) => (
-                          <View>
-                            <TextInput
-                             field={field}
-                             label={`min`}
-                            />
-                          </View>
-                        )}
-                      </Field>
-                      <Text> - </Text>
-                      <Field name={`${name}.${exerciseIndex}.rpe.max`}>
-                        {({ field }) => (
-                          <View>
-                            <TextInput
+                      <View style={{ flex: 1 }}>
+                        <Field name={`${name}.${exerciseIndex}.rpe.min`}>
+                          {({ field }) => (
+                            <View>
+                              <TextInput
                               field={field}
-                              label={`max`}
-                            />
-                          </View>
-                        )}
-                      </Field>
+                              label={`min`}
+                              />
+                            </View>
+                          )}
+                        </Field>
+                      </View>
+                      <Text> - </Text>
+                      <View style={{ flex: 1 }}>
+                        <Field name={`${name}.${exerciseIndex}.rpe.max`}>
+                          {({ field }) => (
+                            <View>
+                              <TextInput
+                                field={field}
+                                label={`max`}
+                              />
+                            </View>
+                          )}
+                        </Field>
+                      </View>
                     </View>
                     <Text>rest: </Text>
                     <View style={{ flexDirection: 'row' }}>
