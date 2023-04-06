@@ -246,7 +246,7 @@ const Exercises = ({ week, day, name, handleChange }) => {
                             <View>
                               <TextInput
                                 field={field}
-                                label={`number`}
+                                label={`value`}
                               />
                             </View>
                           )}
@@ -313,23 +313,18 @@ const Exercises = ({ week, day, name, handleChange }) => {
                     </View>
                     <Text>rest: </Text>
                     <View style={{ flexDirection: 'row' }}>
-                      <Field name={`${name}.${exerciseIndex}.rest.value`}>
-                        {({ field }) => (
-                          <View>
-                            {/* <Text>value: </Text>
-                            <TextInput
-                              style={{
-                                borderWidth: 1
-                              }}
-                              onChangeText={field.onChange(field.name)}
-                              onBlur={field.onBlur(field.name)}
-                              value={field.value ? field.value.toString() : ''}
-                              placeholder={`Exercise ${exerciseIndex + 1} rest value`}
-                              keyboardType='numeric'
-                            /> */}
-                          </View>
-                        )}
-                      </Field>
+                      <View style={{ flex: 1 }}>
+                        <Field name={`${name}.${exerciseIndex}.rest.value`}>
+                          {({ field }) => (
+                            <View>
+                              <TextInput
+                                field={field}
+                                label={`value`}
+                              />
+                            </View>
+                          )}
+                        </Field>
+                      </View>
                       <Text> - </Text>
                       <Field name={`${name}.${exerciseIndex}.rest.unit`}>
                         {({ field }) => (
