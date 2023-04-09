@@ -17,10 +17,6 @@ const SegmentedButtonWithSelectedCheck = ({ field, handleChange, valueOptions })
   return (
     // <List.Section title={`Segmented Button - show selected check`}>
       <SegmentedButtons
-        // onValueChange={(newValue) => {
-        //   setValue(newValue)
-        //   handleChange(field.name)(newValue)
-        // }}
         onValueChange={handleChange(field.name)}
         value={field.value ? field.value.toString() : ''}
         style={styles.group}
