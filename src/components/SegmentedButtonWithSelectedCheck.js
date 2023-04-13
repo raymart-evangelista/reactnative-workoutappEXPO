@@ -3,9 +3,6 @@ import { StyleSheet } from 'react-native';
 import { List, SegmentedButtons } from 'react-native-paper';
 
 const SegmentedButtonWithSelectedCheck = ({ field, handleChange, valueOptions }) => {
-  // const [value, setValue] = useState('');
-  console.log(field)
-
   const buttons = valueOptions.map((option) => ({
     icon: option.icon,
     value: option.value,

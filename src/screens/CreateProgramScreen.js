@@ -261,8 +261,8 @@ const Exercises = ({ week, day, name, handleChange }) => {
                                 field={field}
                                 handleChange={handleChange}
                                 valueOptions={[
-                                  { value: 'pounds', label: 'Pounds', icon: 'weight-pound', showSelectedCheck: true },
-                                  { value: 'kilograms', label: 'Kilograms', icon: 'weight-kilogram', showSelectedCheck: true }
+                                  { value: 'lbs', label: 'Pounds', icon: 'weight-pound', showSelectedCheck: true },
+                                  { value: 'kgs', label: 'Kilograms', icon: 'weight-kilogram', showSelectedCheck: true }
                                 ]}
                               />
                             </View>
@@ -316,37 +316,14 @@ const Exercises = ({ week, day, name, handleChange }) => {
                         <Field name={`${name}.${exerciseIndex}.rest.unit`}>
                           {({ field }) => (
                             <View>
-                              {/* <Text>unit: </Text>
-                              <TextInput
-                                style={{
-                                  borderWidth: 1
-                                }}
-                                onChangeText={field.onChange(field.name)}
-                                onBlur={field.onBlur(field.name)}
-                                value={field.value ? field.value.toString() : ''}
-                                placeholder={`Exercise ${exerciseIndex + 1} rest unit`}
-                              /> */}
-                                <SegmentedButtonWithSelectedCheck
-                                  field={field}
-                                  handleChange={handleChange}
-                                  valueOptions={[
-                                    { value: 'minutes', label: 'Minutes', showSelectedCheck: true },
-                                    { value: 'seconds', label: 'Seconds', showSelectedCheck: true }
-                                  ]}
-                                />
-                              {/* <RadioButton.Group
-                                onValueChange={handleChange(field.name)}
-                                value={field.value}
-                              >
-                                <View style={styles.row}>
-                                  <Text>minutes</Text>
-                                  <RadioButton.Android value='minutes'/>
-                                </View>
-                                <View style={styles.row}>
-                                  <Text>seconds</Text>
-                                  <RadioButton.Android value='seconds'/>
-                                </View>
-                              </RadioButton.Group> */}
+                              <SegmentedButtonWithSelectedCheck
+                                field={field}
+                                handleChange={handleChange}
+                                valueOptions={[
+                                  { value: 'minutes', label: 'Minutes', showSelectedCheck: true },
+                                  { value: 'seconds', label: 'Seconds', showSelectedCheck: true }
+                                ]}
+                              />
                             </View>
                           )}
                         </Field>
@@ -357,8 +334,7 @@ const Exercises = ({ week, day, name, handleChange }) => {
                       <Field name={`${name}.${exerciseIndex}.notes`}>
                         {({ field }) => (
                           <View>
-                            {/* <Text>value: </Text>
-                            <TextInput
+                            {/* <TextInput
                               style={{
                                 borderWidth: 1
                               }}
@@ -367,6 +343,12 @@ const Exercises = ({ week, day, name, handleChange }) => {
                               value={field.value ? field.value.toString() : ''}
                               placeholder={`Exercise ${exerciseIndex + 1} notes`}
                             /> */}
+                            <TextInput
+                              field={field}
+                              label={'exercise notes'}
+                              numberOfLines={2}
+                              multiline={true}
+                            />
                           </View>
                         )}
                       </Field>
