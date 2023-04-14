@@ -18,22 +18,22 @@ const Days = ({ weekIndex, week, name, handleChange, setFieldValue }) => (
           week.dayDetails.map((day, dayIndex) => (
             <List.AccordionGroup key={dayIndex}>
               <View key={dayIndex}>
-                <List.Accordion 
-                  left={(props) => <List.Icon {...props} icon='calendar-today' /> }
-                  title={`Week ${weekIndex + 1}, Day ${dayIndex + 1}`} 
+                <List.Accordion
+                  left={(props) => <List.Icon {...props} icon='calendar-today' />}
+                  title={`Week ${weekIndex + 1}, Day ${dayIndex + 1}`}
                   id={`${dayIndex}`}
-                >  
+                >
                   <Field name={`${name}.${dayIndex}.dayNum`}
                   >
                     {({ field }) => (
                       <View style={{ flexDirection: 'row' }}>
                         {/* <Text>Day number: {dayIndex + 1}</Text> */}
-                        <Button 
-                          icon='minus' 
-                          mode='elevated' 
+                        <Button
+                          icon='minus'
+                          mode='elevated'
                           onPress={() => {
                             // arrayHelpers.remove(day)
-                            const newDayDetails = week.dayDetails.filter((day, index) => index !== dayIndex )
+                            const newDayDetails = week.dayDetails.filter((day, index) => index !== dayIndex)
                             const updatedDayDetails = newDayDetails.map((day, index) => ({
                               ...day,
                               dayNum: index + 1
@@ -41,11 +41,11 @@ const Days = ({ weekIndex, week, name, handleChange, setFieldValue }) => (
                             setFieldValue(`weekDetails.${weekIndex}.dayDetails`, updatedDayDetails)
                             // setFieldValue('weeks', values.weekDetails.length - 1)
                           }}
-                          style={{ borderRadius: 5}}>
+                          style={{ borderRadius: 5 }}>
                           {/* remove day ({dayIndex + 1}/7) */}
                           remove day {dayIndex + 1}
                         </Button>
-                    </View>
+                      </View>
                     )}
                   </Field>
                   <Field name={`${name}.${dayIndex}.name`}>
@@ -57,7 +57,7 @@ const Days = ({ weekIndex, week, name, handleChange, setFieldValue }) => (
                         />
                       </View>
                     )}
-                    
+
                   </Field>
                   <Exercises
                     week={week}
@@ -77,23 +77,23 @@ const Days = ({ weekIndex, week, name, handleChange, setFieldValue }) => (
           </View>
         )}
         {week.dayDetails && week.dayDetails.length < 7 ? (
-        <View style={{ alignItems: 'flex-start', justifyContent: 'center' }}>
-          <Button
-            icon='plus'
-            mode='contained'
-            onPress={() => arrayHelpers.push(
-              {
-                name: '',
-                dayNum: week.dayDetails.length + 1,
-                exercises: [],
-              }
-            )}
-            style={{ borderRadius: 5 }}
-          >
-            add day
-          </Button>
-        </View>
-        ): (
+          <View style={{ alignItems: 'flex-start', justifyContent: 'center' }}>
+            <Button
+              icon='plus'
+              mode='contained'
+              onPress={() => arrayHelpers.push(
+                {
+                  name: '',
+                  dayNum: week.dayDetails.length + 1,
+                  exercises: [],
+                }
+              )}
+              style={{ borderRadius: 5 }}
+            >
+              add day
+            </Button>
+          </View>
+        ) : (
           // <Text>Reached max days for week</Text>
           <View></View>
         )}
@@ -116,26 +116,26 @@ const Exercises = ({ week, day, name, handleChange }) => {
             day.exercises.map((exercise, exerciseIndex) => (
               <List.AccordionGroup key={exerciseIndex}>
                 <View key={exerciseIndex}>
-                  <List.Accordion 
-                    left={(props) => <List.Icon {...props} icon='calendar-today' /> }
-                    title={`Exercise ${exerciseIndex + 1}`} 
+                  <List.Accordion
+                    left={(props) => <List.Icon {...props} icon='calendar-today' />}
+                    title={`Exercise ${exerciseIndex + 1}`}
                     id={`${exerciseIndex}`}
                   >
                     <View style={{ alignItems: 'flex-start', justifyContent: 'center' }}>
-                    <Button
-                      icon='minus'
-                      mode='contained'
-                      onPress={() => arrayHelpers.remove(exercise)}
-                      title="remove exercise"
-                      style={{ borderRadius: 5}}
-                    >
-                      remove exercise
-                    </Button>
-                  </View>
+                      <Button
+                        icon='minus'
+                        mode='contained'
+                        onPress={() => arrayHelpers.remove(exercise)}
+                        title="remove exercise"
+                        style={{ borderRadius: 5 }}
+                      >
+                        remove exercise
+                      </Button>
+                    </View>
                     <Field name={`${name}.${exerciseIndex}.name`}>
                       {({ field }) => (
                         <View>
-                          <TextInput 
+                          <TextInput
                             field={field}
                             label={`Exercise ${exerciseIndex + 1} Name`}
                           />
@@ -143,8 +143,8 @@ const Exercises = ({ week, day, name, handleChange }) => {
                       )}
                     </Field>
                     <Text>warmup sets: </Text>
-                    <View style={{ flexDirection: 'row'}}>
-                      <View style={{flex: 1}}>
+                    <View style={{ flexDirection: 'row' }}>
+                      <View style={{ flex: 1 }}>
                         <Field name={`${name}.${exerciseIndex}.warmupSets.min`}>
                           {({ field }) => (
                             <View>
@@ -176,11 +176,11 @@ const Exercises = ({ week, day, name, handleChange }) => {
                         <Field name={`${name}.${exerciseIndex}.workingSets.min`}>
                           {({ field }) => (
                             <View>
-                            <TextInput
-                              field={field}
-                              label={`min`}
-                            />
-                          </View>
+                              <TextInput
+                                field={field}
+                                label={`min`}
+                              />
+                            </View>
                           )}
                         </Field>
                       </View>
@@ -277,8 +277,8 @@ const Exercises = ({ week, day, name, handleChange }) => {
                           {({ field }) => (
                             <View>
                               <TextInput
-                              field={field}
-                              label={`min`}
+                                field={field}
+                                label={`min`}
                               />
                             </View>
                           )}
@@ -359,7 +359,7 @@ const Exercises = ({ week, day, name, handleChange }) => {
 
 
             ))
-          ): (
+          ) : (
             <View></View>
           )}
           {/* <TouchableOpacity
@@ -377,14 +377,14 @@ const Exercises = ({ week, day, name, handleChange }) => {
           </TouchableOpacity> */}
           <View style={{ alignItems: 'flex-start', justifyContent: 'center' }}>
             <Button
-            icon='plus'
-            mode='contained'
-            onPress={() => arrayHelpers.push({})}
-            style={{ borderRadius: 5 }}
-          >
-            add exercise
-          </Button>
-        </View>
+              icon='plus'
+              mode='contained'
+              onPress={() => arrayHelpers.push({})}
+              style={{ borderRadius: 5 }}
+            >
+              add exercise
+            </Button>
+          </View>
         </View>
       )}
     >
@@ -397,35 +397,35 @@ const Weeks = ({ values, setFieldValue, handleChange }) => {
 
   return (
     <FieldArray
-    name="weekDetails"
-    render={arrayHelpers => (
-      <View>
-          {values.weekDetails && values.weekDetails.length > 0 ? (
-            values.weekDetails.map((week, weekIndex) => (
-              <List.AccordionGroup key={weekIndex}>           
+      name="weekDetails"
+      render={arrayHelpers => (
+        <View>
+          <List.AccordionGroup>
+            {values.weekDetails && values.weekDetails.length > 0 ? (
+              values.weekDetails.map((week, weekIndex) => (
                 <View key={weekIndex}>
-                  <List.Accordion 
-                    left={(props) => <List.Icon {...props} icon='calendar-week' /> }
-                    title={`Week ${weekIndex + 1}`} 
+                  <List.Accordion
+                    left={(props) => <List.Icon {...props} icon='calendar-week' />}
+                    title={`Week ${weekIndex + 1}`}
                     id={`${weekIndex}`}
                   >
-                    <View style={{ alignItems:'flex-start', justifyContent: 'center' }}>
-                    <Button 
-                      icon='minus' 
-                      mode='elevated' 
-                      onPress={() => {
-                        const newWeekDetails = values.weekDetails.filter((week, index) => index !== weekIndex )
-                        const updatedWeekDetails = newWeekDetails.map((week, index) => ({
-                          ...week,
-                          weekNum: index + 1,
-                        }))
-                        const newValues = { ...values, weekDetails: updatedWeekDetails }
-                        setFieldValue('weekDetails', newValues.weekDetails)
-                        setFieldValue('weeks', values.weekDetails.length - 1)
-                      }}
-                      style={{ borderRadius: 5}}>
-                      remove week {weekIndex + 1}
-                    </Button>
+                    <View style={{ alignItems: 'flex-start', justifyContent: 'center' }}>
+                      <Button
+                        icon='minus'
+                        mode='elevated'
+                        onPress={() => {
+                          const newWeekDetails = values.weekDetails.filter((week, index) => index !== weekIndex)
+                          const updatedWeekDetails = newWeekDetails.map((week, index) => ({
+                            ...week,
+                            weekNum: index + 1,
+                          }))
+                          const newValues = { ...values, weekDetails: updatedWeekDetails }
+                          setFieldValue('weekDetails', newValues.weekDetails)
+                          setFieldValue('weeks', values.weekDetails.length - 1)
+                        }}
+                        style={{ borderRadius: 5 }}>
+                        remove week {weekIndex + 1}
+                      </Button>
                     </View>
                     <Field name={`weekDetails.${weekIndex}.weekNum`}>
                       {({ field }) => (
@@ -441,35 +441,35 @@ const Weeks = ({ values, setFieldValue, handleChange }) => {
                       handleChange={handleChange}
                       setFieldValue={setFieldValue}
                     />
-  
+
                   </List.Accordion>
                 </View>
-              </List.AccordionGroup>
-            ))
-          ) : (
-            <Text>No weeks</Text>
-          )}
-          <View style={{ alignItems: 'flex-start', justifyContent: 'center' }}>
-            <Button 
-              icon='plus' 
-              mode='elevated' 
-              onPress={() => {
-                arrayHelpers.push(
-                  { 
-                    weekNum: values.weekDetails.length + 1,
-                    dayDetails: []
-                  }
-                )
-                // update weekNum for existing weeks
-                values.weekDetails.forEach((week, index) => {
-                  setFieldValue(`weekDetails.${index}.weekNum`, index + 1)
-                })
-                setFieldValue('weeks', values.weekDetails.length + 1)
-              }}
-              style={{ borderRadius: 5}}>
-              add week
-            </Button>
-          </View>
+              ))
+            ) : (
+              <Text>No weeks</Text>
+            )}
+            <View style={{ alignItems: 'flex-start', justifyContent: 'center' }}>
+              <Button
+                icon='plus'
+                mode='elevated'
+                onPress={() => {
+                  arrayHelpers.push(
+                    {
+                      weekNum: values.weekDetails.length + 1,
+                      dayDetails: []
+                    }
+                  )
+                  // update weekNum for existing weeks
+                  values.weekDetails.forEach((week, index) => {
+                    setFieldValue(`weekDetails.${index}.weekNum`, index + 1)
+                  })
+                  setFieldValue('weeks', values.weekDetails.length + 1)
+                }}
+                style={{ borderRadius: 5 }}>
+                add week
+              </Button>
+            </View>
+          </List.AccordionGroup>
         </View>
       )}
     />
@@ -808,20 +808,20 @@ export function ProgramNameInputScreen({ navigation }) {
                 <Text>Weeks less than 0</Text>
               </View>
             )}
-            <TouchableOpacity 
-            onPress={handleSubmit} 
-            disabled={isSubmitting}
-            style={{
-              backgroundColor: '#4CAF50',
-              borderRadius: 5,
-              paddingVertical: 10,
-              paddingHorizontal: 20,
-              alignSelf: 'center',
-              marginTop: 20,
-            }}
-          >
-            <Text style={{ color: 'white', fontSize: 16, fontWeight: 'bold' }}>Submit</Text>
-          </TouchableOpacity>
+            <TouchableOpacity
+              onPress={handleSubmit}
+              disabled={isSubmitting}
+              style={{
+                backgroundColor: '#4CAF50',
+                borderRadius: 5,
+                paddingVertical: 10,
+                paddingHorizontal: 20,
+                alignSelf: 'center',
+                marginTop: 20,
+              }}
+            >
+              <Text style={{ color: 'white', fontSize: 16, fontWeight: 'bold' }}>Submit</Text>
+            </TouchableOpacity>
           </View>
         )}
       </Formik>
