@@ -112,9 +112,9 @@ const Exercises = ({ week, day, name, handleChange }) => {
       name={name}
       render={arrayHelpers => (
         <View>
-          {day.exercises.length ? (
-            day.exercises.map((exercise, exerciseIndex) => (
-              <List.AccordionGroup key={exerciseIndex}>
+          <List.AccordionGroup>
+            {day.exercises.length ? (
+              day.exercises.map((exercise, exerciseIndex) => (
                 <View key={exerciseIndex}>
                   <List.Accordion
                     left={(props) => <List.Icon {...props} icon='calendar-today' />}
@@ -355,14 +355,11 @@ const Exercises = ({ week, day, name, handleChange }) => {
                     </View>
                   </List.Accordion>
                 </View>
-              </List.AccordionGroup>
-
-
-            ))
-          ) : (
-            <View></View>
-          )}
-          {/* <TouchableOpacity
+              ))
+            ) : (
+              <View></View>
+            )}
+            {/* <TouchableOpacity
             onPress={() => arrayHelpers.push(
               {
                 name: 'ads',
@@ -375,20 +372,20 @@ const Exercises = ({ week, day, name, handleChange }) => {
           >
             <Text style={{ color: 'white', fontWeight: 'bold' }}>Add a new exercise</Text>
           </TouchableOpacity> */}
-          <View style={{ alignItems: 'flex-start', justifyContent: 'center' }}>
-            <Button
-              icon='plus'
-              mode='contained'
-              onPress={() => arrayHelpers.push({})}
-              style={{ borderRadius: 5 }}
-            >
-              add exercise
-            </Button>
-          </View>
+            <View style={{ alignItems: 'flex-start', justifyContent: 'center' }}>
+              <Button
+                icon='plus'
+                mode='contained'
+                onPress={() => arrayHelpers.push({})}
+                style={{ borderRadius: 5 }}
+              >
+                add exercise
+              </Button>
+            </View>
+          </List.AccordionGroup>
         </View>
       )}
     >
-
     </FieldArray>
   )
 }
