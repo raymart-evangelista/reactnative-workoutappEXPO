@@ -14,9 +14,9 @@ const Days = ({ weekIndex, week, name, handleChange, setFieldValue }) => (
     name={name}
     render={arrayHelpers => (
       <View>
-        {week.dayDetails && week.dayDetails.length ? (
-          week.dayDetails.map((day, dayIndex) => (
-            <List.AccordionGroup key={dayIndex}>
+        <List.AccordionGroup>
+          {week.dayDetails && week.dayDetails.length ? (
+            week.dayDetails.map((day, dayIndex) => (
               <View key={dayIndex}>
                 <List.Accordion
                   left={(props) => <List.Icon {...props} icon='calendar-today' />}
@@ -68,35 +68,35 @@ const Days = ({ weekIndex, week, name, handleChange, setFieldValue }) => (
                   />
                 </List.Accordion>
               </View>
-            </List.AccordionGroup>
 
-          ))
-        ) : (
-          <View>
-            <Text>No days right now</Text>
-          </View>
-        )}
-        {week.dayDetails && week.dayDetails.length < 7 ? (
-          <View style={{ alignItems: 'flex-start', justifyContent: 'center' }}>
-            <Button
-              icon='plus'
-              mode='contained'
-              onPress={() => arrayHelpers.push(
-                {
-                  name: '',
-                  dayNum: week.dayDetails.length + 1,
-                  exercises: [],
-                }
-              )}
-              style={{ borderRadius: 5 }}
-            >
-              add day
-            </Button>
-          </View>
-        ) : (
-          // <Text>Reached max days for week</Text>
-          <View></View>
-        )}
+            ))
+          ) : (
+            <View>
+              <Text>No days right now</Text>
+            </View>
+          )}
+          {week.dayDetails && week.dayDetails.length < 7 ? (
+            <View style={{ alignItems: 'flex-start', justifyContent: 'center' }}>
+              <Button
+                icon='plus'
+                mode='contained'
+                onPress={() => arrayHelpers.push(
+                  {
+                    name: '',
+                    dayNum: week.dayDetails.length + 1,
+                    exercises: [],
+                  }
+                )}
+                style={{ borderRadius: 5 }}
+              >
+                add day
+              </Button>
+            </View>
+          ) : (
+            // <Text>Reached max days for week</Text>
+            <View></View>
+          )}
+        </List.AccordionGroup>
       </View>
     )}
   >
