@@ -406,9 +406,9 @@ const Weeks = ({ values, setFieldValue, handleChange }) => {
                     title={`Week ${weekIndex + 1}`}
                     id={`${weekIndex}`}
                   >
-                    <View style={{ alignItems: 'flex-start', justifyContent: 'center' }}>
+                    <View style={{ alignItems: 'flex-start', justifyContent: 'center'}}>
                       <Button
-                        icon='minus'
+                        icon='trash-can-outline'
                         mode='elevated'
                         onPress={() => {
                           const newWeekDetails = values.weekDetails.filter((week, index) => index !== weekIndex)
@@ -421,7 +421,7 @@ const Weeks = ({ values, setFieldValue, handleChange }) => {
                           setFieldValue('weeks', values.weekDetails.length - 1)
                         }}
                         style={{ borderRadius: 5 }}>
-                        remove week {weekIndex + 1}
+                          delete
                       </Button>
                     </View>
                     <Field name={`weekDetails.${weekIndex}.weekNum`}>
