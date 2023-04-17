@@ -487,241 +487,246 @@ export function ProgramNameInputScreen({ navigation }) {
     // })
   }
 
+  // const initialValues = {
+  //   name: 'UPPER/LOWER 4x WEEK',
+  //   weeks: 2,
+  //   weekDetails: [
+  //     {
+  //       weekNum: 1,
+  //       dayDetails: [
+  //         {
+  //           name: 'UPPER BODY',
+  //           dayNum: 1,
+  //           exercises: [
+  //             {
+  //               name: 'SEATED CABLE ROW',
+  //               warmupSets: {
+  //                 min: 1,
+  //                 max: 1,
+  //               },
+  //               workingSets: {
+  //                 min: 2,
+  //                 max: 2,
+  //               },
+  //               reps: {
+  //                 min: 10,
+  //                 max: 12,
+  //                 notes: 'drop set',
+  //               },
+  //               weight: {
+  //                 value: 145,
+  //                 unit: 'lbs',
+  //               },
+  //               rpe: {
+  //                 min: 9,
+  //                 max: 10,
+  //               },
+  //               rest: {
+  //                 value: 2,
+  //                 unit: 'minutes',
+  //               },
+  //               notes: 'Focus on squeezing your shoulder blades together, drive your elbows down and back. Last set only do a dropset: perform 10-12 reps, drop the weight by ~50%, perform an additional 10-12 reps.',
+  //             },
+  //             {
+  //               name: 'CABLE PRESS',
+  //               warmupSets: {
+  //                 min: 1,
+  //                 max: 1,
+  //               },
+  //               workingSets: {
+  //                 min: 2,
+  //                 max: 2,
+  //               },
+  //               reps: {
+  //                 min: 10,
+  //                 max: 12,
+  //                 notes: 'drop set',
+  //               },
+  //               weight: {
+  //                 value: 145,
+  //                 unit: 'lbs',
+  //               },
+  //               rpe: {
+  //                 min: 9,
+  //                 max: 10,
+  //               },
+  //               rest: {
+  //                 value: 2,
+  //                 unit: 'minutes',
+  //               },
+  //               notes: 'push chest together.',
+  //             }
+  //           ]
+  //         },
+  //         {
+  //           name: 'LOWER BODY',
+  //           dayNum: 2,
+  //           exercises: [
+  //             {
+  //               name: 'SQUAT',
+  //               warmupSets: {
+  //                 min: 1,
+  //                 max: 1,
+  //               },
+  //               workingSets: {
+  //                 min: 2,
+  //                 max: 2,
+  //               },
+  //               reps: {
+  //                 min: 10,
+  //                 max: 12,
+  //                 notes: 'drop set',
+  //               },
+  //               weight: {
+  //                 value: 145,
+  //                 unit: 'lbs',
+  //               },
+  //               rpe: {
+  //                 min: 9,
+  //                 max: 10,
+  //               },
+  //               rest: {
+  //                 value: 2,
+  //                 unit: 'minutes',
+  //               },
+  //               notes: "don't use momentum"
+  //             }
+  //           ]
+  //         }
+  //       ]
+  //     },
+  //     {
+  //       weekNum: 2,
+  //       dayDetails: [
+  //         {
+  //           name: 'UPPER BODY',
+  //           dayNum: 1,
+  //           exercises: [
+  //             {
+  //               name: 'SEATED CABLE ROW',
+  //               warmupSets: {
+  //                 min: 1,
+  //                 max: 1,
+  //               },
+  //               workingSets: {
+  //                 min: 2,
+  //                 max: 2,
+  //               },
+  //               reps: {
+  //                 min: 10,
+  //                 max: 12,
+  //                 notes: 'drop set',
+  //               },
+  //               weight: {
+  //                 value: 145,
+  //                 unit: 'lbs',
+  //               },
+  //               rpe: {
+  //                 min: 9,
+  //                 max: 10,
+  //               },
+  //               rest: {
+  //                 value: 2,
+  //                 unit: 'minutes',
+  //               },
+  //               notes: 'Focus on squeezing your shoulder blades together, drive your elbows down and back. Last set only do a dropset: perform 10-12 reps, drop the weight by ~50%, perform an additional 10-12 reps.',
+  //             }
+  //           ]
+  //         }
+  //       ]
+  //     }
+  //   ]
+  // }
+  // const wantedValues = {
+  //   name: 'UPPER/LOWER 4x WEEK',
+  //   weeks: 2,
+  //   weekDetails: [
+  //     {
+  //       weekNum: 1,
+  //       dayDetails: [
+  //         {
+  //           name: 'UPPER BODY',
+  //           dayNum: 1,
+  //           exercises: [
+  //             {
+  //               name: 'SEATED CABLE ROW',
+  //               warmupSets: {
+  //                 min: 1,
+  //                 max: 1,
+  //               },
+  //               workingSets: {
+  //                 min: 2,
+  //                 max: 2,
+  //               },
+  //               reps: {
+  //                 min: 10,
+  //                 max: 12,
+  //                 notes: 'drop set',
+  //               },
+  //               weight: {
+  //                 value: 145,
+  //                 unit: 'lbs',
+  //               },
+  //               rpe: {
+  //                 min: 9,
+  //                 max: 10,
+  //               },
+  //               rest: {
+  //                 value: 2,
+  //                 unit: 'minutes',
+  //               },
+  //               notes: 'Focus on squeezing your shoulder blades together, drive your elbows down and back. Last set only do a dropset: perform 10-12 reps, drop the weight by ~50%, perform an additional 10-12 reps.',
+  //             }
+  //           ]
+  //         }
+  //       ]
+  //     },
+  //     {
+  //       weekNum: 2,
+  //       dayDetails: [
+  //         {
+  //           name: 'UPPER BODY',
+  //           dayNum: 1,
+  //           exercises: [
+  //             {
+  //               name: 'SEATED CABLE ROW',
+  //               warmupSets: {
+  //                 min: 1,
+  //                 max: 1,
+  //               },
+  //               workingSets: {
+  //                 min: 2,
+  //                 max: 2,
+  //               },
+  //               reps: {
+  //                 min: 10,
+  //                 max: 12,
+  //                 notes: 'drop set',
+  //               },
+  //               weight: {
+  //                 value: 145,
+  //                 unit: 'lbs',
+  //               },
+  //               rpe: {
+  //                 min: 9,
+  //                 max: 10,
+  //               },
+  //               rest: {
+  //                 value: 2,
+  //                 unit: 'minutes',
+  //               },
+  //               notes: 'Focus on squeezing your shoulder blades together, drive your elbows down and back. Last set only do a dropset: perform 10-12 reps, drop the weight by ~50%, perform an additional 10-12 reps.',
+  //             }
+  //           ]
+  //         }
+  //       ]
+  //     }
+  //   ]
+  // }
+
   const initialValues = {
-    name: 'UPPER/LOWER 4x WEEK',
-    weeks: 2,
-    weekDetails: [
-      {
-        weekNum: 1,
-        dayDetails: [
-          {
-            name: 'UPPER BODY',
-            dayNum: 1,
-            exercises: [
-              {
-                name: 'SEATED CABLE ROW',
-                warmupSets: {
-                  min: 1,
-                  max: 1,
-                },
-                workingSets: {
-                  min: 2,
-                  max: 2,
-                },
-                reps: {
-                  min: 10,
-                  max: 12,
-                  notes: 'drop set',
-                },
-                weight: {
-                  value: 145,
-                  unit: 'lbs',
-                },
-                rpe: {
-                  min: 9,
-                  max: 10,
-                },
-                rest: {
-                  value: 2,
-                  unit: 'minutes',
-                },
-                notes: 'Focus on squeezing your shoulder blades together, drive your elbows down and back. Last set only do a dropset: perform 10-12 reps, drop the weight by ~50%, perform an additional 10-12 reps.',
-              },
-              {
-                name: 'CABLE PRESS',
-                warmupSets: {
-                  min: 1,
-                  max: 1,
-                },
-                workingSets: {
-                  min: 2,
-                  max: 2,
-                },
-                reps: {
-                  min: 10,
-                  max: 12,
-                  notes: 'drop set',
-                },
-                weight: {
-                  value: 145,
-                  unit: 'lbs',
-                },
-                rpe: {
-                  min: 9,
-                  max: 10,
-                },
-                rest: {
-                  value: 2,
-                  unit: 'minutes',
-                },
-                notes: 'push chest together.',
-              }
-            ]
-          },
-          {
-            name: 'LOWER BODY',
-            dayNum: 2,
-            exercises: [
-              {
-                name: 'SQUAT',
-                warmupSets: {
-                  min: 1,
-                  max: 1,
-                },
-                workingSets: {
-                  min: 2,
-                  max: 2,
-                },
-                reps: {
-                  min: 10,
-                  max: 12,
-                  notes: 'drop set',
-                },
-                weight: {
-                  value: 145,
-                  unit: 'lbs',
-                },
-                rpe: {
-                  min: 9,
-                  max: 10,
-                },
-                rest: {
-                  value: 2,
-                  unit: 'minutes',
-                },
-                notes: "don't use momentum"
-              }
-            ]
-          }
-        ]
-      },
-      {
-        weekNum: 2,
-        dayDetails: [
-          {
-            name: 'UPPER BODY',
-            dayNum: 1,
-            exercises: [
-              {
-                name: 'SEATED CABLE ROW',
-                warmupSets: {
-                  min: 1,
-                  max: 1,
-                },
-                workingSets: {
-                  min: 2,
-                  max: 2,
-                },
-                reps: {
-                  min: 10,
-                  max: 12,
-                  notes: 'drop set',
-                },
-                weight: {
-                  value: 145,
-                  unit: 'lbs',
-                },
-                rpe: {
-                  min: 9,
-                  max: 10,
-                },
-                rest: {
-                  value: 2,
-                  unit: 'minutes',
-                },
-                notes: 'Focus on squeezing your shoulder blades together, drive your elbows down and back. Last set only do a dropset: perform 10-12 reps, drop the weight by ~50%, perform an additional 10-12 reps.',
-              }
-            ]
-          }
-        ]
-      }
-    ]
-  }
-  const wantedValues = {
-    name: 'UPPER/LOWER 4x WEEK',
-    weeks: 2,
-    weekDetails: [
-      {
-        weekNum: 1,
-        dayDetails: [
-          {
-            name: 'UPPER BODY',
-            dayNum: 1,
-            exercises: [
-              {
-                name: 'SEATED CABLE ROW',
-                warmupSets: {
-                  min: 1,
-                  max: 1,
-                },
-                workingSets: {
-                  min: 2,
-                  max: 2,
-                },
-                reps: {
-                  min: 10,
-                  max: 12,
-                  notes: 'drop set',
-                },
-                weight: {
-                  value: 145,
-                  unit: 'lbs',
-                },
-                rpe: {
-                  min: 9,
-                  max: 10,
-                },
-                rest: {
-                  value: 2,
-                  unit: 'minutes',
-                },
-                notes: 'Focus on squeezing your shoulder blades together, drive your elbows down and back. Last set only do a dropset: perform 10-12 reps, drop the weight by ~50%, perform an additional 10-12 reps.',
-              }
-            ]
-          }
-        ]
-      },
-      {
-        weekNum: 2,
-        dayDetails: [
-          {
-            name: 'UPPER BODY',
-            dayNum: 1,
-            exercises: [
-              {
-                name: 'SEATED CABLE ROW',
-                warmupSets: {
-                  min: 1,
-                  max: 1,
-                },
-                workingSets: {
-                  min: 2,
-                  max: 2,
-                },
-                reps: {
-                  min: 10,
-                  max: 12,
-                  notes: 'drop set',
-                },
-                weight: {
-                  value: 145,
-                  unit: 'lbs',
-                },
-                rpe: {
-                  min: 9,
-                  max: 10,
-                },
-                rest: {
-                  value: 2,
-                  unit: 'minutes',
-                },
-                notes: 'Focus on squeezing your shoulder blades together, drive your elbows down and back. Last set only do a dropset: perform 10-12 reps, drop the weight by ~50%, perform an additional 10-12 reps.',
-              }
-            ]
-          }
-        ]
-      }
-    ]
+    name: 'sample program name',
+    weekDetails: []
   }
 
   const [values, setValues] = useState(initialValues)
