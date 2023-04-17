@@ -469,8 +469,10 @@ const Weeks = ({ values, setFieldValue, handleChange }) => {
   )
 }
 
-export function ProgramNameInputScreen({ navigation }) {
+export function ProgramNameInputScreen({ navigation, existingProgramValues = null }) {
   const [programName, setProgramName] = useState('')
+
+  const [programValues, setProgramValues] = useState(existingProgramValues ? existingProgramValues : initialValues)
 
   const handleSaveProgram = async () => {
 
@@ -729,7 +731,7 @@ export function ProgramNameInputScreen({ navigation }) {
     weekDetails: []
   }
 
-  const [values, setValues] = useState(initialValues)
+  const [values, setValues] = useState(existingProgramValues ? existingProgramValues : initialValues)
 
   useEffect(() => {
     setValues((prevValues) => ({
