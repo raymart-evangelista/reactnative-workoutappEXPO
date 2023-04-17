@@ -104,9 +104,6 @@ const Days = ({ weekIndex, week, name, handleChange, setFieldValue }) => (
 )
 
 const Exercises = ({ week, day, name, handleChange }) => {
-  const [weightUnits, setWeightUnits] = useState('lbs')
-  const [timeUnits, setTimeUnits] = useState('minutes')
-
   return (
     <FieldArray
       name={name}
@@ -391,7 +388,6 @@ const Exercises = ({ week, day, name, handleChange }) => {
 }
 
 const Weeks = ({ values, setFieldValue, handleChange }) => {
-
   return (
     <FieldArray
       name="weekDetails"
@@ -736,12 +732,6 @@ export function ProgramNameInputScreen({ navigation }) {
       weeks: prevValues.weekDetails.length
     }))
   }, [values.weekDetails])
-
-  const [value, setValue] = useState('first');
-  const [value2, setValue2] = useState('first');
-
-  const { colors, isV3 } = useTheme();
-  const TextComponent = isV3 ? Text : Paragraph;
 
   const NameSchema = Yup.object().shape({
     name: Yup.string()
