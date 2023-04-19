@@ -52,6 +52,7 @@ export function ExistingProgramsScreen({ navigation }) {
 }
 
 export function EditProgramScreen({ navigation, route }) {
+  // want to send the route to CreateProgramScreen
 
   const program = route.params.program
   const [modalVisible, setModalVisible] = useState(false)
