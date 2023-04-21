@@ -469,25 +469,14 @@ const Weeks = ({ values, setFieldValue, handleChange }) => {
   )
 }
 
-export function ProgramNameInputScreen({ navigation, programToEdit = null, existingProgramValues = null }) {
+export function ProgramNameInputScreen({ navigation, programToEdit = null }) {
 
   const [programName, setProgramName] = useState(existingProgram)
   const [existingProgram, setExistingProgram] = useState(programToEdit)
-  const [programValues, setProgramValues] = useState(existingProgramValues ? existingProgramValues : initialValues)
-
-  const handleSaveProgram = async () => {
-
-    // TODO: backend portion
-    // const newProgram = await programsService.createProgram({
-    //   name: programName
-    // })
-    // navigation.reset({
-    //   index: 0,
-    //   routes: [{
-    //     name: 'AddWeeks',
-    //     params: { newProgram }
-    //   }]
-    // })
+  const [programValues, setProgramValues] = useState(initialValues)
+  
+  if (existingProgram) {
+    setProgramValues(existingProgram.weekDetails)
   }
 
   // const initialValues = {
@@ -640,6 +629,7 @@ export function ProgramNameInputScreen({ navigation, programToEdit = null, exist
   //     }
   //   ]
   // }
+
   const wantedValues = {
     name: 'UPPER/LOWER 4x WEEK',
     weeks: 2,
