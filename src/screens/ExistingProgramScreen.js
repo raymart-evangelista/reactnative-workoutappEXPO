@@ -34,7 +34,6 @@ export function ExistingProgramsScreen({ navigation }) {
     setLastModified(Date.now())
   }
 
-  console.log(programs)
   return (
     <View>
       {programs.length === 0 ? (
