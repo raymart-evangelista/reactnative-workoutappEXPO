@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { View, Text, TouchableOpacity, Alert, Modal, Button, TextInput } from "react-native";
-import { ProgramNameInputScreen } from "./CreateProgramScreen";
 
 import programsService from "../services/programs";
 
@@ -101,6 +100,11 @@ export function EditProgramScreen({ navigation, route }) {
     }
   }
 
+  const editProgram = () => {
+    console.log(`inside editProgram`)
+    console.log(program) 
+  }
+
   return (
     <View>
       <TouchableOpacity onPress={() => setModalVisible(true)}>
@@ -119,6 +123,9 @@ export function EditProgramScreen({ navigation, route }) {
 
         </View>
       </Modal>
+      <TouchableOpacity onPress={editProgram}>
+        <Text>Edit program</Text>
+      </TouchableOpacity>
     </View>
   )
 }
