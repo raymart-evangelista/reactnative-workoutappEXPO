@@ -122,7 +122,6 @@ export function EditProgramScreen({ navigation, route }) {
           <TextInput value={newProgramName} onChangeText={setNewProgramName} />
           <Button title="Cancel" onPress={() => setModalVisible(false)} />
           <Button title="Save" onPress={handleSaveNameChange} />
-
         </View>
       </Modal>
       <TouchableOpacity onPress={editProgram}>
