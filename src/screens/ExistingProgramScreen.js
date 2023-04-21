@@ -102,6 +102,9 @@ export function EditProgramScreen({ navigation, route }) {
   const editProgram = () => {
     console.log(`inside editProgram`)
     console.log(program) 
+    // we want to navigate to ProgramNameInputScreen
+    // send in the program as well
+    // navigation.navigate('CreateProgram', { existingProgramValues: program })
   }
 
   return (
