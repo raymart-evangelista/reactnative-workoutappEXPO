@@ -8,7 +8,10 @@ const getProgram = async () => {
       return {
         id: program._id,
         name: program.name,
-        weeks: program.weeks
+        weeks: program.weeks,
+        weekDetails: program.weekDetails,
+        createdAt: program.createdAt,
+        updatedAt: program.updatedAt
       }
     })
     // return res.data
