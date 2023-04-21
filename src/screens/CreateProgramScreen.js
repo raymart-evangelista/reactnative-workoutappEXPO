@@ -469,9 +469,10 @@ const Weeks = ({ values, setFieldValue, handleChange }) => {
   )
 }
 
-export function ProgramNameInputScreen({ navigation, existingProgramValues = null }) {
-  const [programName, setProgramName] = useState('')
+export function ProgramNameInputScreen({ navigation, programToEdit = null, existingProgramValues = null }) {
 
+  const [programName, setProgramName] = useState(existingProgram)
+  const [existingProgram, setExistingProgram] = useState(programToEdit)
   const [programValues, setProgramValues] = useState(existingProgramValues ? existingProgramValues : initialValues)
 
   const handleSaveProgram = async () => {
