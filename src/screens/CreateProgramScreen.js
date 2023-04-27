@@ -471,7 +471,10 @@ const Weeks = ({ values, setFieldValue, handleChange }) => {
 
 export function ProgramNameInputScreen({ navigation, route }) {
 
-  const { programId } = route.params
+  if (route.params) {
+    const { programId } = route.params
+    console.log(programId)
+  }
 
   const initialValues = {
     name: 'sample program name',
@@ -482,7 +485,6 @@ export function ProgramNameInputScreen({ navigation, route }) {
   // const [existingProgram, setExistingProgram] = useState(programToEdit)
   // const [values, setValues] = useState(programToEdit ? programToEdit : initialValues)
   const [values, setValues] = useState(initialValues)
-  console.log(programId)
 
   // const initialValues = {
   //   name: 'UPPER/LOWER 4x WEEK',
