@@ -19,7 +19,7 @@ export function ExistingProgramsScreen({ navigation }) {
 
   useEffect(() => {
     const fetchPrograms = async () => {
-      const existingPrograms = await programsService.getProgram()
+      const existingPrograms = await programsService.getPrograms()
       setPrograms(existingPrograms)
     }
 
