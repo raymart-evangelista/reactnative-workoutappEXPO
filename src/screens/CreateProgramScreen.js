@@ -473,7 +473,9 @@ export function ProgramNameInputScreen({ navigation, route }) {
 
   if (route.params) {
     const { programId } = route.params
+    console.log('this is the params passed in')
     console.log(programId)
+    // we want to use our service to fetch the program information
   }
 
   const initialValues = {
