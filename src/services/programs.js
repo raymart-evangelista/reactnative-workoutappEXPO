@@ -1,7 +1,7 @@
 import axios from "axios"
 const baseUrl = 'http://localhost:3000/api/programs'
 
-const getProgram = async () => {
+const getPrograms = async () => {
   try {
     const res = await axios.get(baseUrl)
     const programs = res.data.map(program => {
@@ -19,6 +19,24 @@ const getProgram = async () => {
   } catch (error) {
     console.error(error)
     return []
+  }
+}
+
+const getProgramById = async (id) => {
+  try {
+    const res = await axios.get(`${baseUrl}/${id}`)
+    const program = {
+      id: res.data._id,
+      name: res.data.name,
+      weeks: res.data.weeks,
+      weekDetails: res.data.weekDetails,
+      createdAt: res.data.createdAt,
+      updatedAt: res.data.updatedAt
+    }
+    return program
+  } catch (error) {
+    console.error(error)
+    return null
   }
 }
 
@@ -59,4 +77,4 @@ const createProgram = async (programData) => {
 
 }
 
-export default { getProgram, deleteProgram, updateProgram, createProgram }
+export default { getPrograms, getProgramById, deleteProgram, updateProgram, createProgram }
