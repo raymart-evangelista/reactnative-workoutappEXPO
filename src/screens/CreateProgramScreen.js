@@ -471,11 +471,16 @@ const Weeks = ({ values, setFieldValue, handleChange }) => {
 
 export function ProgramNameInputScreen({ navigation, route }) {
 
-  if (route.params) {
-    const { programId } = route.params
-    console.log('this is the params passed in')
-    console.log(programId)
-    // we want to use our service to fetch the program information
+  const fetchProgram = async (programId) => {
+    try {
+      const program = await programsService.getProgramById(programId)
+      console.log('this is the FETCHED program')
+      console.log(program)
+      return program
+    } catch (error) {
+      console.error(error)
+      throw new Error('Failed to fetch program data from screen component')
+    }
   }
 
   const initialValues = {
@@ -484,8 +489,6 @@ export function ProgramNameInputScreen({ navigation, route }) {
     weeks: 0
   }
 
-  // const [existingProgram, setExistingProgram] = useState(programToEdit)
-  // const [values, setValues] = useState(programToEdit ? programToEdit : initialValues)
   const [values, setValues] = useState(initialValues)
 
   // const initialValues = {
@@ -726,16 +729,28 @@ export function ProgramNameInputScreen({ navigation, route }) {
   //   ]
   // }
 
-
-
-  
-
   useEffect(() => {
     setValues((prevValues) => ({
       ...prevValues,
       weeks: prevValues.weekDetails.length
     }))
   }, [values.weekDetails])
+
+  useEffect(() => {
+    if (route.params) {
+      const { programId } = route.params
+      console.log('this is the params passed in')
+      console.log(programId)
+      // fetch information based on program ID
+      fetchProgram(programId)
+        .then(program => {
+          setValues(program)
+        })
+        .catch(error => {
+          console.error(error)
+        })
+    }
+  }, [route.params])
 
   const NameSchema = Yup.object().shape({
     name: Yup.string()
