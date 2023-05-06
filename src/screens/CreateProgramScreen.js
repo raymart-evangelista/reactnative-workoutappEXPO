@@ -777,7 +777,8 @@ export function ProgramNameInputScreen({ navigation, route }) {
   return (
     <ScrollView style={{ margin: '2%' }}>
       <Formik
-        initialValues={initialValues}
+        enableReinitialize={true}
+        initialValues={values}
         validationSchema={NameSchema}
         onSubmit={async (values, { setSubmitting }) => {
           try {
