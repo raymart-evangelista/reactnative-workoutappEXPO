@@ -471,6 +471,13 @@ const Weeks = ({ values, setFieldValue, handleChange }) => {
 
 export function ProgramNameInputScreen({ navigation, route }) {
 
+  const { programId } = route.params 
+  const [values, setValues] = useState({
+    name: 'sample name',
+    weekDetails: [],
+    weeks: 0
+  })
+
   const fetchProgram = async (programId) => {
     try {
       const program = await programsService.getProgramById(programId)
@@ -484,12 +491,11 @@ export function ProgramNameInputScreen({ navigation, route }) {
   }
 
   const initialValues = {
-    name: 'sample program name',
+    name: 'sample name',
     weekDetails: [],
     weeks: 0
   }
-
-  const [values, setValues] = useState(initialValues)
+  
 
   // const initialValues = {
   //   name: 'UPPER/LOWER 4x WEEK',
@@ -729,28 +735,37 @@ export function ProgramNameInputScreen({ navigation, route }) {
   //   ]
   // }
 
-  useEffect(() => {
-    setValues((prevValues) => ({
-      ...prevValues,
-      weeks: prevValues.weekDetails.length
-    }))
-  }, [values.weekDetails])
+  // useEffect(() => {
+  //   setValues((prevValues) => ({
+  //     ...prevValues,
+  //     weeks: prevValues.weekDetails.length
+  //   }))
+  // }, [values.weekDetails])
 
   useEffect(() => {
-    if (route.params) {
-      const { programId } = route.params
+    if (programId) {
       console.log('this is the params passed in')
       console.log(programId)
       // fetch information based on program ID
       fetchProgram(programId)
         .then(program => {
-          setValues(program)
-        })
+          setValues({
+            name: program.name,
+            weeks: program.weeks,
+            weekDetails: program.weekDetails
+          })
+        }).then(
+          console.log('these are the updated values')
+        ).then(
+          console.log(values)
+        )
         .catch(error => {
           console.error(error)
         })
     }
-  }, [route.params])
+    console.log('these are values &&&')
+    console.log(values)
+  }, [programId])
 
   const NameSchema = Yup.object().shape({
     name: Yup.string()
