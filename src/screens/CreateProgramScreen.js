@@ -472,7 +472,7 @@ const Weeks = ({ values, setFieldValue, handleChange }) => {
 export function ProgramNameInputScreen({ navigation, route }) {
 
   let programId = null
-  
+
   if (route.params) {
     programId = route.params.programId
   }
@@ -540,22 +540,31 @@ export function ProgramNameInputScreen({ navigation, route }) {
         initialValues={values}
         validationSchema={NameSchema}
         onSubmit={async (values, { setSubmitting }) => {
-          // want to use programsService.editProgram for existing programs
-          // want to use programsService.createProgram for programs that aren't yet made
-          try {
-            const createdProgram = await programsService.createProgram(values);
-            alert('Program created successfully')
-            navigation.navigate('Home')
-          } catch (error) {
-            console.error(error)
-            alert('An error occurred while creating the program')
-          } finally {
-            setSubmitting(false)
+          if (programId) {
+            // want to use programsService.updateProgram for existing programs
+            try {
+              const editedProgram = await programsService.updateProgram(programId, values)
+              alert("Program updated successfully")
+              navigation.navigate('Home')
+            } catch (error) {
+              console.error(error)
+              alert('An error occurred while updating the program')
+            } finally {
+              setSubmitting(false)
+            }
+          } else {
+            // want to use programsService.createProgram for programs that aren't yet made
+            try {
+              const createdProgram = await programsService.createProgram(values);
+              alert('Program created successfully')
+              navigation.navigate('Home')
+            } catch (error) {
+              console.error(error)
+              alert('An error occurred while creating the program')
+            } finally {
+              setSubmitting(false)
+            }
           }
-          // setTimeout(() => {
-          //   alert(JSON.stringify(values, null, 2))
-          //   setSubmitting(false)
-          // }, 400)
         }}
       >
         {({ handlePush, handleRemove, handleChange, handleBlur, handleSubmit, setFieldValue, values, errors, touched, isSubmitting }) => (
