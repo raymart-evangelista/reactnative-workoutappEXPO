@@ -535,6 +535,8 @@ export function ProgramNameInputScreen({ navigation, route }) {
         initialValues={values}
         validationSchema={NameSchema}
         onSubmit={async (values, { setSubmitting }) => {
+          // want to use programsService.editProgram for existing programs
+          // want to use programsService.createProgram for programs that aren't yet made
           try {
             const createdProgram = await programsService.createProgram(values);
             alert('Program created successfully')
