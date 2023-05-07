@@ -471,7 +471,12 @@ const Weeks = ({ values, setFieldValue, handleChange }) => {
 
 export function ProgramNameInputScreen({ navigation, route }) {
 
-  const { programId } = route.params 
+  let programId = null
+  
+  if (route.params) {
+    programId = route.params.programId
+  }
+
   const [values, setValues] = useState({
     name: 'sample name',
     weekDetails: [],
