@@ -13,6 +13,7 @@ import SignUpScreen from './src/screens/SignUpScreen';
 import HomeScreen from './src/screens/HomeScreen';
 import { ProgramNameInputScreen } from './src/screens/CreateProgramScreen';
 import { ExistingProgramsScreen, EditProgramScreen } from './src/screens/ExistingProgramScreen';
+import { ContinueProgramScreen } from './src/screens/ContinueProgramScreen';
 
 
 const Stack = createNativeStackNavigator()
@@ -42,6 +43,7 @@ export default function App() {
           <Stack.Screen name="CreateProgram" component={ProgramNameInputScreen} />
           <Stack.Screen name="ExistingPrograms" component={ExistingProgramsScreen} />
           <Stack.Screen name="EditProgram" component={EditProgramScreen} />
+          <Stack.Screen name="ContinueProgram" component={ContinueProgramScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     </PaperProvider>
