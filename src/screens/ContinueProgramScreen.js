@@ -12,3 +12,11 @@ export function ContinueProgramScreen({ navigation }) {
     <ExistingProgramsScreen navigation={navigation} screenType={SCREEN_TYPES.CONTINUE} />
   )
 }
+
+export function ProgramInformationScreen({ navigation }) {
+  return (
+    <View>
+      <Text>Program information goes here</Text>
+    </View>
+  )
+}

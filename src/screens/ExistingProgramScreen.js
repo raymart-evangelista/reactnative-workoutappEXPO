@@ -3,6 +3,7 @@ import { View, Text, TouchableOpacity, Alert, Modal, Button, TextInput } from "r
 
 import programsService from "../services/programs";
 import { SCREEN_TYPES } from "../../constants/constants";
+import { ProgramInformationScreen } from "./ContinueProgramScreen";
 
 export function ExistingProgramsScreen({ navigation, screenType = null }) {
   const [programs, setPrograms] = useState([])
@@ -13,6 +14,9 @@ export function ExistingProgramsScreen({ navigation, screenType = null }) {
     // navigate to new screen to edit program
     if (screenType === SCREEN_TYPES.CONTINUE) {
       console.log('continue screen')
+      navigation.navigate('ProgramInformation', {
+        program: program,
+      })
     } else {
       navigation.navigate('EditProgram', {
         program: program,
