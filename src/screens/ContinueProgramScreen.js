@@ -6,6 +6,7 @@ import * as Yup from 'yup';
 
 import { ExistingProgramsScreen } from "./ExistingProgramScreen";
 import { SCREEN_TYPES } from "../../constants/constants"
+import programsService from "../services/programs";
 
 export function ContinueProgramScreen({ navigation }) {
   return (
@@ -13,10 +14,38 @@ export function ContinueProgramScreen({ navigation }) {
   )
 }
 
-export function ProgramInformationScreen({ navigation }) {
+export function ProgramInformationScreen({ navigation, route }) {
+
+  const { programId } = route.params
+  const [program, setProgram] = useState(null)
+
+  const fetchProgram = async (programId) => {
+    try {
+      const program = await programsService.getProgramById(programId)
+      console.log('this is the FETCHED program')
+      console.log(program)
+      return program
+    } catch (error) {
+      console.error(error)
+      throw new Error('Failed to fetch program data from screen component')
+    }
+  }
+
+  useEffect(() => {
+      // fetch information based on program ID
+      fetchProgram(programId)
+        .then(fetchedProgram => {
+          setProgram(fetchedProgram)
+        })
+        .catch(error => {
+          console.error(error)
+        })
+  }, [])
+
   return (
-    <View>
+    <ScrollView>
       <Text>Program information goes here</Text>
-    </View>
+      <Text>{(JSON.stringify(program, null, 2))}</Text>
+    </ScrollView>
   )
 }

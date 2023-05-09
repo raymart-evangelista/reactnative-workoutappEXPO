@@ -117,6 +117,10 @@ export function EditProgramScreen({ navigation, route }) {
     navigation.navigate('CreateProgram', { programId: program.id })
   }
 
+  const continueProgram = () => {
+    navigation.navigate('ProgramInformation', { programId: program.id })
+  }
+
   return (
     <View>
       <TouchableOpacity onPress={() => setModalVisible(true)}>
@@ -135,7 +139,10 @@ export function EditProgramScreen({ navigation, route }) {
         </View>
       </Modal>
       <TouchableOpacity onPress={editProgram}>
-        <Text>Edit program</Text>
+        <Text>Edit program details</Text>
+      </TouchableOpacity>
+      <TouchableOpacity onPress={continueProgram}>
+        <Text>Continue program</Text>
       </TouchableOpacity>
     </View>
   )
