@@ -4,15 +4,7 @@ import { Formik, Form, Field, FieldArray, ErrorMessage } from "formik";
 import { Button, Text, Title, RadioButton, List, useTheme } from 'react-native-paper'
 import * as Yup from 'yup';
 
-import { ExistingProgramsScreen } from "./ExistingProgramScreen";
-import { SCREEN_TYPES } from "../../constants/constants"
 import programsService from "../services/programs";
-
-// export function ContinueProgramScreen({ navigation }) {
-//   return (
-//     <ExistingProgramsScreen navigation={navigation} screenType={SCREEN_TYPES.CONTINUE} />
-//   )
-// }
 
 export function ProgramInformationScreen({ navigation, route }) {
 

@@ -2,8 +2,6 @@ import { useEffect, useState } from "react";
 import { View, Text, TouchableOpacity, Alert, Modal, Button, TextInput } from "react-native";
 
 import programsService from "../services/programs";
-import { SCREEN_TYPES } from "../../constants/constants";
-import { ProgramInformationScreen } from "./ContinueProgramScreen";
 
 export function ExistingProgramsScreen({ navigation, screenType = null }) {
   const [programs, setPrograms] = useState([])
@@ -11,19 +9,11 @@ export function ExistingProgramsScreen({ navigation, screenType = null }) {
   const [lastModified, setLastModified] = useState(Date.now())
 
   const handleProgramPress = (program) => {
-    // navigate to new screen to edit program
-    if (screenType === SCREEN_TYPES.CONTINUE) {
-      console.log('continue screen')
-      navigation.navigate('ProgramInformation', {
-        program: program,
-      })
-    } else {
-      navigation.navigate('EditProgram', {
-        program: program,
-        // onProgramDeleted: handleProgramDeleted 
-        onProgramModified: handleProgramModified
-      })
-    }
+    navigation.navigate('EditProgram', {
+      program: program,
+      // onProgramDeleted: handleProgramDeleted 
+      onProgramModified: handleProgramModified
+    })
   }
 
   useEffect(() => {
