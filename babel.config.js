@@ -1,4 +1,4 @@
-module.exports = function (api) {
+module.exports = function(api) {
   api.cache(true);
   return {
     presets: ['babel-preset-expo'],
@@ -13,23 +13,8 @@ module.exports = function (api) {
     ],
     env: {
       production: {
-        plugins: ['react-native-paper/babel',
-          ["module:react-native-dotenv", {
-            "envName": "APP_ENV",
-            "moduleName": "@env",
-            "path": ".env",
-          }]
-        ]
-      },
-      development: {
-        plugins: ['react-native-paper/babel',
-          ["module:react-native-dotenv", {
-            "envName": "APP_ENV",
-            "moduleName": "@env",
-            "path": ".env",
-          }]
-        ]
+        plugins: ['react-native-paper/babel'],
       }
-    },
+    }
   };
 };
