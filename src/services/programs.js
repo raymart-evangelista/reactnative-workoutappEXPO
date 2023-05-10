@@ -1,8 +1,6 @@
 import axios from "axios"
-import Env from "../../.env"
 
-const BASE_URL = Env.BASE_URL
-const baseUrl = BASE_URL
+const baseUrl = 'http://localhost:3000/api/programs'
 
 const getPrograms = async () => {
   try {
