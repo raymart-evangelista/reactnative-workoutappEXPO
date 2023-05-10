@@ -15,6 +15,9 @@ import { ProgramNameInputScreen } from './src/screens/CreateProgramScreen';
 import { ExistingProgramsScreen, EditProgramScreen } from './src/screens/ExistingProgramScreen';
 import { ProgramInformationScreen, ContinueProgramScreen } from './src/screens/ContinueProgramScreen';
 
+import dotenv from 'dotenv'
+dotenv.config()
+
 
 const Stack = createNativeStackNavigator()
 const Tab = createBottomTabNavigator()
