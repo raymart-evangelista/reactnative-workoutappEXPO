@@ -43,7 +43,7 @@ export default function App() {
           <Stack.Screen name="CreateProgram" component={ProgramNameInputScreen} />
           <Stack.Screen name="ExistingPrograms" component={ExistingProgramsScreen} />
           <Stack.Screen name="EditProgram" component={EditProgramScreen} />
-          <Stack.Screen name="ContinueProgram" component={ContinueProgramScreen} />
+          {/* <Stack.Screen name="ContinueProgram" component={ContinueProgramScreen} /> */}
           <Stack.Screen name="ProgramInformation" component={ProgramInformationScreen} />
         </Stack.Navigator>
       </NavigationContainer>
