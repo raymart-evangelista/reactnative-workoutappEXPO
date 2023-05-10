@@ -1,5 +1,5 @@
 import axios from "axios"
-import { BASE_URL } from '@env'
+import { BASE_URL } from 'react-native-dotenv'
 
 const baseUrl = 'http://localhost:3000/api/programs'
 
