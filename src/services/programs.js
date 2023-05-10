@@ -1,4 +1,6 @@
 import axios from "axios"
+import { BASE_URL } from '@env'
+
 const baseUrl = 'http://localhost:3000/api/programs'
 
 const getPrograms = async () => {
