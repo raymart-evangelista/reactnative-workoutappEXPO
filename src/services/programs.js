@@ -1,6 +1,5 @@
 import axios from "axios"
-import { BASE_URL } from 'react-native-dotenv'
-const baseUrl = `http://${BASE_URL}/api/programs`
+const baseUrl = 'http://localhost:3000/api/programs'
 
 const getPrograms = async () => {
   try {
