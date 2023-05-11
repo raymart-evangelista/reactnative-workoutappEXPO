@@ -1,6 +1,10 @@
 import axios from "axios"
 
-const baseUrl = 'http://localhost:3000/api/programs'
+import Constants from 'expo-constants'
+const baseUrl =  Constants.expoConfig.extra.BASE_URL
+
+// const baseUrl = 'http://localhost:3000/api/programs'
+// console.log(baseUrl)
 
 const getPrograms = async () => {
   try {

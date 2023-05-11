@@ -1,4 +1,6 @@
-{
+require('dotenv/config')
+
+export default {
   "expo": {
     "name": "WorkoutAppExpo",
     "slug": "WorkoutAppExpo",
@@ -28,6 +30,9 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
-  }
+    },
+    extra: {
+      BASE_URL: process.env.BASE_URL
+    },
+  },
 }
