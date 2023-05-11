@@ -1,8 +1,6 @@
 import axios from "axios"
 
-const base = 'http://localhost:3000/api/programs'
-const baseUrl = process.env.BASE_URL
-console.log(process.env.BASE_URL)
+const baseUrl = 'http://localhost:3000/api/programs'
 
 const getPrograms = async () => {
   try {
