@@ -8,6 +8,13 @@ import programsService from "../services/programs";
 
 export function ProgramInformationScreen({ navigation, route }) {
 
+  // when thee user continues a program, it has the user's state for the programs last continued place of business
+  // so if the user already finished week 1 day 1 and nothing else, it will show the user the week 1 day 2 card, along with the cards for the other days in the week
+  // when the user clicks on a day, it will show the information they inputted with the only area they can fill in being the desired weight
+  // the program should save automatically
+  // the program information screen shows the user their current workout day
+  
+
   const { programId } = route.params
   const [program, setProgram] = useState(null)
 
