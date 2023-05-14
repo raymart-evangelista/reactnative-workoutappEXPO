@@ -13,8 +13,8 @@ export function ProgramInformationScreen({ navigation, route }) {
   // when the user clicks on a day, it will show the information they inputted with the only area they can fill in being the desired weight
   // the program should save automatically
   // the program information screen shows the user their current workout day
-  
 
+  // make them into cards 
   const { programId } = route.params
   const [program, setProgram] = useState(null)
 
