@@ -51,23 +51,21 @@ export function ProgramInformationScreen({ navigation, route }) {
 
   return (
     <ScrollView>
-      <Text>Recent programs here</Text>
+      {/* <Text>Recent programs here</Text>
       <ScrollView horizontal={true}>
-        <Text>Program information goes here</Text>
         {program && program.weekDetails && program.weekDetails.map(week => (
             <View key={week._id}>
               <Card title={'Week ' + week.weekNum} subtitle={week._id} />
             </View>
           ))}
-      </ScrollView>
-      <Card />
+      </ScrollView> */}
       {program && (
         <View>
           <Text>Program exists</Text>
           <Text>{program.id}</Text>
           {program.weekDetails && program.weekDetails.map(week => (
             <View key={week._id}>
-              <Card title={'Week ' + week.weekNum} subtitle={week._id} />
+              <Card title={'Week ' + week.weekNum} />
             </View>
           ))}
         </View>

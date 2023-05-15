@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { View, Text, TouchableOpacity, Alert, Modal, Button, TextInput } from "react-native";
+import Card from "../components/Card";
 
 import programsService from "../services/programs";
 
@@ -39,9 +40,12 @@ export function ExistingProgramsScreen({ navigation, screenType = null }) {
         <Text>No programs currently exist</Text>
       ) : (
         programs.map((program) => (
-          <TouchableOpacity key={program.id} onPress={() => handleProgramPress(program)}>
-            <Text>{program.name}</Text>
-          </TouchableOpacity>
+          <View key={program.id}>
+            <TouchableOpacity key={program.id} onPress={() => handleProgramPress(program)}>
+              <Card title={program.name} subtitle={program.weeks + ` week training program`} />
+            </TouchableOpacity>
+          </View>
+          //   <Text>{program.name}</Text>
         ))
       )}
     </View>
