@@ -5,6 +5,7 @@ import { defaultStyles } from '../styles/globalStyles';
 export default function HomeScreen({ navigation, route }) {
   return (
     <View style={defaultStyles.basic}>
+      {/* <Text>Favorite Program stuff will also be on HomeScreen</Text> */}
       <Button 
         title="Create program"
         onPress={() => navigation.navigate('CreateProgram')}
