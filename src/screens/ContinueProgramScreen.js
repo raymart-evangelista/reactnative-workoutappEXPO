@@ -4,6 +4,8 @@ import { Formik, Form, Field, FieldArray, ErrorMessage } from "formik";
 import { Button, Text, Title, RadioButton, List, useTheme } from 'react-native-paper'
 import * as Yup from 'yup';
 
+import Card from "../components/Card";
+
 import programsService from "../services/programs";
 
 export function ProgramInformationScreen({ navigation, route }) {
@@ -41,10 +43,31 @@ export function ProgramInformationScreen({ navigation, route }) {
         })
   }, [])
 
+  useEffect(() => {
+    if (program) {
+      navigation.setOptions({ title: program.name })
+    }
+  }, [program])
+
   return (
     <ScrollView>
       <Text>Program information goes here</Text>
+      <Card />
+      {program && (
+        <View>
+          <Text>Program exists</Text>
+          <Text>{program.id}</Text>
+          {program.weekDetails && program.weekDetails.map(week => (
+            <View key={week._id}>
+              <Card title={'Week ' + week.weekNum} subtitle={week._id} />
+            </View>
+          ))}
+        </View>
+      )}
       <Text>{(JSON.stringify(program, null, 2))}</Text>
+      {/* {program && program.map(weekDetails => (
+      ))} */}
+
     </ScrollView>
   )
 }
