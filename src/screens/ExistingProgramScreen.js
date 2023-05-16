@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { View, Text, TouchableOpacity, Alert, Modal, Button, TextInput } from "react-native";
+import { View, Text, TouchableOpacity, Alert, Modal, Button, TextInput, ScrollView } from "react-native";
 import Card from "../components/Card";
 
 import programsService from "../services/programs";
@@ -35,7 +35,7 @@ export function ExistingProgramsScreen({ navigation, screenType = null }) {
   }
 
   return (
-    <View>
+    <ScrollView>
       {programs.length === 0 ? (
         <Text>No programs currently exist</Text>
       ) : (
@@ -48,7 +48,7 @@ export function ExistingProgramsScreen({ navigation, screenType = null }) {
           //   <Text>{program.name}</Text>
         ))
       )}
-    </View>
+    </ScrollView>
   )
 }
 
