@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState, useLayoutEffect } from "react"
 import { Modal, ScrollView, TouchableOpacity, View, StyleSheet } from "react-native"
 import { Formik, Form, Field, FieldArray, ErrorMessage } from "formik";
 import { Button, Text, Title, RadioButton, List, useTheme } from 'react-native-paper'
@@ -7,6 +7,24 @@ import * as Yup from 'yup';
 import Card from "../components/Card";
 
 import programsService from "../services/programs";
+
+export function ContinueWeekScreen({ navigation, route }) {
+
+  const { program, week } = route.params
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      title: `Week ${week.weekNum} of ${program.name}`
+    })
+  }, [navigation, week])
+  console.log(route.params)
+
+  return (
+    <View>
+
+    </View>
+  )
+}
 
 export function ProgramInformationScreen({ navigation, route }) {
 
@@ -49,6 +67,15 @@ export function ProgramInformationScreen({ navigation, route }) {
     }
   }, [program])
 
+  const handleWeekPress = (week) => {
+    // navigate user to week screen that will show Days
+    navigation.navigate('ContinueWeek', {
+      program: program,
+      week: week
+    })
+    console.log(week)
+  }
+
   return (
     <ScrollView>
       {/* <Text>Recent programs here</Text>
@@ -65,7 +92,9 @@ export function ProgramInformationScreen({ navigation, route }) {
           <Text>{program.id}</Text>
           {program.weekDetails && program.weekDetails.map(week => (
             <View key={week._id}>
-              <Card title={'Week ' + week.weekNum} />
+              <TouchableOpacity onPress={() => handleWeekPress(week)}>
+                <Card title={'Week ' + week.weekNum} />
+              </TouchableOpacity>
             </View>
           ))}
         </View>
