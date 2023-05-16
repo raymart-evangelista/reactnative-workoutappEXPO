@@ -21,7 +21,26 @@ export function ContinueWeekScreen({ navigation, route }) {
 
   return (
     <View>
-
+      {week.dayDetails.map(day => (
+        <View key={day._id}>
+          <TouchableOpacity onPress={() => handleDayPress(day)}>
+            <Card title={'Day ' + day.dayNum} />
+          </TouchableOpacity>
+        </View>
+      ))}
+      {/* {program && (
+        <View>
+          <Text>Program exists</Text>
+          <Text>{program.id}</Text>
+          {program.weekDetails && program.weekDetails.map(week => (
+            <View key={week._id}>
+              <TouchableOpacity onPress={() => handleWeekPress(week)}>
+                <Card title={'Week ' + week.weekNum} />
+              </TouchableOpacity>
+            </View>
+          ))}
+        </View>
+      )} */}
     </View>
   )
 }
