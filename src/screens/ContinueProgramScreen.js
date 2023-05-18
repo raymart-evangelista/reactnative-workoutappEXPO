@@ -25,7 +25,7 @@ export function ContinueDayScreen({ navigation, route }) {
       <Text>Hello</Text>
       {day.exercises.map(exercise => (
         <View key={exercise._id}>
-          <Card title={exercise.name}/>
+          <Card title={exercise.name} notes={exercise.notes}/>
           {/* 
             ideally want to have it so user can edit weight on the fly
             if the user wants to edit the entire exercise, pull out a modal

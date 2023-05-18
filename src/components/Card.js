@@ -4,14 +4,16 @@ import { Avatar, Button, Card as PaperCard, Text } from 'react-native-paper'
 
 const LeftComponent = props => <Avatar.Icon {...props} icon="folder" />
 
-const Card = ({title="Default Title", subtitle=null, clickAction=null}) => {
+const Card = ({title="Default Title", subtitle=null, clickAction=null, notes=null}) => {
   return (
     <PaperCard>
       {/* <PaperCard.Title title="Card Title" subtitle="Card Subtitle" left={LeftComponent} /> */}
       <PaperCard.Title title={title} subtitle={subtitle} />
       <PaperCard.Content>
         {/* <Text variant="titleLarge">Card title</Text> */}
-        {/* <Text variant="bodyMedium">Card content</Text> */}
+        {notes && (
+          <Text variant='bodySmall'>{notes}</Text>
+        )}
       </PaperCard.Content>
       {/* <PaperCard.Cover source={{ uri: 'https://picsum.photos/700' }} /> */}
       <PaperCard.Actions>
