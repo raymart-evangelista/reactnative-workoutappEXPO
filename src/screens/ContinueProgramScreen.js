@@ -18,7 +18,22 @@ export function ContinueDayScreen({ navigation, route }) {
     })
   }, [navigation, day])
 
-  console.log(route.params.week)
+  console.log(route.params.day)
+
+  return (
+    <ScrollView>
+      <Text>Hello</Text>
+      {day.exercises.map(exercise => (
+        <View key={exercise._id}>
+          <Card title={exercise.name}/>
+          {/* 
+            ideally want to have it so user can edit weight on the fly
+            if the user wants to edit the entire exercise, pull out a modal
+           */}
+        </View>
+      ))}
+    </ScrollView>
+  )
 
 }
 
