@@ -8,6 +8,10 @@ import Card from "../components/Card";
 
 import programsService from "../services/programs";
 
+export function ContinueDayScreen({ navigation, route }) {
+  
+}
+
 export function ContinueWeekScreen({ navigation, route }) {
 
   const { program, week } = route.params
