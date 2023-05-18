@@ -13,7 +13,7 @@ import SignUpScreen from './src/screens/SignUpScreen';
 import HomeScreen from './src/screens/HomeScreen';
 import { ProgramNameInputScreen } from './src/screens/CreateProgramScreen';
 import { ExistingProgramsScreen, EditProgramScreen } from './src/screens/ExistingProgramScreen';
-import { ProgramInformationScreen, ContinueWeekScreen } from './src/screens/ContinueProgramScreen';
+import { ProgramInformationScreen, ContinueWeekScreen, ContinueDayScreen } from './src/screens/ContinueProgramScreen';
 
 
 const Stack = createNativeStackNavigator()
@@ -46,6 +46,7 @@ export default function App() {
           {/* <Stack.Screen name="ContinueProgram" component={ContinueProgramScreen} /> */}
           <Stack.Screen name="ProgramInformation" component={ProgramInformationScreen} />
           <Stack.Screen name="ContinueWeek" component={ContinueWeekScreen} />
+          <Stack.Screen name="ContinueDay" component={ContinueDayScreen} />
 
         </Stack.Navigator>
       </NavigationContainer>

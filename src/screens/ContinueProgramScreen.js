@@ -9,7 +9,17 @@ import Card from "../components/Card";
 import programsService from "../services/programs";
 
 export function ContinueDayScreen({ navigation, route }) {
-  
+
+  const { program, week, day } = route.params
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      title: `W${week.weekNum}, D${day.dayNum} of ${program.name}`
+    })
+  }, [navigation, day])
+
+  console.log(route.params.week)
+
 }
 
 export function ContinueWeekScreen({ navigation, route }) {
@@ -21,7 +31,15 @@ export function ContinueWeekScreen({ navigation, route }) {
       title: `Week ${week.weekNum} of ${program.name}`
     })
   }, [navigation, week])
-  console.log(route.params)
+
+  const handleDayPress = (day) => {
+    // navigate user to day screen that will show exercises
+    navigation.navigate('ContinueDay', {
+      program: program,
+      week: week,
+      day: day
+    })
+  }
 
   return (
     <View>
@@ -96,7 +114,6 @@ export function ProgramInformationScreen({ navigation, route }) {
       program: program,
       week: week
     })
-    console.log(week)
   }
 
   return (
