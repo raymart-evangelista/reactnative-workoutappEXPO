@@ -43,6 +43,12 @@ const Card = ({title="Default Title", subtitle=null, clickAction=null, exercise=
             <PaperCard.Title title={exercise.name}/>
             <PaperCard.Content>
               <Text variant='bodySmall'>{exercise.notes}</Text>
+              {exercise.warmupSets.min === exercise.warmupSets.max ? (
+                <Text variant='bodyMedium'>warm up sets: {exercise.warmupSets.min}</Text>
+
+              ) : (
+                <Text variant='bodyMedium'>warm up sets: {exercise.warmupSets.min}-{exercise.warmupSets.max}</Text>
+              )}
             </PaperCard.Content>
           </>
         ) : (
