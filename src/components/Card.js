@@ -1,10 +1,16 @@
 import { useState } from 'react'
 
-import { Avatar, Button, Card as PaperCard, Text } from 'react-native-paper'
+import { Avatar, Button, Card as PaperCard, Text, TextInput } from 'react-native-paper'
 
 const LeftComponent = props => <Avatar.Icon {...props} icon="folder" />
 
 const Card = ({title="Default Title", subtitle=null, clickAction=null, exercise=null}) => {
+
+  const [weight, setWeight] = useState(exercise?.weight.value || '')
+
+  const handleWeightChange = value => {
+    setWeight(value)
+  }
 
   return (
     <PaperCard>
@@ -33,6 +39,13 @@ const Card = ({title="Default Title", subtitle=null, clickAction=null, exercise=
                 <>
                 </>
               )}
+              <TextInput
+                label='weight'
+                value={`${weight}`}
+                onChangeText={handleWeightChange}
+                keyboardType='numeric'
+                style={{ marginTop: 16 }}
+              />
             </PaperCard.Content>
           </>
         ) : (
