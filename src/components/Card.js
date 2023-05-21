@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 import { Avatar, Button, Card as PaperCard, Text, TextInput } from 'react-native-paper'
 
@@ -10,6 +10,18 @@ const Card = ({title="Default Title", subtitle=null, clickAction=null, exercise=
 
   const handleWeightChange = value => {
     setWeight(value)
+  }
+
+  useEffect(() => {
+    // save weight to server when it's changed
+    if (exercise) {
+      saveWeightToServer(weight)
+    }
+  }, [weight, exercise])
+
+  const saveWeightToServer = weight => {
+    // implement logic to save weight to server--can make API call to update the weight
+    console.log('Saving weight: ', weight)
   }
 
   return (
@@ -40,7 +52,7 @@ const Card = ({title="Default Title", subtitle=null, clickAction=null, exercise=
                 </>
               )}
               <TextInput
-                label='weight'
+                label={`weight (${exercise.weight.unit})`}
                 value={`${weight}`}
                 onChangeText={handleWeightChange}
                 keyboardType='numeric'
