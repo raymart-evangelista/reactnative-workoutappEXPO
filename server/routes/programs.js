@@ -60,13 +60,59 @@ programsRouter.delete('/:id', async (req, res) => {
 
 // PATCH (update) by ID
 programsRouter.patch('/:id', async (req, res) => {
+  // try {
+  //   req.body.updatedAt = Date.now()
+  //   const updatedProgram = await Program.findByIdAndUpdate(req.params.id, req.body, { new: true })
+  //   res.json(updatedProgram)
+  // } catch (error) {
+  //   console.error(error)
+  //   res.status(500).json({ message: 'Failed to updated program' })
+  // }
+
   try {
-    req.body.updatedAt = Date.now()
-    const updatedProgram = await Program.findByIdAndUpdate(req.params.id, req.body, { new: true })
-    res.json(updatedProgram)
+    const { weekNum, dayNum, exerciseIndex, weight } = req.body
+
+    const program = await Program.findById(req.params.id)
+
+    if (!program) {
+      return res.status(404).json({ message: 'Program not found' })
+    }
+
+    if (weekNum !== undefined && dayNum !== undefined && exerciseIndex !== undefined && weight !== undefined) {
+      // Update exercise weight
+      const weekDetail = program.weekDetails.find((week) => week.weekNum === weekNum)
+
+      if (!weekDetail) {
+        return res.status(404).json({ message: 'Week not found' })
+      }
+
+      const dayDetail = weekDetail.dayDetails.find((day) => day.dayNum === dayNum)
+
+      if (!dayDetail) {
+        return res.status(404).json({ message: 'Day not found' })
+      }
+
+      const exercise = dayDetail.exercises[exerciseIndex]
+
+      if (!exercise) {
+        return res.status(404).json({ message: 'Exercise not found' })
+      }
+
+      exercise.weight.value = weight
+    } else {
+      // Update entire program
+      // Only update fields that are present in the request body
+      Object.assign(program, req.body)
+
+    }
+
+    program.updatedAt = Date.now()
+    await program.save()
+    res.json(program)
+
   } catch (error) {
     console.error(error)
-    res.status(500).json({ message: 'Failed to updated program' })
+    return res.status(500).json({ message: 'Failed to update program' })
   }
 })
 
