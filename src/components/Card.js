@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
-
 import { Avatar, Button, Card as PaperCard, Text, TextInput } from 'react-native-paper'
+import programsService from "../services/programs";
 
 const LeftComponent = props => <Avatar.Icon {...props} icon="folder" />
 
@@ -15,14 +15,11 @@ const Card = ({title="Default Title", subtitle=null, clickAction=null, exercise=
   useEffect(() => {
     // save weight to server when it's changed
     if (exercise) {
-      saveWeightToServer(weight)
+      // implement logic to save weight to server--can make API call to update the weight
+      // need program ID week ID day ID and exercise ID to make change
+      programsService.updateProgram()
     }
   }, [weight, exercise])
-
-  const saveWeightToServer = weight => {
-    // implement logic to save weight to server--can make API call to update the weight
-    console.log('Saving weight: ', weight)
-  }
 
   return (
     <PaperCard>
