@@ -17,7 +17,7 @@ const Card = ({title="Default Title", subtitle=null, clickAction=null, exercise=
     if (exercise) {
       // implement logic to save weight to server--can make API call to update the weight
       // need program ID week ID day ID and exercise ID to make change
-      programsService.updateProgram()
+      // programsService.updateProgram()
     }
   }, [weight, exercise])
 

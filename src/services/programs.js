@@ -70,6 +70,16 @@ const updateProgram = async (id, updatedFields) => {
   }
 }
 
+const updateExerciseWeight = async (id, weekNum, dayNum, exerciseIndex, weight) => {
+  try {
+    const res = await axios.patch(`${baseUrl}/${id}`, {weekNum, dayNum, exerciseIndex, weight})
+    return res.data
+  } catch (error) {
+    console.error(error)
+    throw new Error('Failed to update exercise weight')
+  }
+}
+
 // post new program, createProgram function
 const createProgram = async (programData) => {
   try {
@@ -82,4 +92,4 @@ const createProgram = async (programData) => {
 
 }
 
-export default { getPrograms, getProgramById, deleteProgram, updateProgram, createProgram }
+export default { getPrograms, getProgramById, deleteProgram, updateProgram, updateExerciseWeight, createProgram }
