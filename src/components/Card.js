@@ -4,12 +4,29 @@ import programsService from "../services/programs";
 
 const LeftComponent = props => <Avatar.Icon {...props} icon="folder" />
 
-const Card = ({title="Default Title", subtitle=null, clickAction=null, exercise=null}) => {
+const Card = (
+  {
+    title="Default Title", 
+    subtitle=null, 
+    clickAction=null, 
+    exercise=null, 
+    program=null,
+    week=null,
+    day=null
+  }
+) => {
 
   const [weightValue, setWeightValue] = useState(exercise?.weight.value || '')
 
   if (exercise) {
-    console.log(exercise)
+    console.log('program')
+    console.log(program.id)
+    console.log('exercise')
+    console.log(exercise._id)
+    console.log('week')
+    console.log(week._id)
+    console.log('day')
+    console.log(day._id)
   }
 
   const handleWeightChange = value => {
