@@ -6,20 +6,33 @@ const LeftComponent = props => <Avatar.Icon {...props} icon="folder" />
 
 const Card = ({title="Default Title", subtitle=null, clickAction=null, exercise=null}) => {
 
-  const [weight, setWeight] = useState(exercise?.weight.value || '')
+  const [weightValue, setWeightValue] = useState(exercise?.weight.value || '')
+
+  if (exercise) {
+    console.log(exercise)
+  }
 
   const handleWeightChange = value => {
-    setWeight(value)
+    setWeightValue(value)
   }
 
   useEffect(() => {
     // save weight to server when it's changed
-    if (exercise) {
+    const updateWeightValue = async () => {
+      try {
+        if (exercise) {
+          const updatedExercise = { ...exercise, weight: { value: weightValue, unit: exercise.weight.unit}}
+          await programsService.updateExerciseWeight(exercise._id, updatedExercise)
+          alert('Exercise weight updated successfully!')
+        }
+      } catch (error) {
+        console.error('Failed to update exercise weight: ', error)
+      }
+    }
       // implement logic to save weight to server--can make API call to update the weight
       // need program ID week ID day ID and exercise ID to make change
-      // programsService.updateProgram()
-    }
-  }, [weight, exercise])
+      // programsService.updateExerciseWeight()
+  }, [weightValue, exercise])
 
   return (
     <PaperCard>
@@ -50,7 +63,7 @@ const Card = ({title="Default Title", subtitle=null, clickAction=null, exercise=
               )}
               <TextInput
                 label={`weight (${exercise.weight.unit})`}
-                value={`${weight}`}
+                value={`${weightValue}`}
                 onChangeText={handleWeightChange}
                 keyboardType='numeric'
                 style={{ marginTop: 16 }}

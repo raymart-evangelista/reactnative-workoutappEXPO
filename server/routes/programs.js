@@ -70,7 +70,7 @@ programsRouter.patch('/:id', async (req, res) => {
   // }
 
   try {
-    const { weekNum, dayNum, exerciseIndex, weight } = req.body
+    const { weekNum, dayNum, exerciseIndex, weightValue } = req.body
 
     const program = await Program.findById(req.params.id)
 
@@ -78,7 +78,7 @@ programsRouter.patch('/:id', async (req, res) => {
       return res.status(404).json({ message: 'Program not found' })
     }
 
-    if (weekNum !== undefined && dayNum !== undefined && exerciseIndex !== undefined && weight !== undefined) {
+    if (weekNum !== undefined && dayNum !== undefined && exerciseIndex !== undefined && weightValue !== undefined) {
       // Update exercise weight
       const weekDetail = program.weekDetails.find((week) => week.weekNum === weekNum)
 
@@ -98,7 +98,7 @@ programsRouter.patch('/:id', async (req, res) => {
         return res.status(404).json({ message: 'Exercise not found' })
       }
 
-      exercise.weight.value = weight
+      exercise.weight.value = weightValue
     } else {
       // Update entire program
       // Only update fields that are present in the request body

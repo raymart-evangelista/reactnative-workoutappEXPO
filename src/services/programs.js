@@ -70,9 +70,9 @@ const updateProgram = async (id, updatedFields) => {
   }
 }
 
-const updateExerciseWeight = async (id, weekNum, dayNum, exerciseIndex, weight) => {
+const updateExerciseWeight = async (id, weekNum, dayNum, exerciseIndex, weightValue) => {
   try {
-    const res = await axios.patch(`${baseUrl}/${id}`, {weekNum, dayNum, exerciseIndex, weight})
+    const res = await axios.patch(`${baseUrl}/${id}`, {weekNum, dayNum, exerciseIndex, weightValue})
     return res.data
   } catch (error) {
     console.error(error)
