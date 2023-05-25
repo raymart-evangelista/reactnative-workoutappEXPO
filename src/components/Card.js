@@ -19,14 +19,14 @@ const Card = (
   const [weightValue, setWeightValue] = useState(exercise?.weight.value || '')
 
   if (exercise) {
-    console.log('program')
-    console.log(program.id)
-    console.log('exercise')
-    console.log(exercise._id)
-    console.log('week')
-    console.log(week._id)
-    console.log('day')
-    console.log(day._id)
+    // console.log('program')
+    // console.log(program.id)
+    // console.log('exercise')
+    // console.log(exercise._id)
+    // console.log('week')
+    // console.log(week._id)
+    // console.log('day')
+    // console.log(day._id)
   }
 
   const handleWeightChange = value => {
@@ -36,16 +36,19 @@ const Card = (
   useEffect(() => {
     // save weight to server when it's changed
     const updateWeightValue = async () => {
+      console.log(`hello from the inside of useEffect`)
       try {
-        if (exercise) {
-          const updatedExercise = { ...exercise, weight: { value: weightValue, unit: exercise.weight.unit}}
-          await programsService.updateExerciseWeight(exercise._id, updatedExercise)
+        if (exercise && exercise.weight.value !== weightValue) {
+          // const updatedExercise = { ...exercise, weight: { value: weightValue, unit: exercise.weight.unit}}
+          await programsService.updateExerciseWeight(program.id, week._id, day._id, exercise._id, weightValue)
           alert('Exercise weight updated successfully!')
         }
       } catch (error) {
         console.error('Failed to update exercise weight: ', error)
       }
     }
+
+    updateWeightValue()
       // implement logic to save weight to server--can make API call to update the weight
       // need program ID week ID day ID and exercise ID to make change
       // programsService.updateExerciseWeight()
