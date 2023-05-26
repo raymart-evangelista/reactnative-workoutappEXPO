@@ -70,9 +70,37 @@ const updateProgram = async (id, updatedFields) => {
   }
 }
 
-const updateExerciseWeight = async (id, weekNum, dayNum, exerciseIndex, weightValue) => {
+const updateExerciseWeight = async (programId, weekId, dayId, exerciseId, weightValue) => {
+  console.log(`inside updateExerciseWeight service`)
   try {
-    const res = await axios.patch(`${baseUrl}/${id}`, {weekNum, dayNum, exerciseIndex, weightValue})
+    // fetch program by ID
+    const program = await axios.get(`${baseUrl}/${programId}`)
+    const updatedProgram = program.data
+    
+    // Find specified week, day, and exercise in the program
+    const week = updatedProgram.weekDetails.find(week => week._id === weekId)
+    if (!week) {
+      throw new Error('Week not found')
+    }
+
+    const day = week.dayDetails.find(day => day._id === dayId)
+    if (!day) {
+      throw new Error('Day not found')
+    }
+    
+    const exercise = day.exercises.find(exercise => exercise._id === exerciseId)
+    console.log(exercise.weight.value)
+    if (!exercise) {
+      throw new Error('Exercise not found')
+    }
+
+    // update weight value
+    exercise.weight.value = weightValue
+
+    console.log(`\tbaah`)
+    console.log(updatedProgram.weekDetails[0].dayDetails[0].exercises[0].weight)
+
+    const res = await axios.patch(`${baseUrl}/${programId}`, updatedProgram)
     return res.data
   } catch (error) {
     console.error(error)
