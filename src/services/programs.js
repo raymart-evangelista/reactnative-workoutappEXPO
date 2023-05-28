@@ -101,7 +101,10 @@ const updateExerciseWeight = async (programId, weekId, dayId, exerciseId, weight
     console.log(updatedProgram.weekDetails[0].dayDetails[0].exercises[0].weight)
 
     const res = await axios.patch(`${baseUrl}/${programId}`, updatedProgram)
-    return res.data
+    // return res.data
+
+    // return updated exercise
+    return exercise
   } catch (error) {
     console.error(error)
     throw new Error('Failed to update exercise weight')

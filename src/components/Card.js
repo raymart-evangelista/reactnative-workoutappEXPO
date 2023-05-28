@@ -40,7 +40,7 @@ const Card = (
       try {
         if (exercise && exercise.weight.value !== weightValue) {
           // const updatedExercise = { ...exercise, weight: { value: weightValue, unit: exercise.weight.unit}}
-          await programsService.updateExerciseWeight(program.id, week._id, day._id, exercise._id, weightValue)
+          const updatedExercise = await programsService.updateExerciseWeight(program.id, week._id, day._id, exercise._id, weightValue)
           // alert('Exercise weight updated successfully!')
         }
       } catch (error) {
