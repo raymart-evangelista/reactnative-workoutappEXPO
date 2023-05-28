@@ -1,4 +1,4 @@
-import { useEffect, useState, useLayoutEffect } from "react"
+import { useEffect, useState, useLayoutEffect, useCallback } from "react"
 import { Modal, ScrollView, TouchableOpacity, View, StyleSheet } from "react-native"
 import { Formik, Form, Field, FieldArray, ErrorMessage } from "formik";
 import { Button, Text, Title, RadioButton, List, useTheme } from 'react-native-paper'
@@ -7,6 +7,7 @@ import * as Yup from 'yup';
 import Card from "../components/Card";
 
 import programsService from "../services/programs";
+import { useFocusEffect } from "@react-navigation/native";
 
 export function ContinueDayScreen({ navigation, route }) {
 
@@ -46,6 +47,17 @@ export function ContinueWeekScreen({ navigation, route }) {
       title: `Week ${week.weekNum} of ${program.name}`
     })
   }, [navigation, week])
+
+  useFocusEffect(
+    useCallback(() => {
+      // fetch updated data from server and update screen
+      
+      // clean up listener when screen loses focus
+      return () => {
+        // perform necessary clean up tasks
+      }
+    }, [])
+  )
 
   const handleDayPress = (day) => {
     // navigate user to day screen that will show exercises
