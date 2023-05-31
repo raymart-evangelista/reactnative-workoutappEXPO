@@ -13,6 +13,9 @@ export function ContinueDayScreen({ navigation, route }) {
 
   const { program, week, day } = route.params
 
+  console.log('inside ContinueDayScreen for updatedAt')
+  console.log(program.updatedAt)
+
   useLayoutEffect(() => {
     navigation.setOptions({
       title: `W${week.weekNum}, D${day.dayNum} of ${program.name}`
@@ -43,16 +46,15 @@ export function ContinueWeekScreen({ navigation, route }) {
   const { program, week } = route.params
   const [fetchedProgram, setFetchedProgram] = useState(null)
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     navigation.setOptions({
       title: `Week ${week.weekNum} of ${program.name}`
     })
-  }, [navigation, week])
+  }, [navigation, program.name, week.weekNum])
 
   useFocusEffect(
     useCallback(() => {
       // fetch updated data from server and update screen
-      console.log('inside useFocusEffect at ContinueWeekScreen')  
       fetchDataAndUpdateState()    
       // clean up listener when screen loses focus
       return () => {
@@ -63,8 +65,6 @@ export function ContinueWeekScreen({ navigation, route }) {
 
   const fetchDataAndUpdateState = async () => {
     try {
-      console.log('inside fetchDataAndUpdateState')
-      console.log(program.id)
       const fetchedProgram = await programsService.getProgramById(program.id)
       setFetchedProgram(fetchedProgram)
     } catch (error) {
