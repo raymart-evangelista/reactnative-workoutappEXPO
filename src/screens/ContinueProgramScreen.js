@@ -41,6 +41,7 @@ export function ContinueDayScreen({ navigation, route }) {
 export function ContinueWeekScreen({ navigation, route }) {
 
   const { program, week } = route.params
+  const [fetchedProgram, setFetchedProgram] = useState(null)
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -51,7 +52,8 @@ export function ContinueWeekScreen({ navigation, route }) {
   useFocusEffect(
     useCallback(() => {
       // fetch updated data from server and update screen
-      
+      console.log('inside useFocusEffect at ContinueWeekScreen')  
+      fetchDataAndUpdateState()    
       // clean up listener when screen loses focus
       return () => {
         // perform necessary clean up tasks
@@ -59,10 +61,21 @@ export function ContinueWeekScreen({ navigation, route }) {
     }, [])
   )
 
+  const fetchDataAndUpdateState = async () => {
+    try {
+      console.log('inside fetchDataAndUpdateState')
+      console.log(program.id)
+      const fetchedProgram = await programsService.getProgramById(program.id)
+      setFetchedProgram(fetchedProgram)
+    } catch (error) {
+      console.error('Failed to fetch program:', error)
+    }
+  }
+
   const handleDayPress = (day) => {
     // navigate user to day screen that will show exercises
     navigation.navigate('ContinueDay', {
-      program: program,
+      program: fetchedProgram || program,
       week: week,
       day: day
     })
