@@ -17,13 +17,13 @@ const Card = (
     .find((w) => w._id === week._id).dayDetails.find((d) => d._id === day._id)
     .exercises.find((e) => e._id === exercise._id).weight.value || exercise?.weight.value || '')
 
-  if (program) {
-    console.log(`Inside card`)
-    console.log(program.weekDetails
-      .find((w) => w._id === week._id).dayDetails.find((d) => d._id === day._id)
-      .exercises.find((e) => e._id === exercise._id).weight.value)
+  // if (program) {
+  //   console.log(`Inside card`)
+  //   console.log(program.weekDetails
+  //     .find((w) => w._id === week._id).dayDetails.find((d) => d._id === day._id)
+  //     .exercises.find((e) => e._id === exercise._id).weight.value)
       
-  }
+  // }
 
   const handleWeightChange = value => {
     setWeightValue(value)
@@ -32,7 +32,6 @@ const Card = (
   useEffect(() => {
     // save weight to server when it's changed
     const updateWeightValue = async () => {
-      console.log(`hello from the inside of useEffect`)
       try {
         if (exercise && exercise.weight.value !== weightValue) {
           // const updatedExercise = { ...exercise, weight: { value: weightValue, unit: exercise.weight.unit}}
