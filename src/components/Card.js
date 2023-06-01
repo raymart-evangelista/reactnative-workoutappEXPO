@@ -1,14 +1,11 @@
 import { useState, useEffect } from 'react'
-import { Avatar, Button, Card as PaperCard, Text, TextInput } from 'react-native-paper'
+import { Button, Card as PaperCard, Text, TextInput } from 'react-native-paper'
 import programsService from "../services/programs";
-
-const LeftComponent = props => <Avatar.Icon {...props} icon="folder" />
 
 const Card = (
   {
     title="Default Title", 
     subtitle=null, 
-    clickAction=null, 
     exercise=null, 
     program=null,
     week=null,
@@ -26,17 +23,6 @@ const Card = (
       .find((w) => w._id === week._id).dayDetails.find((d) => d._id === day._id)
       .exercises.find((e) => e._id === exercise._id).weight.value)
       
-  }
-
-  if (exercise) {
-    // console.log('program')
-    // console.log(program.id)
-    // console.log('exercise')
-    // console.log(exercise._id)
-    // console.log('week')
-    // console.log(week._id)
-    // console.log('day')
-    // console.log(day._id)
   }
 
   const handleWeightChange = value => {
@@ -59,9 +45,6 @@ const Card = (
     }
 
     updateWeightValue()
-      // implement logic to save weight to server--can make API call to update the weight
-      // need program ID week ID day ID and exercise ID to make change
-      // programsService.updateExerciseWeight()
   }, [weightValue, exercise])
 
   return (
