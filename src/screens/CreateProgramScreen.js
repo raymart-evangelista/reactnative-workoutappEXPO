@@ -423,7 +423,7 @@ const Weeks = ({ values, setFieldValue, handleChange }) => {
                     <Field name={`weekDetails.${weekIndex}.weekNum`}>
                       {({ field }) => (
                         <View style={{ flexDirection: 'row' }}>
-                          <Text>{`weekDetails.${weekIndex}.weekNum`}</Text>
+                          {/* <Text>{`weekDetails.${weekIndex}.weekNum`}</Text> */}
                         </View>
                       )}
                     </Field>
@@ -486,8 +486,6 @@ export function ProgramNameInputScreen({ navigation, route }) {
   const fetchProgram = async (programId) => {
     try {
       const program = await programsService.getProgramById(programId)
-      console.log('this is the FETCHED program')
-      console.log(program)
       return program
     } catch (error) {
       console.error(error)
@@ -503,8 +501,6 @@ export function ProgramNameInputScreen({ navigation, route }) {
   
   useEffect(() => {
     if (programId) {
-      console.log('this is the params passed in')
-      console.log(programId)
       // fetch information based on program ID
       fetchProgram(programId)
         .then(program => {
@@ -513,11 +509,7 @@ export function ProgramNameInputScreen({ navigation, route }) {
             weeks: program.weeks,
             weekDetails: program.weekDetails
           })
-        }).then(
-          console.log('these are the updated values')
-        ).then(
-          console.log(values)
-        )
+        })
         .catch(error => {
           console.error(error)
         })
@@ -527,7 +519,7 @@ export function ProgramNameInputScreen({ navigation, route }) {
   }, [programId])
 
   const NameSchema = Yup.object().shape({
-    name: Yup.string()
+    name: Yup.string().required('A program name is required')
       .min(2, 'Too short!')
       .max(25, 'Too long!')
       .required('Required'),
@@ -567,24 +559,20 @@ export function ProgramNameInputScreen({ navigation, route }) {
           }
         }}
       >
-        {({ handlePush, handleRemove, handleChange, handleBlur, handleSubmit, setFieldValue, values, errors, touched, isSubmitting }) => (
+        {({ handlePush, handleRemove, handleChange, handleBlur, handleSubmit, setFieldValue, values, isSubmitting, isValid }) => (
           <View>
-            <Field name="name">
+            <Field type="text" name="name">
               {({ field }) => (
                 <View>
                   <TextInput
                     label='program name'
                     field={field}
                   />
-                  {errors.name && touched.name ? (
-                    <Text>{errors.name}</Text>
-                  ) : (
-                    <Text></Text>
-                  )}
+                  <ErrorMessage name="name" component={Text}/>
                 </View>
               )}
             </Field>
-            <Text>Weeks: {values.weeks}</Text>
+            {/* <Text>Weeks: {values.weeks}</Text> */}
             <Weeks
               values={values}
               setFieldValue={setFieldValue}
@@ -592,13 +580,13 @@ export function ProgramNameInputScreen({ navigation, route }) {
             />
             {values.weekDetails && values.weekDetails.length > 0 ? (
               <View>
-                <Text>Weeks greater than 0. Amt of weeks: {JSON.stringify(values.weekDetails.length)}</Text>
-                <Text>{(JSON.stringify(values, null, 2))}</Text>
+                {/* <Text>Weeks greater than 0. Amt of weeks: {JSON.stringify(values.weekDetails.length)}</Text> */}
+                {/* <Text>{(JSON.stringify(values, null, 2))}</Text> */}
               </View>
             ) : (
               <View>
-                <Text>Weeks less than 0</Text>
-                <Text>{(JSON.stringify(values, null, 2))}</Text>
+                {/* <Text>Weeks less than 0</Text> */}
+                {/* <Text>{(JSON.stringify(values, null, 2))}</Text> */}
               </View>
             )}
             <TouchableOpacity
