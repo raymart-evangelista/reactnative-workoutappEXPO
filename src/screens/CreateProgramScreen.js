@@ -55,6 +55,7 @@ const Days = ({ weekIndex, week, name, handleChange, setFieldValue }) => (
                           field={field}
                           label={`Day ${dayIndex + 1} Name`}
                         />
+                        <ErrorMessage name={`${name}.${dayIndex}.name`} component={Text}/>
                       </View>
                     )}
 
@@ -525,12 +526,29 @@ export function ProgramNameInputScreen({ navigation, route }) {
       .required('Required'),
   })
 
+  const validationSchema = Yup.object().shape({
+    name: Yup.string().required('A program name is required')
+    .min(2, 'Too short!')
+    .max(25, 'Too long!')
+    .required('Required'),
+    weekDetails: Yup.array().of(
+      Yup.object().shape({
+        dayDetails: Yup.array().of(
+          Yup.object().shape({
+            name: Yup.string().required('Day name is required'),
+          })
+        ),
+      })
+    ),
+  });
+  
+
   return (
     <ScrollView style={{ margin: '2%' }}>
       <Formik
         enableReinitialize={true}
         initialValues={values}
-        validationSchema={NameSchema}
+        validationSchema={validationSchema}
         onSubmit={async (values, { setSubmitting }) => {
           if (programId) {
             // want to use programsService.updateProgram for existing programs
