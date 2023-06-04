@@ -1,6 +1,9 @@
 import { TextInput as PaperTextInput } from 'react-native-paper'
 
-const TextInput = ({ field, label, placeholder, style, multiline = false, numberOfLines = 1 }) => {
+const TextInput = ({ field, label, placeholder, style, multiline = false, numberOfLines = 1, error}) => {
+
+  console.log(error)
+
   return (
     <PaperTextInput
       mode='outlined'
@@ -11,7 +14,8 @@ const TextInput = ({ field, label, placeholder, style, multiline = false, number
       onBlur={field.onBlur(field.name)}
       value={field.value ? field.value.toString() : ''}
       placeholder={placeholder}
-      style={{ maxHeight: 240 }}
+      // style={{ maxHeight: 240 }}
+      style={{ maxHeight: 240, borderColor: error ? 'red' : 'blue', backgroundColor: 'red' }}
     />
   )
 }

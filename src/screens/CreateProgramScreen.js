@@ -577,7 +577,7 @@ export function ProgramNameInputScreen({ navigation, route }) {
           }
         }}
       >
-        {({ handlePush, handleRemove, handleChange, handleBlur, handleSubmit, setFieldValue, values, isSubmitting, isValid }) => (
+        {({ handlePush, handleRemove, handleChange, handleBlur, handleSubmit, setFieldValue, values, isSubmitting, isValid, errors, touched }) => (
           <View>
             <Field type="text" name="name">
               {({ field }) => (
@@ -585,8 +585,9 @@ export function ProgramNameInputScreen({ navigation, route }) {
                   <TextInput
                     label='program name'
                     field={field}
+                    error={errors.name && touched.name}
                   />
-                  <ErrorMessage name="name" component={Text}/>
+                  <ErrorMessage name="name" component={Text} style={{ color: 'red' }}/>
                 </View>
               )}
             </Field>
