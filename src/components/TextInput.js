@@ -15,7 +15,7 @@ const TextInput = ({ field, label, placeholder, style, multiline = false, number
       value={field.value ? field.value.toString() : ''}
       placeholder={placeholder}
       // style={{ maxHeight: 240 }}
-      style={{ maxHeight: 240, borderColor: error ? 'red' : 'blue', backgroundColor: 'red' }}
+      // style={{ maxHeight: 240, borderColor: error ? 'red' : 'blue', backgroundColor: 'red' }}
     />
   )
 }
