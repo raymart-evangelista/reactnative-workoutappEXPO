@@ -83,7 +83,6 @@ const Card = (
             </PaperCard.Content>
           </>
       )}
-      {/* <PaperCard.Cover source={{ uri: 'https://picsum.photos/700' }} /> */}
       <PaperCard.Actions>
         {/* <Button>Cancel</Button> */}
         {/* <Button>Ok</Button> */}
