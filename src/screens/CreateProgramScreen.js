@@ -526,6 +526,8 @@ export function ProgramNameInputScreen({ navigation, route }) {
       .required('Required'),
   })
 
+
+  // all the boxes are required except for notes
   const validationSchema = Yup.object().shape({
     name: Yup.string().required('A program name is required')
     .min(2, 'Too short!')
