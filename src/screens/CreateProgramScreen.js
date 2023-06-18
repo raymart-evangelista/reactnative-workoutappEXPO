@@ -538,6 +538,7 @@ export function ProgramNameInputScreen({ navigation, route }) {
         dayDetails: Yup.array().of(
           Yup.object().shape({
             name: Yup.string().required('Day name is required'),
+            // do same for warm up sets, working sets, reps, weight, rpe, rest
           })
         ),
       })
