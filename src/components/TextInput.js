@@ -2,6 +2,7 @@ import { TextInput as PaperTextInput } from 'react-native-paper'
 
 const TextInput = ({ field, label, placeholder, style, multiline = false, numberOfLines = 1, error}) => {
 
+  console.log('this is the error passed in:')
   console.log(error)
 
   return (
@@ -14,6 +15,7 @@ const TextInput = ({ field, label, placeholder, style, multiline = false, number
       onBlur={field.onBlur(field.name)}
       value={field.value ? field.value.toString() : ''}
       placeholder={placeholder}
+      error={error}
     />
   )
 }
