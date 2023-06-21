@@ -49,13 +49,14 @@ const Days = ({ weekIndex, week, name, handleChange, setFieldValue }) => (
                     )}
                   </Field>
                   <Field name={`${name}.${dayIndex}.name`}>
-                    {({ field }) => (
+                    {({ field, errors }) => (
                       <View>
                         <TextInput
                           field={field}
                           label={`Day ${dayIndex + 1} Name`}
+                          error={`${errors}.${name}.${dayIndex}.name` && `${errors}.${name}.${dayIndex}.name`}
                         />
-                        <ErrorMessage name={`${name}.${dayIndex}.name`} component={Text}/>
+                        <ErrorMessage name={`${name}.${dayIndex}.name`} component={Text} style={{ color: 'red' }}/>
                       </View>
                     )}
 
