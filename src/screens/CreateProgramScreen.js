@@ -49,18 +49,18 @@ const Days = ({ weekIndex, week, name, handleChange, setFieldValue }) => (
                     )}
                   </Field>
                   <Field name={`${name}.${dayIndex}.name`}>
-                    {({ field, errors }) => (
+                    {({ field, form }) => (
                       <View>
                         <TextInput
                           field={field}
                           label={`Day ${dayIndex + 1} Name`}
-                          error={`${errors}.${name}.${dayIndex}.name` && `${errors}.${name}.${dayIndex}.name`}
                         />
                         <ErrorMessage name={`${name}.${dayIndex}.name`} component={Text} style={{ color: 'red' }}/>
                       </View>
                     )}
 
                   </Field>
+
                   <Exercises
                     week={week}
                     // name={`dayDetails.${dayIndex}.exercises`}
@@ -138,6 +138,7 @@ const Exercises = ({ week, day, name, handleChange }) => {
                             field={field}
                             label={`Exercise ${exerciseIndex + 1} Name`}
                           />
+                          <ErrorMessage name={`${name}.${exerciseIndex}.name`} component={Text} style={{ color: 'red' }}/>
                         </View>
                       )}
                     </Field>
@@ -480,7 +481,7 @@ export function ProgramNameInputScreen({ navigation, route }) {
   }
 
   const [values, setValues] = useState({
-    name: 'sample name',
+    name: '',
     weekDetails: [],
     weeks: 0
   })
@@ -540,6 +541,11 @@ export function ProgramNameInputScreen({ navigation, route }) {
           Yup.object().shape({
             name: Yup.string().required('Day name is required'),
             // do same for warm up sets, working sets, reps, weight, rpe, rest
+            exercises: Yup.array().of(
+              Yup.object().shape({
+                name: Yup.string().required('Exercise name is required')
+              })
+            )
           })
         ),
       })
@@ -554,6 +560,7 @@ export function ProgramNameInputScreen({ navigation, route }) {
         initialValues={values}
         validationSchema={validationSchema}
         onSubmit={async (values, { setSubmitting }) => {
+          console.log('inside submitting')
           if (programId) {
             // want to use programsService.updateProgram for existing programs
             try {
