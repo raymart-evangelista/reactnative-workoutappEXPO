@@ -9,7 +9,7 @@ import SegmentedButtonWithSelectedCheck from "../components/SegmentedButtonWithS
 
 import programsService from "../services/programs";
 
-const Days = ({ weekIndex, week, name, handleChange, setFieldValue }) => (
+const Days = ({ weekIndex, week, name, handleChange, setFieldValue, errors, touched }) => (
   <FieldArray
     name={name}
     render={arrayHelpers => (
@@ -67,6 +67,8 @@ const Days = ({ weekIndex, week, name, handleChange, setFieldValue }) => (
                     name={`weekDetails.${weekIndex}.dayDetails.${dayIndex}.exercises`}
                     day={day}
                     handleChange={handleChange}
+                    errors={errors}
+                    touched={touched}
                   />
                 </List.Accordion>
               </View>
@@ -105,7 +107,7 @@ const Days = ({ weekIndex, week, name, handleChange, setFieldValue }) => (
   </FieldArray>
 )
 
-const Exercises = ({ week, day, name, handleChange }) => {
+const Exercises = ({ week, day, name, handleChange, errors, touched }) => {
   return (
     <FieldArray
       name={name}
@@ -400,7 +402,7 @@ const Exercises = ({ week, day, name, handleChange }) => {
   )
 }
 
-const Weeks = ({ values, setFieldValue, handleChange }) => {
+const Weeks = ({ values, setFieldValue, handleChange, errors, touched }) => {
   return (
     <FieldArray
       name="weekDetails"
@@ -446,6 +448,8 @@ const Weeks = ({ values, setFieldValue, handleChange }) => {
                       week={week}
                       handleChange={handleChange}
                       setFieldValue={setFieldValue}
+                      errors={errors}
+                      touched={touched}
                     />
 
                   </List.Accordion>
@@ -645,6 +649,8 @@ export function ProgramNameInputScreen({ navigation, route }) {
               values={values}
               setFieldValue={setFieldValue}
               handleChange={handleChange}
+              errors={errors}
+              touched={touched}
             />
             {values.weekDetails && values.weekDetails.length > 0 ? (
               <View>
