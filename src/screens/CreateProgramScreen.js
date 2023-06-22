@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { Modal, ScrollView, TouchableOpacity, View, StyleSheet } from "react-native"
-import { Formik, Form, Field, FieldArray, ErrorMessage } from "formik";
+import { Formik, Field, FieldArray, ErrorMessage } from "formik";
 import { Button, Text, Title, RadioButton, List, useTheme } from 'react-native-paper'
 import * as Yup from 'yup';
 
