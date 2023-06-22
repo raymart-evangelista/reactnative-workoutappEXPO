@@ -152,6 +152,7 @@ const Exercises = ({ week, day, name, handleChange }) => {
                                 field={field}
                                 label={`min`}
                               />
+                              <ErrorMessage name={`${name}.${exerciseIndex}.warmupSets.min`} component={Text} style={{ color: 'red' }}/>
                             </View>
                           )}
                         </Field>
@@ -165,6 +166,7 @@ const Exercises = ({ week, day, name, handleChange }) => {
                                 field={field}
                                 label={`max`}
                               />
+                              <ErrorMessage name={`${name}.${exerciseIndex}.warmupSets.max`} component={Text} style={{ color: 'red' }}/>
                             </View>
                           )}
                         </Field>
@@ -180,6 +182,7 @@ const Exercises = ({ week, day, name, handleChange }) => {
                                 field={field}
                                 label={`min`}
                               />
+                              <ErrorMessage name={`${name}.${exerciseIndex}.workingSets.min`} component={Text} style={{ color: 'red' }}/>
                             </View>
                           )}
                         </Field>
@@ -193,6 +196,7 @@ const Exercises = ({ week, day, name, handleChange }) => {
                                 field={field}
                                 label={`max`}
                               />
+                              <ErrorMessage name={`${name}.${exerciseIndex}.workingSets.max`} component={Text} style={{ color: 'red' }}/>
                             </View>
                           )}
                         </Field>
@@ -208,6 +212,7 @@ const Exercises = ({ week, day, name, handleChange }) => {
                                 field={field}
                                 label={`min`}
                               />
+                              <ErrorMessage name={`${name}.${exerciseIndex}.reps.min`} component={Text} style={{ color: 'red' }}/>
                             </View>
                           )}
                         </Field>
@@ -219,8 +224,9 @@ const Exercises = ({ week, day, name, handleChange }) => {
                             <View>
                               <TextInput
                                 field={field}
-                                label={`min`}
+                                label={`max`}
                               />
+                              <ErrorMessage name={`${name}.${exerciseIndex}.reps.max`} component={Text} style={{ color: 'red' }}/>
                             </View>
                           )}
                         </Field>
@@ -248,6 +254,7 @@ const Exercises = ({ week, day, name, handleChange }) => {
                                 field={field}
                                 label={`value`}
                               />
+                              <ErrorMessage name={`${name}.${exerciseIndex}.weight.value`} component={Text} style={{ color: 'red' }}/>
                             </View>
                           )}
                         </Field>
@@ -280,6 +287,7 @@ const Exercises = ({ week, day, name, handleChange }) => {
                                 field={field}
                                 label={`min`}
                               />
+                              <ErrorMessage name={`${name}.${exerciseIndex}.rpe.min`} component={Text} style={{ color: 'red' }}/>
                             </View>
                           )}
                         </Field>
@@ -293,6 +301,7 @@ const Exercises = ({ week, day, name, handleChange }) => {
                                 field={field}
                                 label={`max`}
                               />
+                              <ErrorMessage name={`${name}.${exerciseIndex}.rpe.max`} component={Text} style={{ color: 'red' }}/>
                             </View>
                           )}
                         </Field>
@@ -308,6 +317,7 @@ const Exercises = ({ week, day, name, handleChange }) => {
                                 field={field}
                                 label={`value`}
                               />
+                              <ErrorMessage name={`${name}.${exerciseIndex}.rest.value`} component={Text} style={{ color: 'red' }}/>
                             </View>
                           )}
                         </Field>
@@ -532,25 +542,53 @@ export function ProgramNameInputScreen({ navigation, route }) {
   // all the boxes are required except for notes
   const validationSchema = Yup.object().shape({
     name: Yup.string().required('A program name is required')
-    .min(2, 'Too short!')
-    .max(25, 'Too long!')
-    .required('Required'),
+      .min(2, 'Too short!')
+      .max(25, 'Too long!')
+      .required('Required'),
     weekDetails: Yup.array().of(
       Yup.object().shape({
         dayDetails: Yup.array().of(
           Yup.object().shape({
             name: Yup.string().required('Day name is required'),
-            // do same for warm up sets, working sets, reps, weight, rpe, rest
             exercises: Yup.array().of(
               Yup.object().shape({
-                name: Yup.string().required('Exercise name is required')
+                name: Yup.string().required('Exercise name is required'),
+                warmupSets: Yup.object().shape({
+                  min: Yup.number().required('Minimum warm-up sets is required'),
+                  max: Yup.number().required('Maximum warm-up sets is required'),
+                }),
+                workingSets: Yup.object().shape({
+                  min: Yup.number().required('Minimum working sets is required'),
+                  max: Yup.number().required('Maximum working sets is required'),
+                }),
+                reps: Yup.object().shape({
+                  min: Yup.number().required('Minimum reps is required'),
+                  max: Yup.number().required('Maximum reps is required'),
+                  notes: Yup.string().optional(),
+                }),
+                weight: Yup.object().shape({
+                  value: Yup.number().required('Weight value is required'),
+                  unit: Yup.string().required('Weight unit is required')
+                    .oneOf(['kgs', 'lbs'], 'Invalid weight unit'),
+                }),
+                rpe: Yup.object().shape({
+                  min: Yup.number().required('Minimum RPE is required'),
+                  max: Yup.number().required('Maximum RPE is required'),
+                }),
+                rest: Yup.object().shape({
+                  value: Yup.number().required('Rest value is required'),
+                  unit: Yup.string().required('Rest unit is required')
+                    .oneOf(['seconds', 'minutes'], 'Invalid rest unit'),
+                }),
+                notes: Yup.string().optional(),
               })
-            )
+            ),
           })
         ),
       })
     ),
   });
+  
   
 
   return (
