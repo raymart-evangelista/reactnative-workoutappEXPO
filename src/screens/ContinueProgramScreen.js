@@ -26,7 +26,6 @@ export function ContinueDayScreen({ navigation, route }) {
 
   return (
     <ScrollView>
-      <Text>Hello</Text>
       {day.exercises.map(exercise => (
         <View key={exercise._id}>
           <Card exercise={exercise} program={program} week={week} day={day} />
