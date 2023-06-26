@@ -12,5 +12,14 @@
       - cards should look nicer
     - buttons/clickable entities
       - must be accessible
+  - work on..
+    - update ui/ux
+      - Home screen
+      - Create program screen
+      - All programs screen
+      - ... more
+    - add in login functionality before adding recent programs and more
+    - add more functionality
+      - recent programs
   SAVE
     - use [this video](https://www.youtube.com/watch?v=LngU_qwAhQA) as reference for passing params to previous screen
