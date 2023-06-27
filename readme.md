@@ -6,6 +6,7 @@
   - When adding/removing a new week/day/exercise, the backend doesn't update the correct index
 
 - TODO
+  - add settings screen for user to switch between dark/light mode
   - change design of screens handling data--instead pass params back to MAIN screen where the user can click
   - fix UI/UX
     - styling

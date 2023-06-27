@@ -28,7 +28,7 @@ const theme = {
   },
   animation: {
     scale: 1.0
-  }
+  },
 }
 
 
