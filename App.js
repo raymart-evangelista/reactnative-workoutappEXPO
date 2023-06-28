@@ -14,6 +14,7 @@ import HomeScreen from './src/screens/HomeScreen';
 import { ProgramNameInputScreen } from './src/screens/CreateProgramScreen';
 import { ExistingProgramsScreen, EditProgramScreen } from './src/screens/ExistingProgramScreen';
 import { ProgramInformationScreen, ContinueWeekScreen, ContinueDayScreen } from './src/screens/ContinueProgramScreen';
+import SettingsScreen from './src/screens/SettingsScreen';
 
 
 const Stack = createNativeStackNavigator()
@@ -47,6 +48,7 @@ export default function App() {
           <Stack.Screen name="ProgramInformation" component={ProgramInformationScreen} />
           <Stack.Screen name="ContinueWeek" component={ContinueWeekScreen} />
           <Stack.Screen name="ContinueDay" component={ContinueDayScreen} />
+          <Stack.Screen name="Settings" component={SettingsScreen} />
 
         </Stack.Navigator>
       </NavigationContainer>

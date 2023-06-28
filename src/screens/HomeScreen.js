@@ -14,6 +14,10 @@ export default function HomeScreen({ navigation, route }) {
         title="All programs"
         onPress={() => navigation.navigate('ExistingPrograms')}
       />
+      <Button
+        title="Settings"
+        onPress={() => navigation.navigate('Settings')}
+      />
     </View>
   )
 }
