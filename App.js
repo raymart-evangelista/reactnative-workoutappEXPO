@@ -16,26 +16,15 @@ import { ExistingProgramsScreen, EditProgramScreen } from './src/screens/Existin
 import { ProgramInformationScreen, ContinueWeekScreen, ContinueDayScreen } from './src/screens/ContinueProgramScreen';
 import SettingsScreen from './src/screens/SettingsScreen';
 
+import { lightTheme, darkTheme } from './src/themes/theme';
+
 
 const Stack = createNativeStackNavigator()
 const Tab = createBottomTabNavigator()
 
-const theme = {
-  ...DefaultTheme,
-  colors: {
-    ...DefaultTheme.colors,
-    // primary: 'tomato',
-    // accent: 'yellow',
-  },
-  animation: {
-    scale: 1.0
-  },
-}
-
-
 export default function App() {
   return (
-    <PaperProvider theme={theme}>
+    <PaperProvider theme={lightTheme}>
       <NavigationContainer>
         <Stack.Navigator initialRouteName='Home'>
           <Stack.Screen name="LogIn" component={LogInScreen} />
