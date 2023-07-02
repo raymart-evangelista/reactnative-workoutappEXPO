@@ -6,7 +6,7 @@ import { defaultStyles } from '../styles/globalStyles';
 
 export default function HomeScreen({ navigation, route }) {
   return (
-    <View style={defaultStyles.basic}>
+    <View style={styles.container}>
       {/* <Text>Favorite Program stuff will also be on HomeScreen</Text> */}
       <Button 
         mode='elevated'
@@ -26,3 +26,22 @@ export default function HomeScreen({ navigation, route }) {
     </View>
   )
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 16,
+  },
+  button: {
+    width: '200',
+    marginVertical: 8,
+  },
+  buttonContent: {
+    height: 48,
+  },
+  buttonLabel: {
+    fontSize: 18,
+  },
+});
