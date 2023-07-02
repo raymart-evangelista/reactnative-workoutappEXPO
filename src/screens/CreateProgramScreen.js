@@ -663,20 +663,13 @@ export function ProgramNameInputScreen({ navigation, route }) {
                 {/* <Text>{(JSON.stringify(values, null, 2))}</Text> */}
               </View>
             )}
-            <TouchableOpacity
+            <Button
+              mode="elevated"
               onPress={handleSubmit}
               disabled={isSubmitting}
-              style={{
-                backgroundColor: '#4CAF50',
-                borderRadius: 5,
-                paddingVertical: 10,
-                paddingHorizontal: 20,
-                alignSelf: 'center',
-                marginTop: 20,
-              }}
             >
-              <Text style={{ color: 'white', fontSize: 16, fontWeight: 'bold' }}>Submit</Text>
-            </TouchableOpacity>
+              Submit
+            </Button>
           </View>
         )}
       </Formik>

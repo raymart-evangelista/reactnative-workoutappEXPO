@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
-import { Button, StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, View } from 'react-native'
+// import { Button, Text } from 'react-native'
+import { Button, Text } from 'react-native-paper'
 import { defaultStyles } from '../styles/globalStyles';
 
 export default function HomeScreen({ navigation, route }) {
@@ -7,17 +9,17 @@ export default function HomeScreen({ navigation, route }) {
     <View style={defaultStyles.basic}>
       {/* <Text>Favorite Program stuff will also be on HomeScreen</Text> */}
       <Button 
-        title="Create program"
+        mode='elevated'
         onPress={() => navigation.navigate('CreateProgram')}
-        />
+      >Create program</Button>
       <Button 
-        title="All programs"
+        mode='elevated'
         onPress={() => navigation.navigate('ExistingPrograms')}
-      />
+      >All programs</Button>
       <Button
-        title="Settings"
+        mode='elevated'
         onPress={() => navigation.navigate('Settings')}
-      />
+      >Settings</Button>
     </View>
   )
 }
