@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { Modal, ScrollView, TouchableOpacity, View, StyleSheet } from "react-native"
+import { Modal, ScrollView, TouchableOpacity, View, StyleSheet, Dimensions } from "react-native"
 import { Formik, Field, FieldArray, ErrorMessage } from "formik";
 import { Button, Text, Title, RadioButton, List, useTheme } from 'react-native-paper'
 import * as Yup from 'yup';
@@ -595,8 +595,10 @@ export function ProgramNameInputScreen({ navigation, route }) {
   
   
 
+  const windowHeight = Dimensions.get('window').height
+  const desiredSpacing = windowHeight * 0.075
   return (
-    <ScrollView style={{ margin: '2%' }}>
+    <ScrollView style={{ padding: '5%', paddingTop: desiredSpacing }}>
       <Formik
         enableReinitialize={true}
         initialValues={values}

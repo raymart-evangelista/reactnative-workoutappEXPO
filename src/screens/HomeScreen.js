@@ -5,26 +5,23 @@ import { defaultStyles } from '../styles/globalStyles';
 
 export default function HomeScreen({ navigation, route }) {
 
-  const { width } = Dimensions.get('window')
-  const buttonWidth = width * 0.8
-
   return (
     <View style={styles.container}>
       {/* <Text>Favorite Program stuff will also be on HomeScreen</Text> */}
       <Button 
-        style={[styles.button, { width: buttonWidth }]}
+        style={[styles.button, { width: styles.buttonWidth }]}
         mode='elevated'
         onPress={() => navigation.navigate('CreateProgram')}
         icon='plus-box-multiple-outline'
       >Create program</Button>
       <Button 
-        style={[styles.button, { width: buttonWidth }]}
+        style={[styles.button, { width: styles.buttonWidth }]}
         mode='elevated'
         onPress={() => navigation.navigate('ExistingPrograms')}
         icon='checkbox-multiple-blank-outline'
       >All programs</Button>
       <Button
-        style={[styles.button, { width: buttonWidth }]}
+        style={[styles.button, { width: styles.buttonWidth }]}
         mode='elevated'
         onPress={() => navigation.navigate('Settings')}
         icon='cog-outline'
@@ -49,4 +46,7 @@ const styles = StyleSheet.create({
   buttonLabel: {
     fontSize: 18,
   },
+  buttonWidth: {
+    width: Dimensions.get('window').width * 0.8,
+  }
 });
