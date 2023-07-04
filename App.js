@@ -2,7 +2,7 @@ import { NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { StatusBar } from 'expo-status-bar';
 import { useEffect, useState } from 'react';
-import { Appearance, Button, StyleSheet, Text, View, TextInput } from 'react-native';
+import { Appearance, Button, StyleSheet, Text, View, TextInput, useColorScheme } from 'react-native';
 import { defaultStyles, lightStyles, darkStyles } from './src/styles/globalStyles'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons'
@@ -22,9 +22,16 @@ import { lightTheme, lightTheme2, darkTheme, darkTheme2 } from './src/themes/the
 const Stack = createNativeStackNavigator()
 const Tab = createBottomTabNavigator()
 
+
+
 export default function App() {
+
+  const colorScheme = Appearance.getColorScheme()
+  console.log(colorScheme)
+  let [deviceTheme, setDeviceTheme] = useState(colorScheme === 'dark' ? darkTheme2 : lightTheme2)
+
   return (
-    <PaperProvider theme={lightTheme2}>
+    <PaperProvider theme={deviceTheme}>
       <NavigationContainer>
         <Stack.Navigator initialRouteName='Home' screenOptions={{headerShown: false}}>
           <Stack.Screen name="LogIn" component={LogInScreen} />
