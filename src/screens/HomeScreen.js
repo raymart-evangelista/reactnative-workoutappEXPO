@@ -12,7 +12,7 @@ export default function HomeScreen({ navigation, route }) {
   const { colors } = useTheme()
 
   return (
-    <View style={[styles.container, { backgroundColor: colors.background } ]}>
+    <View style={[styles.container, ]}>
       <Button 
         style={[styles.button, { width: buttonWidth }]}
         mode='elevated'

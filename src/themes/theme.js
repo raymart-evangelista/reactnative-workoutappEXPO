@@ -39,7 +39,7 @@ const lightTheme2 = {
     "onError": "rgb(255, 255, 255)",
     "errorContainer": "rgb(255, 218, 214)",
     "onErrorContainer": "rgb(65, 0, 2)",
-    "background": "rgb(253, 253, 245)",
+    "background": "#ceebb2",
     "onBackground": "rgb(26, 28, 24)",
     "surface": "rgb(253, 253, 245)",
     "onSurface": "rgb(26, 28, 24)",

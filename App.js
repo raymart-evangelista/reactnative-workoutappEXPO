@@ -32,7 +32,7 @@ export default function App() {
 
   return (
     <PaperProvider theme={deviceTheme}>
-      <NavigationContainer>
+      <NavigationContainer theme={deviceTheme}>
         <Stack.Navigator initialRouteName='Home' screenOptions={{headerShown: false}}>
           <Stack.Screen name="LogIn" component={LogInScreen} />
           <Stack.Screen name="SignUp" component={SignUpScreen} />
