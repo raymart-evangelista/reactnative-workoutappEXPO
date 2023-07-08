@@ -2,16 +2,21 @@ import { Text, View } from 'react-native'
 import { defaultStyles } from '../styles/globalStyles';
 import { Switch } from 'react-native-paper';
 import { useState } from 'react';
+import { useColorScheme } from 'nativewind';
 
 export default function SettingsScreen() {
 
+  const { colorScheme, toggleColorScheme } = useColorScheme()
+
   return (
     // <View style={{ backgroundColor: colors.backgroundColor }}>
-    <View style={defaultStyles.basic}>
+    <View className="flex-1 jusityf-center dark:bg-slate-800">
       <Text>Settings!</Text>
       {/* button for toggling dark mode */}
       {/* use TailwindCSS */}
       <Switch
+        value={colorScheme === 'dark'}
+        onChange={toggleColorScheme}
       />
       {/* button for logging out */}
       {/* button for connecting apple watch */}
