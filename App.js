@@ -18,6 +18,12 @@ import SettingsScreen from './src/screens/SettingsScreen';
 
 import { lightTheme, lightTheme2, darkTheme, darkTheme2 } from './src/themes/theme';
 
+import { NativeWindStyleSheet } from 'nativewind';
+
+NativeWindStyleSheet.setOutput({
+  default: "native",
+})
+
 
 const Stack = createNativeStackNavigator()
 const Tab = createBottomTabNavigator()
@@ -31,23 +37,25 @@ export default function App() {
   let [deviceTheme, setDeviceTheme] = useState(colorScheme === 'dark' ? darkTheme2 : lightTheme2)
 
   return (
-    <PaperProvider theme={deviceTheme}>
-      <NavigationContainer theme={deviceTheme}>
-        <Stack.Navigator initialRouteName='Home' screenOptions={{headerShown: false}}>
-          <Stack.Screen name="LogIn" component={LogInScreen} />
-          <Stack.Screen name="SignUp" component={SignUpScreen} />
-          <Stack.Screen name="Home" component={HomeScreen} />
-          <Stack.Screen name="CreateProgram" component={ProgramNameInputScreen} />
-          <Stack.Screen name="ExistingPrograms" component={ExistingProgramsScreen} />
-          <Stack.Screen name="EditProgram" component={EditProgramScreen} />
-          {/* <Stack.Screen name="ContinueProgram" component={ContinueProgramScreen} /> */}
-          <Stack.Screen name="ProgramInformation" component={ProgramInformationScreen} />
-          <Stack.Screen name="ContinueWeek" component={ContinueWeekScreen} />
-          <Stack.Screen name="ContinueDay" component={ContinueDayScreen} />
-          <Stack.Screen name="Settings" component={SettingsScreen} />
 
-        </Stack.Navigator>
-      </NavigationContainer>
-    </PaperProvider>
+    <View className="flex-1 items-center justify-center bg-white">
+      <Text className="text-red-500">Open up App.js to start working on your app!</Text>
+      <StatusBar style="auto" />
+    </View>
+      // <NavigationContainer>
+      //   <Stack.Navigator initialRouteName='Home' screenOptions={{headerShown: false}}>
+      //     <Stack.Screen name="LogIn" component={LogInScreen} />
+      //     <Stack.Screen name="SignUp" component={SignUpScreen} />
+      //     <Stack.Screen name="Home" component={HomeScreen} />
+      //     <Stack.Screen name="CreateProgram" component={ProgramNameInputScreen} />
+      //     <Stack.Screen name="ExistingPrograms" component={ExistingProgramsScreen} />
+      //     <Stack.Screen name="EditProgram" component={EditProgramScreen} />
+      //     {/* <Stack.Screen name="ContinueProgram" component={ContinueProgramScreen} /> */}
+      //     <Stack.Screen name="ProgramInformation" component={ProgramInformationScreen} />
+      //     <Stack.Screen name="ContinueWeek" component={ContinueWeekScreen} />
+      //     <Stack.Screen name="ContinueDay" component={ContinueDayScreen} />
+      //     <Stack.Screen name="Settings" component={SettingsScreen} />
+      //   </Stack.Navigator>
+      // </NavigationContainer>
   );
 }

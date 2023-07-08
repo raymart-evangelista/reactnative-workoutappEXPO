@@ -1,4 +1,4 @@
-import { Text, View } from 'react-native'
+import { Text, View, ScrollView } from 'react-native'
 import { defaultStyles } from '../styles/globalStyles';
 import { Switch } from 'react-native-paper';
 import { useState } from 'react';
@@ -10,7 +10,7 @@ export default function SettingsScreen() {
 
   return (
     // <View style={{ backgroundColor: colors.backgroundColor }}>
-    <View className="flex-1 jusityf-center dark:bg-slate-800">
+    <View className="flex-1 justify-center dark:bg-slate-800">
       <Text>Settings!</Text>
       {/* button for toggling dark mode */}
       {/* use TailwindCSS */}
