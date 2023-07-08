@@ -18,13 +18,6 @@ import SettingsScreen from './src/screens/SettingsScreen';
 
 import { lightTheme, lightTheme2, darkTheme, darkTheme2 } from './src/themes/theme';
 
-import { NativeWindStyleSheet } from 'nativewind';
-
-NativeWindStyleSheet.setOutput({
-  default: "native",
-})
-
-
 const Stack = createNativeStackNavigator()
 const Tab = createBottomTabNavigator()
 
