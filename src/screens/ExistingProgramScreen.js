@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { View, Text, TouchableOpacity, Alert, Modal, Button, TextInput, ScrollView } from "react-native";
+import { View, Text, TouchableOpacity, Alert, Modal, Button, TextInput, ScrollView, Dimensions } from "react-native";
 import Card from "../components/Card";
 
 import programsService from "../services/programs";
@@ -8,6 +8,10 @@ export function ExistingProgramsScreen({ navigation, screenType = null }) {
   const [programs, setPrograms] = useState([])
   const [deletedProgramId, setDeletedProgramId] = useState(null)
   const [lastModified, setLastModified] = useState(Date.now())
+
+
+  const windowHeight = Dimensions.get('window').height
+  const desiredSpacing = windowHeight * 0.075
 
   const handleProgramPress = (program) => {
     navigation.navigate('EditProgram', {
@@ -35,12 +39,16 @@ export function ExistingProgramsScreen({ navigation, screenType = null }) {
   }
 
   return (
-    <ScrollView>
+    <ScrollView 
+      style={{ padding: '2%', paddingTop: desiredSpacing, paddingBottom: desiredSpacing }}
+    >
       {programs.length === 0 ? (
         <Text>No programs currently exist</Text>
       ) : (
         programs.map((program) => (
-          <View key={program.id}>
+          <View key={program.id}
+            className="my-2"
+          >
             <TouchableOpacity key={program.id} onPress={() => handleProgramPress(program)}>
               <Card title={program.name} subtitle={program.weeks + ` week training program`} />
             </TouchableOpacity>
@@ -115,8 +123,13 @@ export function EditProgramScreen({ navigation, route }) {
     navigation.navigate('ProgramInformation', { programId: program.id })
   }
 
+  const windowHeight = Dimensions.get('window').height
+  const desiredSpacing = windowHeight * 0.075
+
   return (
-    <View>
+    <View
+      style={{ padding: '2%', paddingTop: desiredSpacing, paddingBottom: desiredSpacing }}
+    >
       <TouchableOpacity onPress={() => setModalVisible(true)}>
         <Text>Edit name</Text>
       </TouchableOpacity>

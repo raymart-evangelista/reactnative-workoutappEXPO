@@ -22,6 +22,7 @@ const lightTheme = {
 }
 
 const lightTheme2 = {
+  // "roundness": 5,
   "colors": {
     "primary": "rgb(56, 107, 1)",
     "onPrimary": "rgb(255, 255, 255)",

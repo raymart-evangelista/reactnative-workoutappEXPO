@@ -19,6 +19,7 @@ const Days = ({ weekIndex, week, name, handleChange, setFieldValue, errors, touc
             week.dayDetails.map((day, dayIndex) => (
               <View key={dayIndex}>
                 <List.Accordion
+                  style={{ backgroundColor: 'white', marginBottom: 40, borderRadius: 40 }}
                   left={(props) => <List.Icon {...props} icon='calendar-today' />}
                   title={`Week ${weekIndex + 1}, Day ${dayIndex + 1}`}
                   id={`${dayIndex}`}
@@ -118,6 +119,7 @@ const Exercises = ({ week, day, name, handleChange, errors, touched }) => {
               day.exercises.map((exercise, exerciseIndex) => (
                 <View key={exerciseIndex}>
                   <List.Accordion
+                    style={{ backgroundColor: 'white', marginBottom: 40, borderRadius: 40 }}
                     left={(props) => <List.Icon {...props} icon='calendar-today' />}
                     title={`Exercise ${exerciseIndex + 1}`}
                     id={`${exerciseIndex}`}
@@ -342,7 +344,7 @@ const Exercises = ({ week, day, name, handleChange, errors, touched }) => {
                       </View>
                     </View>
                     <Text>notes: </Text>
-                    <View style={{ flexDirection: 'row' }}>
+                    <View>
                       <Field name={`${name}.${exerciseIndex}.notes`}>
                         {({ field }) => (
                           <View>
@@ -407,17 +409,18 @@ const Weeks = ({ values, setFieldValue, handleChange, errors, touched }) => {
     <FieldArray
       name="weekDetails"
       render={arrayHelpers => (
-        <View>
+        <View className="my-4 border-2 border-blue-500">
           <List.AccordionGroup>
             {values.weekDetails && values.weekDetails.length > 0 ? (
               values.weekDetails.map((week, weekIndex) => (
                 <View key={weekIndex}>
                   <List.Accordion
+                    style={{ backgroundColor: 'white', borderRadius: 40 }}
                     left={(props) => <List.Icon {...props} icon='calendar-week' />}
                     title={`Week ${weekIndex + 1}`}
                     id={`${weekIndex}`}
                   >
-                    <View style={{ alignItems: 'flex-start', justifyContent: 'center'}}>
+                    <View style={{ alignItems: 'flex-start' }}>
                       <Button
                         icon='trash-can-outline'
                         mode='elevated'
@@ -432,7 +435,7 @@ const Weeks = ({ values, setFieldValue, handleChange, errors, touched }) => {
                           setFieldValue('weeks', values.weekDetails.length - 1)
                         }}
                         style={{ borderRadius: 5 }}>
-                          delete
+                          remove week {weekIndex + 1}
                       </Button>
                     </View>
                     <Field name={`weekDetails.${weekIndex}.weekNum`}>
@@ -456,9 +459,10 @@ const Weeks = ({ values, setFieldValue, handleChange, errors, touched }) => {
                 </View>
               ))
             ) : (
-              <Text>No weeks</Text>
+              // <Text>No weeks</Text>
+              <View></View>
             )}
-            <View style={{ alignItems: 'flex-start', justifyContent: 'center' }}>
+            <View className="my-4" style={{ alignItems: 'flex-start', justifyContent: 'center' }}>
               <Button
                 icon='plus'
                 mode='elevated'
@@ -598,7 +602,10 @@ export function ProgramNameInputScreen({ navigation, route }) {
   const windowHeight = Dimensions.get('window').height
   const desiredSpacing = windowHeight * 0.075
   return (
-    <ScrollView style={{ padding: '5%', paddingTop: desiredSpacing }}>
+    <ScrollView 
+      className="border-4 border-red-500"
+      style={{ padding: '5%', paddingTop: desiredSpacing, paddingBottom: desiredSpacing }}
+    >
       <Formik
         enableReinitialize={true}
         initialValues={values}
@@ -633,7 +640,7 @@ export function ProgramNameInputScreen({ navigation, route }) {
         }}
       >
         {({ handlePush, handleRemove, handleChange, handleBlur, handleSubmit, setFieldValue, values, isSubmitting, isValid, errors, touched }) => (
-          <View>
+          <View className="border-4 border-orange-500 pb-32">
             <Field type="text" name="name">
               {({ field }) => (
                 <View>

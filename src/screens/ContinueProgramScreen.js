@@ -1,5 +1,5 @@
 import { useEffect, useState, useLayoutEffect, useCallback } from "react"
-import { Modal, ScrollView, TouchableOpacity, View, StyleSheet } from "react-native"
+import { Modal, ScrollView, TouchableOpacity, View, StyleSheet, Dimensions } from "react-native"
 import { Formik, Form, Field, FieldArray, ErrorMessage } from "formik";
 import { Button, Text, Title, RadioButton, List, useTheme } from 'react-native-paper'
 import * as Yup from 'yup';
@@ -24,8 +24,13 @@ export function ContinueDayScreen({ navigation, route }) {
 
   console.log(route.params.day)
 
+  const windowHeight = Dimensions.get('window').height
+  const desiredSpacing = windowHeight * 0.075
+
   return (
-    <ScrollView>
+    <ScrollView
+      style={{ padding: '2%', paddingTop: desiredSpacing, paddingBottom: desiredSpacing }}
+    >
       {day.exercises.map(exercise => (
         <View key={exercise._id}>
           <Card exercise={exercise} program={program} week={week} day={day} />
@@ -80,8 +85,14 @@ export function ContinueWeekScreen({ navigation, route }) {
     })
   }
 
+
+  const windowHeight = Dimensions.get('window').height
+  const desiredSpacing = windowHeight * 0.075
+
   return (
-    <View>
+    <View
+      style={{ padding: '2%', paddingTop: desiredSpacing, paddingBottom: desiredSpacing }}
+    >
       {week.dayDetails.map(day => (
         <View key={day._id}>
           <TouchableOpacity onPress={() => handleDayPress(day)}>
@@ -142,8 +153,13 @@ export function ProgramInformationScreen({ navigation, route }) {
     })
   }
 
+  const windowHeight = Dimensions.get('window').height
+  const desiredSpacing = windowHeight * 0.075
+
   return (
-    <ScrollView>
+    <ScrollView
+    style={{ padding: '2%', paddingTop: desiredSpacing, paddingBottom: desiredSpacing }}
+    >
       {/* <Text>Recent programs here</Text>
       <ScrollView horizontal={true}>
         {program && program.weekDetails && program.weekDetails.map(week => (
