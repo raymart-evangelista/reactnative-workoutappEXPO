@@ -10,7 +10,7 @@ export default function SettingsScreen() {
 
   return (
     // <View style={{ backgroundColor: colors.backgroundColor }}>
-    <View className="flex-1 justify-center dark:bg-slate-800">
+    <View className="flex-1 justify-center">
       <Text>Settings!</Text>
       {/* button for toggling dark mode */}
       {/* use TailwindCSS */}

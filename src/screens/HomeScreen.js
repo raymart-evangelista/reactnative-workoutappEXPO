@@ -12,7 +12,7 @@ export default function HomeScreen({ navigation, route }) {
   const { colors } = useTheme()
 
   return (
-    <View className="dark:bg-slate-800" style={[styles.container]}>
+    <View style={[styles.container]}>
       <Button 
         style={[styles.button, { width: buttonWidth }]}
         mode='outlined'
