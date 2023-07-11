@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import { View, Text, TouchableOpacity, Alert, Modal, Button, TextInput, ScrollView, Dimensions } from "react-native";
+import { View, TouchableOpacity, Alert, Modal, TextInput, ScrollView, Dimensions } from "react-native";
+import { Text, Button } from "react-native-paper";
 import Card from "../components/Card";
 
 import programsService from "../services/programs";
@@ -141,8 +142,8 @@ export function EditProgramScreen({ navigation, route }) {
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
           <Text>Editing Program Name</Text>
           <TextInput value={newProgramName} onChangeText={setNewProgramName} />
-          <Button title="Cancel" onPress={() => setModalVisible(false)} />
-          <Button title="Save" onPress={handleSaveNameChange} />
+          <Button onPress={() => setModalVisible(false)}>Cancel</Button>
+          <Button onPress={handleSaveNameChange}>Save</Button>
         </View>
       </Modal>
       <TouchableOpacity onPress={editProgram}>
