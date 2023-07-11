@@ -170,8 +170,6 @@ export function ProgramInformationScreen({ navigation, route }) {
       </ScrollView> */}
       {program && (
         <View>
-          <Text>Program exists</Text>
-          <Text>{program.id}</Text>
           {program.weekDetails && program.weekDetails.map(week => (
             <View key={week._id}>
               <TouchableOpacity onPress={() => handleWeekPress(week)}>
@@ -181,10 +179,7 @@ export function ProgramInformationScreen({ navigation, route }) {
           ))}
         </View>
       )}
-      <Text>{(JSON.stringify(program, null, 2))}</Text>
-      {/* {program && program.map(weekDetails => (
-      ))} */}
-
+      {/* <Text>{(JSON.stringify(program, null, 2))}</Text> */}
     </ScrollView>
   )
 }
