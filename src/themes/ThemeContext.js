@@ -10,3 +10,7 @@ import {
   DarkTheme as NavigationDarkTheme,
   DefaultTheme as NavigationDefaultTheme,
 } from '@react-navigation/native'
+
+export default function ThemeContext() {
+  
+}
