@@ -16,7 +16,7 @@ import { ExistingProgramsScreen, EditProgramScreen } from './src/screens/Existin
 import { ProgramInformationScreen, ContinueWeekScreen, ContinueDayScreen } from './src/screens/ContinueProgramScreen';
 import SettingsScreen from './src/screens/SettingsScreen';
 
-import { lightTheme, lightTheme2, darkTheme, darkTheme2 } from './src/themes/theme';
+// import { lightTheme, lightTheme2, darkTheme, darkTheme2 } from './src/themes/theme';
 
 
 const Stack = createNativeStackNavigator()
@@ -26,13 +26,13 @@ const Tab = createBottomTabNavigator()
 
 export default function App() {
 
-  const colorScheme = Appearance.getColorScheme()
-  console.log(colorScheme)
-  let [deviceTheme, setDeviceTheme] = useState(colorScheme === 'dark' ? darkTheme2 : lightTheme2)
+  // const colorScheme = Appearance.getColorScheme()
+  // console.log(colorScheme)
+  // let [deviceTheme, setDeviceTheme] = useState(colorScheme === 'dark' ? darkTheme2 : lightTheme2)
 
   return (
-    <PaperProvider theme={deviceTheme}>
-      <NavigationContainer theme={deviceTheme}>
+    <PaperProvider>
+      <NavigationContainer>
         <Stack.Navigator initialRouteName='Home' screenOptions={{headerShown: false}}>
           <Stack.Screen name="LogIn" component={LogInScreen} />
           <Stack.Screen name="SignUp" component={SignUpScreen} />
