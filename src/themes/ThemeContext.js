@@ -8,6 +8,7 @@ import {
   DarkTheme as PaperDarkTheme,
   DefaultTheme as PaperDefaultTheme,
 } from 'react-native-paper'
+
 import {
   NavigationContainer,
   Theme as NavigationTheme,
