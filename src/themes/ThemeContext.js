@@ -5,7 +5,6 @@ import { lightTheme2, darkTheme2 } from "./theme";
 
 import {
   Provider as PaperProvider,
-  DarkTheme as PaperDarkTheme,
   DefaultTheme as PaperDefaultTheme,
 } from 'react-native-paper'
 
@@ -27,10 +26,10 @@ const lightTheme = {
 
 const darkTheme = {
   ...NavigationDarkTheme,
-  ...PaperDarkTheme,
+  ...darkTheme2,
   colors: {
     ...NavigationDarkTheme.colors,
-    ...PaperDarkTheme.colors,
+    ...darkTheme2.colors,
   }
 }
 
