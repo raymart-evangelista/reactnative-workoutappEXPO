@@ -3,10 +3,12 @@ import { defaultStyles } from '../styles/globalStyles';
 import { Switch } from 'react-native-paper';
 import { useState } from 'react';
 import { useColorScheme } from 'nativewind';
+import { ThemeContextProvider, useTheme } from '../themes/ThemeContext';
+import { Button, Headline } from 'react-native-paper';
 
 export default function SettingsScreen() {
 
-  const { colorScheme, toggleColorScheme } = useColorScheme()
+  const { toggleThemeType, themeType, isDarkTheme, theme } = useTheme()
 
   return (
     // <View style={{ backgroundColor: colors.backgroundColor }}>
@@ -15,9 +17,16 @@ export default function SettingsScreen() {
       {/* button for toggling dark mode */}
       {/* use TailwindCSS */}
       <Switch
-        value={colorScheme === 'dark'}
-        onChange={toggleColorScheme}
+        onChange={toggleThemeType}
       />
+     <View>
+       <Button mode="contained" onPress={toggleThemeType}>
+         Toggle Theme
+       </Button>
+       <Headline>{themeType}</Headline>
+       <Headline>isDarkTheme: {`${isDarkTheme}`}</Headline>
+       <Headline>Primary: {theme.colors.primary}</Headline>
+      </View>
       {/* button for logging out */}
       {/* button for connecting apple watch */}
       {/* button for changing units of measurement */}
