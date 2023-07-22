@@ -40,10 +40,6 @@ const Tab = createBottomTabNavigator()
 
 export default function App() {
 
-  // const colorScheme = Appearance.getColorScheme()
-  // console.log(colorScheme)
-  // let [deviceTheme, setDeviceTheme] = useState(colorScheme === 'dark' ? darkTheme2 : lightTheme2)}
-
   return (
     <ThemeContextProvider>
       <Stack.Navigator initialRouteName='Home' screenOptions={{headerShown: false}}>
