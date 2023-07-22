@@ -21,7 +21,7 @@ export default function SettingsScreen() {
       />
      <View>
        <Button mode="contained" onPress={toggleThemeType}>
-         Toggle Theme
+         Toggle {`${themeType}`}
        </Button>
        <Headline>{themeType}</Headline>
        <Headline>isDarkTheme: {`${isDarkTheme}`}</Headline>
