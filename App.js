@@ -17,26 +17,8 @@ import { ProgramInformationScreen, ContinueWeekScreen, ContinueDayScreen } from 
 import SettingsScreen from './src/screens/SettingsScreen';
 import { ThemeContextProvider, useTheme } from './src/themes/ThemeContext';
 
-// import { lightTheme, lightTheme2, darkTheme, darkTheme2 } from './src/themes/theme';
-
-
 const Stack = createNativeStackNavigator()
 const Tab = createBottomTabNavigator()
-
-// const TestScreen = () => {
-//   const { toggleThemeType, themeType, isDarkTheme, theme } = useTheme()
-
-//   return (
-//     <View>
-//       <Button mode="contained" onPress={toggleThemeType}>
-//         Toggle Theme
-//       </Button>
-//       <Headline>{themeType}</Headline>
-//       <Headline>isDarkTheme: {`${isDarkTheme}`}</Headline>
-//       <Headline>Primary: {theme.colors.primary}</Headline>
-//     </View>
-//   )
-// }
 
 export default function App() {
 
