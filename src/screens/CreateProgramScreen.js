@@ -19,7 +19,7 @@ const Days = ({ weekIndex, week, name, handleChange, setFieldValue, errors, touc
             week.dayDetails.map((day, dayIndex) => (
               <View key={dayIndex}>
                 <List.Accordion
-                  style={{ backgroundColor: 'white', marginBottom: 40, borderRadius: 40 }}
+                  style={{ borderColor: 'white', borderWidth: '.5', marginBottom: 40, borderRadius: 40 }}
                   left={(props) => <List.Icon {...props} icon='calendar-today' />}
                   title={`Week ${weekIndex + 1}, Day ${dayIndex + 1}`}
                   id={`${dayIndex}`}
@@ -119,7 +119,7 @@ const Exercises = ({ week, day, name, handleChange, errors, touched }) => {
               day.exercises.map((exercise, exerciseIndex) => (
                 <View key={exerciseIndex}>
                   <List.Accordion
-                    style={{ backgroundColor: 'white', marginBottom: 40, borderRadius: 40 }}
+                    style={{ borderColor: 'white', borderWidth: '.5', marginBottom: 40, borderRadius: 40 }}
                     left={(props) => <List.Icon {...props} icon='calendar-today' />}
                     title={`Exercise ${exerciseIndex + 1}`}
                     id={`${exerciseIndex}`}
@@ -415,7 +415,7 @@ const Weeks = ({ values, setFieldValue, handleChange, errors, touched }) => {
               values.weekDetails.map((week, weekIndex) => (
                 <View key={weekIndex}>
                   <List.Accordion
-                    style={{ backgroundColor: 'white', borderRadius: 40 }}
+                    style={{ borderColor: 'white', borderWidth: '.5', marginBottom: 40, borderRadius: 40 }}
                     left={(props) => <List.Icon {...props} icon='calendar-week' />}
                     title={`Week ${weekIndex + 1}`}
                     id={`${weekIndex}`}
