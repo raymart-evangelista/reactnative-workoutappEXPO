@@ -9,6 +9,8 @@ import { Button, Headline } from 'react-native-paper';
 export default function SettingsScreen() {
 
   const { toggleThemeType, themeType, isDarkTheme, theme } = useTheme()
+  const getOppositeTheme = () => (themeType === 'light' ? 'dark' : 'light');
+
 
   return (
     // <View style={{ backgroundColor: colors.backgroundColor }}>
@@ -16,12 +18,9 @@ export default function SettingsScreen() {
       <Text>Settings!</Text>
       {/* button for toggling dark mode */}
       {/* use TailwindCSS */}
-      <Switch
-        onChange={toggleThemeType}
-      />
      <View>
        <Button mode="contained" onPress={toggleThemeType}>
-         Toggle {`${themeType}`}
+         Toggle {`${getOppositeTheme()} mode`}
        </Button>
        <Headline>{themeType}</Headline>
        <Headline>isDarkTheme: {`${isDarkTheme}`}</Headline>
