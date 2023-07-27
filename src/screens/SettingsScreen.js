@@ -16,8 +16,6 @@ export default function SettingsScreen() {
     // <View style={{ backgroundColor: colors.backgroundColor }}>
     <View className="flex-1 justify-center">
       <Text>Settings!</Text>
-      {/* button for toggling dark mode */}
-      {/* use TailwindCSS */}
      <View>
        <Button mode="contained" onPress={toggleThemeType}>
          Toggle {`${getOppositeTheme()} mode`}
