@@ -13,7 +13,6 @@ export default function SettingsScreen() {
 
 
   return (
-    // <View style={{ backgroundColor: colors.backgroundColor }}>
     <View className="flex-1 justify-center">
       <Text>Settings!</Text>
      <View>
