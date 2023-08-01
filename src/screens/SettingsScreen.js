@@ -13,11 +13,11 @@ export default function SettingsScreen() {
 
 
   return (
-    <View className="flex-1 justify-center">
-      <Text>Settings!</Text>
+    <View className="flex-1 justify-center items-center">
+      {/* <Text>Settings!</Text> */}
      <View>
-       <Button mode="contained" onPress={toggleThemeType}>
-         Toggle {`${getOppositeTheme()} mode`}
+       <Button className="w-32" mode="contained" onPress={toggleThemeType}>
+        {`${getOppositeTheme()} mode`}
        </Button>
        {/* <Headline>{themeType}</Headline> */}
        {/* <Headline>isDarkTheme: {`${isDarkTheme}`}</Headline> */}
