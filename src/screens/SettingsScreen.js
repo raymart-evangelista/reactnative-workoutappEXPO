@@ -1,6 +1,6 @@
-import { Text, View, ScrollView } from 'react-native'
+import { View, ScrollView } from 'react-native'
 import { defaultStyles } from '../styles/globalStyles';
-import { Switch } from 'react-native-paper';
+import { Text, Switch } from 'react-native-paper';
 import { useState } from 'react';
 import { useColorScheme } from 'nativewind';
 import { ThemeContextProvider, useTheme } from '../themes/ThemeContext';
@@ -19,9 +19,9 @@ export default function SettingsScreen() {
        <Button mode="contained" onPress={toggleThemeType}>
          Toggle {`${getOppositeTheme()} mode`}
        </Button>
-       <Headline>{themeType}</Headline>
-       <Headline>isDarkTheme: {`${isDarkTheme}`}</Headline>
-       <Headline>Primary: {theme.colors.primary}</Headline>
+       {/* <Headline>{themeType}</Headline> */}
+       {/* <Headline>isDarkTheme: {`${isDarkTheme}`}</Headline> */}
+       {/* <Headline>Primary: {theme.colors.primary}</Headline> */}
       </View>
       {/* button for logging out */}
       {/* button for connecting apple watch */}
