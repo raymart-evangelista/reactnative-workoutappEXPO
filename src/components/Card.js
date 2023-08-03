@@ -54,7 +54,7 @@ const Card = (
               ) : (
                 <View>
                   <Text variant='bodyMedium'>warm up sets: {exercise.warmupSets.min}-{exercise.warmupSets.max}</Text>
-                  <SetTracker sets='3'></SetTracker>
+                  <SetTracker sets={exercise.warmupSets.max}></SetTracker>
                 </View>
               )}
               {exercise.workingSets.min === exercise.workingSets.max ? (

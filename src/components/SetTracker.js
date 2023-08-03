@@ -14,7 +14,7 @@ const SetTracker = ({ sets }) => {
 
   return (
     <View>
-      <Text>{`Completed ${completedSets.filter(Boolean).length} of ${sets} working sets`}</Text>
+      <Text>{`Completed ${completedSets.filter(Boolean).length} of ${sets} warmup sets`}</Text>
       {completedSets.map((completed, index) => (
         <View key={index} style={{ flexDirection: 'row', alignItems: 'center' }}>
           <RadioButton.IOS
