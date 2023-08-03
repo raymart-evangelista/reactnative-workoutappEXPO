@@ -2,9 +2,6 @@ import { TextInput as PaperTextInput } from 'react-native-paper'
 
 const TextInput = ({ field, label, placeholder, style, multiline = false, numberOfLines = 1, error}) => {
 
-  console.log(`this is the error passed in for ${label}:`)
-  console.log(error)
-
   return (
     <PaperTextInput
       mode='outlined'

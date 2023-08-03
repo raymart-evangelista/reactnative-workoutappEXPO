@@ -267,7 +267,6 @@ const Exercises = ({ week, day, name, handleChange, errors, touched }) => {
                         <Field name={`${name}.${exerciseIndex}.weight.unit`}>
                           {({ field, form }) => (
                             <View>
-                              {console.log('dfsdsf')}
                               <SegmentedButtonWithSelectedCheck
                                 field={field}
                                 handleChange={handleChange}
