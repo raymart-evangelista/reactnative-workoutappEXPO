@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react'
-import { Button, Card as PaperCard, Text, TextInput } from 'react-native-paper'
+import { Button, Card as PaperCard, Text, TextInput, RadioButton, } from 'react-native-paper'
+import { View } from 'react-native';
 import programsService from "../services/programs";
+import SetTracker from './SetTracker';
 
 const Card = (
   {
@@ -46,10 +48,14 @@ const Card = (
             <PaperCard.Content>
               <Text variant='bodySmall'>{exercise.notes}</Text>
               {exercise.warmupSets.min === exercise.warmupSets.max ? (
-                <Text variant='bodyMedium'>warm up sets: {exercise.warmupSets.min}</Text>
-
+                <View>
+                  <Text variant='bodyMedium'>warm up sets: {exercise.warmupSets.min}</Text>
+                </View>
               ) : (
-                <Text variant='bodyMedium'>warm up sets: {exercise.warmupSets.min}-{exercise.warmupSets.max}</Text>
+                <View>
+                  <Text variant='bodyMedium'>warm up sets: {exercise.warmupSets.min}-{exercise.warmupSets.max}</Text>
+                  <SetTracker sets='3'></SetTracker>
+                </View>
               )}
               {exercise.workingSets.min === exercise.workingSets.max ? (
                 <Text variant='bodyMedium'>working sets: {exercise.workingSets.min} x {exercise.reps.min}-{exercise.reps.max} reps {exercise.reps.notes && ` (${exercise.reps.notes})`}</Text>
