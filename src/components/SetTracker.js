@@ -2,7 +2,7 @@ import { useState } from "react";
 import { View } from "react-native";
 import { Text, Button, RadioButton } from "react-native-paper";
 
-const SetTracker = ({ sets }) => {
+const SetTracker = ({ sets, type }) => {
   const [completedSets, setCompletedSets] = useState(new Array(parseInt(sets)).fill(false))
   console.log(completedSets)
 
@@ -14,7 +14,7 @@ const SetTracker = ({ sets }) => {
 
   return (
     <View>
-      <Text>{`Completed ${completedSets.filter(Boolean).length} of ${sets} warmup sets`}</Text>
+      <Text>{`Completed ${completedSets.filter(Boolean).length} of ${sets} ${type} sets`}</Text>
       {completedSets.map((completed, index) => (
         <View key={index} style={{ flexDirection: 'row', alignItems: 'center' }}>
           <RadioButton.IOS
