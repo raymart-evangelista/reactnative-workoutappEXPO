@@ -26,15 +26,6 @@ const SetTracker = ({ sets, type }) => {
           <Text>{`Set ${index + 1}`}</Text>
         </View>
       ))}
-      {/* <Text>{`Completed ${completedSets} of ${sets}`}</Text>
-      {Array.from({ length: sets }, (_, index) => (
-        <View key={index} style={{ flexDirection: 'row', alignItems: 'center' }}>
-          <RadioButton.Group onValueChange={handleRadioPress} value={completedSets.toString()}>
-            <RadioButton value={index.toString()} />
-          </RadioButton.Group>
-          <Text>{`Set ${index + 1}`}</Text>
-      </View>
-      ))} */}
     </View>
   )
 }
