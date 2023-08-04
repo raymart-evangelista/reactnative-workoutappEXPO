@@ -51,7 +51,15 @@ const programSchema = new mongoose.Schema({
             enum: ['seconds', 'minutes']
           }
         },
-        notes: String
+        notes: String,
+        warmupSetsCompletion: {
+          individual: [Boolean],
+          overall: Boolean
+        },
+        workingSetsCompletion: {
+          individual: [Boolean],
+          overall: Boolean
+        },
       }]
     }]
   }],
