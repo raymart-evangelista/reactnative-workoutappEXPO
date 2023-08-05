@@ -23,6 +23,19 @@ const Card = (
     setWeightValue(value)
   }
 
+  const [setCompletionStatus, setSetCompletionStatus] = useState([])
+
+  const handleSetCompletion = (setType, setIndex, completionStatus) => {
+    // update the completion status in local state
+    const updatedStatus = [...setCompletionStatus]
+    updatedStatus[setIndex] = { type: setType, completed: completionStatus }
+    setSetCompletionStatus(updatedStatus)
+
+    // call backend to save the new completion status
+
+    // optionally update the UI to reflect the changes
+  }
+
   useEffect(() => {
     // save weight to server when it's changed
     const updateWeightValue = async () => {
@@ -54,7 +67,11 @@ const Card = (
               ) : (
                 <View>
                   <Text variant='bodyMedium'>warm up sets: {exercise.warmupSets.min}-{exercise.warmupSets.max}</Text>
-                  <SetTracker sets={exercise.warmupSets.max} type="warmup"></SetTracker>
+                  <SetTracker 
+                    sets={exercise.warmupSets.max} 
+                    type="warmup"
+                    onSetCompletion={handleSetCompletion}
+                  />
                 </View>
               )}
               {exercise.workingSets.min === exercise.workingSets.max ? (
