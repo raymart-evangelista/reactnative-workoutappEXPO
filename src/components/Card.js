@@ -3,6 +3,7 @@ import { Button, Card as PaperCard, Text, TextInput, RadioButton, } from 'react-
 import { View } from 'react-native';
 import programsService from "../services/programs";
 import SetTracker from './SetTracker';
+import { setIn } from 'formik';
 
 const Card = (
   {
@@ -32,10 +33,21 @@ const Card = (
 
 
   const handleSetCompletion = (setType, setIndex, completionStatus) => {
+
+    if (setType === 'warmup') {
+      const updatedWarmupCompletion = [...warmupSetsCompletion]
+      updatedWarmupCompletion[setIndex] = completionStatus
+      setWarmupSetsCompletion(updatedWarmupCompletion)
+    } else if (setType === 'working') {
+      const updatedWorkingCompletion = [...workingSetsCompletion]
+      updatedWorkingCompletion[setIndex] = completionStatus
+      setWorkingSetsCompletion(updatedWorkingCompletion)
+    }
+
     // update the completion status in local state
-    const updatedStatus = [...setCompletionStatus]
-    updatedStatus[setIndex] = { type: setType, completed: completionStatus }
-    setSetCompletionStatus(updatedStatus)
+    // const updatedStatus = [...setCompletionStatus]
+    // updatedStatus[setIndex] = { type: setType, completed: completionStatus }
+    // setSetCompletionStatus(updatedStatus)
 
     // call backend to save the new completion status
 
