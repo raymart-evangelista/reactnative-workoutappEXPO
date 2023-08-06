@@ -19,9 +19,9 @@ const SetTracker = ({ sets, type, onSetCompletion }) => {
   // }
 
   const handleRadioPress = (index) => {
-    const updatedCompletedSets = [...completedSets]
-    updatedCompletedSets[index] = !updatedCompletedSets[index] // toggle completion state (check/uncheck)
-    setCompletedSets(updatedCompletedSets)
+    const updatedCompletion = [...completedSets]
+    updatedCompletion[index] = !updatedCompletion[index] // toggle completion state (check/uncheck)
+    setCompletedSets(updatedCompletion)
 
     // Callback to parent component
     onSetCompletion(type, index, updatedCompletion[index])
