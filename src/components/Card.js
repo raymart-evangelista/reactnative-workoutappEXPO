@@ -98,7 +98,11 @@ const Card = (
               ) : (
                 <View>
                   <Text variant='bodyMedium'>working sets: {exercise.workingSets.min}-{exercise.workingSets.max} x {exercise.reps.min}-{exercise.reps.max} reps ({exercise.reps.notes})</Text>
-                  <SetTracker sets={exercise.workingSets.max} type="working"></SetTracker>
+                  <SetTracker
+                    sets={exercise.workingSets.max}
+                    type="working"
+                    onSetCompletion={handleSetCompletion}
+                  />
                 </View>
                 
               )}
