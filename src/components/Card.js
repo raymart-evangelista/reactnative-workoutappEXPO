@@ -28,8 +28,11 @@ const Card = (
 
   // track which sets have been completed for both warmups and working sets
   // when we connect backend, these might have to change to fill with whatever the backend sends
-  const [warmupSetsCompletion, setWarmupSetsCompletion] = useState(new Array(exercise.warmupSets.max).fill(false));
-  const [workingSetsCompletion, setWorkingSetsCompletion] = useState(new Array(exercise.workingSets.max).fill(false));
+
+  if (exercise) {
+    const [warmupSetsCompletion, setWarmupSetsCompletion] = useState(new Array(exercise.warmupSets.max).fill(false));
+    const [workingSetsCompletion, setWorkingSetsCompletion] = useState(new Array(exercise.workingSets.max).fill(false));
+  }
 
 
   const handleSetCompletion = (setType, setIndex, completionStatus) => {
