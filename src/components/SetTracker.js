@@ -24,7 +24,7 @@ const SetTracker = ({ sets, type, onSetCompletion }) => {
     setCompletedSets(updatedCompletion)
 
     // Callback to parent component
-    onSetCompletion(type, index, updatedCompletion[index])
+    // onSetCompletion(type, index, updatedCompletion[index])
   }
 
   return (

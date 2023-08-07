@@ -24,39 +24,6 @@ const Card = (
     setWeightValue(value)
   }
 
-  const [setCompletionStatus, setSetCompletionStatus] = useState([])
-
-  // track which sets have been completed for both warmups and working sets
-  // when we connect backend, these might have to change to fill with whatever the backend sends
-
-  if (exercise) {
-    const [warmupSetsCompletion, setWarmupSetsCompletion] = useState(new Array(exercise.warmupSets.max).fill(false));
-    const [workingSetsCompletion, setWorkingSetsCompletion] = useState(new Array(exercise.workingSets.max).fill(false));
-  }
-
-
-  const handleSetCompletion = (setType, setIndex, completionStatus) => {
-
-    if (setType === 'warmup') {
-      const updatedWarmupCompletion = [...warmupSetsCompletion]
-      updatedWarmupCompletion[setIndex] = completionStatus
-      setWarmupSetsCompletion(updatedWarmupCompletion)
-    } else if (setType === 'working') {
-      const updatedWorkingCompletion = [...workingSetsCompletion]
-      updatedWorkingCompletion[setIndex] = completionStatus
-      setWorkingSetsCompletion(updatedWorkingCompletion)
-    }
-
-    // update the completion status in local state
-    // const updatedStatus = [...setCompletionStatus]
-    // updatedStatus[setIndex] = { type: setType, completed: completionStatus }
-    // setSetCompletionStatus(updatedStatus)
-
-    // call backend to save the new completion status
-
-    // optionally update the UI to reflect the changes
-  }
-
   useEffect(() => {
     // save weight to server when it's changed
     const updateWeightValue = async () => {
@@ -91,7 +58,6 @@ const Card = (
                   <SetTracker 
                     sets={exercise.warmupSets.max} 
                     type="warmup"
-                    onSetCompletion={handleSetCompletion}
                   />
                 </View>
               )}
@@ -104,7 +70,6 @@ const Card = (
                   <SetTracker
                     sets={exercise.workingSets.max}
                     type="working"
-                    onSetCompletion={handleSetCompletion}
                   />
                 </View>
                 
