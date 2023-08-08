@@ -32,6 +32,16 @@ const ExerciseDetails = ({ exercise, weightValue, handleWeightChange }) => {
           />
         </View>
       )}
+      {exercise.reps.notes ? (
+        <Text variant='bodySmall'>{exercise.reps.notes}</Text>
+      ) : null}
+      <TextInput
+        label={`weight (${exercise.weight.unit})`}
+        value={`${weightValue}`}
+        onChangeText={handleWeightChange}
+        keyboardType='numeric'
+        style={{ marginTop: 16 }}
+      />
     </>
   )
 }
