@@ -4,6 +4,8 @@ import { View } from 'react-native';
 import programsService from "../services/programs";
 import SetTracker from './SetTracker';
 import { setIn } from 'formik';
+import ExerciseDetails from './ExerciseDetails';
+
 
 const Card = (
   {
@@ -47,47 +49,10 @@ const Card = (
           <>
             <PaperCard.Title title={exercise.name}/>
             <PaperCard.Content>
-              <Text variant='bodySmall'>{exercise.notes}</Text>
-              {exercise.warmupSets.min === exercise.warmupSets.max ? (
-                <View>
-                  <Text variant='bodyMedium'>warm up sets: {exercise.warmupSets.min}</Text>
-                </View>
-              ) : (
-                <View>
-                  <Text variant='bodyMedium'>warm up sets: {exercise.warmupSets.min}-{exercise.warmupSets.max}</Text>
-                  <SetTracker 
-                    sets={exercise.warmupSets.max} 
-                    type="warmup"
-                  />
-                </View>
-              )}
-              {exercise.workingSets.min === exercise.workingSets.max ? (
-                <Text variant='bodyMedium'>working sets: {exercise.workingSets.min} x {exercise.reps.min}-{exercise.reps.max} reps {exercise.reps.notes && ` (${exercise.reps.notes})`}</Text>
-
-              ) : (
-                <View>
-                  <Text variant='bodyMedium'>working sets: {exercise.workingSets.min}-{exercise.workingSets.max} x {exercise.reps.min}-{exercise.reps.max} reps ({exercise.reps.notes})</Text>
-                  <SetTracker
-                    sets={exercise.workingSets.max}
-                    type="working"
-                  />
-                </View>
-                
-              )}
-              {exercise.reps.notes ? (
-                <>
-                <Text variant='bodySmall'></Text>
-                </>
-              ) : (
-                <>
-                </>
-              )}
-              <TextInput
-                label={`weight (${exercise.weight.unit})`}
-                value={`${weightValue}`}
-                onChangeText={handleWeightChange}
-                keyboardType='numeric'
-                style={{ marginTop: 16 }}
+              <ExerciseDetails
+                exercise={exercise}
+                weightValue={weightValue}
+                handleWeightChange={handleWeightChange}
               />
             </PaperCard.Content>
           </>

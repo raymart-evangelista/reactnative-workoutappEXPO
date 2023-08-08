@@ -45,3 +45,5 @@ const ExerciseDetails = ({ exercise, weightValue, handleWeightChange }) => {
     </>
   )
 }
+
+export default ExerciseDetails
