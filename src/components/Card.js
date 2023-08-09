@@ -17,32 +17,6 @@ const Card = (
     day=null
   }
 ) => {
-
-  const [weightValue, setWeightValue] = useState(program?.weekDetails
-    .find((w) => w._id === week._id).dayDetails.find((d) => d._id === day._id)
-    .exercises.find((e) => e._id === exercise._id).weight.value || exercise?.weight.value || '')
-
-  const handleWeightChange = value => {
-    setWeightValue(value)
-  }
-
-  useEffect(() => {
-    // save weight to server when it's changed
-    const updateWeightValue = async () => {
-      try {
-        if (exercise && exercise.weight.value !== weightValue) {
-          // const updatedExercise = { ...exercise, weight: { value: weightValue, unit: exercise.weight.unit}}
-          const updatedExercise = await programsService.updateExerciseWeight(program.id, week._id, day._id, exercise._id, weightValue)
-          // alert('Exercise weight updated successfully!')
-        }
-      } catch (error) {
-        console.error('Failed to update exercise weight: ', error)
-      }
-    }
-
-    updateWeightValue()
-  }, [weightValue, exercise])
-
   return (
     <PaperCard>
       {exercise ? (
