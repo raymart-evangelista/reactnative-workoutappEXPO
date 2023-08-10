@@ -27,11 +27,7 @@ export function ContinueDayScreen({ navigation, route }) {
   console.log(route.params.day)
 
   const windowHeight = Dimensions.get('window').height
-  const desiredSpacing = windowHeight * 0.075
-
-  // const [weightValue, setWeightValue] = useExerciseWeight(0, program, week, day)
-
-  
+  const desiredSpacing = windowHeight * 0.075  
 
   return (
     <ScrollView
