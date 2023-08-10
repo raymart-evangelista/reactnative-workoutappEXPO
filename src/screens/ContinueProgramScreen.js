@@ -9,6 +9,8 @@ import Card from "../components/Card";
 import programsService from "../services/programs";
 import { useFocusEffect } from "@react-navigation/native";
 
+import useExerciseWeight from "../hooks/useExerciseWeight";
+
 export function ContinueDayScreen({ navigation, route }) {
 
   const { program, week, day } = route.params
@@ -27,17 +29,24 @@ export function ContinueDayScreen({ navigation, route }) {
   const windowHeight = Dimensions.get('window').height
   const desiredSpacing = windowHeight * 0.075
 
+  const [weightValue, setWeightValue] = useExerciseWeight(0, program, week, day)
+
   return (
     <ScrollView
       style={{ padding: '2%', paddingTop: desiredSpacing, paddingBottom: desiredSpacing }}
     >
       {day.exercises.map(exercise => (
         <View key={exercise._id}>
-          <Card exercise={exercise} program={program} week={week} day={day} />
+          {/* <Card exercise={exercise} program={program} week={week} day={day} /> */}
           {/* 
             ideally want to have it so user can edit weight on the fly
             if the user wants to edit the entire exercise, pull out a modal
            */}
+          <Card
+            exercise={exercise}
+            weightValue={weightValue}
+            onWeightChange={setWeightValue}
+          />
         </View>
       ))}
     </ScrollView>

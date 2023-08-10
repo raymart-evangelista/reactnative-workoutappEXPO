@@ -12,9 +12,8 @@ const Card = (
     title="Default Title", 
     subtitle=null, 
     exercise=null, 
-    program=null,
-    week=null,
-    day=null
+    weightValue,
+    onWeightChange
   }
 ) => {
   return (
@@ -26,7 +25,7 @@ const Card = (
               <ExerciseDetails
                 exercise={exercise}
                 weightValue={weightValue}
-                handleWeightChange={handleWeightChange}
+                handleWeightChange={onWeightChange}
               />
             </PaperCard.Content>
           </>
