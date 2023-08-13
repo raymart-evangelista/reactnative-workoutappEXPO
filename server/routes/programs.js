@@ -76,7 +76,7 @@ programsRouter.delete('/:id', async (req, res) => {
 })
 
 // PATCH (update) by ID
-programsRouter.patch('/:id', async (req, res) => {
+programsRouter.patch('/:id', computeCompletionFields, async (req, res) => {
   try {
     req.body.updatedAt = Date.now()
     const updatedProgram = await Program.findByIdAndUpdate(req.params.id, req.body, { new: true })
