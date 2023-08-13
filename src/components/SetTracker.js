@@ -18,16 +18,8 @@ const SetTracker = ({ sets, type, onSetCompletion }) => {
   //   onSetCompletion(type, setIndex, completionStatus)
   // }
 
-  const handleRadioPress = (index) => {
-    const updatedCompletion = [...completedSets]
-    updatedCompletion[index] = !updatedCompletion[index] // toggle completion state (check/uncheck)
-    setCompletedSets(updatedCompletion)
-
-    // Callback to parent component
-    // onSetCompletion(type, index, updatedCompletion[index])
-  }
-
   const handleSetPress = (index) => {
+    console.log(index)
     const updatedCompletion = [...completedSets]
     updatedCompletion[index] = !updatedCompletion[index] // toggle completion state (check/uncheck)
     setCompletedSets(updatedCompletion)
@@ -47,12 +39,6 @@ const SetTracker = ({ sets, type, onSetCompletion }) => {
             onPress={() => handleSetPress(index)}
             uncheckedColor="red"
             color="green"
-          />
-          <RadioButton.IOS
-            value={`set-${index}`}
-            mode='ios'
-            status={isSetCompleted ? "checked" : "unchecked"}
-            onPress={() => handleRadioPress(index)} // Toggle completion status
           />
           <Text>{`Set ${index + 1}`}</Text>
         </View>
