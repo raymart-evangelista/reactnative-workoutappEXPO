@@ -14,7 +14,7 @@ const ExerciseDetails = ({ exercise, weightValue, handleWeightChange }) => {
         <View>
           <Text variant='bodyMedium'>warm up sets: {exercise.warmupSets.min}-{exercise.warmupSets.max}</Text>
           <SetTracker 
-            sets={exercise.warmupSets.max} 
+            setsAmount={exercise.warmupSets.max} 
             type="warmup"
           />
         </View>
@@ -27,7 +27,7 @@ const ExerciseDetails = ({ exercise, weightValue, handleWeightChange }) => {
         <View>
           <Text variant='bodyMedium'>working sets: {exercise.workingSets.min}-{exercise.workingSets.max} sets x {exercise.reps.min}-{exercise.reps.max} reps ({exercise.reps.notes})</Text>
           <SetTracker
-            sets={exercise.workingSets.max}
+            setsAmount={exercise.workingSets.max}
             type="working"
           />
         </View>

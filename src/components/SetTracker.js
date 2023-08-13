@@ -2,10 +2,10 @@ import { useState } from "react";
 import { View } from "react-native";
 import { Text, Button, RadioButton, Checkbox } from "react-native-paper";
 
-const SetTracker = ({ sets, type, onSetCompletion }) => {
+const SetTracker = ({ setsAmount, type, onSetCompletion }) => {
 
   // Local state to manage which radio buttons are checked
-  const [completedSets, setCompletedSets] = useState(new Array(parseInt(sets)).fill(false))
+  const [completedSets, setCompletedSets] = useState(new Array(parseInt(setsAmount)).fill(false))
   // console.log(completedSets)
 
   // const [setsCompletion, setSetsCompletion] = useState(new Array(sets).fill(false))
@@ -18,7 +18,7 @@ const SetTracker = ({ sets, type, onSetCompletion }) => {
   //   onSetCompletion(type, setIndex, completionStatus)
   // }
 
-  const handleSetPress = (index) => {
+  const handleSetCompletion = (index) => {
     console.log(index)
     const updatedCompletion = [...completedSets]
     updatedCompletion[index] = !updatedCompletion[index] // toggle completion state (check/uncheck)
@@ -30,13 +30,13 @@ const SetTracker = ({ sets, type, onSetCompletion }) => {
 
   return (
     <View>
-      <Text>{`Completed ${completedSets.filter(Boolean).length} of ${sets} ${type} sets`}</Text>
+      <Text>{`Completed ${completedSets.filter(Boolean).length} of ${setsAmount} ${type} sets`}</Text>
       {/* {completedSets.map((completed, index) => ( */}
       { completedSets.map((isSetCompleted, index) => (
         <View key={index} style={{ flexDirection: 'row', alignItems: 'center' }}>
           <Checkbox.Android
             status={isSetCompleted ? "checked" : "unchecked"}
-            onPress={() => handleSetPress(index)}
+            onPress={() => handleSetCompletion(index)}
             uncheckedColor="red"
             color="green"
           />
