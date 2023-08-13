@@ -25,7 +25,7 @@ const ExerciseDetails = ({ exercise, weightValue, handleWeightChange }) => {
         </View>
       ) : (
         <View>
-          <Text variant='bodyMedium'>working sets: {exercise.workingSets.min}-{exercise.workingSets.max} x {exercise.reps.min}-{exercise.reps.max} reps ({exercise.reps.notes})</Text>
+          <Text variant='bodyMedium'>working sets: {exercise.workingSets.min}-{exercise.workingSets.max} sets x {exercise.reps.min}-{exercise.reps.max} reps ({exercise.reps.notes})</Text>
           <SetTracker
             sets={exercise.workingSets.max}
             type="working"
