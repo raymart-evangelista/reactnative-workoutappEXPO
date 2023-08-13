@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { View } from "react-native";
-import { Text, Button, RadioButton } from "react-native-paper";
+import { Text, Button, RadioButton, Checkbox } from "react-native-paper";
 
 const SetTracker = ({ sets, type, onSetCompletion }) => {
 
@@ -27,12 +27,27 @@ const SetTracker = ({ sets, type, onSetCompletion }) => {
     // onSetCompletion(type, index, updatedCompletion[index])
   }
 
+  const handleSetPress = (index) => {
+    const updatedCompletion = [...completedSets]
+    updatedCompletion[index] = !updatedCompletion[index] // toggle completion state (check/uncheck)
+    setCompletedSets(updatedCompletion)
+
+    // Callback to parent component
+    // onSetCompletion(type, index, updatedCompletion[index])
+  }
+
   return (
     <View>
       <Text>{`Completed ${completedSets.filter(Boolean).length} of ${sets} ${type} sets`}</Text>
       {/* {completedSets.map((completed, index) => ( */}
       { completedSets.map((isSetCompleted, index) => (
         <View key={index} style={{ flexDirection: 'row', alignItems: 'center' }}>
+          <Checkbox.Android
+            status={isSetCompleted ? "checked" : "unchecked"}
+            onPress={() => handleSetPress(index)}
+            uncheckedColor="red"
+            color="green"
+          />
           <RadioButton.IOS
             value={`set-${index}`}
             mode='ios'
