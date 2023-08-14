@@ -111,20 +111,52 @@ const updateExerciseWeight = async (programId, weekId, dayId, exerciseId, weight
   }
 }
 
-const updateExerciseWarmupSetsCompletionIndividual = async (programId, weekId, dayId, exerciseId, completionArray) => {
+const updateExerciseWarmupSetsCompletionIndividual = async (programId, weekId, dayId, exerciseId, individualCompletionArray) => {
+  console.log('inside updateExerciseWarmupSetsCompletionIndividual')
+  try {
+    // fetch program by ID
+    const program = await axios.get(`${baseUrl}/${programId}`)
+    const updatedProgram = program.data
+    
+    // Find specified week, day, and exercise in the program
+    const week = updatedProgram.weekDetails.find(week => week._id === weekId)
+    if (!week) {
+      throw new Error('Week not found')
+    }
 
+    const day = week.dayDetails.find(day => day._id === dayId)
+    if (!day) {
+      throw new Error('Day not found')
+    }
+    
+    const exercise = day.exercises.find(exercise => exercise._id === exerciseId)
+    console.log(exercise.weight.value)
+    if (!exercise) {
+      throw new Error('Exercise not found')
+    }
+
+    // update warmup sets completion individual array
+    exercise.warmupSetsCompletion.individual = individualCompletionArray
+
+    const res = await axios.patch(`${baseUrl}/${programId}`, updatedProgram)
+    
+    return exercise
+  } catch (error) {
+    console.error(error)
+    throw new Error('Failed to update exercise warmup sets completion individual')
+  }
 }
 
-const updateExerciseWarmupSetsCompletionOverall = async (programId, weekId, dayId, exerciseId, overallBoolean) => {
-  
+const updateExerciseWarmupSetsCompletionOverall = async (programId, weekId, dayId, exerciseId, overallCompletionBoolean) => {
+  console.log('inside updateExerciseWarmupSetsCompletionOverall')
 }
 
-const updateExerciseWorkingSetsCompletionIndividual = async (programId, weekId, dayId, exerciseId, completionArray) => {
-  
+const updateExerciseWorkingSetsCompletionIndividual = async (programId, weekId, dayId, exerciseId, individualCompletionArray) => {
+  console.log('inside updateExerciseWorkingSetsCompletionIndividual')
 }
 
-const updateExerciseWorkingSetsCompletionOverall = async (programId, weekId, dayId, exerciseId, overallBoolean) => {
-  
+const updateExerciseWorkingSetsCompletionOverall = async (programId, weekId, dayId, exerciseId, overallCompletionBoolean) => {
+  console.log('inside updateExerciseWorkingSetsCompletionOverall')
 }
 
 // post new program, createProgram function
