@@ -111,6 +111,22 @@ const updateExerciseWeight = async (programId, weekId, dayId, exerciseId, weight
   }
 }
 
+const updateExerciseWarmupSetsCompletionIndividual = async () => {
+
+}
+
+const updateExerciseWarmupSetsCompletionOverall = async () => {
+  
+}
+
+const updateExerciseWorkingSetsCompletionIndividual = async () => {
+  
+}
+
+const updateExerciseWorkingSetsCompletionOverall = async () => {
+  
+}
+
 // post new program, createProgram function
 const createProgram = async (programData) => {
   try {
