@@ -111,19 +111,19 @@ const updateExerciseWeight = async (programId, weekId, dayId, exerciseId, weight
   }
 }
 
-const updateExerciseWarmupSetsCompletionIndividual = async () => {
+const updateExerciseWarmupSetsCompletionIndividual = async (programId, weekId, dayId, exerciseId, completionArray) => {
 
 }
 
-const updateExerciseWarmupSetsCompletionOverall = async () => {
+const updateExerciseWarmupSetsCompletionOverall = async (programId, weekId, dayId, exerciseId, overallBoolean) => {
   
 }
 
-const updateExerciseWorkingSetsCompletionIndividual = async () => {
+const updateExerciseWorkingSetsCompletionIndividual = async (programId, weekId, dayId, exerciseId, completionArray) => {
   
 }
 
-const updateExerciseWorkingSetsCompletionOverall = async () => {
+const updateExerciseWorkingSetsCompletionOverall = async (programId, weekId, dayId, exerciseId, overallBoolean) => {
   
 }
 
