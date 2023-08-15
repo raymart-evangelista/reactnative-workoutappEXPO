@@ -1,8 +1,16 @@
 import { Text, TextInput } from 'react-native-paper'
 import { View } from 'react-native'
 import SetTracker from './SetTracker'
+import useWarmupSetsCompletionIndividual from '../hooks/useWarmupSetsCompletionIndividual'
 
-const ExerciseDetails = ({ exercise, weightValue, handleWeightChange }) => {
+const ExerciseDetails = ({ program, week, day, exercise, weightValue, handleWeightChange }) => {
+  const [warmupSetsCompletionIndividual, setWarmupSetsCompletionIndividual] = useWarmupSetsCompletionIndividual(
+    exercise.warmupSetsCompletion.individual,
+    program,
+    week,
+    day,
+    exercise
+  )
   return (
     <>
       <Text variant='bodySmall'>{exercise.notes}</Text>
@@ -13,9 +21,12 @@ const ExerciseDetails = ({ exercise, weightValue, handleWeightChange }) => {
       ) : (
         <View>
           <Text variant='bodyMedium'>warm up sets: {exercise.warmupSets.min}-{exercise.warmupSets.max}</Text>
+          {console.log('warmupSetsCompletionIndividual in ExerciseDetails:', warmupSetsCompletionIndividual)}
           <SetTracker 
             setsAmount={exercise.warmupSets.max} 
             type="warmup"
+            warmupSetsCompletionIndividual={warmupSetsCompletionIndividual}
+            handleWarmupSetsCompletionIndividualChange={setWarmupSetsCompletionIndividual}
           />
         </View>
       )}
@@ -26,10 +37,10 @@ const ExerciseDetails = ({ exercise, weightValue, handleWeightChange }) => {
       ) : (
         <View>
           <Text variant='bodyMedium'>working sets: {exercise.workingSets.min}-{exercise.workingSets.max} sets x {exercise.reps.min}-{exercise.reps.max} reps ({exercise.reps.notes})</Text>
-          <SetTracker
+          {/* <SetTracker
             setsAmount={exercise.workingSets.max}
             type="working"
-          />
+          /> */}
         </View>
       )}
       {exercise.reps.notes ? (

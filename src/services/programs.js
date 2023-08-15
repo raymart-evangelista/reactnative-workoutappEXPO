@@ -111,8 +111,9 @@ const updateExerciseWeight = async (programId, weekId, dayId, exerciseId, weight
   }
 }
 
-const updateExerciseWarmupSetsCompletionIndividual = async (programId, weekId, dayId, exerciseId, individualCompletionArray) => {
-  console.log('inside updateExerciseWarmupSetsCompletionIndividual')
+const updateExerciseWarmupSetsCompletionIndividual = async (programId, weekId, dayId, exerciseId, warmupSetsCompletionIndividual) => {
+  console.log('warmupSetsCompletionIndividual in updateExerciseWarmupSetsCompletionIndividual:', warmupSetsCompletionIndividual)
+
   try {
     // fetch program by ID
     const program = await axios.get(`${baseUrl}/${programId}`)
@@ -130,16 +131,20 @@ const updateExerciseWarmupSetsCompletionIndividual = async (programId, weekId, d
     }
     
     const exercise = day.exercises.find(exercise => exercise._id === exerciseId)
-    console.log(exercise.weight.value)
     if (!exercise) {
       throw new Error('Exercise not found')
     }
 
     // update warmup sets completion individual array
-    exercise.warmupSetsCompletion.individual = individualCompletionArray
+    console.log('exercise.warmupSetsCompletion.individual in updateExerciseWarmupSetsCompletionIndividual:', exercise.warmupSetsCompletion.individual)
+    exercise.warmupSetsCompletion.individual = warmupSetsCompletionIndividual
+    console.log('exercise.warmupSetsCompletion.individual in updateExerciseWarmupSetsCompletionIndividual AFTER UPDATE:', exercise.warmupSetsCompletion.individual)
 
     const res = await axios.patch(`${baseUrl}/${programId}`, updatedProgram)
-    
+
+    console.log(res.data.weekDetails[0].dayDetails[0].exercises[0].warmupSetsCompletion.individual)
+    // console.log(updatedProgram.weekDetails[0].dayDetails[0].exercises[0].warmupSetsCompletion.individual)
+
     return exercise
   } catch (error) {
     console.error(error)
@@ -171,4 +176,12 @@ const createProgram = async (programData) => {
 
 }
 
-export default { getPrograms, getProgramById, deleteProgram, updateProgram, updateExerciseWeight, createProgram }
+export default {
+  getPrograms, 
+  getProgramById, 
+  deleteProgram, 
+  updateProgram, 
+  updateExerciseWeight, 
+  createProgram,
+  updateExerciseWarmupSetsCompletionIndividual
+}

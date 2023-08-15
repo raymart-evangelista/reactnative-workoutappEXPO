@@ -38,6 +38,9 @@ export function ContinueDayScreen({ navigation, route }) {
         return (
           <View key={exercise._id}>
             <Card
+              program={program}
+              week={week}
+              day={day}
               exercise={exercise}
               weightValue={weightValue}
               onWeightChange={setWeightValue}

@@ -1,6 +1,6 @@
 module.exports = (req, res, next) => {
   const { weekDetails } = req.body
-  console.log(weekDetails)
+  // console.log(weekDetails)
 
   weekDetails.forEach(week => {
     week.dayDetails.forEach(day => {

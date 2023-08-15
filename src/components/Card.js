@@ -9,7 +9,10 @@ import ExerciseDetails from './ExerciseDetails';
 const Card = (
   {
     title="Default Title", 
-    subtitle=null, 
+    subtitle=null,
+    program=null,
+    week=null,
+    day=null, 
     exercise=null, 
     weightValue,
     onWeightChange
@@ -22,6 +25,9 @@ const Card = (
             <PaperCard.Title title={exercise.name}/>
             <PaperCard.Content>
               <ExerciseDetails
+                program={program}
+                week={week}
+                day={day}
                 exercise={exercise}
                 weightValue={weightValue}
                 handleWeightChange={onWeightChange}
