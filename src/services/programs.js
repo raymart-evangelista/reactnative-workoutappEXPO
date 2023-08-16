@@ -61,17 +61,6 @@ const updateProgram = async (id, updatedFields) => {
   console.log(updatedFields)
   console.log("/// inside services ///")
 
-  // check if warmup sets or working sets are present in updatedFields
-  const hasWarmupOrWorkingSetsUpdates = Object.keys(updatedFields).some(key =>
-    key.includes("warmupSets") || key.includes("workingSets")
-  )
-
-  // if these are present in the updatedFields, add 'needsCompute: true' to request payload
-  if (hasWarmupOrWorkingSetsUpdates) {
-    console.log('hasWarmupOrWorkingSetsUpdates')
-    updatedFields.needsCompute = true
-  }
-
   try {
     const res = await axios.patch(`${baseUrl}/${id}`, updatedFields)
     return res.data
