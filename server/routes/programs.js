@@ -22,24 +22,6 @@ programsRouter.post('/', computeCompletionFields, async (req, res) => {
   }
 })
 
-// post
-// programsRouter.post('/', async (req, res) => {
-//   try {
-//     const { name, weeks, weekDetails } = req.body 
-//     const program = new Program({
-//       name,
-//       weeks,
-//       weekDetails,
-//     })
-
-//     const programToSave = await program.save()
-//     res.status(200).json(programToSave)
-//   } catch (error) {
-//     console.log(error)
-//     res.status(400).json({ message: error.message })
-//   }
-// })
-
 // get all
 programsRouter.get('/', async (req, res) => {
   try {
