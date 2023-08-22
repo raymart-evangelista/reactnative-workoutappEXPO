@@ -70,6 +70,8 @@ programsRouter.patch('/:id', async (req, res) => {
 
     const needsCompute = programIsDifferent(currentProgram, req.body)
 
+    console.log(needsCompute)
+
     if (needsCompute) {
       console.log('programsRouter.patch hit needsCompute')
       computeCompletionFields(req, res, () => {})
