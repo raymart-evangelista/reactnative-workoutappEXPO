@@ -70,11 +70,26 @@ programsRouter.patch('/:id', async (req, res) => {
 
     const needsCompute = programIsDifferent(currentProgram, req.body)
 
-    console.log(needsCompute)
+    const updateCompletionFields = (body) => {
+      const { weekDetails } = body
+      weekDetails.forEach((week, weekIndex) => {
+        week.dayDetails.forEach((day, dayIndex) => {
+          day.exercises.forEach((exercise, exerciseIndex) => {
+            exercise.warmupSetsCompletion = {
+              individual: new Array(Number(exercise.warmupSets.max)).fill(false),
+              overall: false
+            }
+          })
+        })
+      })
+      console.log('programsRouter.patch hit updateCompletionFields')
+      return body
+    }
 
     if (needsCompute) {
       console.log('programsRouter.patch hit needsCompute')
-      computeCompletionFields(req, res, () => {})
+      // computeCompletionFields(req, res, () => {})
+      req.body = updateCompletionFields(req.body)
     }
 
     // console.log(req.body.weekDetails[0].dayDetails[0].exercises[0].warmupSetsCompletion.individual)
