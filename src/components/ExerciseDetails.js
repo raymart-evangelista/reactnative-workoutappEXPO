@@ -24,9 +24,9 @@ const ExerciseDetails = ({ program, week, day, exercise, weightValue, handleWeig
           {console.log('warmupSetsCompletionIndividual in ExerciseDetails:', warmupSetsCompletionIndividual)}
           <SetTracker 
             setsAmount={exercise.warmupSets.max} 
-            type="warmup"
-            warmupSetsCompletionIndividual={warmupSetsCompletionIndividual}
-            handleWarmupSetsCompletionIndividualChange={setWarmupSetsCompletionIndividual}
+            setType="warmupSets"
+            setsCompletionIndividual={warmupSetsCompletionIndividual}
+            handleSetsCompletionIndividualChange={setWarmupSetsCompletionIndividual}
           />
         </View>
       )}
@@ -39,7 +39,8 @@ const ExerciseDetails = ({ program, week, day, exercise, weightValue, handleWeig
           <Text variant='bodyMedium'>working sets: {exercise.workingSets.min}-{exercise.workingSets.max} sets x {exercise.reps.min}-{exercise.reps.max} reps ({exercise.reps.notes})</Text>
           {/* <SetTracker
             setsAmount={exercise.workingSets.max}
-            type="working"
+            setType="workingSets"
+
           /> */}
         </View>
       )}
