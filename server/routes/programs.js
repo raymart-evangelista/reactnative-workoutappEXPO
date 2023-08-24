@@ -69,7 +69,6 @@ programsRouter.patch('/:id', async (req, res) => {
     }
 
     const warmupSetsNeedCompute = warmupSetsAreDifferent(currentProgram, req.body)
-    console.log(warmupSetsNeedCompute)
     const workingSetsNeedCompute = workingSetsAreDifferent(currentProgram, req.body)
 
     const updateWarmupSetsCompletionFields = (body) => {
@@ -84,7 +83,21 @@ programsRouter.patch('/:id', async (req, res) => {
           })
         })
       })
-      console.log('programsRouter.patch hit updateCompletionFields')
+      return body
+    }
+
+    const updateWorkingSetsCompletionFields = (body) => {
+      const { weekDetails } = body
+      weekDetails.forEach((week, weekIndex) => {
+        week.dayDetails.forEach((day, dayIndex) => {
+          day.exercises.forEach((exercise, exerciseIndex) => {
+            exercise.workingSetsCompletion = {
+              individual: new Array(Number(exercise.workingSets.max)).fill(false),
+              overall: false
+            }
+          })
+        })
+      })
       return body
     }
 
@@ -95,13 +108,11 @@ programsRouter.patch('/:id', async (req, res) => {
     
     if (workingSetsNeedCompute) {
       console.log('programsRouter.patch hit workingSetsNeedCompute')
-      // req.body = updateWorkingSetsCompletionFields(req.body)
+      req.body = updateWorkingSetsCompletionFields(req.body)
     }
 
-    // console.log(req.body.weekDetails[0].dayDetails[0].exercises[0].warmupSetsCompletion.individual)
     req.body.updatedAt = Date.now()
     const updatedProgram = await Program.findByIdAndUpdate(req.params.id, req.body, { new: true })
-    // console.log('updated program')
     res.json(updatedProgram)
   } catch (error) {
     console.error(error)
