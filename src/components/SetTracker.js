@@ -2,8 +2,13 @@ import { useState } from "react";
 import { View } from "react-native";
 import { Text, Button, RadioButton, Checkbox } from "react-native-paper";
 
-const SetTracker = ({ setsAmount, type, warmupSetsCompletionIndividual, handleWarmupSetsCompletionIndividualChange}) => {
-  const [completedSets, setCompletedSets] = useState(warmupSetsCompletionIndividual)
+const SetTracker = (
+  { setsAmount,
+    setType, 
+    setsCompletionIndividual, 
+    handleSetsCompletionIndividualChange
+  }) => {
+  const [completedSets, setCompletedSets] = useState(setsCompletionIndividual)
 
   const handleSetCompletion = (index) => {
     console.log(index)
@@ -12,14 +17,14 @@ const SetTracker = ({ setsAmount, type, warmupSetsCompletionIndividual, handleWa
     setCompletedSets(updatedCompletion)
 
     // Callback to parent component
-    handleWarmupSetsCompletionIndividualChange(updatedCompletion)
+    handleSetsCompletionIndividualChange(updatedCompletion)
     // onSetCompletion(type, index, updatedCompletion[index])
   }
 
   return (
     <View>
       {/* <Text>{`Completed ${completedSets.filter(Boolean).length} of ${setsAmount} ${type} sets`}</Text> */}
-      <Text>{`Completed ${completedSets.filter(Boolean).length} of ${setsAmount} ${type} sets`}</Text>
+      <Text>{`Completed ${completedSets.filter(Boolean).length} of ${setsAmount} ${setType} sets`}</Text>
       { completedSets.map((isSetCompleted, index) => (
         <View key={index} style={{ flexDirection: 'row', alignItems: 'center' }}>
           <Checkbox.Android
