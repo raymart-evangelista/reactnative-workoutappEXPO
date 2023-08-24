@@ -3,7 +3,7 @@ const programsRouter = express.Router()
 const computeCompletionFields = require('../middleware/computeCompletionFields')
 const Program = require('../models/program')
 
-const { programIsDifferent } = require('../utils/programUtils')
+const { warmupSetsAreDifferent, workingSetsAreDifferent } = require('../utils/programUtils')
 
 programsRouter.post('/', computeCompletionFields, async (req, res) => {
   try {
@@ -68,9 +68,11 @@ programsRouter.patch('/:id', async (req, res) => {
       return res.status(404).json({ message: 'Program not found' })
     }
 
-    const needsCompute = programIsDifferent(currentProgram, req.body)
+    const warmupSetsNeedCompute = warmupSetsAreDifferent(currentProgram, req.body)
+    console.log(warmupSetsNeedCompute)
+    const workingSetsNeedCompute = workingSetsAreDifferent(currentProgram, req.body)
 
-    const updateCompletionFields = (body) => {
+    const updateWarmupSetsCompletionFields = (body) => {
       const { weekDetails } = body
       weekDetails.forEach((week, weekIndex) => {
         week.dayDetails.forEach((day, dayIndex) => {
@@ -86,10 +88,14 @@ programsRouter.patch('/:id', async (req, res) => {
       return body
     }
 
-    if (needsCompute) {
-      console.log('programsRouter.patch hit needsCompute')
-      // computeCompletionFields(req, res, () => {})
-      req.body = updateCompletionFields(req.body)
+    if (warmupSetsNeedCompute) {
+      console.log('programsRouter.patch hit warmupSetsNeedCompute')
+      req.body = updateWarmupSetsCompletionFields(req.body)
+    }
+    
+    if (workingSetsNeedCompute) {
+      console.log('programsRouter.patch hit workingSetsNeedCompute')
+      // req.body = updateWorkingSetsCompletionFields(req.body)
     }
 
     // console.log(req.body.weekDetails[0].dayDetails[0].exercises[0].warmupSetsCompletion.individual)
