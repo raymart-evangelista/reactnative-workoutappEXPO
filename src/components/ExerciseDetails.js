@@ -1,16 +1,25 @@
 import { Text, TextInput } from 'react-native-paper'
 import { View } from 'react-native'
 import SetTracker from './SetTracker'
-import useWarmupSetsCompletionIndividual from '../hooks/useWarmupSetsCompletionIndividual'
+// import useWarmupSetsCompletionIndividual from '../hooks/useSetsCompletionIndividual'
+import useSetsCompletionIndividual from '../hooks/useSetsCompletionIndividual'
 
 const ExerciseDetails = ({ program, week, day, exercise, weightValue, handleWeightChange }) => {
-  const [warmupSetsCompletionIndividual, setWarmupSetsCompletionIndividual] = useWarmupSetsCompletionIndividual(
+  const [warmupSetsCompletionIndividual, setWarmupSetsCompletionIndividual] = useSetsCompletionIndividual(
+    "warmup",
     exercise.warmupSetsCompletion.individual,
     program,
     week,
     day,
     exercise
   )
+  // const [workingSetsCompletionIndividual, setWorkingSetsCompletionIndividual] = useWorkingSetsCompletionIndividual(
+  //   exercise.workingSetsCompletion.individual,
+  //   program,
+  //   week,
+  //   day,
+  //   exercise
+  // )
   return (
     <>
       <Text variant='bodySmall'>{exercise.notes}</Text>
@@ -40,7 +49,8 @@ const ExerciseDetails = ({ program, week, day, exercise, weightValue, handleWeig
           {/* <SetTracker
             setsAmount={exercise.workingSets.max}
             setType="working"
-
+            setsCompletionIndividual={}
+            handleSetsCompletionIndividualChange={}
           /> */}
         </View>
       )}

@@ -111,8 +111,15 @@ const updateExerciseWeight = async (programId, weekId, dayId, exerciseId, weight
   }
 }
 
-const updateExerciseWarmupSetsCompletionIndividual = async (programId, weekId, dayId, exerciseId, warmupSetsCompletionIndividual) => {
-  console.log('warmupSetsCompletionIndividual in updateExerciseWarmupSetsCompletionIndividual:', warmupSetsCompletionIndividual)
+const updateExerciseWarmupSetsCompletionIndividual = async (
+  setType,
+  programId, 
+  weekId, 
+  dayId, 
+  exerciseId, 
+  setsCompletionIndividual) => {
+
+  console.log(`${setType}SetsCompletionIndividual in updateExerciseSetsCompletionIndividual:`, setsCompletionIndividual)
 
   try {
     // fetch program by ID
@@ -136,13 +143,16 @@ const updateExerciseWarmupSetsCompletionIndividual = async (programId, weekId, d
     }
 
     // update warmup sets completion individual array
-    console.log('exercise.warmupSetsCompletion.individual in updateExerciseWarmupSetsCompletionIndividual:', exercise.warmupSetsCompletion.individual)
-    exercise.warmupSetsCompletion.individual = warmupSetsCompletionIndividual
-    console.log('exercise.warmupSetsCompletion.individual in updateExerciseWarmupSetsCompletionIndividual AFTER UPDATE:', exercise.warmupSetsCompletion.individual)
+    // console.log('exercise.warmupSetsCompletion.individual in updateExerciseWarmupSetsCompletionIndividual:', exercise.warmupSetsCompletion.individual)
+
+    // exercise.warmupSetsCompletion.individual = warmupSetsCompletionIndividual
+    exercise[`${setType}SetsCompletion`].individual = setsCompletionIndividual
+
+    // console.log('exercise.warmupSetsCompletion.individual in updateExerciseWarmupSetsCompletionIndividual AFTER UPDATE:', exercise.warmupSetsCompletion.individual)
 
     const res = await axios.patch(`${baseUrl}/${programId}`, updatedProgram)
 
-    console.log(res.data.weekDetails[0].dayDetails[0].exercises[0].warmupSetsCompletion.individual)
+    // console.log(res.data.weekDetails[0].dayDetails[0].exercises[0].warmupSetsCompletion.individual)
     // console.log(updatedProgram.weekDetails[0].dayDetails[0].exercises[0].warmupSetsCompletion.individual)
 
     return exercise
