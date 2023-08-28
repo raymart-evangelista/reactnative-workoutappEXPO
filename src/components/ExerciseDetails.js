@@ -13,14 +13,14 @@ const ExerciseDetails = ({ program, week, day, exercise, weightValue, handleWeig
     day,
     exercise
   )
-  // const [workingSetsCompletionIndividual, setWorkingSetsCompletionIndividual] = useSetsCompletionIndividual(
-  //   "working",
-  //   exercise.workingSetsCompletion.individual,
-  //   program,
-  //   week,
-  //   day,
-  //   exercise
-  // )
+  const [workingSetsCompletionIndividual, setWorkingSetsCompletionIndividual] = useSetsCompletionIndividual(
+    "working",
+    exercise.workingSetsCompletion.individual,
+    program,
+    week,
+    day,
+    exercise
+  )
   return (
     <>
       <Text variant='bodySmall'>{exercise.notes}</Text>
@@ -47,12 +47,12 @@ const ExerciseDetails = ({ program, week, day, exercise, weightValue, handleWeig
       ) : (
         <View>
           <Text variant='bodyMedium'>working sets: {exercise.workingSets.min}-{exercise.workingSets.max} sets x {exercise.reps.min}-{exercise.reps.max} reps ({exercise.reps.notes})</Text>
-          {/* <SetTracker
+          <SetTracker
             setsAmount={exercise.workingSets.max}
             setType="working"
             setsCompletionIndividual={workingSetsCompletionIndividual}
             handleSetsCompletionIndividualChange={setWorkingSetsCompletionIndividual}
-          /> */}
+          />
         </View>
       )}
       {exercise.reps.notes ? (
