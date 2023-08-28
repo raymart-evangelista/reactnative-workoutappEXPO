@@ -19,7 +19,7 @@ const useSetsCompletionIndividual = (
         console.log('setsCompletionIndividual in Hook:', setsCompletionIndividual)
 
         if (exercise && currentSetCompletion !== setsCompletionIndividual) {
-          await programsService.updateExerciseWarmupSetsCompletionIndividual(
+          await programsService.updateExerciseSetsCompletionIndividual(
             setType,
             program.id, 
             week._id, 

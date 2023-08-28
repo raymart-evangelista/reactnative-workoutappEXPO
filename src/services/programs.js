@@ -111,7 +111,7 @@ const updateExerciseWeight = async (programId, weekId, dayId, exerciseId, weight
   }
 }
 
-const updateExerciseWarmupSetsCompletionIndividual = async (
+const updateExerciseSetsCompletionIndividual = async (
   setType,
   programId, 
   weekId, 
@@ -193,5 +193,5 @@ export default {
   updateProgram, 
   updateExerciseWeight, 
   createProgram,
-  updateExerciseWarmupSetsCompletionIndividual
+  updateExerciseSetsCompletionIndividual
 }
