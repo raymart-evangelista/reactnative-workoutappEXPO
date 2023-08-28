@@ -17,6 +17,7 @@ const SetTracker = (
     setCompletedSets(updatedCompletion)
 
     // Callback to parent component
+    console.log('about to callback')
     handleSetsCompletionIndividualChange(updatedCompletion)
     // onSetCompletion(type, index, updatedCompletion[index])
   }

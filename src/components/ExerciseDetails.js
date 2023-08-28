@@ -13,7 +13,8 @@ const ExerciseDetails = ({ program, week, day, exercise, weightValue, handleWeig
     day,
     exercise
   )
-  // const [workingSetsCompletionIndividual, setWorkingSetsCompletionIndividual] = useWorkingSetsCompletionIndividual(
+  // const [workingSetsCompletionIndividual, setWorkingSetsCompletionIndividual] = useSetsCompletionIndividual(
+  //   "working",
   //   exercise.workingSetsCompletion.individual,
   //   program,
   //   week,
@@ -49,8 +50,8 @@ const ExerciseDetails = ({ program, week, day, exercise, weightValue, handleWeig
           {/* <SetTracker
             setsAmount={exercise.workingSets.max}
             setType="working"
-            setsCompletionIndividual={}
-            handleSetsCompletionIndividualChange={}
+            setsCompletionIndividual={workingSetsCompletionIndividual}
+            handleSetsCompletionIndividualChange={setWorkingSetsCompletionIndividual}
           /> */}
         </View>
       )}

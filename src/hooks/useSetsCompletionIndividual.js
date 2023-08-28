@@ -16,16 +16,16 @@ const useSetsCompletionIndividual = (
       try {
         const currentSetCompletion = exercise[`${setType}SetsCompletion`]?.individual
         // console.log('exercise.warmupSetsCompletion.individual in Hook:', exercise.warmupSetsCompletion.individual)
-        // console.log('warmupSetsCompletionIndividual in Hook:', warmupSetsCompletionIndividual)
+        console.log('setsCompletionIndividual in Hook:', setsCompletionIndividual)
 
         if (exercise && currentSetCompletion !== setsCompletionIndividual) {
           await programsService.updateExerciseWarmupSetsCompletionIndividual(
+            setType,
             program.id, 
             week._id, 
             day._id, 
             exercise._id, 
             setsCompletionIndividual,
-            setType
             )
         }
       } catch (error) {
@@ -39,4 +39,4 @@ const useSetsCompletionIndividual = (
   return [setsCompletionIndividual, setSetsCompletionIndividual]
 }
 
-export default { useSetsCompletionIndividual }
+export default useSetsCompletionIndividual
