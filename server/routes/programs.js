@@ -68,6 +68,9 @@ programsRouter.patch('/:id', async (req, res) => {
       return res.status(404).json({ message: 'Program not found' })
     }
 
+    // if a new exercise is added, warmupsets / workingsets individual array are empty
+    // and warmupSetsCompletion.overall / workingSetsCompletion.overall don't exist yet
+
     const warmupSetsNeedCompute = warmupSetsAreDifferent(currentProgram, req.body)
     const workingSetsNeedCompute = workingSetsAreDifferent(currentProgram, req.body)
 
