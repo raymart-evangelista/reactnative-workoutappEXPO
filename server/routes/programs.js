@@ -3,7 +3,7 @@ const programsRouter = express.Router()
 const computeCompletionFields = require('../middleware/computeCompletionFields')
 const Program = require('../models/program')
 
-const { warmupSetsAreDifferent, workingSetsAreDifferent } = require('../utils/programUtils')
+const { warmupSetsAreDifferent, workingSetsAreDifferent, identifyAndUpdateNewExercises } = require('../utils/programUtils')
 
 programsRouter.post('/', computeCompletionFields, async (req, res) => {
   try {
@@ -70,6 +70,7 @@ programsRouter.patch('/:id', async (req, res) => {
 
     // if a new exercise is added, warmupsets / workingsets individual array are empty
     // and warmupSetsCompletion.overall / workingSetsCompletion.overall don't exist yet
+    identifyAndUpdateNewExercises(currentProgram, req.body)
 
     const warmupSetsNeedCompute = warmupSetsAreDifferent(currentProgram, req.body)
     const workingSetsNeedCompute = workingSetsAreDifferent(currentProgram, req.body)
@@ -103,6 +104,8 @@ programsRouter.patch('/:id', async (req, res) => {
       })
       return body
     }
+
+    if (warmupSetsNeedCompute)
 
     if (warmupSetsNeedCompute) {
       console.log('programsRouter.patch hit warmupSetsNeedCompute')
