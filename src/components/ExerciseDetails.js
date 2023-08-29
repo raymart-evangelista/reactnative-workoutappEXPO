@@ -21,42 +21,30 @@ const ExerciseDetails = ({ program, week, day, exercise, weightValue, handleWeig
     day,
     exercise
   )
+
+  const formatSetString = (min, max) => {
+    return min === max ? min : `${min}-${max}`
+  }
+
   return (
     <>
-      <Text variant='bodySmall'>{exercise.notes}</Text>
-      {exercise.warmupSets.min === exercise.warmupSets.max ? (
-        <View>
-          <Text variant='bodyMedium'>warm up sets: {exercise.warmupSets.min}</Text>
-        </View>
-      ) : (
-        <View>
-          <Text variant='bodyMedium'>warm up sets: {exercise.warmupSets.min}-{exercise.warmupSets.max}</Text>
-          {console.log('warmupSetsCompletionIndividual in ExerciseDetails:', warmupSetsCompletionIndividual)}
-          <SetTracker 
-            setsAmount={exercise.warmupSets.max} 
-            setType="warmup"
-            setsCompletionIndividual={warmupSetsCompletionIndividual}
-            handleSetsCompletionIndividualChange={setWarmupSetsCompletionIndividual}
-          />
-        </View>
-      )}
-      {exercise.workingSets.min === exercise.workingSets.max ? (
-        <View>
-          <Text variant='bodyMedium'>working sets: {exercise.workingSets.min} x {exercise.reps.min}-{exercise.reps.max} reps {exercise.reps.notes && ` (${exercise.reps.notes})`}</Text>
-        </View>
-      ) : (
-        <View>
-          <Text variant='bodyMedium'>working sets: {exercise.workingSets.min}-{exercise.workingSets.max} sets x {exercise.reps.min}-{exercise.reps.max} reps ({exercise.reps.notes})</Text>
-          <SetTracker
-            setsAmount={exercise.workingSets.max}
-            setType="working"
-            setsCompletionIndividual={workingSetsCompletionIndividual}
-            handleSetsCompletionIndividualChange={setWorkingSetsCompletionIndividual}
-          />
-        </View>
-      )}
+      <Text variant='bodySmall'>Exercise notes: {exercise.notes}</Text>
+      <Text variant='bodyMedium'>warm-up sets: {formatSetString(exercise.warmupSets.min, exercise.warmupSets.max)}</Text>
+      <SetTracker 
+        setsAmount={exercise.warmupSets.max} 
+        setType="warmup"
+        setsCompletionIndividual={warmupSetsCompletionIndividual}
+        handleSetsCompletionIndividualChange={setWarmupSetsCompletionIndividual}
+      />
+      <Text variant='bodyMedium'>working sets: {formatSetString(exercise.workingSets.min, exercise.workingSets.max)}</Text>
+      <SetTracker
+        setsAmount={exercise.workingSets.max}
+        setType="working"
+        setsCompletionIndividual={workingSetsCompletionIndividual}
+        handleSetsCompletionIndividualChange={setWorkingSetsCompletionIndividual}
+      />
       {exercise.reps.notes ? (
-        <Text variant='bodySmall'>{exercise.reps.notes}</Text>
+        <Text variant='bodySmall'>Exercise reps notes: {exercise.reps.notes}</Text>
       ) : null}
       <TextInput
         label={`weight (${exercise.weight.unit})`}
