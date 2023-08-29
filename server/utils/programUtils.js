@@ -36,7 +36,32 @@ const workingSetsAreDifferent = (currentProgram, updatedProgram) => {
   return setsAreDifferent(currentProgram, updatedProgram, 'workingSets')
 }
 
+const identifyAndUpdateNewExercises = (currentProgram, updatedProgram) => {
+  updatedProgram.weekDetails.forEach((week, weekIndex) => {
+    week.dayDetails.forEach((day, dayIndex) => {
+      day.exercises.forEach((exercise, exerciseIndex) => {
+        if (isNewExercise(currentProgram, weekIndex, dayIndex, exercise)) {
+          console.log('server/utils/programUtils.js: new exercise found... populating... !')
+          exercise.warmupSetsCompletion = {
+            individual: new Array(Number(exercise.warmupSets.max)).fill(false),
+            overall: false
+          }
+          exercise.workingSetsCompletion = {
+            individual: new Array(Number(exercise.workingSets.max)).fill(false),
+            overall: false
+          }
+        }
+      })
+    })
+  })
+}
+
+const isNewExercise = (currentProgram, weekIndex, dayIndex, exercise) => {
+  return !currentProgram.weekDetails[weekIndex]?.dayDetails[dayIndex]?.exercises.some(e => e._id === exercise._id);
+}
+
 module.exports = {
   warmupSetsAreDifferent,
-  workingSetsAreDifferent
+  workingSetsAreDifferent,
+  identifyAndUpdateNewExercises
 }
