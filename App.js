@@ -11,7 +11,7 @@ import { DefaultTheme, Button, Headline, Provider as PaperProvider } from 'react
 import LogInScreen from './src/screens/LogInScreen';
 import SignUpScreen from './src/screens/SignUpScreen';
 import HomeScreen from './src/screens/HomeScreen';
-import { ProgramNameInputScreen } from './src/screens/CreateProgramScreen';
+import CreateProgramScreen from './src/screens/CreateProgramScreen';
 import { ExistingProgramsScreen, EditProgramScreen } from './src/screens/ExistingProgramScreen';
 import { ProgramInformationScreen, ContinueWeekScreen, ContinueDayScreen } from './src/screens/ContinueProgramScreen';
 import SettingsScreen from './src/screens/SettingsScreen';
@@ -28,7 +28,7 @@ export default function App() {
         <Stack.Screen name="LogIn" component={LogInScreen} />
         <Stack.Screen name="SignUp" component={SignUpScreen} />
         <Stack.Screen name="Home" component={HomeScreen} />
-        <Stack.Screen name="CreateProgram" component={ProgramNameInputScreen} />
+        <Stack.Screen name="CreateProgram" component={CreateProgramScreen} />
         <Stack.Screen name="ExistingPrograms" component={ExistingProgramsScreen} />
         <Stack.Screen name="EditProgram" component={EditProgramScreen} />
         {/* <Stack.Screen name="ContinueProgram" component={ContinueProgramScreen} /> */}
