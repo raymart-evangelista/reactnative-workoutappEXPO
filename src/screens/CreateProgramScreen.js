@@ -12,7 +12,7 @@ import SegmentedButtonWithSelectedCheck from "../components/SegmentedButtonWithS
 
 import programsService from "../services/programs";
 
-import { useForm, Controller } from "react-hook-form"
+import { useFieldArray, useWatch, useForm, Controller } from "react-hook-form"
 
 const CreateProgramScreen = () => {
     const {
