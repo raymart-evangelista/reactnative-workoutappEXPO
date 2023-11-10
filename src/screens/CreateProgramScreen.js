@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { TouchableOpacity, View, StyleSheet, Dimensions, SafeAreaView } from "react-native";
-import { Formik, Field, FieldArray, ErrorMessage, useFormik } from "formik";
+import { Formik, Field, FieldArray, ErrorMessage, useFormik, useField } from "formik";
 import { Button, Text, Title, RadioButton, List, useTheme } from 'react-native-paper';
 import * as Yup from 'yup';
 import { FlatList } from "react-native";
@@ -14,14 +14,14 @@ import programsService from "../services/programs";
 
 import { useFieldArray, useWatch, useForm, Controller } from "react-hook-form"
 
-const CreateProgramScreen = () => {
+const CreateProgramScreen2 = () => {
     const {
         control,
         handleSubmit,
         formState: { errors },
     } = useForm({
         defaultValues: {
-            programName: "",
+            programName: "My 8 Week Workout Program",
         },
     })
     const onSubmit = (data) => console.log(data)
@@ -52,5 +52,54 @@ const CreateProgramScreen = () => {
         </SafeAreaView>
     );
 };
+
+const WorkoutProgramForm = () => {
+    const { register, formState: {errors}, control } = useForm({
+        defaultValues: {
+            cart: [{ name: '', amount: 0 }]
+        }
+    })
+
+    const { fields } = useFieldArray({
+        name: 'cart',
+        control
+    })
+
+    return (
+        <>
+            {fields.map((field, index) => {
+            })}
+        </>
+    )
+}
+
+const CreateProgramScreen = () => {
+    const { control, handleSubmit, formState: { errors} } = useForm({
+        defaultValues: {
+            yourInputName: ""
+        }
+    })
+    const onSubmit = data => console.log(data)
+
+    return (
+        <SafeAreaView>
+            <Controller
+                control={control}
+                render={({ onChange, onBlur, value }) => (
+                    <TextInput
+                        onBlur={onBlur}
+                        onChangeText={value => onChange(value)}
+                        value={value}
+                    />
+                )}
+                name="yourInputName"
+                rules={{ required: true }}
+                defaultValue=""
+            />
+            {errors.yourInputName && <Text>This field is required.</Text>}
+            <Button onPress={handleSubmit(onSubmit)}>Submit</Button>
+        </SafeAreaView>
+    )
+}
 
 export default CreateProgramScreen;
