@@ -74,27 +74,27 @@ const WorkoutProgramForm = () => {
 }
 
 const CreateProgramScreen = () => {
-    const { control, handleSubmit, formState: { errors} } = useForm({
+    const { control, handleSubmit, formState: { errors } } = useForm({
         defaultValues: {
             yourInputName: ""
         }
     })
-    const onSubmit = data => console.log(data)
+    const onSubmit = (data) => console.log(data)
 
     return (
         <SafeAreaView>
             <Controller
                 control={control}
-                render={({ onChange, onBlur, value }) => (
+                rules={{ required: true }}
+                render={({ field: { onChange, onBlur, value } }) => (
                     <TextInput
+                        placeholder="Sample Input"
                         onBlur={onBlur}
-                        onChangeText={value => onChange(value)}
+                        onChangeText={onChange}
                         value={value}
                     />
                 )}
                 name="yourInputName"
-                rules={{ required: true }}
-                defaultValue=""
             />
             {errors.yourInputName && <Text>This field is required.</Text>}
             <Button onPress={handleSubmit(onSubmit)}>Submit</Button>
