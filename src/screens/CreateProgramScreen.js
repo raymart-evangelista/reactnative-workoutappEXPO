@@ -17,10 +17,17 @@ import { useFieldArray, useWatch, useForm, Controller } from "react-hook-form"
 const CreateProgramScreen = () => {
     const { control, handleSubmit, formState: { errors } } = useForm({
         defaultValues: {
-            programName: ""
+            programName: "",
+            weeks: []
         }
     })
+
     const onSubmit = (data) => console.log(data)
+
+    const { fields: weekFields, append: appendWeek } = useFieldArray({
+        control,
+        name: "weeks"
+    })
 
     return (
         <SafeAreaView>
@@ -37,11 +44,14 @@ const CreateProgramScreen = () => {
                 )}
                 name="programName"
             />
-            {/* button to add weeks */}
-            <Controller
-
-            />
             {errors.programName && <Text>Program name is needed.</Text>}
+            {/* button to add weeks */}
+            <Button onPress={() => appendWeek({ days: []})}>Add Week</Button>
+            {weekFields.map((week, weekIndex) => (
+                <TouchableOpacity key={week.id} onPress={() => {/* navigate to day screen */}}>
+                <Text>Week {weekIndex + 1}</Text>
+                </TouchableOpacity>
+                ))}
             <Button onPress={handleSubmit(onSubmit)}>Submit</Button>
         </SafeAreaView>
     )
