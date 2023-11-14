@@ -96,6 +96,10 @@ const CreateProgramScreen = () => {
                 )}
                 name="programName"
             />
+            {/* button to add weeks */}
+            <Controller
+
+            />
             {errors.programName && <Text>Program name is needed.</Text>}
             <Button onPress={handleSubmit(onSubmit)}>Submit</Button>
         </SafeAreaView>
