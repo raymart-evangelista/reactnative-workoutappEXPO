@@ -14,65 +14,6 @@ import programsService from "../services/programs";
 
 import { useFieldArray, useWatch, useForm, Controller } from "react-hook-form"
 
-const CreateProgramScreen2 = () => {
-    const {
-        control,
-        handleSubmit,
-        formState: { errors },
-    } = useForm({
-        defaultValues: {
-            programName: "My 8 Week Workout Program",
-        },
-    })
-    const onSubmit = (data) => console.log(data)
-    return (
-        <SafeAreaView>
-            <Controller
-                control={control}
-                rules={{
-                    required: true,
-                }}
-                render={({ field: { onChange, onBlur, value } }) => (
-                    <TextInput
-                        placeholder="Program Name"
-                        onBlur={onBlur}
-                        onChangeText={onChange}
-                        value={value}
-                    />
-                )}
-                name="programName"
-            />
-            {errors.programName && <Text>This is required</Text>}
-
-            <Button
-                onPress={handleSubmit(onSubmit)}
-            >
-                Submit
-            </Button>
-        </SafeAreaView>
-    );
-};
-
-const WorkoutProgramForm = () => {
-    const { register, formState: {errors}, control } = useForm({
-        defaultValues: {
-            cart: [{ name: '', amount: 0 }]
-        }
-    })
-
-    const { fields } = useFieldArray({
-        name: 'cart',
-        control
-    })
-
-    return (
-        <>
-            {fields.map((field, index) => {
-            })}
-        </>
-    )
-}
-
 const CreateProgramScreen = () => {
     const { control, handleSubmit, formState: { errors } } = useForm({
         defaultValues: {
