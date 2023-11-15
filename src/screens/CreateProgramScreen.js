@@ -14,8 +14,6 @@ import programsService from "../services/programs";
 
 import { useFieldArray, useWatch, useForm, Controller } from "react-hook-form"
 
-import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
-
 const CreateProgramScreen = () => {
     const { control, handleSubmit, formState: { errors } } = useForm({
         defaultValues: {
@@ -30,11 +28,6 @@ const CreateProgramScreen = () => {
         control,
         name: "weeks"
     })
-
-    const onDragEnd = (result) => {
-        if (!result.destination) return
-        moveWeek(result.source.index, result.destination.index)
-    }
 
     return (
         <SafeAreaView>
@@ -59,28 +52,6 @@ const CreateProgramScreen = () => {
                 <Text>Week {weekIndex + 1}</Text>
                 </TouchableOpacity>
                 ))}
-            <DragDropContext onDragEnd={onDragEnd}>
-                <Droppable droppableId="droppable-weeks">
-                    {(provided) => (
-                        <View {...provided.droppableProps} ref={provided.innerRef}>
-                            {weekFields.map((week, index) => (
-                                <Draggable key={week.id} draggableId={week.id} index={index}>
-                                    {(provided) => (
-                                        <View
-                                            ref={provided.innerRef}
-                                            {...provided.draggableProps}
-                                            {...provided.dragHandleProps}
-                                        >
-                                            <Text>Week {index + 1}</Text>
-                                        </View>
-                                    )}
-                                </Draggable>
-                            ))}
-                            {provided.placeholder}
-                        </View>
-                    )}
-                </Droppable>
-            </DragDropContext>
             <Button onPress={handleSubmit(onSubmit)}>Submit</Button>
         </SafeAreaView>
     )
