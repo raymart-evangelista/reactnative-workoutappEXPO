@@ -14,6 +14,8 @@ import programsService from "../services/programs";
 
 import { useFieldArray, useWatch, useForm, Controller } from "react-hook-form"
 
+import Animated from "react-native-reanimated";
+
 const CreateProgramScreen = () => {
     const { control, handleSubmit, formState: { errors } } = useForm({
         defaultValues: {
@@ -30,30 +32,37 @@ const CreateProgramScreen = () => {
     })
 
     return (
-        <SafeAreaView>
-            <Controller
-                control={control}
-                rules={{ required: true }}
-                render={({ field: { onChange, onBlur, value } }) => (
-                    <TextInput
-                        placeholder="Program Name"
-                        onBlur={onBlur}
-                        onChangeText={onChange}
-                        value={value}
-                    />
-                )}
-                name="programName"
-            />
-            {errors.programName && <Text>Program name is needed.</Text>}
-            {/* button to add weeks */}
-            <Button onPress={() => appendWeek({ days: []})}>Add Week</Button>
-            {weekFields.map((week, weekIndex) => (
-                <TouchableOpacity key={week.id} onPress={() => {/* navigate to day screen */}}>
-                <Text>Week {weekIndex + 1}</Text>
-                </TouchableOpacity>
-                ))}
-            <Button onPress={handleSubmit(onSubmit)}>Submit</Button>
-        </SafeAreaView>
+        // <SafeAreaView>
+        //     <Controller
+        //         control={control}
+        //         rules={{ required: true }}
+        //         render={({ field: { onChange, onBlur, value } }) => (
+        //             <TextInput
+        //                 placeholder="Program Name"
+        //                 onBlur={onBlur}
+        //                 onChangeText={onChange}
+        //                 value={value}
+        //             />
+        //         )}
+        //         name="programName"
+        //     />
+        //     {errors.programName && <Text>Program name is needed.</Text>}
+        //     {/* button to add weeks */}
+        //     <Button onPress={() => appendWeek({ days: []})}>Add Week</Button>
+        //     {weekFields.map((week, weekIndex) => (
+        //         <TouchableOpacity key={week.id} onPress={() => {/* navigate to day screen */}}>
+        //         <Text>Week {weekIndex + 1}</Text>
+        //         </TouchableOpacity>
+        //         ))}
+        //     <Button onPress={handleSubmit(onSubmit)}>Submit</Button>
+        // </SafeAreaView>
+        <Animated.View
+            style={{
+                width: 100,
+                height: 100,
+                backgroundColor: 'violet',
+            }}
+        />
     )
 }
 
