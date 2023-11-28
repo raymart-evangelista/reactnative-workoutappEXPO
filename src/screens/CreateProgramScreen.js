@@ -14,8 +14,7 @@ import programsService from "../services/programs";
 
 import { useFieldArray, useWatch, useForm, Controller } from "react-hook-form"
 
-import Animated from "react-native-reanimated";
-import { useSharedValue } from "react-native-reanimated";
+import Animated, { useSharedValue, withSpring } from "react-native-reanimated";
 
 const CreateProgramScreen = () => {
     const { control, handleSubmit, formState: { errors } } = useForm({
@@ -34,10 +33,10 @@ const CreateProgramScreen = () => {
 
     const width = useSharedValue(100)
     const handlePress = () => {
-        width.value = width.value + 50
+        width.value = withSpring(width.value + 50)
     }
     const handlePress2 = () => {
-        width.value = width.value - 50
+        width.value = withSpring(width.value - 50)
     }
     // const backgroundColor = useSharedValue("blue")
 
@@ -69,7 +68,7 @@ const CreateProgramScreen = () => {
         <View style={{ flex: 1, alignItems: 'center' }}>
             <Animated.View
                 style={{
-                    width: width,
+                    width,
                     height: 100,
                     backgroundColor: "red",
                 }}
