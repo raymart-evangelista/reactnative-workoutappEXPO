@@ -32,8 +32,14 @@ const CreateProgramScreen = () => {
         name: "weeks"
     })
 
-    const width = useSharedValue(0)
-    const backgroundColor = useSharedValue("blue")
+    const width = useSharedValue(100)
+    const handlePress = () => {
+        width.value = width.value + 50
+    }
+    const handlePress2 = () => {
+        width.value = width.value - 50
+    }
+    // const backgroundColor = useSharedValue("blue")
 
     return (
         // <SafeAreaView>
@@ -60,13 +66,17 @@ const CreateProgramScreen = () => {
         //         ))}
         //     <Button onPress={handleSubmit(onSubmit)}>Submit</Button>
         // </SafeAreaView>
-        <Animated.View
-            style={{
-                width: width,
-                height: 100,
-                backgroundColor: color,
-            }}
-        />
+        <View style={{ flex: 1, alignItems: 'center' }}>
+            <Animated.View
+                style={{
+                    width: width,
+                    height: 100,
+                    backgroundColor: "red",
+                }}
+            />
+            <Button onPress={handlePress}>Click me</Button>
+            <Button onPress={handlePress2}>Click me</Button>
+        </View>
     )
 }
 
