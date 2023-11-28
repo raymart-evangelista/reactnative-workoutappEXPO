@@ -15,6 +15,7 @@ import programsService from "../services/programs";
 import { useFieldArray, useWatch, useForm, Controller } from "react-hook-form"
 
 import Animated from "react-native-reanimated";
+import { useSharedValue } from "react-native-reanimated";
 
 const CreateProgramScreen = () => {
     const { control, handleSubmit, formState: { errors } } = useForm({
@@ -30,6 +31,9 @@ const CreateProgramScreen = () => {
         control,
         name: "weeks"
     })
+
+    const width = useSharedValue(0)
+    const backgroundColor = useSharedValue("blue")
 
     return (
         // <SafeAreaView>
@@ -58,9 +62,9 @@ const CreateProgramScreen = () => {
         // </SafeAreaView>
         <Animated.View
             style={{
-                width: 100,
+                width: width,
                 height: 100,
-                backgroundColor: 'violet',
+                backgroundColor: color,
             }}
         />
     )
