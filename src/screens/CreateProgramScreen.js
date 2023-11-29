@@ -14,7 +14,7 @@ import programsService from "../services/programs";
 
 import { useFieldArray, useWatch, useForm, Controller } from "react-hook-form"
 
-import Animated, { useSharedValue, withSpring } from "react-native-reanimated";
+import Animated, { useSharedValue, withSpring, useAnimatedStyle } from "react-native-reanimated";
 
 const CreateProgramScreen = () => {
     const { control, handleSubmit, formState: { errors } } = useForm({
@@ -38,6 +38,19 @@ const CreateProgramScreen = () => {
     const handlePress2 = () => {
         width.value = withSpring(width.value - 50)
     }
+
+    const translateX = useSharedValue(0)
+
+    const handlePress3 = () => {
+        translateX.value += 50
+    }
+    const handlePress4 = () => {
+        translateX.value -= 50
+    }
+
+    const animatedStyles = useAnimatedStyle(() => ({
+        transform: [{ translateX: withSpring(translateX.value * 2) }],
+    }))
     // const backgroundColor = useSharedValue("blue")
 
     return (
@@ -65,7 +78,7 @@ const CreateProgramScreen = () => {
         //         ))}
         //     <Button onPress={handleSubmit(onSubmit)}>Submit</Button>
         // </SafeAreaView>
-        <View style={{ flex: 1, alignItems: 'center' }}>
+        <SafeAreaView style={{ flex: 1, alignItems: 'center' }}>
             <Animated.View
                 style={{
                     width,
@@ -75,8 +88,28 @@ const CreateProgramScreen = () => {
             />
             <Button onPress={handlePress}>Click me</Button>
             <Button onPress={handlePress2}>Click me</Button>
-        </View>
+            <Animated.View style={[styles.box, animatedStyles]} />
+            <View style={styles.container}>
+                <Button onPress={handlePress3}>Click me</Button>
+                <Button onPress={handlePress4}>Click me</Button>
+            </View>
+        </SafeAreaView>
     )
 }
+
+const styles = StyleSheet.create({
+    container: {
+      flex: 1,
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    box: {
+      height: 120,
+      width: 120,
+      backgroundColor: '#b58df1',
+      borderRadius: 20,
+      marginVertical: 50,
+    },
+  });
 
 export default CreateProgramScreen;
