@@ -14,7 +14,9 @@ import programsService from "../services/programs";
 
 import { useFieldArray, useWatch, useForm, Controller } from "react-hook-form"
 
-import Animated, { useSharedValue, withSpring, useAnimatedStyle } from "react-native-reanimated";
+import Animated, { useSharedValue, withSpring, useAnimatedStyle, useAnimatedProps, withTiming } from "react-native-reanimated";
+import { Circle, Svg } from "react-native-svg";
+const AnimatedCircle = Animated.createAnimatedComponent(Circle)
 
 const CreateProgramScreen = () => {
     const { control, handleSubmit, formState: { errors } } = useForm({
@@ -53,6 +55,19 @@ const CreateProgramScreen = () => {
     }))
     // const backgroundColor = useSharedValue("blue")
 
+    const r = useSharedValue(20)
+
+    const handlePress5 = () => {
+        r.value += 10
+    }
+
+    const handlePress6 = () => {
+        r.value = 10
+    }
+
+    const animatedProps = useAnimatedProps(() => ({
+        r: withTiming(r.value)
+    }))
     return (
         // <SafeAreaView>
         //     <Controller
@@ -78,22 +93,30 @@ const CreateProgramScreen = () => {
         //         ))}
         //     <Button onPress={handleSubmit(onSubmit)}>Submit</Button>
         // </SafeAreaView>
-        <SafeAreaView style={{ flex: 1, alignItems: 'center' }}>
-            <Animated.View
-                style={{
-                    width,
-                    height: 100,
-                    backgroundColor: "red",
-                }}
-            />
-            <Button onPress={handlePress}>Click me</Button>
-            <Button onPress={handlePress2}>Click me</Button>
-            <Animated.View style={[styles.box, animatedStyles]} />
+        // <SafeAreaView style={{ flex: 1, alignItems: 'center' }}>
+        //     <Animated.View
+        //         style={{
+        //             width,
+        //             height: 100,
+        //             backgroundColor: "red",
+        //         }}
+        //     />
+        //     <Button onPress={handlePress}>Click me</Button>
+        //     <Button onPress={handlePress2}>Click me</Button>
+        //     <Animated.View style={[styles.box, animatedStyles]} />
+        //     <View style={styles.container}>
+        //         <Button onPress={handlePress3}>Click me</Button>
+        //         <Button onPress={handlePress4}>Click me</Button>
+        //     </View>
+        // </SafeAreaView>
+
             <View style={styles.container}>
-                <Button onPress={handlePress3}>Click me</Button>
-                <Button onPress={handlePress4}>Click me</Button>
+                <Svg style={styles.svg}>
+                    <AnimatedCircle cx="50%" cy="50%" fill="#b58df1" animatedProps={animatedProps} />
+                </Svg>
+                <Button onPress={handlePress5}>Click 5</Button>
+                <Button onPress={handlePress6}>Click 6</Button>
             </View>
-        </SafeAreaView>
     )
 }
 
@@ -110,6 +133,10 @@ const styles = StyleSheet.create({
       borderRadius: 20,
       marginVertical: 50,
     },
+    svg: {
+        height: 250,
+        width: '100%',
+    }
   });
 
 export default CreateProgramScreen;
