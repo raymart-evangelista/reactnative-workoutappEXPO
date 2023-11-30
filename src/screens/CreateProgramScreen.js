@@ -14,7 +14,7 @@ import programsService from "../services/programs";
 
 import { useFieldArray, useWatch, useForm, Controller } from "react-hook-form"
 
-import Animated, { useSharedValue, withSpring, useAnimatedStyle, useAnimatedProps, withTiming } from "react-native-reanimated";
+import Animated, { useSharedValue, withSpring, useAnimatedStyle, useAnimatedProps, withTiming, Easing } from "react-native-reanimated";
 import { Circle, Svg } from "react-native-svg";
 const AnimatedCircle = Animated.createAnimatedComponent(Circle)
 
@@ -58,7 +58,7 @@ const CreateProgramScreen = () => {
     const r = useSharedValue(20)
 
     const handlePress5 = () => {
-        r.value += 10
+        r.value += 50
     }
 
     const handlePress6 = () => {
@@ -66,7 +66,10 @@ const CreateProgramScreen = () => {
     }
 
     const animatedProps = useAnimatedProps(() => ({
-        r: withTiming(r.value)
+        r: withTiming(r.value, {
+            duration: 1000,
+            easing: Easing.bounce,
+        })
     }))
     return (
         // <SafeAreaView>
