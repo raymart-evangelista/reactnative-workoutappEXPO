@@ -84,8 +84,8 @@ const CreateProgramScreen = () => {
         })
 
     const animatedGestureStyles = useAnimatedStyle(() => ({
-        backgroundColor: pressed.value ? 'violet' : 'yellow',
-        transform: [{ scale: withTiming(pressed.value ? 1.2 : 1 )}]
+        backgroundColor: pressed.value ? 'gray' : 'red',
+        transform: [{ scale: withTiming(pressed.value ? 1.5 : .5 )}]
     }))
     return (
         // <SafeAreaView>
@@ -139,6 +139,9 @@ const CreateProgramScreen = () => {
     
         <GestureHandlerRootView style={styles.container}>
             <View style={styles.container}>
+                <GestureDetector gesture={tap}>
+                    <Animated.View style={[styles.circle, animatedGestureStyles]} />
+                </GestureDetector>
             </View>
         </GestureHandlerRootView>
     )
@@ -149,6 +152,7 @@ const styles = StyleSheet.create({
       flex: 1,
       alignItems: 'center',
       justifyContent: 'center',
+      height: '100%',
     },
     box: {
       height: 120,
@@ -160,6 +164,11 @@ const styles = StyleSheet.create({
     svg: {
         height: 250,
         width: '100%',
+    },
+    circle: {
+        height: 120,
+        width: 120,
+        borderRadius: 500
     }
   });
 
