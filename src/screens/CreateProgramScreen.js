@@ -44,6 +44,7 @@ const CreateProgramScreen = () => {
     }
 
     const translateX = useSharedValue(0)
+    const translateY = useSharedValue(0)
 
     const handlePress3 = () => {
         translateX.value += 50
@@ -83,10 +84,27 @@ const CreateProgramScreen = () => {
             pressed.value = false
         })
 
+    const offset = useSharedValue(0)
     const animatedGestureStyles = useAnimatedStyle(() => ({
-        backgroundColor: pressed.value ? 'gray' : 'red',
-        transform: [{ scale: withTiming(pressed.value ? 1.5 : .5 )}]
+        transform: [
+            { translateX: offset.value }, 
+            // { translateY: offset.value },
+            { scale: withTiming(pressed.value ? 1.2 : 1 ) }
+        ],
+        backgroundColor: pressed.value ? 'gray' : 'red'
     }))
+
+    const pan = Gesture.Pan()
+        .onBegin(() => {
+            pressed.value = true
+        })
+        .onChange((event) => {
+            offset.value = event.translationX
+        })
+        .onFinalize(() => {
+            offset.value = withSpring(0)
+            pressed.value = false
+        })
     return (
         // <SafeAreaView>
         //     <Controller
@@ -139,10 +157,11 @@ const CreateProgramScreen = () => {
     
         <GestureHandlerRootView style={styles.container}>
             <View style={styles.container}>
-                <GestureDetector gesture={tap}>
+                <GestureDetector gesture={pan}>
                     <Animated.View style={[styles.circle, animatedGestureStyles]} />
                 </GestureDetector>
             </View>
+            
         </GestureHandlerRootView>
     )
 }
