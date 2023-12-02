@@ -16,6 +16,8 @@ import { useFieldArray, useWatch, useForm, Controller } from "react-hook-form"
 
 import Animated, { useSharedValue, withSpring, useAnimatedStyle, useAnimatedProps, withTiming, Easing } from "react-native-reanimated";
 import { Circle, Svg } from "react-native-svg";
+import { GestureHandlerRootView, Gesture, GestureDetector } from "react-native-gesture-handler";
+
 const AnimatedCircle = Animated.createAnimatedComponent(Circle)
 
 const CreateProgramScreen = () => {
@@ -71,6 +73,20 @@ const CreateProgramScreen = () => {
             easing: Easing.bounce,
         })
     }))
+
+    const pressed = useSharedValue(false)
+    const tap = Gesture.Tap()
+        .onBegin(() => {
+            pressed.value = true
+        })
+        .onFinalize(() => {
+            pressed.value = false
+        })
+
+    const animatedGestureStyles = useAnimatedStyle(() => ({
+        backgroundColor: pressed.value ? 'violet' : 'yellow',
+        transform: [{ scale: withTiming(pressed.value ? 1.2 : 1 )}]
+    }))
     return (
         // <SafeAreaView>
         //     <Controller
@@ -113,13 +129,18 @@ const CreateProgramScreen = () => {
         //     </View>
         // </SafeAreaView>
 
+            // <View style={styles.container}>
+            //     <Svg style={styles.svg}>
+            //         <AnimatedCircle cx="50%" cy="50%" fill="#b58df1" animatedProps={animatedProps} />
+            //     </Svg>
+            //     <Button onPress={handlePress5}>Click 5</Button>
+            //     <Button onPress={handlePress6}>Click 6</Button>
+            // </View>
+    
+        <GestureHandlerRootView style={styles.container}>
             <View style={styles.container}>
-                <Svg style={styles.svg}>
-                    <AnimatedCircle cx="50%" cy="50%" fill="#b58df1" animatedProps={animatedProps} />
-                </Svg>
-                <Button onPress={handlePress5}>Click 5</Button>
-                <Button onPress={handlePress6}>Click 6</Button>
             </View>
+        </GestureHandlerRootView>
     )
 }
 
