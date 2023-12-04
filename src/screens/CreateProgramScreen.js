@@ -87,7 +87,7 @@ const CreateProgramScreen = () => {
     const offset = useSharedValue(0)
     const animatedGestureStyles = useAnimatedStyle(() => ({
         transform: [
-            { translateX: offset.value }, 
+            // { translateX: offset.value }, 
             // { translateY: offset.value },
             { scale: withTiming(pressed.value ? 1.2 : 1 ) }
         ],

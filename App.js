@@ -24,7 +24,7 @@ export default function App() {
 
   return (
     <ThemeContextProvider>
-      <Stack.Navigator initialRouteName='Home' screenOptions={{headerShown: false}}>
+      <Stack.Navigator initialRouteName='SignUp' screenOptions={{headerShown: false}}>
         <Stack.Screen name="LogIn" component={LogInScreen} />
         <Stack.Screen name="SignUp" component={SignUpScreen} />
         <Stack.Screen name="Home" component={HomeScreen} />
