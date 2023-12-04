@@ -4,6 +4,8 @@ import { defaultStyles } from "../styles/globalStyles"
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import axios from "axios";
 
+import { TextInput as PaperInput } from "react-native-paper";
+
 import signUpService from '../services/users'
 import Notification from "../components/Notification";
 
@@ -38,63 +40,92 @@ export default function SignUpScreen({ navigation }) {
   }
 
   return (
-    <KeyboardAwareScrollView contentContainerStyle={defaultStyles.basic}>
-      <ImageBackground source={require('../images/landing-image.png')} resizeMode="cover">
-        <SafeAreaView>
-        <Text style={defaultStyles.signupText}>Sign Up</Text>
-        </SafeAreaView>
+    <View style={defaultStyles.container}>
+      <ImageBackground source={require('../images/landing-image.png')} resizeMode="cover" style={defaultStyles.backgroundImage}>
       </ImageBackground>
-      <View style={defaultStyles.basic}>
-        <Notification message={notificationMessage} color={notificationColor} />
-        <Text style={defaultStyles.signupText}>Sign Up</Text>
-        <View style={{ marginHorizontal: 24 }}>
-          <TextInput
-            style={defaultStyles.signupInput}
-            placeholder="Username"
-            onChangeText={newUsername => setUsername(newUsername)}
-            autoCapitalize={false}
-            autoCorrect={false}
-          />
-        </View>
-        <View style={{ marginHorizontal: 24 }}>
-          <TextInput
-            style={defaultStyles.signupInput}
-            placeholder="Email"
-            onChangeText={newEmail => setEmail(newEmail)}
-            autoCapitalize={false}
-            autoCorrect={false}
-            autoComplete="email"
-            keyboardType="email-address"
-          />
-        </View>
-        <View style={{ marginHorizontal: 24 }}>
-          <TextInput
-            style={defaultStyles.signupInput}
-            placeholder="Password"
-            onChangeText={newPassword => setPassword(newPassword)}
-            autoCapitalize={false}
-            autoCorrect={false}
-            autoComplete="password"
-            secureTextEntry={true}
-          />
-        </View>
-        <TouchableOpacity
-          onPress={handleSubmit}
-          style={defaultStyles.buttonStyle}
-        >
-          <Text
-            style={defaultStyles.buttonText}
-          >
-            Submit
-          </Text>
-        </TouchableOpacity>
-        <Text 
-          style={{ color: 'black', fontWeight: 'bold', fontSize: 12, textAlign: 'center' }}
-          onPress={() => navigation.navigate("LogIn")}
-        >
-          Already Joined? Log In
-        </Text>
+      {/* <SafeAreaView>
+      <Text style={defaultStyles.signupText}>Sign Up</Text>
+      <PaperInput
+          // style={defaultStyles.signupInput}
+          placeholder="Username"
+          onChangeText={newUsername => setUsername(newUsername)}
+          autoCapitalize={false}
+          autoCorrect={false}
+          mode="outlined"
+        />
+      <PaperInput
+        // style={defaultStyles.signupInput}
+        placeholder="Email"
+        onChangeText={newEmail => setEmail(newEmail)}
+        autoCapitalize={false}
+        autoCorrect={false}
+        autoComplete="email"
+        keyboardType="email-address"
+        mode="outlined"
+      />
+      <PaperInput
+        // style={defaultStyles.signupInput}
+        placeholder="Password"
+        onChangeText={newPassword => setPassword(newPassword)}
+        autoCapitalize={false}
+        autoCorrect={false}
+        autoComplete="password"
+        secureTextEntry={true}
+        mode="outlined"
+        />
+      </SafeAreaView> */}
+    {/* <View style={defaultStyles.basic}>
+      <Notification message={notificationMessage} color={notificationColor} />
+      <Text style={defaultStyles.signupText}>Sign Up</Text>
+      <View style={{ marginHorizontal: 24 }}>
+        <TextInput
+          style={defaultStyles.signupInput}
+          placeholder="Username"
+          onChangeText={newUsername => setUsername(newUsername)}
+          autoCapitalize={false}
+          autoCorrect={false}
+        />
       </View>
-    </KeyboardAwareScrollView>
+      <View style={{ marginHorizontal: 24 }}>
+        <TextInput
+          style={defaultStyles.signupInput}
+          placeholder="Email"
+          onChangeText={newEmail => setEmail(newEmail)}
+          autoCapitalize={false}
+          autoCorrect={false}
+          autoComplete="email"
+          keyboardType="email-address"
+        />
+      </View>
+      <View style={{ marginHorizontal: 24 }}>
+        <TextInput
+          style={defaultStyles.signupInput}
+          placeholder="Password"
+          onChangeText={newPassword => setPassword(newPassword)}
+          autoCapitalize={false}
+          autoCorrect={false}
+          autoComplete="password"
+          secureTextEntry={true}
+        />
+      </View>
+      <TouchableOpacity
+        onPress={handleSubmit}
+        style={defaultStyles.buttonStyle}
+      >
+        <Text
+          style={defaultStyles.buttonText}
+        >
+          Submit
+        </Text>
+      </TouchableOpacity>
+      <Text 
+        style={{ color: 'black', fontWeight: 'bold', fontSize: 12, textAlign: 'center' }}
+        onPress={() => navigation.navigate("LogIn")}
+      >
+        Already Joined? Log In
+      </Text>
+    </View> */}
+    </View>
+
   )
 }
