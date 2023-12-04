@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Button, Image, Text, TextInput, TouchableOpacity, View } from "react-native";
+import { Button, Image, ImageBackground, SafeAreaView, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { defaultStyles } from "../styles/globalStyles"
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import axios from "axios";
@@ -39,8 +39,12 @@ export default function SignUpScreen({ navigation }) {
 
   return (
     <KeyboardAwareScrollView contentContainerStyle={defaultStyles.basic}>
+      <ImageBackground source={require('../images/landing-image.png')} resizeMode="cover">
+        <SafeAreaView>
+        <Text style={defaultStyles.signupText}>Sign Up</Text>
+        </SafeAreaView>
+      </ImageBackground>
       <View style={defaultStyles.basic}>
-        <Image source={require('../images/landing-image.png')} />
         <Notification message={notificationMessage} color={notificationColor} />
         <Text style={defaultStyles.signupText}>Sign Up</Text>
         <View style={{ marginHorizontal: 24 }}>
