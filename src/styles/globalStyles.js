@@ -10,6 +10,13 @@ const defaultStyles = StyleSheet.create({
     // alignItems: 'center',
     justifyContent: 'center'
   },
+  container: {
+    flex: 1,
+  },
+  backgroundImage: {
+    flex: 1,
+    justifyContent: 'center',
+  },
   signupText: {
     fontSize: 30,
     textAlign: 'center'
