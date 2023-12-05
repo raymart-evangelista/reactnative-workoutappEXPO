@@ -42,11 +42,8 @@ export default function SignUpScreen({ navigation }) {
   return (
     <View style={defaultStyles.container}>
       <ImageBackground source={require('../images/landing-image.png')} resizeMode="cover" style={defaultStyles.backgroundImage}>
-        <Text style={defaultStyles.headerFont}>Sign Up</Text>
-      </ImageBackground>
-      {/* <SafeAreaView>
-      <Text style={defaultStyles.signupText}>Sign Up</Text>
-      <PaperInput
+        <Text style={defaultStyles.headerFont}>PeakPlanner</Text>
+        <PaperInput
           // style={defaultStyles.signupInput}
           placeholder="Username"
           onChangeText={newUsername => setUsername(newUsername)}
@@ -54,7 +51,7 @@ export default function SignUpScreen({ navigation }) {
           autoCorrect={false}
           mode="outlined"
         />
-      <PaperInput
+        <PaperInput
         // style={defaultStyles.signupInput}
         placeholder="Email"
         onChangeText={newEmail => setEmail(newEmail)}
@@ -63,8 +60,8 @@ export default function SignUpScreen({ navigation }) {
         autoComplete="email"
         keyboardType="email-address"
         mode="outlined"
-      />
-      <PaperInput
+        />
+        <PaperInput
         // style={defaultStyles.signupInput}
         placeholder="Password"
         onChangeText={newPassword => setPassword(newPassword)}
@@ -74,6 +71,25 @@ export default function SignUpScreen({ navigation }) {
         secureTextEntry={true}
         mode="outlined"
         />
+        <TouchableOpacity
+        onPress={handleSubmit}
+        style={defaultStyles.buttonStyle}
+        >
+        <Text
+          style={defaultStyles.buttonText}
+        >
+          Submit
+        </Text>
+      </TouchableOpacity>
+      <Text 
+        style={{ color: 'black', fontWeight: 'bold', fontSize: 12, textAlign: 'center' }}
+        onPress={() => navigation.navigate("LogIn")}
+      >
+        Already Joined? Log In
+      </Text>
+      </ImageBackground>
+      {/* <SafeAreaView>
+
       </SafeAreaView> */}
     {/* <View style={defaultStyles.basic}>
       <Notification message={notificationMessage} color={notificationColor} />
@@ -119,12 +135,7 @@ export default function SignUpScreen({ navigation }) {
           Submit
         </Text>
       </TouchableOpacity>
-      <Text 
-        style={{ color: 'black', fontWeight: 'bold', fontSize: 12, textAlign: 'center' }}
-        onPress={() => navigation.navigate("LogIn")}
-      >
-        Already Joined? Log In
-      </Text>
+
     </View> */}
     </View>
 
