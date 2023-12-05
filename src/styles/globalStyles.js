@@ -41,7 +41,20 @@ const defaultStyles = StyleSheet.create({
     color: '#fff',
     textTransform: 'uppercase',
     fontWeight: 'bold'
-  }
+  },
+  headerFont: {
+    fontFamily: 'Montserrat-Bold',
+    fontSize: 40,
+    textAlign: 'center',
+  },
+  bodyFont: {
+    fontFamily: 'OpenSans-Regular',
+    fontSize: 16,
+  },
+  buttonFont: {
+    fontFamily: 'Nunito-Bold',
+    fontSize: 18,
+  },
 }) 
 
 const lightStyles = StyleSheet.create({

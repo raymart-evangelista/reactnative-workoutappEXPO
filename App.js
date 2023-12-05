@@ -17,10 +17,16 @@ import { ProgramInformationScreen, ContinueWeekScreen, ContinueDayScreen } from 
 import SettingsScreen from './src/screens/SettingsScreen';
 import { ThemeContextProvider, useTheme } from './src/themes/ThemeContext';
 
+import * as Font from 'expo-font'
+
 const Stack = createNativeStackNavigator()
 const Tab = createBottomTabNavigator()
 
+
 export default function App() {
+  const [fontsLoaded] = Font.useFonts({
+    'Montserrat-Bold' : require('./assets/fonts/Montserrat/static/Montserrat-Bold.ttf')
+  })
 
   return (
     <ThemeContextProvider>

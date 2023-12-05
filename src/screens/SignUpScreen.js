@@ -42,6 +42,7 @@ export default function SignUpScreen({ navigation }) {
   return (
     <View style={defaultStyles.container}>
       <ImageBackground source={require('../images/landing-image.png')} resizeMode="cover" style={defaultStyles.backgroundImage}>
+        <Text style={defaultStyles.headerFont}>Sign Up</Text>
       </ImageBackground>
       {/* <SafeAreaView>
       <Text style={defaultStyles.signupText}>Sign Up</Text>
