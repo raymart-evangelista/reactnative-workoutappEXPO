@@ -18,6 +18,7 @@ import SettingsScreen from './src/screens/SettingsScreen';
 import { ThemeContextProvider, useTheme } from './src/themes/ThemeContext';
 
 import * as Font from 'expo-font'
+import LandingPage from './src/screens/LandingPage';
 
 const Stack = createNativeStackNavigator()
 const Tab = createBottomTabNavigator()
@@ -30,7 +31,8 @@ export default function App() {
 
   return (
     <ThemeContextProvider>
-      <Stack.Navigator initialRouteName='SignUp' screenOptions={{headerShown: false}}>
+      <Stack.Navigator initialRouteName='Landing' screenOptions={{headerShown: false}}>
+        <Stack.Screen name="Landing" component={LandingPage} />
         <Stack.Screen name="LogIn" component={LogInScreen} />
         <Stack.Screen name="SignUp" component={SignUpScreen} />
         <Stack.Screen name="Home" component={HomeScreen} />
