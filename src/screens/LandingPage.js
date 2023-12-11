@@ -1,17 +1,19 @@
 import {View, ImageBackground } from "react-native"
-import { defaultStyles } from "../styles/globalStyles"
 import { Text } from "react-native-paper"
 
 export default function LandingPage({ navigation, route }) {
   return (
-    <View style={defaultStyles.container}>
+    <View className="flex-1">
       <ImageBackground 
         source={require('../images/landing-image.png')}
-        style={defaultStyles.backgroundImage}
+        className="flex-1	justify-center"
       >
-        <Text style={defaultStyles.headerFont}>PeakPlanner</Text>
         <Text className="text-center text-6xl">PeakPlanner</Text>
         {/* auth sign in buttons, use google or apple id */}
+        <View className="flex-row justify-evenly">
+          <Text>Log in with Google</Text>
+          <Text>Log in with Apple</Text>
+        </View>
       </ImageBackground>
     </View>
   )
