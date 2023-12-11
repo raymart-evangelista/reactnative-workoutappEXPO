@@ -11,8 +11,8 @@ export default function LandingPage({ navigation, route }) {
         <Text className="text-center text-6xl">PeakPlanner</Text>
         {/* auth sign in buttons, use google or apple id */}
         <View className="flex-row justify-evenly">
-          <Text>Continue with Google</Text>
-          <Text>Continue with Facebook</Text>
+          <Text>Log in with Google</Text>
+          <Text>Log in with Apple</Text>
         </View>
       </ImageBackground>
     </View>
