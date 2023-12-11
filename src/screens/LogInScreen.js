@@ -51,8 +51,9 @@ export default function LogInScreen({ navigation }) {
   return (
     <KeyboardAwareScrollView contentContainerStyle={defaultStyles.basic}>
       <View style={defaultStyles.basic}>
+      <Text className="text-center text-6xl">PeakPlanner</Text>
         <Notification message={notificationMessage} color={notificationColor} />
-        <Text style={defaultStyles.signupText}>Log In</Text>
+        {/* <Text style={defaultStyles.signupText}>Log In</Text> */}
         <View style={{ marginHorizontal: 24 }}>
           <TextInput
             style={defaultStyles.signupInput}
@@ -82,7 +83,7 @@ export default function LogInScreen({ navigation }) {
           disabled={user !== null}
         >
           {loading ? <Text style={defaultStyles.buttonText}>Loading</Text>
-            : <Text style={defaultStyles.buttonText}>Submit</Text>
+            : <Text style={defaultStyles.buttonText}>Log In</Text>
           }
 
         </TouchableOpacity>

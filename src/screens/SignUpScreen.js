@@ -40,60 +40,10 @@ export default function SignUpScreen({ navigation }) {
   }
 
   return (
-    <View style={defaultStyles.container}>
-      <ImageBackground source={require('../images/landing-image.png')} resizeMode="cover" style={defaultStyles.backgroundImage}>
-        <Text style={defaultStyles.headerFont}>PeakPlanner</Text>
-        <PaperInput
-          // style={defaultStyles.signupInput}
-          placeholder="Username"
-          onChangeText={newUsername => setUsername(newUsername)}
-          autoCapitalize={false}
-          autoCorrect={false}
-          mode="outlined"
-        />
-        <PaperInput
-        // style={defaultStyles.signupInput}
-        placeholder="Email"
-        onChangeText={newEmail => setEmail(newEmail)}
-        autoCapitalize={false}
-        autoCorrect={false}
-        autoComplete="email"
-        keyboardType="email-address"
-        mode="outlined"
-        />
-        <PaperInput
-        // style={defaultStyles.signupInput}
-        placeholder="Password"
-        onChangeText={newPassword => setPassword(newPassword)}
-        autoCapitalize={false}
-        autoCorrect={false}
-        autoComplete="password"
-        secureTextEntry={true}
-        mode="outlined"
-        />
-        <TouchableOpacity
-        onPress={handleSubmit}
-        style={defaultStyles.buttonStyle}
-        >
-        <Text
-          style={defaultStyles.buttonText}
-        >
-          Submit
-        </Text>
-      </TouchableOpacity>
-      <Text 
-        style={{ color: 'black', fontWeight: 'bold', fontSize: 12, textAlign: 'center' }}
-        onPress={() => navigation.navigate("LogIn")}
-      >
-        Already Joined? Log In
-      </Text>
-      </ImageBackground>
-      {/* <SafeAreaView>
-
-      </SafeAreaView> */}
-    {/* <View style={defaultStyles.basic}>
+    <View style={defaultStyles.basic}>
+      <Text className="text-center text-6xl">PeakPlanner</Text>
       <Notification message={notificationMessage} color={notificationColor} />
-      <Text style={defaultStyles.signupText}>Sign Up</Text>
+      {/* <Text style={defaultStyles.signupText}>Sign Up</Text> */}
       <View style={{ marginHorizontal: 24 }}>
         <TextInput
           style={defaultStyles.signupInput}
@@ -132,12 +82,10 @@ export default function SignUpScreen({ navigation }) {
         <Text
           style={defaultStyles.buttonText}
         >
-          Submit
+          Sign Up
         </Text>
       </TouchableOpacity>
 
-    </View> */}
     </View>
-
   )
 }

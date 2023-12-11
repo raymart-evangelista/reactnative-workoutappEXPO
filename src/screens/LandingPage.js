@@ -11,8 +11,8 @@ export default function LandingPage({ navigation, route }) {
         <Text className="text-center text-6xl">PeakPlanner</Text>
         {/* auth sign in buttons, use google or apple id */}
         <View className="flex-row justify-evenly">
-          <Button mode="elevated">Log In</Button>
-          <Button mode="elevated">Sign Up</Button>
+          <Button mode="elevated" onPress={() => navigation.navigate('LogIn')}>Log In</Button>
+          <Button mode="elevated" onPress={() => navigation.navigate('SignUp')}>Sign Up</Button>
         </View>
       </ImageBackground>
     </View>

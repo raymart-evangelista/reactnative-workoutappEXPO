@@ -10,12 +10,8 @@ const Stack = createNativeStackNavigator()
 export default function MainLoggedOut() {
   return (
     <Stack.Navigator initialRouteName="LogInScreen">
-      {/* <Stack.Group
-        screenOptions={{ headerStyle: { backgroundColor: 'papayawhip' } }}
-      > */}
         <Stack.Screen name="LogInScreen" component={LogInScreen} />
         <Stack.Screen name="SignUpScreen" component={SignUpScreen} />
-      {/* </Stack.Group> */}
     </Stack.Navigator>
   )
 }
