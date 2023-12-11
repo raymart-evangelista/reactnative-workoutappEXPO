@@ -1,5 +1,5 @@
 import {View, ImageBackground } from "react-native"
-import { Text } from "react-native-paper"
+import { Button, Text } from "react-native-paper"
 
 export default function LandingPage({ navigation, route }) {
   return (
@@ -11,8 +11,8 @@ export default function LandingPage({ navigation, route }) {
         <Text className="text-center text-6xl">PeakPlanner</Text>
         {/* auth sign in buttons, use google or apple id */}
         <View className="flex-row justify-evenly">
-          <Text>Log in with Google</Text>
-          <Text>Log in with Apple</Text>
+          <Button mode="elevated">Log In</Button>
+          <Button mode="elevated">Sign Up</Button>
         </View>
       </ImageBackground>
     </View>
