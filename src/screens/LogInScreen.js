@@ -1,10 +1,10 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect, useContext } from "react"
 import { Button, Text, TextInput, TouchableOpacity, View } from "react-native"
 import { defaultStyles } from "../styles/globalStyles"
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 import loginService from '../services/login'
-import Notification from "../components/Notification";
+import Notification from "../components/Notification";import { AuthContext } from "../contexts/AuthContext";
 
 export default function LogInScreen({ navigation }) {
   const [username, setUsername] = useState('')
@@ -14,6 +14,10 @@ export default function LogInScreen({ navigation }) {
 
   const [notificationMessage, setNotificationMessage] = useState('')
   const [notificationColor, setNotificationColor] = useState('')
+
+  const currentUser = useContext(AuthContext)
+  console.log('the currentUser is: ')
+  console.log(currentUser)
 
   const handleSubmit = async () => {
     if (username === '' || password === '' ) {

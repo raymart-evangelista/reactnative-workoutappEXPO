@@ -28,9 +28,10 @@ import { AuthContext } from './src/contexts/AuthContext';
 export default function App() {
 
   // const auth = useContext(AuthContext)
+  const [currentUser, setCurrentUser] = useState({ user: 'taylor1234' })
 
   return (
-    <AuthContext.Provider>
+    <AuthContext.Provider value={currentUser}>
       <ThemeContextProvider>
         <Stack.Navigator initialRouteName='Landing' screenOptions={{headerShown: false}}>
           <Stack.Screen name="Landing" component={LandingPage} />
