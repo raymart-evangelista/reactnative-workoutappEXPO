@@ -22,16 +22,12 @@ import LandingPage from './src/screens/LandingPage';
 const Stack = createNativeStackNavigator()
 const Tab = createBottomTabNavigator()
 
-import { useContext } from 'react';
-import { AuthContext } from './src/contexts/AuthContext';
+import AuthProvider from './src/contexts/AuthContext';
 
 export default function App() {
 
-  // const auth = useContext(AuthContext)
-  const [currentUser, setCurrentUser] = useState({ user: 'taylor1234' })
-
   return (
-    <AuthContext.Provider value={currentUser}>
+    <AuthProvider>
       <ThemeContextProvider>
         <Stack.Navigator initialRouteName='Landing' screenOptions={{headerShown: false}}>
           <Stack.Screen name="Landing" component={LandingPage} />
@@ -51,6 +47,6 @@ export default function App() {
           <Stack.Screen name="Test" component={TestScreen} />
         </Stack.Navigator> */}
       </ThemeContextProvider>
-    </AuthContext.Provider>
+    </AuthProvider>
   );
 }
