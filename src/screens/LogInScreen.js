@@ -4,9 +4,11 @@ import { defaultStyles } from "../styles/globalStyles"
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 import loginService from '../services/login'
-import Notification from "../components/Notification";import { AuthContext } from "../contexts/AuthContext";
+import Notification from "../components/Notification"
+import { AuthContext } from "../contexts/AuthContext";
 
 export default function LogInScreen({ navigation }) {
+  const [authState, setAuthState] = useContext(AuthContext)
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [user, setUser] = useState(null)
@@ -15,11 +17,11 @@ export default function LogInScreen({ navigation }) {
   const [notificationMessage, setNotificationMessage] = useState('')
   const [notificationColor, setNotificationColor] = useState('')
 
-  const currentUser = useContext(AuthContext)
-  console.log('the currentUser is: ')
-  console.log(currentUser)
+  // const currentUser = useContext(AuthContext)
+  // console.log('the currentUser is: ')
+  // console.log(currentUser)
 
-  const handleSubmit = async () => {
+  const handleLogin = async () => {
     if (username === '' || password === '' ) {
       setNotificationMessage('All fields are required')
       setNotificationColor('red')
@@ -31,12 +33,20 @@ export default function LogInScreen({ navigation }) {
       const user = await loginService.login({
         username, password
       })
+      // console.log(user)
       setUser(user)
-      // setUsername('')
-      // setPassword('')
+
       setNotificationMessage(`Success. Welcome ${user.username}.`)
       setNotificationColor('green')
       navigation.replace("Home")
+      // updates AuthContext
+      console.log(user)
+      setAuthState(prevState => ({
+        ...prevState,
+        user: user.username, 
+        email: user.email, 
+        token: user.token 
+      }))
     } catch (error) {
       console.error(error)
       setNotificationMessage('Log in failed. Wrong credentials')
@@ -79,7 +89,7 @@ export default function LogInScreen({ navigation }) {
           />
         </View>
         <TouchableOpacity
-          onPress={handleSubmit}
+          onPress={handleLogin}
           style={[
             defaultStyles.buttonStyle,
             user !== null && { opacity: 0.5 },
