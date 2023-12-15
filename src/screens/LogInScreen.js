@@ -17,9 +17,7 @@ export default function LogInScreen({ navigation }) {
   const [notificationMessage, setNotificationMessage] = useState('')
   const [notificationColor, setNotificationColor] = useState('')
 
-  // const currentUser = useContext(AuthContext)
-  // console.log('the currentUser is: ')
-  // console.log(currentUser)
+  const { login } = authState
 
   const handleLogin = async () => {
     if (username === '' || password === '' ) {
@@ -33,20 +31,14 @@ export default function LogInScreen({ navigation }) {
       const user = await loginService.login({
         username, password
       })
-      // console.log(user)
       setUser(user)
 
       setNotificationMessage(`Success. Welcome ${user.username}.`)
       setNotificationColor('green')
       navigation.replace("Home")
       // updates AuthContext
-      console.log(user)
-      setAuthState(prevState => ({
-        ...prevState,
-        user: user.username, 
-        email: user.email, 
-        token: user.token 
-      }))
+
+      login({ user: user.username, email: user.email, token: user.token })
     } catch (error) {
       console.error(error)
       setNotificationMessage('Log in failed. Wrong credentials')
