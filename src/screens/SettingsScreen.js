@@ -1,17 +1,30 @@
 import { View, ScrollView } from 'react-native'
 import { defaultStyles } from '../styles/globalStyles';
 import { Text, Switch } from 'react-native-paper';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { useColorScheme } from 'nativewind';
 import { ThemeContextProvider, useTheme } from '../themes/ThemeContext';
 import { Button, Headline } from 'react-native-paper';
 
-export default function SettingsScreen() {
+import { AuthContext } from '../contexts/AuthContext';
+
+export default function SettingsScreen({ navigation }) {
 
   const { toggleThemeType, themeType, isDarkTheme, theme } = useTheme()
   const getOppositeTheme = () => (themeType === 'light' ? 'dark' : 'light');
 
   const iconType = theme.dark ? 'white-balance-sunny' : 'moon-waxing-crescent'
+
+  const [authState, setAuthState] = useContext(AuthContext)
+  const { logout } = authState
+
+  const handleLogout = () => {
+    logout()
+    navigation.reset({
+      index: 0,
+      routes: [{ name: 'Landing' }]
+    })
+  }
 
   return (
     <View className="flex-1 justify-center items-center">
@@ -25,6 +38,12 @@ export default function SettingsScreen() {
         contentStyle={{flexDirection: 'row-reverse'}}
       >
         {`${getOppositeTheme()}`}
+       </Button>
+       <Button
+        mode="contained"
+        onPress={handleLogout}
+       >
+        Logout
        </Button>
        {/* <Button
           mode="contained"
