@@ -8,7 +8,6 @@ import Notification from "../components/Notification"
 import { AuthContext } from "../contexts/AuthContext";
 
 export default function LogInScreen({ navigation }) {
-  const [authState, setAuthState] = useContext(AuthContext)
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [user, setUser] = useState(null)
@@ -17,7 +16,7 @@ export default function LogInScreen({ navigation }) {
   const [notificationMessage, setNotificationMessage] = useState('')
   const [notificationColor, setNotificationColor] = useState('')
 
-  const { login } = authState
+  const { login } = useContext(AuthContext)
 
   const handleLogin = async () => {
     if (username === '' || password === '' ) {

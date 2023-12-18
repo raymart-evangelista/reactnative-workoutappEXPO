@@ -7,20 +7,23 @@ const AuthProvider = ({ children }) => {
     user: null,
     email: null,
     token: null,
-    login: (userData) => { 
-      setAuthState({ ...authState, ...userData })
-      console.log('user logged in')
-    },
-    logout: () => { 
-      setAuthState({ ...authState, user: null, email: null, token: null })
-      console.log('user logged out')
-    },
   })
+
+  const login = (userData) => { 
+    setAuthState({ ...authState, ...userData })
+    console.log('user logged in')
+  }
+
+  const logout = () => { 
+    setAuthState({ ...authState, user: null, email: null, token: null })
+    console.log('user logged out')
+  }
+
   console.log('this is authState: ')
   console.log(authState)
 
   return (
-    <AuthContext.Provider value={[authState, setAuthState]}>
+    <AuthContext.Provider value={{ authState, setAuthState, login, logout }}>
       {children}
     </AuthContext.Provider>
   )

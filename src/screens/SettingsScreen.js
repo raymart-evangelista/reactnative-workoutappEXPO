@@ -15,8 +15,7 @@ export default function SettingsScreen({ navigation }) {
 
   const iconType = theme.dark ? 'white-balance-sunny' : 'moon-waxing-crescent'
 
-  const [authState, setAuthState] = useContext(AuthContext)
-  const { logout } = authState
+  const { logout } = useContext(AuthContext)
 
   const handleLogout = () => {
     logout()
