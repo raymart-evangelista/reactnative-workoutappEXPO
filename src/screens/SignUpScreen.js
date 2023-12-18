@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Button, Image, ImageBackground, SafeAreaView, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { defaultStyles } from "../styles/globalStyles"
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
@@ -8,6 +8,10 @@ import { TextInput as PaperInput } from "react-native-paper";
 
 import signUpService from '../services/users'
 import Notification from "../components/Notification";
+import LogInScreen from "./LogInScreen";
+
+import loginService from '../services/login'
+import { AuthContext } from "../contexts/AuthContext";
 
 export default function SignUpScreen({ navigation }) {
   const [username, setUsername] = useState('')
@@ -16,6 +20,8 @@ export default function SignUpScreen({ navigation }) {
 
   const [notificationMessage, setNotificationMessage] = useState('')
   const [notificationColor, setNotificationColor] = useState('')
+
+  const { login } = useContext(AuthContext)
 
   const handleSubmit = async () => {
     if (username === '' || email === '' || password === '' ) {
@@ -28,8 +34,18 @@ export default function SignUpScreen({ navigation }) {
       const returnedInfo = await signUpService.signUp(username, email, password)
       console.log(returnedInfo)
       // alert("Sign Up Successful.")
-      setNotificationMessage("Success")
+      setNotificationMessage("Signed up successfully")
       setNotificationColor('green')
+
+      const user = await loginService.login({
+        username, password
+      })
+
+      setNotificationMessage("Logging in")
+
+      login({ user: user.username, email: user.email, token: user.token })
+
+      navigation.replace("Home")
     } catch (error) {
       console.error(error)
       setNotificationMessage("Sign up failed")
