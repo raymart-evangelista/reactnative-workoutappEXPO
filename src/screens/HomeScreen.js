@@ -19,6 +19,14 @@ export default function HomeScreen({ navigation, route }) {
         onPress={() => navigation.navigate('CreateProgram')}
         icon='plus-box-multiple-outline'
       >Create program</Button>
+      <Button
+        style={[styles.button, { width: buttonWidth }]}
+        mode='outlined'
+        onPress={() => navigation.navigate()}
+        icon='text-box-check-outline'
+      >
+        My programs
+      </Button>
       <Button 
         style={[styles.button, { width: buttonWidth }]}
         mode='outlined'
