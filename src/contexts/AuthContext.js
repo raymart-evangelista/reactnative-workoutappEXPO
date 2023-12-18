@@ -7,8 +7,14 @@ const AuthProvider = ({ children }) => {
     user: null,
     email: null,
     token: null,
-    login: (userData) => { setAuthState({ ...authState, ...userData })},
-    logout: () => { setAuthState({ user: null, email: null, token: null })},
+    login: (userData) => { 
+      setAuthState({ ...authState, ...userData })
+      console.log('user logged in')
+    },
+    logout: () => { 
+      setAuthState({ ...authState, user: null, email: null, token: null })
+      console.log('user logged out')
+    },
   })
   console.log('this is authState: ')
   console.log(authState)
