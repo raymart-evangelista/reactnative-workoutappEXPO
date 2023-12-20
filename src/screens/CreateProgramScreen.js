@@ -129,6 +129,21 @@ const GestureScreen = () => {
     )
 }
 
+const AnimatedWeekBox = ({ weekNumber, animation }) => {
+    const animatedStyles = useAnimatedStyle(() => {
+        return {
+            opacity: animation.value,
+            transform: [{ scale: animation.value }]
+        }
+    })
+
+    return (
+        <Animated.View style={[ styles.weekBox, animatedStyles ]}>
+            <Text>Week {weekNumber}</Text>
+        </Animated.View>
+    )
+}
+
 const CreateProgramScreen = () => {
     const { control, handleSubmit, formState: { errors } } = useForm({
         defaultValues: {
@@ -144,6 +159,17 @@ const CreateProgramScreen = () => {
         name: "weeks"
     })
 
+    // Create an array to hold animated values for each week
+    // const weekAnimations = weekFields.map(() => useSharedValue(0))
+
+    // Function to append a week and initialize its animation
+    const handleAddWeek = () => {
+        appendWeek({ days: [] })
+        appendWeek({ days: [] })
+        const newWeekAnimation = useSharedValue(0)
+        newWeekAnimation.value = withTiming(1, { duration: 500 })
+        weekAnimations.push(newWeekAnimation)
+    }
  
     return (
         <SafeAreaView>
@@ -162,7 +188,7 @@ const CreateProgramScreen = () => {
             />
             {errors.programName && <Text>Program name is needed.</Text>}
             {/* button to add weeks */}
-            <Button onPress={() => appendWeek({ days: []})}>Add Week</Button>
+            <Button onPress={handleAddWeek}>Add Week</Button>
             {weekFields.map((week, weekIndex) => (
                 <TouchableOpacity key={week.id} onPress={() => {/* navigate to day screen */}}>
                 <Text>Week {weekIndex + 1}</Text>
@@ -195,6 +221,15 @@ const styles = StyleSheet.create({
         height: 120,
         width: 120,
         borderRadius: 500
+    },
+    weekBox: {
+        height: 50,
+        width: '90%',
+        alignItems: 'center',
+        justifyContent: 'center',
+        margin: 10,
+        backgroundColor: '#e0e0e0',
+        borderRadius: 10,
     }
   });
 
