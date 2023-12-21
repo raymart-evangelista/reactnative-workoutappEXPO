@@ -144,57 +144,95 @@ const AnimatedWeekBox = ({ weekNumber, animation }) => {
     )
 }
 
+const AnimatedBox = ({  }) => {
+    const translateY = useSharedValue(0)
+
+    const animatedStyles = useAnimatedStyle(() => ({
+        transform: [{ translateY: withSpring(translateY.value * 2) }],
+    }))
+
+    return (
+        <Animated.View style={[ styles.box, animatedStyles ]} />
+    )
+}
+
 const CreateProgramScreen = () => {
-    const { control, handleSubmit, formState: { errors } } = useForm({
-        defaultValues: {
-            programName: "",
-            weeks: []
-        }
-    })
+
+    // const { control, handleSubmit, formState: { errors } } = useForm({
+    //     defaultValues: {
+    //         programName: "",
+    //         weeks: []
+    //     }
+    // })
 
     const onSubmit = (data) => console.log(data)
 
-    const { fields: weekFields, append: appendWeek } = useFieldArray({
-        control,
-        name: "weeks"
-    })
+    // const { fields: weekFields, append: appendWeek } = useFieldArray({
+    //     control,
+    //     name: "weeks"
+    // })
 
     // Create an array to hold animated values for each week
     // const weekAnimations = weekFields.map(() => useSharedValue(0))
 
     // Function to append a week and initialize its animation
-    const handleAddWeek = () => {
-        appendWeek({ days: [] })
-        appendWeek({ days: [] })
-        const newWeekAnimation = useSharedValue(0)
-        newWeekAnimation.value = withTiming(1, { duration: 500 })
-        weekAnimations.push(newWeekAnimation)
+    // const handleAddWeek = () => {
+    //     appendWeek({ days: [] })
+    //     appendWeek({ days: [] })
+    //     const newWeekAnimation = useSharedValue(0)
+    //     newWeekAnimation.value = withTiming(1, { duration: 500 })
+    //     weekAnimations.push(newWeekAnimation)
+    // }
+    const [boxes, setBoxes] = useState([])
+
+    useEffect(() => {
+        boxes.forEach((box, index) => {
+            console.log(index)
+            // box.translateY.value = withSpring(index * 110)
+        })
+    }, [boxes])
+
+    const handleAddNewBox = () => {
+        const newBox = {
+            // translateY: useSharedValue(0)
+        }
+        setBoxes(currentBoxes => [...currentBoxes, newBox])
+
+
     }
  
     return (
+        // <SafeAreaView>
+        //     <Controller
+        //         control={control}
+        //         rules={{ required: true }}
+        //         render={({ field: { onChange, onBlur, value } }) => (
+        //             <TextInput
+        //                 placeholder="Program Name"
+        //                 onBlur={onBlur}
+        //                 onChangeText={onChange}
+        //                 value={value}
+        //             />
+        //         )}
+        //         name="programName"
+        //     />
+        //     {errors.programName && <Text>Program name is needed.</Text>}
+        //     {/* button to add weeks */}
+        //     <Button onPress={handleAddWeek}>Add Week</Button>
+        //     {weekFields.map((week, weekIndex) => (
+        //         <TouchableOpacity key={week.id} onPress={() => {/* navigate to day screen */}}>
+        //         <Text>Week {weekIndex + 1}</Text>
+        //         </TouchableOpacity>
+        //         ))}
+        //     <Button onPress={handleSubmit(onSubmit)}>Submit</Button>
+        // </SafeAreaView>
         <SafeAreaView>
-            <Controller
-                control={control}
-                rules={{ required: true }}
-                render={({ field: { onChange, onBlur, value } }) => (
-                    <TextInput
-                        placeholder="Program Name"
-                        onBlur={onBlur}
-                        onChangeText={onChange}
-                        value={value}
-                    />
-                )}
-                name="programName"
-            />
-            {errors.programName && <Text>Program name is needed.</Text>}
-            {/* button to add weeks */}
-            <Button onPress={handleAddWeek}>Add Week</Button>
-            {weekFields.map((week, weekIndex) => (
-                <TouchableOpacity key={week.id} onPress={() => {/* navigate to day screen */}}>
-                <Text>Week {weekIndex + 1}</Text>
-                </TouchableOpacity>
-                ))}
-            <Button onPress={handleSubmit(onSubmit)}>Submit</Button>
+            <Button onPress={handleAddNewBox}>Add New Box</Button>
+            {/* <AnimatedBox /> */}
+            {boxes.map(box => (
+                <AnimatedBox key={box.id}/>
+            ))}
+
         </SafeAreaView>
     )
 }
@@ -230,6 +268,12 @@ const styles = StyleSheet.create({
         margin: 10,
         backgroundColor: '#e0e0e0',
         borderRadius: 10,
+    },
+    box: {
+        width: 100,
+        height: 100,
+        backgroundColor: 'blue',
+        margin: 5,
     }
   });
 
