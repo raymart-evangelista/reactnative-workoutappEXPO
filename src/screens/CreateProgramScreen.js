@@ -144,15 +144,19 @@ const AnimatedWeekBox = ({ weekNumber, animation }) => {
     )
 }
 
-const AnimatedBox = ({  }) => {
-    const translateY = useSharedValue(0)
+const AnimatedBox = ({ index, translateY }) => {
+    console.log('inside AnimatedBox')
+    console.log('this is the index: ' + {index} )
 
-    const animatedStyles = useAnimatedStyle(() => ({
-        transform: [{ translateY: withSpring(translateY.value * 2) }],
-    }))
+    const animatedStyle = useAnimatedStyle(() => {
+        const y = translateY.value[index] || 0
+        return {
+            transform: [{ translateY: y }]
+        }
+    })
 
     return (
-        <Animated.View style={[ styles.box, animatedStyles ]} />
+        <Animated.View style={[ styles.box, animatedStyle ]} />
     )
 }
 
@@ -183,24 +187,30 @@ const CreateProgramScreen = () => {
     //     newWeekAnimation.value = withTiming(1, { duration: 500 })
     //     weekAnimations.push(newWeekAnimation)
     // }
-    const [boxes, setBoxes] = useState([])
 
-    useEffect(() => {
-        boxes.forEach((box, index) => {
-            console.log(index)
-            // box.translateY.value = withSpring(index * 110)
-        })
-    }, [boxes])
+    const [boxes, setBoxes] = useState([])
+    const translateYArray = useSharedValue([])
 
     const handleAddNewBox = () => {
-        const newBox = {
-            // translateY: useSharedValue(0)
-        }
-        setBoxes(currentBoxes => [...currentBoxes, newBox])
-
-
+        console.log('inside handleAddNewBox')
+        translateYArray.value = [
+            ...translateYArray.value,
+            withSpring(calculateNewBoxPosition(boxes.length)),
+        ]
+        setBoxes(prevBoxes => [...prevBoxes, {}])
     }
- 
+
+    const calculateNewBoxPosition = (index) => {
+        return index * 110
+    }
+
+    // useEffect(() => {
+    //     boxes.forEach((box, index) => {
+    //         console.log(index)
+    //         // box.translateY.value = withSpring(index * 110)
+    //     })
+    // }, [boxes])
+
     return (
         // <SafeAreaView>
         //     <Controller
@@ -228,9 +238,8 @@ const CreateProgramScreen = () => {
         // </SafeAreaView>
         <SafeAreaView>
             <Button onPress={handleAddNewBox}>Add New Box</Button>
-            {/* <AnimatedBox /> */}
-            {boxes.map(box => (
-                <AnimatedBox key={box.id}/>
+            {translateYArray.value.map((_, index) => (
+                <AnimatedBox key={index} translateY={translateYArray} />
             ))}
 
         </SafeAreaView>
