@@ -29,7 +29,7 @@ export default function App() {
   return (
     <AuthProvider>
       <ThemeContextProvider>
-        <Stack.Navigator initialRouteName='Landing' screenOptions={{headerShown: false}}>
+        <Stack.Navigator initialRouteName='CreateProgram' screenOptions={{headerShown: false}}>
           <Stack.Screen name="Landing" component={LandingPage} />
           <Stack.Screen name="LogIn" component={LogInScreen} />
           <Stack.Screen name="SignUp" component={SignUpScreen} />
