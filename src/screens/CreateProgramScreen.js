@@ -14,7 +14,7 @@ import programsService from "../services/programs";
 
 import { useFieldArray, useWatch, useForm, Controller } from "react-hook-form"
 
-import Animated, { useSharedValue, withSpring, useAnimatedStyle, useAnimatedProps, withTiming, Easing } from "react-native-reanimated";
+import Animated, { useSharedValue, withSpring, useAnimatedStyle, useAnimatedProps, withTiming, Easing, FadeIn } from "react-native-reanimated";
 import { Circle, Svg } from "react-native-svg";
 import { GestureHandlerRootView, Gesture, GestureDetector } from "react-native-gesture-handler";
 
@@ -156,7 +156,7 @@ const AnimatedBox = ({ index, translateY }) => {
     })
 
     return (
-        <Animated.View style={[ styles.box, animatedStyle ]} />
+        <Animated.View entering={FadeIn} style={[ styles.box, animatedStyle ]} />
     )
 }
 
