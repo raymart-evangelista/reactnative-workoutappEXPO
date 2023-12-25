@@ -156,7 +156,7 @@ const AnimatedBox = ({ index, translateY }) => {
     })
 
     return (
-        <Animated.View entering={FadeIn} style={[ styles.box, animatedStyle ]} />
+        <Animated.View entering={FadeIn} style={[ styles.weekBox, animatedStyle ]} />
     )
 }
 
@@ -273,11 +273,13 @@ const styles = StyleSheet.create({
     weekBox: {
         height: 50,
         width: '90%',
+        alignSelf: 'center',
         alignItems: 'center',
         justifyContent: 'center',
-        margin: 10,
         backgroundColor: '#e0e0e0',
         borderRadius: 10,
+        marginVertical: 10,
+        marginHorizontal: '5%',
     },
     box: {
         width: 100,
