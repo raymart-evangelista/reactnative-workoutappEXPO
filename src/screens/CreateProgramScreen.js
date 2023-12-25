@@ -150,17 +150,30 @@ const AnimatedBox = ({ index, translateY, box }) => {
     console.log('this is the index: ', index) 
     console.log('this is the box: ', box) 
 
+    const pressed = useSharedValue(false)
+
+    const tap = Gesture.Tap()
+        .onBegin(() => {
+            pressed.value = true
+        })
+        .onFinalize(() => {
+            pressed.value = false
+        })
+
     const animatedStyle = useAnimatedStyle(() => {
-        const y = translateY.value[index] || 1
+        const y = translateY.value[index] || 0
         return {
-            transform: [{ translateY: y }]
+            transform: [ {translateY: y}, {scale: withTiming(pressed.value ? 1.1 : 1)} ],
         }
     })
 
+
     return (
-        <Animated.View entering={FadeIn} style={[ styles.weekBox, animatedStyle ]}>
-            <Text style={styles.text}>Week {box['index']}</Text>
-        </Animated.View>
+        <GestureDetector gesture={tap}>
+            <Animated.View entering={FadeIn} style={[ styles.weekBox, animatedStyle ]}>
+                <Text style={styles.text}>Week {box['index'] + 1}</Text>
+            </Animated.View>
+        </GestureDetector>
     )
 }
 
