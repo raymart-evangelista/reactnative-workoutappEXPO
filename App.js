@@ -24,29 +24,33 @@ const Tab = createBottomTabNavigator()
 
 import AuthProvider from './src/contexts/AuthContext';
 
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
+
 export default function App() {
 
   return (
-    <AuthProvider>
-      <ThemeContextProvider>
-        <Stack.Navigator initialRouteName='CreateProgram' screenOptions={{headerShown: false}}>
-          <Stack.Screen name="Landing" component={LandingPage} />
-          <Stack.Screen name="LogIn" component={LogInScreen} />
-          <Stack.Screen name="SignUp" component={SignUpScreen} />
-          <Stack.Screen name="Home" component={HomeScreen} />
-          <Stack.Screen name="CreateProgram" component={CreateProgramScreen} />
-          <Stack.Screen name="ExistingPrograms" component={ExistingProgramsScreen} />
-          <Stack.Screen name="EditProgram" component={EditProgramScreen} />
-          {/* <Stack.Screen name="ContinueProgram" component={ContinueProgramScreen} /> */}
-          <Stack.Screen name="ProgramInformation" component={ProgramInformationScreen} />
-          <Stack.Screen name="ContinueWeek" component={ContinueWeekScreen} />
-          <Stack.Screen name="ContinueDay" component={ContinueDayScreen} />
-          <Stack.Screen name="Settings" component={SettingsScreen} />
-        </Stack.Navigator>
-        {/* <Stack.Navigator>
-          <Stack.Screen name="Test" component={TestScreen} />
-        </Stack.Navigator> */}
-      </ThemeContextProvider>
-    </AuthProvider>
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <AuthProvider>
+        <ThemeContextProvider>
+          <Stack.Navigator initialRouteName='CreateProgram' screenOptions={{headerShown: false}}>
+            <Stack.Screen name="Landing" component={LandingPage} />
+            <Stack.Screen name="LogIn" component={LogInScreen} />
+            <Stack.Screen name="SignUp" component={SignUpScreen} />
+            <Stack.Screen name="Home" component={HomeScreen} />
+            <Stack.Screen name="CreateProgram" component={CreateProgramScreen} />
+            <Stack.Screen name="ExistingPrograms" component={ExistingProgramsScreen} />
+            <Stack.Screen name="EditProgram" component={EditProgramScreen} />
+            {/* <Stack.Screen name="ContinueProgram" component={ContinueProgramScreen} /> */}
+            <Stack.Screen name="ProgramInformation" component={ProgramInformationScreen} />
+            <Stack.Screen name="ContinueWeek" component={ContinueWeekScreen} />
+            <Stack.Screen name="ContinueDay" component={ContinueDayScreen} />
+            <Stack.Screen name="Settings" component={SettingsScreen} />
+          </Stack.Navigator>
+          {/* <Stack.Navigator>
+            <Stack.Screen name="Test" component={TestScreen} />
+          </Stack.Navigator> */}
+        </ThemeContextProvider>
+      </AuthProvider>
+    </GestureHandlerRootView>
   );
 }
