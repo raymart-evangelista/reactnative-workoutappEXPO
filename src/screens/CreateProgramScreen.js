@@ -144,9 +144,11 @@ const AnimatedWeekBox = ({ weekNumber, animation }) => {
     )
 }
 
-const AnimatedBox = ({ index, translateY }) => {
+const AnimatedBox = ({ index, translateY, box }) => {
     console.log('inside AnimatedBox')
-    console.log('this is the index: ' + {index} )
+    console.log(index)
+    console.log('this is the index: ', index) 
+    console.log('this is the box: ', box) 
 
     const animatedStyle = useAnimatedStyle(() => {
         const y = translateY.value[index] || 1
@@ -156,7 +158,9 @@ const AnimatedBox = ({ index, translateY }) => {
     })
 
     return (
-        <Animated.View entering={FadeIn} style={[ styles.weekBox, animatedStyle ]} />
+        <Animated.View entering={FadeIn} style={[ styles.weekBox, animatedStyle ]}>
+            <Text style={styles.text}>Week {box['index']}</Text>
+        </Animated.View>
     )
 }
 
@@ -191,18 +195,23 @@ const CreateProgramScreen = () => {
     const handleAddNewBox = () => {
         const newBoxIndex = boxes.length
         console.log('inside handleAddNewBox')
-        setBoxes(prevBoxes => [...prevBoxes, {}])
+        setBoxes(prevBoxes => [...prevBoxes, {
+            index: boxes.length
+        }])
         translateYArray.value = [
             ...translateYArray.value,
             withSpring(calculateNewBoxPosition(newBoxIndex))
         ]
+        console.log(boxes)
     }
 
     const calculateNewBoxPosition = (index) => {
         return index * 110
     }
 
-    const [boxes, setBoxes] = useState([{}])
+    const [boxes, setBoxes] = useState([{
+        index: 0,
+    }])
     const translateYArray = useSharedValue([withSpring(calculateNewBoxPosition(0))])
 
     useEffect(() => {
@@ -239,8 +248,8 @@ const CreateProgramScreen = () => {
         // </SafeAreaView>
         <SafeAreaView>
             <Button onPress={handleAddNewBox}>Add New Box</Button>
-            {boxes.map((_, index) => (
-                <AnimatedBox key={index} translateY={translateYArray} />
+            {boxes.map((box, index) => (
+                <AnimatedBox key={index} translateY={translateYArray} box={box} />
             ))}
 
         </SafeAreaView>
