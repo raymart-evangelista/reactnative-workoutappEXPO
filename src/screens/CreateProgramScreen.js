@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { TouchableOpacity, View, StyleSheet, Dimensions, SafeAreaView } from "react-native";
-import { Formik, Field, FieldArray, ErrorMessage, useFormik, useField } from "formik";
 import { Button, Text, Title, RadioButton, List, useTheme } from 'react-native-paper';
 import * as Yup from 'yup';
 import { FlatList } from "react-native";
@@ -29,6 +28,9 @@ const AnimatedBox = ({ index, translateY, box }) => {
     const tap = Gesture.Tap()
         .onBegin(() => {
             pressed.value = true
+        })
+        .onEnd(() => {
+            console.log(box['index'])
         })
         .onFinalize(() => {
             pressed.value = false
@@ -104,8 +106,7 @@ const CreateProgramScreen = () => {
         translateYArray.value = boxes.map((_, index) => {
             return withSpring(calculateNewBoxPosition(index));
         });
-    }, [boxes]);
-    
+    }, [boxes]);    
 
     return (
         // <SafeAreaView>
