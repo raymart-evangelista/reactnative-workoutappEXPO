@@ -96,7 +96,7 @@ const CreateProgramScreen = () => {
     //     weekAnimations.push(newWeekAnimation)
     // }
 
-    const handleAddNewBox = () => {
+    const handleAddWeek = () => {
         const newBoxIndex = boxes.length
         console.log('inside handleAddNewBox')
         setBoxes(prevBoxes => [...prevBoxes, {
@@ -151,7 +151,7 @@ const CreateProgramScreen = () => {
         //     <Button onPress={handleSubmit(onSubmit)}>Submit</Button>
         // </SafeAreaView>
         <SafeAreaView>
-            <Button onPress={handleAddNewBox}>Add New Box</Button>
+            <Button onPress={handleAddWeek}>Add Week</Button>
             {boxes.map((box, index) => (
                 <AnimatedBox key={index} translateY={translateYArray} box={box} />
             ))}
