@@ -18,23 +18,6 @@ import Animated, { useSharedValue, withSpring, useAnimatedStyle, useAnimatedProp
 import { Circle, Svg } from "react-native-svg";
 import { Gesture, GestureDetector } from "react-native-gesture-handler";
 
-const AnimatedCircle = Animated.createAnimatedComponent(Circle)
-
-const AnimatedWeekBox = ({ weekNumber, animation }) => {
-    const animatedStyles = useAnimatedStyle(() => {
-        return {
-            opacity: animation.value,
-            transform: [{ scale: animation.value }]
-        }
-    })
-
-    return (
-        <Animated.View style={[ styles.weekBox, animatedStyles ]}>
-            <Text>Week {weekNumber}</Text>
-        </Animated.View>
-    )
-}
-
 const AnimatedBox = ({ index, translateY, box }) => {
     console.log('inside AnimatedBox')
     console.log(index)
@@ -98,7 +81,6 @@ const CreateProgramScreen = () => {
 
     const handleAddWeek = () => {
         const newBoxIndex = boxes.length
-        console.log('inside handleAddNewBox')
         setBoxes(prevBoxes => [...prevBoxes, {
             index: boxes.length
         }])
