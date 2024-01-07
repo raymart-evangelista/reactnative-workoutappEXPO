@@ -187,11 +187,12 @@ const styles = StyleSheet.create({
         width: '90%',
         alignSelf: 'center',
         alignItems: 'center',
-        justifyContent: 'center',
+        // justifyContent: 'center',
         backgroundColor: '#e0e0e0',
         borderRadius: 10,
         marginVertical: 10,
         marginHorizontal: '5%',
+        paddingVertical: 15,
     },
     box: {
         width: 100,
