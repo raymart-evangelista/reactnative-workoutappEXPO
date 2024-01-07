@@ -13,11 +13,12 @@ import programsService from "../services/programs";
 
 import { useFieldArray, useWatch, useForm, Controller } from "react-hook-form"
 
-import Animated, { useSharedValue, withSpring, useAnimatedStyle, useAnimatedProps, withTiming, Easing, FadeIn } from "react-native-reanimated";
+import Animated, { runOnJS, useSharedValue, withSpring, useAnimatedStyle, useAnimatedProps, withTiming, Easing, FadeIn } from "react-native-reanimated";
 import { Circle, Svg } from "react-native-svg";
 import { Gesture, GestureDetector } from "react-native-gesture-handler";
 
 const AnimatedBox = ({ index, translateY, box }) => {
+    const [isExpanded, setIsExpanded] = useState(false)
     console.log('inside AnimatedBox')
     console.log(index)
     console.log('this is the index: ', index) 
@@ -27,22 +28,27 @@ const AnimatedBox = ({ index, translateY, box }) => {
     const height = useSharedValue(50)
     const expand = useSharedValue(false)
 
+    const toggleExpand = () => {
+        setIsExpanded(!isExpanded)
+        height.value = isExpanded ? 50 : 200
+    }
+
     const tap = Gesture.Tap()
         .onBegin(() => {
             pressed.value = true
-            if (height.value == 50) {
-                height.value = 200
-            } else {
-                height.value = 50
-            }
-            if (expand.value == true) {
-                height.value = 50
-                expand.value = false
-            } else {
-                height.value = 200
-                expand.value = true
-            }
-            // toggleExpand()
+            // if (height.value == 50) {
+            //     height.value = 200
+            // } else {
+            //     height.value = 50
+            // }
+            // if (expand.value == true) {
+            //     height.value = 50
+            //     // expand.value = false
+            // } else {
+            //     height.value = 200
+            //     // expand.value = true
+            // }
+
             console.log(expand)
         })
         .onEnd(() => {
@@ -66,7 +72,13 @@ const AnimatedBox = ({ index, translateY, box }) => {
     return (
         <GestureDetector gesture={tap}>
             <Animated.View entering={FadeIn} style={[ styles.weekBox, animatedStyle ]}>
-                <Text style={styles.text}>Week {box['index'] + 1}</Text>
+                <Text>Week {box['index'] + 1}</Text>
+                <Button onPress={toggleExpand}>Expand</Button>
+                {isExpanded && (
+                    <View>
+                        <Text>Test</Text>
+                    </View>
+                )}
             </Animated.View>
         </GestureDetector>
     )
@@ -188,7 +200,7 @@ const styles = StyleSheet.create({
     weekBox: {
         height: 50,
         width: '90%',
-        alignSelf: 'center',
+        // alignSelf: 'center',
         alignItems: 'center',
         // justifyContent: 'center',
         backgroundColor: '#e0e0e0',
