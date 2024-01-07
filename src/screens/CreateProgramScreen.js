@@ -18,16 +18,29 @@ import { Circle, Svg } from "react-native-svg";
 import { Gesture, GestureDetector } from "react-native-gesture-handler";
 
 const AnimatedBox = ({ index, translateY, box }) => {
+    const [isExpanded, setIsExpanded] = useState(false)
+    
     console.log('inside AnimatedBox')
     console.log(index)
     console.log('this is the index: ', index) 
     console.log('this is the box: ', box) 
-
+    
     const pressed = useSharedValue(false)
+    const height = useSharedValue(50)
+
+    const toggleExpand = () => {
+        setIsExpanded(!isExpanded)
+        // height.value = isExpanded ? 50 : 200
+    }
 
     const tap = Gesture.Tap()
         .onBegin(() => {
             pressed.value = true
+            if (height.value == 50) {
+                height.value = 200
+            } else {
+                height.value = 50
+            }
         })
         .onEnd(() => {
             console.log(box['index'])
@@ -39,6 +52,9 @@ const AnimatedBox = ({ index, translateY, box }) => {
     const animatedStyle = useAnimatedStyle(() => {
         const y = translateY.value[index] || 0
         return {
+            height: withTiming(height.value, {
+                duration: 200,
+            }),
             transform: [ {translateY: y}, {scale: withTiming(pressed.value ? 1.1 : 1)} ],
         }
     })
