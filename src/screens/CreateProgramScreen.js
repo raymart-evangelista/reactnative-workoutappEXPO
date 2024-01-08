@@ -17,38 +17,31 @@ import Animated, { runOnJS, useSharedValue, withSpring, useAnimatedStyle, useAni
 import { Circle, Svg } from "react-native-svg";
 import { Gesture, GestureDetector } from "react-native-gesture-handler";
 
+
+const AnimatedBoxHeightValue = 65
+
 const AnimatedBox = ({ index, translateY, box }) => {
+
     const [isExpanded, setIsExpanded] = useState(false)
+    const [expandedText, setExpandedText] = useState('Expand')
     console.log('inside AnimatedBox')
     console.log(index)
     console.log('this is the index: ', index) 
     console.log('this is the box: ', box) 
     
     const pressed = useSharedValue(false)
-    const height = useSharedValue(50)
+    const height = useSharedValue(AnimatedBoxHeightValue)
     const expand = useSharedValue(false)
 
     const toggleExpand = () => {
         setIsExpanded(!isExpanded)
-        height.value = isExpanded ? 50 : 200
+        setExpandedText(isExpanded ? 'Expand' : 'Close')
+        height.value = isExpanded ? AnimatedBoxHeightValue : 200
     }
 
     const tap = Gesture.Tap()
         .onBegin(() => {
             pressed.value = true
-            // if (height.value == 50) {
-            //     height.value = 200
-            // } else {
-            //     height.value = 50
-            // }
-            // if (expand.value == true) {
-            //     height.value = 50
-            //     // expand.value = false
-            // } else {
-            //     height.value = 200
-            //     // expand.value = true
-            // }
-
             console.log(expand)
         })
         .onEnd(() => {
@@ -72,10 +65,12 @@ const AnimatedBox = ({ index, translateY, box }) => {
     return (
         <GestureDetector gesture={tap}>
             <Animated.View entering={FadeIn} style={[ styles.weekBox, animatedStyle ]}>
-                <Text>Week {box['index'] + 1}</Text>
-                <Button onPress={toggleExpand}>Expand</Button>
+                <View style={styles.header}>
+                    <Text>Week {box['index'] + 1}</Text>
+                    <Button onPress={toggleExpand}>{expandedText}</Button>
+                </View>
                 {isExpanded && (
-                    <View>
+                    <View style={styles.expandedContent}>
                         <Text>Test</Text>
                     </View>
                 )}
@@ -198,23 +193,34 @@ const styles = StyleSheet.create({
         borderRadius: 500
     },
     weekBox: {
-        height: 50,
+        height: AnimatedBoxHeightValue,
         width: '90%',
         // alignSelf: 'center',
+        // flexDirection: 'row',
+
         alignItems: 'center',
-        // justifyContent: 'center',
+        // justifyContent: 'left',
         backgroundColor: '#e0e0e0',
         borderRadius: 10,
         marginVertical: 10,
         marginHorizontal: '5%',
         paddingVertical: 15,
+        overflow: 'hidden',
     },
     box: {
         width: 100,
         height: 100,
         backgroundColor: 'blue',
         margin: 5,
-    }
+    },
+    header: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+    },
+    expandedContent: {
+
+    },
   });
 
 export default CreateProgramScreen;
