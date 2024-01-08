@@ -15,7 +15,7 @@ import { useFieldArray, useWatch, useForm, Controller } from "react-hook-form"
 
 import Animated, { runOnJS, useSharedValue, withSpring, useAnimatedStyle, useAnimatedProps, withTiming, Easing, FadeIn } from "react-native-reanimated";
 import { Circle, Svg } from "react-native-svg";
-import { Gesture, GestureDetector } from "react-native-gesture-handler";
+import { Gesture, GestureDetector, ScrollView } from "react-native-gesture-handler";
 
 import uuid from 'react-native-uuid'
 
@@ -127,7 +127,6 @@ const CreateProgramScreen = () => {
         console.log(idToRemove)
 
         setBoxes((currentBoxes) => currentBoxes.filter((box, index) => box['id'] !== idToRemove))
-        // translateYArray.value = translateYArray.value.filter((_, index) => index !== indexToRemove).map((_, index) => withSpring(calculateNewBoxPosition(index)))
     }
 
     const handleAddWeek = () => {
@@ -136,11 +135,6 @@ const CreateProgramScreen = () => {
             index: newBoxIndex,
             id: generateUniqueId(),
         }])
-        // translateYArray = [...translateYArray, useSharedValue(withSpring(calculateNewBoxPosition(newBoxIndex)))]
-        // translateYArray.value = [
-        //     ...translateYArray.value,
-        //     withSpring(calculateNewBoxPosition(newBoxIndex))
-        // ]
         console.log(boxes)
     }
 
@@ -152,17 +146,7 @@ const CreateProgramScreen = () => {
         index: 0,
         id: generateUniqueId(),
     }])
-
-    // const translateYArray = useSharedValue([withSpring(calculateNewBoxPosition(0))])
-    // const translateYArray = [useSharedValue(withSpring(calculateNewBoxPosition(0)))]
-    // console.log('translateYArray')
-    // console.log(translateYArray)
-
-    // useEffect(() => {
-    //     translateYArray.value = boxes.map((_, index) => {
-    //         return withSpring(calculateNewBoxPosition(index));
-    //     });
-    // }, [boxes]);    
+ 
 
     return (
         // <SafeAreaView>
@@ -190,16 +174,17 @@ const CreateProgramScreen = () => {
         //     <Button onPress={handleSubmit(onSubmit)}>Submit</Button>
         // </SafeAreaView>
         <SafeAreaView>
-            <Button onPress={handleAddWeek}>Add Week</Button>
-            {boxes.map((box, index) => (
-                <AnimatedBox 
-                    key={box.id}
-                    index={index}
-                    // translateY={useSharedValue(withSpring(calculateNewBoxPosition(index)))}
-                    box={box}
-                    onDelete={() => handleRemoveWeek(box)}
-                />
-            ))}
+            <ScrollView>
+                <Button onPress={handleAddWeek}>Add Week</Button>
+                {boxes.map((box, index) => (
+                    <AnimatedBox 
+                        key={box.id}
+                        index={index}
+                        box={box}
+                        onDelete={() => handleRemoveWeek(box)}
+                    />
+                ))}
+            </ScrollView>
 
         </SafeAreaView>
     )
