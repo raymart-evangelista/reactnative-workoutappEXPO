@@ -17,6 +17,8 @@ import Animated, { runOnJS, useSharedValue, withSpring, useAnimatedStyle, useAni
 import { Circle, Svg } from "react-native-svg";
 import { Gesture, GestureDetector } from "react-native-gesture-handler";
 
+import uuid from 'react-native-uuid'
+
 
 const AnimatedBoxHeightValue = 65
 
@@ -108,6 +110,10 @@ const CreateProgramScreen = () => {
     //     weekAnimations.push(newWeekAnimation)
     // }
 
+    const generateUniqueId = () => {
+        return uuid.v4()
+    }
+
     const handleRemoveWeek = (boxToRemove) => {
         const indexToRemove = boxToRemove['index']
         console.log('this is the index to remove')
@@ -120,7 +126,8 @@ const CreateProgramScreen = () => {
     const handleAddWeek = () => {
         const newBoxIndex = boxes.length
         setBoxes(prevBoxes => [...prevBoxes, {
-            index: boxes.length
+            index: boxes.length,
+            id: generateUniqueId(),
         }])
         translateYArray.value = [
             ...translateYArray.value,
@@ -173,7 +180,7 @@ const CreateProgramScreen = () => {
             <Button onPress={handleAddWeek}>Add Week</Button>
             {boxes.map((box, index) => (
                 <AnimatedBox 
-                    key={index} 
+                    key={box} 
                     translateY={translateYArray} 
                     box={box} 
                     onDelete={() => handleRemoveWeek(box)}
