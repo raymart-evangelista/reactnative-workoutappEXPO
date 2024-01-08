@@ -57,39 +57,47 @@ const AnimatedBox = ({ index, box, onDelete }) => {
             console.log(box.index)
         })
         .onFinalize(() => {
-            pressed.value = false
+            // pressed.value = false
         })
         
-    const longPress = Gesture.LongPress().minDuration(1000)
-        .onBegin(() => {
-            pressed.value = true
-        })
-        .onStart(() => {
-            console.log('after minDuration')
-        })
-        .onEnd(() => {
-            console.log(`long pressed`)
+    // const longPress = Gesture.LongPress().minDuration(1000)
+    //     .onBegin(() => {
+            
+    //     })
+    //     .onStart(() => {
+    //         console.log('after minDuration')
+    //         pressed.value = true
+    //     })
+    //     .onEnd(() => {
+    //         console.log(`long pressed`)
 
-        })
-        .onFinalize(() => {
-            pressed.value = false
-        })
+    //     })
+    //     .onFinalize(() => {
+    //         pressed.value = false
+    //     })
 
     const animatedStyle = useAnimatedStyle(() => {
         const y = 0
         console.log(`this is y: ${y}`)
         console.log(`7777`)
         return {
-            height: withTiming(height.value, {
+            // height: withTiming(height.value, {
+            //     duration: 200,
+            // }),
+            height: withTiming(pressed.value ? 200 : AnimatedBoxHeightValue, {
                 duration: 200,
             }),
-            transform: [ {translateY: y}, {scale: withTiming(pressed.value ? 1.1 : 1)} ],
+            transform: [ 
+                {translateY: y}, 
+                // {scale: withTiming(pressed.value ? 1.1 : 1)}, 
+                // {height: withTiming(pressed.value ? 200 : AnimatedBoxHeightValue )}
+            ],
         }
     })
 
 
     return (
-        <GestureDetector gesture={longPress}>
+        <GestureDetector gesture={tap}>
             <Animated.View entering={FadeIn} style={[ styles.weekBox, animatedStyle ]}>
                 <View style={styles.header}>
                     <Text>Week {box.index + 1}</Text>
