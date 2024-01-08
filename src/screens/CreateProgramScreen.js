@@ -22,7 +22,7 @@ import uuid from 'react-native-uuid'
 
 const AnimatedBoxHeightValue = 65
 
-const AnimatedBox = ({ index, translateY, box, onDelete }) => {
+const AnimatedBox = ({ index, box, onDelete }) => {
 
     const [isExpanded, setIsExpanded] = useState(false)
     const [expandedText, setExpandedText] = useState('Expand')
@@ -31,9 +31,14 @@ const AnimatedBox = ({ index, translateY, box, onDelete }) => {
     console.log('this is the index: ', index) 
     console.log('this is the box: ', box) 
     
+    
     const pressed = useSharedValue(false)
     const height = useSharedValue(AnimatedBoxHeightValue)
     const expand = useSharedValue(false)
+
+    const calculateNewBoxPosition = (index) => {
+        return index * 110
+    }
 
     const toggleExpand = () => {
         setIsExpanded(!isExpanded)
@@ -54,7 +59,9 @@ const AnimatedBox = ({ index, translateY, box, onDelete }) => {
         })
 
     const animatedStyle = useAnimatedStyle(() => {
-        const y = translateY.value[index] || 0
+        const y = 0
+        console.log(`this is y: ${y}`)
+        console.log(`7777`)
         return {
             height: withTiming(height.value, {
                 duration: 200,
@@ -120,19 +127,20 @@ const CreateProgramScreen = () => {
         console.log(indexToRemove)
 
         setBoxes((currentBoxes) => currentBoxes.filter((_, index) => index !== indexToRemove))
-        translateYArray.value = translateYArray.value.filter((_, index) => index !== indexToRemove).map((_, index) => withSpring(calculateNewBoxPosition(index)))
+        // translateYArray.value = translateYArray.value.filter((_, index) => index !== indexToRemove).map((_, index) => withSpring(calculateNewBoxPosition(index)))
     }
 
     const handleAddWeek = () => {
         const newBoxIndex = boxes.length
         setBoxes(prevBoxes => [...prevBoxes, {
-            index: boxes.length,
+            index: newBoxIndex,
             id: generateUniqueId(),
         }])
-        translateYArray.value = [
-            ...translateYArray.value,
-            withSpring(calculateNewBoxPosition(newBoxIndex))
-        ]
+        // translateYArray = [...translateYArray, useSharedValue(withSpring(calculateNewBoxPosition(newBoxIndex)))]
+        // translateYArray.value = [
+        //     ...translateYArray.value,
+        //     withSpring(calculateNewBoxPosition(newBoxIndex))
+        // ]
         console.log(boxes)
     }
 
@@ -142,14 +150,19 @@ const CreateProgramScreen = () => {
 
     const [boxes, setBoxes] = useState([{
         index: 0,
+        id: generateUniqueId(),
     }])
-    const translateYArray = useSharedValue([withSpring(calculateNewBoxPosition(0))])
 
-    useEffect(() => {
-        translateYArray.value = boxes.map((_, index) => {
-            return withSpring(calculateNewBoxPosition(index));
-        });
-    }, [boxes]);    
+    // const translateYArray = useSharedValue([withSpring(calculateNewBoxPosition(0))])
+    // const translateYArray = [useSharedValue(withSpring(calculateNewBoxPosition(0)))]
+    // console.log('translateYArray')
+    // console.log(translateYArray)
+
+    // useEffect(() => {
+    //     translateYArray.value = boxes.map((_, index) => {
+    //         return withSpring(calculateNewBoxPosition(index));
+    //     });
+    // }, [boxes]);    
 
     return (
         // <SafeAreaView>
@@ -180,9 +193,10 @@ const CreateProgramScreen = () => {
             <Button onPress={handleAddWeek}>Add Week</Button>
             {boxes.map((box, index) => (
                 <AnimatedBox 
-                    key={box} 
-                    translateY={translateYArray} 
-                    box={box} 
+                    key={box.id}
+                    index={index}
+                    // translateY={useSharedValue(withSpring(calculateNewBoxPosition(index)))}
+                    box={box}
                     onDelete={() => handleRemoveWeek(box)}
                 />
             ))}
