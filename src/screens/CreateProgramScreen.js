@@ -36,6 +36,8 @@ const AnimatedBox = ({ index, box, onDelete }) => {
     const height = useSharedValue(AnimatedBoxHeightValue)
     const expand = useSharedValue(false)
 
+    const longPressed = useSharedValue(false)
+
     const calculateNewBoxPosition = (index) => {
         return index * 110
     }
@@ -52,7 +54,22 @@ const AnimatedBox = ({ index, box, onDelete }) => {
             console.log(expand)
         })
         .onEnd(() => {
-            console.log(box['index'])
+            console.log(box.index)
+        })
+        .onFinalize(() => {
+            pressed.value = false
+        })
+        
+    const longPress = Gesture.LongPress().minDuration(1000)
+        .onBegin(() => {
+            pressed.value = true
+        })
+        .onStart(() => {
+            console.log('after minDuration')
+        })
+        .onEnd(() => {
+            console.log(`long pressed`)
+
         })
         .onFinalize(() => {
             pressed.value = false
@@ -72,10 +89,10 @@ const AnimatedBox = ({ index, box, onDelete }) => {
 
 
     return (
-        <GestureDetector gesture={tap}>
+        <GestureDetector gesture={longPress}>
             <Animated.View entering={FadeIn} style={[ styles.weekBox, animatedStyle ]}>
                 <View style={styles.header}>
-                    <Text>Week {box['index'] + 1}</Text>
+                    <Text>Week {box.index + 1}</Text>
                     <Button onPress={toggleExpand}>{expandedText}</Button>
                 </View>
                 {isExpanded && (
@@ -122,11 +139,11 @@ const CreateProgramScreen = () => {
     }
 
     const handleRemoveWeek = (boxToRemove) => {
-        const idToRemove = boxToRemove['id']
+        const idToRemove = boxToRemove.id
         console.log('this is the id to remove')
         console.log(idToRemove)
 
-        setBoxes((currentBoxes) => currentBoxes.filter((box, index) => box['id'] !== idToRemove))
+        setBoxes((currentBoxes) => currentBoxes.filter((box, index) => box.id !== idToRemove))
     }
 
     const handleAddWeek = () => {
