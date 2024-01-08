@@ -122,11 +122,11 @@ const CreateProgramScreen = () => {
     }
 
     const handleRemoveWeek = (boxToRemove) => {
-        const indexToRemove = boxToRemove['index']
-        console.log('this is the index to remove')
-        console.log(indexToRemove)
+        const idToRemove = boxToRemove['id']
+        console.log('this is the id to remove')
+        console.log(idToRemove)
 
-        setBoxes((currentBoxes) => currentBoxes.filter((_, index) => index !== indexToRemove))
+        setBoxes((currentBoxes) => currentBoxes.filter((box, index) => box['id'] !== idToRemove))
         // translateYArray.value = translateYArray.value.filter((_, index) => index !== indexToRemove).map((_, index) => withSpring(calculateNewBoxPosition(index)))
     }
 
