@@ -20,7 +20,7 @@ import { Gesture, GestureDetector } from "react-native-gesture-handler";
 
 const AnimatedBoxHeightValue = 65
 
-const AnimatedBox = ({ index, translateY, box }) => {
+const AnimatedBox = ({ index, translateY, box, onDelete }) => {
 
     const [isExpanded, setIsExpanded] = useState(false)
     const [expandedText, setExpandedText] = useState('Expand')
@@ -72,6 +72,7 @@ const AnimatedBox = ({ index, translateY, box }) => {
                 {isExpanded && (
                     <View style={styles.expandedContent}>
                         <Text>Test</Text>
+                        <Button onPress={onDelete}>Delete</Button>
                     </View>
                 )}
             </Animated.View>
@@ -106,6 +107,15 @@ const CreateProgramScreen = () => {
     //     newWeekAnimation.value = withTiming(1, { duration: 500 })
     //     weekAnimations.push(newWeekAnimation)
     // }
+
+    const handleRemoveWeek = (boxToRemove) => {
+        const indexToRemove = boxToRemove['index']
+        console.log('this is the index to remove')
+        console.log(indexToRemove)
+
+        setBoxes((currentBoxes) => currentBoxes.filter((_, index) => index !== indexToRemove))
+        translateYArray.value = translateYArray.value.filter((_, index) => index !== indexToRemove).map((_, index) => withSpring(calculateNewBoxPosition(index)))
+    }
 
     const handleAddWeek = () => {
         const newBoxIndex = boxes.length
@@ -162,7 +172,12 @@ const CreateProgramScreen = () => {
         <SafeAreaView>
             <Button onPress={handleAddWeek}>Add Week</Button>
             {boxes.map((box, index) => (
-                <AnimatedBox key={index} translateY={translateYArray} box={box} />
+                <AnimatedBox 
+                    key={index} 
+                    translateY={translateYArray} 
+                    box={box} 
+                    onDelete={() => handleRemoveWeek(box)}
+                />
             ))}
 
         </SafeAreaView>
