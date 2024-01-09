@@ -18,6 +18,7 @@ import { Circle, Svg } from "react-native-svg";
 import { Gesture, GestureDetector, ScrollView } from "react-native-gesture-handler";
 
 import uuid from 'react-native-uuid'
+import DraggableFlatList, { ScaleDecorator, } from 'react-native-draggable-flatlist'
 
 
 const AnimatedBoxHeightValue = 65
@@ -113,7 +114,6 @@ const AnimatedBox = ({ index, box, onDelete }) => {
 }
 
 const CreateProgramScreen = () => {
-
     // const { control, handleSubmit, formState: { errors } } = useForm({
     //     defaultValues: {
     //         programName: "",
@@ -145,18 +145,18 @@ const CreateProgramScreen = () => {
     }
 
     const handleRemoveWeek = (boxToRemove) => {
-        const idToRemove = boxToRemove.id
+        const keyToRemove = boxToRemove.key
         console.log('this is the id to remove')
-        console.log(idToRemove)
+        console.log(keyToRemove)
 
-        setBoxes((currentBoxes) => currentBoxes.filter((box, index) => box.id !== idToRemove))
+        setBoxes((currentBoxes) => currentBoxes.filter((box, index) => box.key !== keyToRemove))
     }
 
     const handleAddWeek = () => {
         const newBoxIndex = boxes.length
         setBoxes(prevBoxes => [...prevBoxes, {
+            key: generateUniqueId(),
             index: newBoxIndex,
-            id: generateUniqueId(),
         }])
         console.log(boxes)
     }
@@ -165,11 +165,33 @@ const CreateProgramScreen = () => {
         return index * 110
     }
 
-    const [boxes, setBoxes] = useState([{
-        index: 0,
-        id: generateUniqueId(),
-    }])
+    const [boxes, setBoxes] = useState(
+        [
+            {
+                key: generateUniqueId(),
+                index: 0,
+            }
+        ]
+    )
  
+    const renderItem = ({ item, drag, isActive}) => {
+        console.log('inside renderItem')
+        console.log(item)
+        return (
+            <ScaleDecorator>
+                <Text 
+                    variant="headlineMedium"
+                    onLongPress={drag} 
+                    disabled={isActive}
+                >{item.key}</Text>
+                <AnimatedBox 
+                    key={item.key}
+                    box={item}
+                    onDelete={() => handleRemoveWeek(box)}
+                />
+            </ScaleDecorator>
+        )
+    }
 
     return (
         // <SafeAreaView>
@@ -197,8 +219,14 @@ const CreateProgramScreen = () => {
         //     <Button onPress={handleSubmit(onSubmit)}>Submit</Button>
         // </SafeAreaView>
         <SafeAreaView>
-            <ScrollView>
-                <Button onPress={handleAddWeek}>Add Week</Button>
+            <Button onPress={handleAddWeek}>Add Week</Button>
+            <DraggableFlatList
+                data={boxes}
+                onDragEnd={({ data }) => setBoxes(data)}
+                keyExtractor={(item) => item.key}
+                renderItem={renderItem}
+            />
+            {/* <ScrollView>
                 {boxes.map((box, index) => (
                     <AnimatedBox 
                         key={box.id}
@@ -207,7 +235,7 @@ const CreateProgramScreen = () => {
                         onDelete={() => handleRemoveWeek(box)}
                     />
                 ))}
-            </ScrollView>
+            </ScrollView> */}
 
         </SafeAreaView>
     )
