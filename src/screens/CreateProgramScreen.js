@@ -13,7 +13,7 @@ import programsService from "../services/programs";
 
 import { useFieldArray, useWatch, useForm, Controller } from "react-hook-form"
 
-import Animated, { runOnJS, useSharedValue, withSpring, useAnimatedStyle, useAnimatedProps, withTiming, Easing, FadeIn } from "react-native-reanimated";
+import Animated, { runOnJS, useSharedValue, withSpring, useAnimatedStyle, useAnimatedProps, withTiming, Easing, FadeIn, useDerivedValue } from "react-native-reanimated";
 import { Circle, Svg } from "react-native-svg";
 import { Gesture, GestureDetector, ScrollView } from "react-native-gesture-handler";
 
@@ -24,7 +24,7 @@ const AnimatedBoxHeightValue = 65
 
 const AnimatedBox = ({ index, box, onDelete }) => {
 
-    const [isExpanded, setIsExpanded] = useState(false)
+    // const [isExpanded, setIsExpanded] = useState(false)
     const [expandedText, setExpandedText] = useState('Expand')
     console.log('inside AnimatedBox')
     console.log(index)
@@ -42,22 +42,16 @@ const AnimatedBox = ({ index, box, onDelete }) => {
         return index * 110
     }
 
-    const toggleExpand = () => {
-        setIsExpanded(!isExpanded)
-        setExpandedText(isExpanded ? 'Expand' : 'Close')
-        height.value = isExpanded ? AnimatedBoxHeightValue : 200
-    }
+    // const toggleExpand = () => {
+    //     setIsExpanded(!isExpanded)
+    //     setExpandedText(isExpanded ? 'Expand' : 'Close')
+    //     height.value = isExpanded ? AnimatedBoxHeightValue : 200
+    // }
 
     const tap = Gesture.Tap()
-        .onBegin(() => {
-            pressed.value = true
-            console.log(expand)
-        })
         .onEnd(() => {
             console.log(box.index)
-        })
-        .onFinalize(() => {
-            // pressed.value = false
+            pressed.value = !pressed.value
         })
         
     // const longPress = Gesture.LongPress().minDuration(1000)
@@ -95,20 +89,24 @@ const AnimatedBox = ({ index, box, onDelete }) => {
         }
     })
 
-
+    const animatedContentStyle = useAnimatedStyle(() => {
+        return {
+            opacity: pressed.value ? 1 : 0,
+            height: pressed.value ? 'auto' : 0,
+        }
+    })
+    
     return (
         <GestureDetector gesture={tap}>
             <Animated.View entering={FadeIn} style={[ styles.weekBox, animatedStyle ]}>
                 <View style={styles.header}>
                     <Text>Week {box.index + 1}</Text>
-                    <Button onPress={toggleExpand}>{expandedText}</Button>
+                    {/* <Button onPress={toggleExpand}>{expandedText}</Button> */}
                 </View>
-                {isExpanded && (
-                    <View style={styles.expandedContent}>
-                        <Text>Test</Text>
-                        <Button onPress={onDelete}>Delete</Button>
-                    </View>
-                )}
+                <Animated.View style={[ animatedContentStyle ]}>
+                    <Text>Test</Text>
+                    <Button onPress={onDelete}>Delete</Button>
+                </Animated.View>
             </Animated.View>
         </GestureDetector>
     )
