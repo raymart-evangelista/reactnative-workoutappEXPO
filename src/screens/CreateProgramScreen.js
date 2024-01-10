@@ -47,8 +47,10 @@ const AnimatedBox = ({ index, box, onDelete, onDrag, isActive }) => {
 
     const tap = Gesture.Tap()
         .onEnd(() => {
-            console.log(box.index)
-            pressed.value = !pressed.value
+            if (!buttonPressed) {
+                console.log(box.index)
+                pressed.value = !pressed.value
+            }
         })
         
     // const longPress = Gesture.LongPress().minDuration(1000)
@@ -97,8 +99,8 @@ const AnimatedBox = ({ index, box, onDelete, onDrag, isActive }) => {
 
     const handleDelete = () => {
         setButtonPressed(true)
-        onDelete()
         setTimeout(() => setButtonPressed(false), 300)
+        onDelete()
     }
 
     const handleAdd = () => {
