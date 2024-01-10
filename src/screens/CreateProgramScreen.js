@@ -88,6 +88,7 @@ const AnimatedBox = ({ index, box, onDelete, onDrag, isActive }) => {
         return {
             opacity: pressed.value ? 1 : 0,
             height: pressed.value ? 'auto' : 0,
+            paddingVertical: 15,
         }
     })
 
@@ -108,28 +109,33 @@ const AnimatedBox = ({ index, box, onDelete, onDrag, isActive }) => {
     }
     
     return (
-        // <Text 
-        //     variant="headlineMedium"
-        //     onLongPress={onDrag}
-        //     disabled={isActive}
-        //     onPress={handleTest}
-        // >{box.key}</Text>
-        <GestureDetector gesture={tap}>
-            <TouchableOpacity onLongPress={onDrag} disabled={isActive} >
-                <Animated.View entering={FadeIn} style={[ styles.weekBox, animatedStyle ]}>
-                    <View style={styles.header}>
+        <Animated.View
+            // className="border-2 border-rose-600" 
+            entering={FadeIn} 
+            style={[ styles.weekBox, animatedStyle ]}
+        >
+            <GestureDetector gesture={tap}>
+                <TouchableOpacity
+                    // className="border-2 border-blue-600" 
+                    style={styles.gestureTapArea} 
+                    onLongPress={onDrag} 
+                    disabled={isActive}
+                >
                         <Text>Week {box.index + 1}</Text>
+                </TouchableOpacity>
+            </GestureDetector>
+
+            <Animated.View style={[ animatedContentStyle ]}>
+                <TouchableOpacity onLongPress={onDrag} disabled={isActive} >
+                    <View style={styles.header}>
                         {/* <Button onPress={toggleExpand}>{expandedText}</Button> */}
                     </View>
-                    <Animated.View style={[ animatedContentStyle ]}>
                         <Text>Test</Text>
                         <Button onPress={handleDelete}>Delete</Button>
                         <Button onPress={handleAdd}>add</Button>
-                        
-                    </Animated.View>
-                </Animated.View>
-            </TouchableOpacity>
-        </GestureDetector>
+                </TouchableOpacity>                        
+            </Animated.View>
+        </Animated.View>
     )
 }
 
@@ -285,12 +291,26 @@ const styles = StyleSheet.create({
 
         alignItems: 'center',
         // justifyContent: 'left',
-        backgroundColor: '#e0e0e0',
+        // backgroundColor: '#e0e0e0',
+        backgroundColor: 'lightwhite',
+        borderColor: 'black',
+        borderWidth: 1,
         borderRadius: 10,
         marginVertical: 10,
         marginHorizontal: '5%',
-        paddingVertical: 15,
+        // paddingVertical: 15,
         overflow: 'hidden',
+    },
+    gestureTapArea: {
+        width: '100%',
+        height: 50, // Fixed height for the tap area
+        borderRadius: 10,
+        // marginVertical: -1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#e0e0e0',
+        borderBottomLeftRadius: 0,
+        borderBottomRightRadius: 0,
     },
     box: {
         width: 100,
