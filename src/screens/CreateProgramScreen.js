@@ -26,6 +26,7 @@ const AnimatedBoxHeightValue = 65
 const AnimatedBox = ({ index, box, onDelete, onDrag, isActive }) => {
     // const [isExpanded, setIsExpanded] = useState(false)
     const [expandedText, setExpandedText] = useState('Expand')
+    const [buttonPressed, setButtonPressed] = useState(false)
     
     
     const pressed = useSharedValue(false)
@@ -93,6 +94,18 @@ const AnimatedBox = ({ index, box, onDelete, onDrag, isActive }) => {
     const handleTest = () => {
         console.log(box.key)
     }
+
+    const handleDelete = () => {
+        setButtonPressed(true)
+        onDelete()
+        setTimeout(() => setButtonPressed(false), 300)
+    }
+
+    const handleAdd = () => {
+        setButtonPressed(true)
+        console.log('add')
+        setTimeout(() => setButtonPressed(false), 300)
+    }
     
     return (
         // <Text 
@@ -110,8 +123,8 @@ const AnimatedBox = ({ index, box, onDelete, onDrag, isActive }) => {
                     </View>
                     <Animated.View style={[ animatedContentStyle ]}>
                         <Text>Test</Text>
-                        <Button onPress={() => console.log('delete')}>Delete</Button>
-                        <Button onPress={() => console.log('add')}>add</Button>
+                        <Button onPress={handleDelete}>Delete</Button>
+                        <Button onPress={handleAdd}>add</Button>
                         
                     </Animated.View>
                 </Animated.View>
