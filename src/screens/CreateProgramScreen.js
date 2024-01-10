@@ -24,15 +24,8 @@ import DraggableFlatList, { ScaleDecorator, } from 'react-native-draggable-flatl
 const AnimatedBoxHeightValue = 65
 
 const AnimatedBox = ({ index, box, onDelete, onDrag, isActive }) => {
-    console.log(`AnimatedBox with index ${index} isActive: ${isActive}`);
-
-
     // const [isExpanded, setIsExpanded] = useState(false)
     const [expandedText, setExpandedText] = useState('Expand')
-    console.log('inside AnimatedBox')
-    console.log(index)
-    console.log('this is the index: ', index) 
-    console.log('this is the box: ', box) 
     
     
     const pressed = useSharedValue(false)
@@ -75,8 +68,6 @@ const AnimatedBox = ({ index, box, onDelete, onDrag, isActive }) => {
 
     const animatedStyle = useAnimatedStyle(() => {
         const y = 0
-        console.log(`this is y: ${y}`)
-        console.log(`7777`)
         return {
             // height: withTiming(height.value, {
             //     duration: 200,
@@ -162,9 +153,6 @@ const CreateProgramScreen = () => {
 
     const handleRemoveWeek = (boxToRemove) => {
         const keyToRemove = boxToRemove.key
-        console.log('this is the id to remove')
-        console.log(keyToRemove)
-
         setBoxes((currentBoxes) => currentBoxes.filter((box, index) => box.key !== keyToRemove))
     }
 
@@ -191,59 +179,6 @@ const CreateProgramScreen = () => {
     )
  
     const renderItem = ({ item, drag, isActive}) => {
-        console.log('inside renderItem')
-        console.log(item)
-
-        const pressed = useSharedValue(false)
-
-        const tap = Gesture.Tap()
-        .onEnd(() => {
-            console.log('item tapped')
-            pressed.value = !pressed.value
-        })
-
-        const animatedStyle = useAnimatedStyle(() => {
-            const y = 0
-            // console.log(`this is y: ${y}`)
-            // console.log(`7777`)
-            console.log(`this is pressed.value: ${pressed.value}, and key ${item.key}`)
-            return {
-                // height: withTiming(height.value, {
-                //     duration: 200,
-                // }),
-                height: withTiming(pressed.value ? 200 : AnimatedBoxHeightValue, {
-                    duration: 200,
-                }),
-                transform: [ 
-                    {translateY: y}, 
-                    // {scale: withTiming(pressed.value ? 1.1 : 1)}, 
-                    // {height: withTiming(pressed.value ? 200 : AnimatedBoxHeightValue )}
-                ],
-            }
-        })
-    
-        const animatedContentStyle = useAnimatedStyle(() => {
-            return {
-                opacity: pressed.value ? 1 : 0,
-                height: pressed.value ? 'auto' : 0,
-            }
-        })
-
-    //     <GestureDetector gesture={tap}>
-    //     <TouchableOpacity onLongPress={drag} disabled={isActive}>
-    //         <Animated.View entering={FadeIn} style={[ animatedStyle, styles.weekBox ]}>
-    //             <View style={styles.header}>
-    //                 <Text>Week {item.index + 1}</Text>
-    //          {/* <Button onPress={toggleExpand}>{expandedText}</Button> */}
-    //             </View>
-    //             <Animated.View style={[ animatedContentStyle ]}>
-    //                 <Text>Test</Text>
-    //                 <Button onPress={() => console.log('test')}>Delete</Button>
-    //                 <Button onPress={() => console.log('add')}>Add</Button>
-    //             </Animated.View>
-    //         </Animated.View>
-    //     </TouchableOpacity>
-    // </GestureDetector>
 
         return (
             <ScaleDecorator>
