@@ -110,20 +110,22 @@ const AnimatedBox = ({ index, box, onDelete, onDrag, isActive }) => {
         //     disabled={isActive}
         //     onPress={handleTest}
         // >{box.key}</Text>
-        <TouchableOpacity onLongPress={onDrag} disabled={isActive} >
-            <GestureDetector gesture={tap}>
+        <GestureDetector gesture={tap}>
+            <TouchableOpacity onLongPress={onDrag} disabled={isActive} >
                 <Animated.View entering={FadeIn} style={[ styles.weekBox, animatedStyle ]}>
                     <View style={styles.header}>
                         <Text>Week {box.index + 1}</Text>
-                        <Button onPress={toggleExpand}>{expandedText}</Button>
+                        {/* <Button onPress={toggleExpand}>{expandedText}</Button> */}
                     </View>
                     <Animated.View style={[ animatedContentStyle ]}>
                         <Text>Test</Text>
-                        <Button onPress={onDelete}>Delete</Button>
+                        <Button onPress={() => console.log('delete')}>Delete</Button>
+                        <Button onPress={() => console.log('add')}>add</Button>
+                        
                     </Animated.View>
                 </Animated.View>
-            </GestureDetector>
-        </TouchableOpacity>
+            </TouchableOpacity>
+        </GestureDetector>
     )
 }
 
@@ -227,36 +229,31 @@ const CreateProgramScreen = () => {
             }
         })
 
+    //     <GestureDetector gesture={tap}>
+    //     <TouchableOpacity onLongPress={drag} disabled={isActive}>
+    //         <Animated.View entering={FadeIn} style={[ animatedStyle, styles.weekBox ]}>
+    //             <View style={styles.header}>
+    //                 <Text>Week {item.index + 1}</Text>
+    //          {/* <Button onPress={toggleExpand}>{expandedText}</Button> */}
+    //             </View>
+    //             <Animated.View style={[ animatedContentStyle ]}>
+    //                 <Text>Test</Text>
+    //                 <Button onPress={() => console.log('test')}>Delete</Button>
+    //                 <Button onPress={() => console.log('add')}>Add</Button>
+    //             </Animated.View>
+    //         </Animated.View>
+    //     </TouchableOpacity>
+    // </GestureDetector>
+
         return (
             <ScaleDecorator>
-                {/* <Text 
-                    variant="headlineMedium"
-                    onLongPress={drag} 
-                    disabled={isActive}
-                >{item.key}</Text> */}
-                <GestureDetector gesture={tap}>
-                    <TouchableOpacity onLongPress={drag} disabled={isActive}>
-                        <Animated.View entering={FadeIn} style={[ animatedStyle, styles.weekBox ]}>
-                            <View style={styles.header}>
-                                <Text>Week {item.index + 1}</Text>
-                         {/* <Button onPress={toggleExpand}>{expandedText}</Button> */}
-                            </View>
-                            <Animated.View style={[ animatedContentStyle ]}>
-                                <Text>Test</Text>
-                                {/* <Button onPress={onDelete}>Delete</Button> */}
-                            </Animated.View>
-                        </Animated.View>
-                    </TouchableOpacity>
-                </GestureDetector>
-                {/* <AnimatedBox
+                <AnimatedBox
                     box={item}
-                    // disabled={isActive}
                     index={item.index}
-                    // key={item.key}
                     onDelete={() => handleRemoveWeek(item)}
-                    onLongPress={drag}
+                    onDrag={drag}
                     isActive={isActive}
-                /> */}
+                />
             </ScaleDecorator>
         )
     }
