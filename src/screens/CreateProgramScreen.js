@@ -28,14 +28,45 @@ const generateUniqueId = () => {
 }
 
 const AnimatedDayBox = ({ day, onDelete, onDrag, isActive }) => {
+	const pressed = useSharedValue(false)
+
+	const tap = Gesture.Tap()
+	.onEnd(() => {
+		pressed.value = !pressed.value
+	})
+
+	handlePress = () => {
+		console.log(day.key)
+	}
+
+	const animatedStyle = useAnimatedStyle(() => {
+		const y = 0
+		return {
+			// height: withTiming(height.value, {
+			//     duration: 200,
+			// }),
+			height: withTiming(pressed.value ? 200 : 50, {
+				duration: 200,
+			}),
+			transform: [
+				{ translateY: y },
+				// {scale: withTiming(pressed.value ? 1.1 : 1)}, 
+				// {height: withTiming(pressed.value ? 200 : AnimatedBoxHeightValue )}
+			],
+		}
+	})
+
 	return (
-		<TouchableOpacity
-			style={styles.dayBox}
-			onLongPress={onDrag}
-			disabled={isActive}
-		>
-			<Text>Day</Text>
-		</TouchableOpacity>
+		<GestureDetector gesture={tap}>
+			<TouchableOpacity
+				style={styles.dayBox}
+				onLongPress={onDrag}
+				disabled={isActive}
+				onPress={handlePress}
+			>
+				<Text>Day</Text>
+			</TouchableOpacity>
+		</GestureDetector>
 	)
 }
 
@@ -125,7 +156,7 @@ const AnimatedWeekBox = ({ index, box, onDelete, onDrag, isActive }) => {
 		return (
 			<ScaleDecorator>
 				<AnimatedDayBox
-					box={item}
+					day={item}
 					index={item.index}
 					onDelete={() => handleRemoveWeek(item)}
 					onDrag={drag}
