@@ -19,7 +19,7 @@ import { Gesture, GestureDetector, ScrollView } from "react-native-gesture-handl
 
 import uuid from 'react-native-uuid'
 import DraggableFlatList, { ScaleDecorator, ShadowDecorator, OpacityDecorator } from 'react-native-draggable-flatlist'
-
+import { DraggableGrid } from 'react-native-draggable-grid'
 
 const AnimatedBoxHeightValue = 65
 const AnimatedDayBoxClosedWidthValue = 80
@@ -159,21 +159,24 @@ const AnimatedWeekBox = ({ index, box, onDelete, onDrag, isActive }) => {
 		}])
 	}
 
-	const renderItem = ({ item, drag, isActive }) => {
+	const renderItem = (item) => {
 		return (
-			<ScaleDecorator>
-				<AnimatedDayBox
-					day={item}
-					index={item.index}
-					onDelete={() => handleRemoveWeek(item)}
-					onDrag={drag}
-					isActive={isActive}
-				/>
-			</ScaleDecorator>
+			// <ScaleDecorator>
+			// 	<AnimatedDayBox
+			// 		day={item}
+			// 		// index={item.index}
+			// 		onDelete={() => handleRemoveWeek(item)}
+			// 		onDrag={drag}
+			// 		isActive={isActive}
+			// 	/>
+			// </ScaleDecorator>
+			<View style={styles.dayBox} key={item.key}>
+			</View>
 		)
 	}
 
 	return (
+		<>
 		<Animated.View
 			// className="border-2 border-rose-600" 
 			entering={FadeIn}
@@ -194,15 +197,27 @@ const AnimatedWeekBox = ({ index, box, onDelete, onDrag, isActive }) => {
 				{/* <TouchableOpacity onLongPress={onDrag} disabled={isActive} > */}
 					<Button onPress={handleAddDay}>Add Day</Button>
 					<Button onPress={handleDelete}>Delete</Button>
-            <DraggableFlatList
+            {/* <DraggableFlatList
                 data={days}
                 onDragEnd={({ data }) => setDays(data)}
                 keyExtractor={(item) => item.key}
                 renderItem={renderItem}
-            />
+            /> */}
+
 				{/* </TouchableOpacity> */}
 			</Animated.View>
 		</Animated.View>
+		<View>
+			<DraggableGrid
+				numColumns={4}
+				renderItem={renderItem}
+				data={days}
+				onDragRelease={(data) => {
+					setDays(data)
+				}}
+			/>
+		</View>
+		</>
 	)
 }
 
