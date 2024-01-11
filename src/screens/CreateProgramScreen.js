@@ -28,7 +28,15 @@ const generateUniqueId = () => {
 }
 
 const AnimatedDayBox = ({ day, onDelete, onDrag, isActive }) => {
-	console.log('inside animated day box')
+	return (
+		<TouchableOpacity
+			style={styles.dayBox}
+			onLongPress={onDrag}
+			disabled={isActive}
+		>
+			<Text>Day</Text>
+		</TouchableOpacity>
+	)
 }
 
 const AnimatedWeekBox = ({ index, box, onDelete, onDrag, isActive }) => {
@@ -107,10 +115,6 @@ const AnimatedWeekBox = ({ index, box, onDelete, onDrag, isActive }) => {
 		onDelete()
 	}
 
-	const handleAdd = () => {
-		console.log('add')
-	}
-
 	const handleAddDay = () => {
 		setDays(prevDays => [...prevDays, {
 			key: generateUniqueId(),
@@ -154,14 +158,14 @@ const AnimatedWeekBox = ({ index, box, onDelete, onDrag, isActive }) => {
 						{/* <Button onPress={toggleExpand}>{expandedText}</Button> */}
 					</View>
 					<Button onPress={handleAddDay}>Add Day</Button>
+					<Button onPress={handleDelete}>Delete</Button>
             <DraggableFlatList
+								horizontal
                 data={days}
                 onDragEnd={({ data }) => setDays(data)}
                 keyExtractor={(item) => item.key}
                 renderItem={renderItem}
             />
-					<Button onPress={handleDelete}>Delete</Button>
-					<Button onPress={handleAdd}>add</Button>
 				</TouchableOpacity>
 			</Animated.View>
 		</Animated.View>
@@ -338,6 +342,17 @@ const styles = StyleSheet.create({
 		backgroundColor: '#e0e0e0',
 		borderBottomLeftRadius: 0,
 		borderBottomRightRadius: 0,
+	},
+	dayBox: {
+		width: 80,
+		height: 80,
+		backgroundColor: 'beige',
+		borderRadius: 10,
+		justifyContent: 'center',
+		alignItems: 'center',
+		margin: 5,
+		borderColor: 'black',
+		borderWidth: 1,
 	},
 	box: {
 		width: 100,
