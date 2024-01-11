@@ -22,6 +22,9 @@ import DraggableFlatList, { ScaleDecorator, ShadowDecorator, OpacityDecorator } 
 
 
 const AnimatedBoxHeightValue = 65
+const AnimatedDayBoxClosedWidthValue = 80
+const AnimatedDayBoxClosedHeightValue = 80
+const AnimatedDayBoxOpenWidthValue = 200
 
 const generateUniqueId = () => {
 	return uuid.v4()
@@ -40,33 +43,37 @@ const AnimatedDayBox = ({ day, onDelete, onDrag, isActive }) => {
 	}
 
 	const animatedStyle = useAnimatedStyle(() => {
-		const y = 0
+		const x = 0
 		return {
-			// height: withTiming(height.value, {
-			//     duration: 200,
-			// }),
-			height: withTiming(pressed.value ? 200 : 50, {
+			width: withTiming(pressed.value ? AnimatedDayBoxOpenWidthValue : AnimatedDayBoxClosedWidthValue, {
 				duration: 200,
 			}),
 			transform: [
-				{ translateY: y },
-				// {scale: withTiming(pressed.value ? 1.1 : 1)}, 
-				// {height: withTiming(pressed.value ? 200 : AnimatedBoxHeightValue )}
+				{ translateX: x },
 			],
 		}
 	})
 
 	return (
-		<GestureDetector gesture={tap}>
+		<Animated.View 
+			entering={FadeIn} 
+			style={[styles.dayBox, animatedStyle]}
+		>
 			<TouchableOpacity
-				style={styles.dayBox}
+				// style={styles.gestureTapArea}
 				onLongPress={onDrag}
 				disabled={isActive}
-				onPress={handlePress}
+				// onPress={handlePress}
 			>
+			<GestureDetector gesture={tap}>
+						<Text>Day</Text>
+
+			{/* <Animated.View style={[  ]}>
 				<Text>Day</Text>
+			</Animated.View> */}
+			</GestureDetector>
 			</TouchableOpacity>
-		</GestureDetector>
+		</Animated.View>
 	)
 }
 
@@ -123,7 +130,7 @@ const AnimatedWeekBox = ({ index, box, onDelete, onDrag, isActive }) => {
 			// height: withTiming(height.value, {
 			//     duration: 200,
 			// }),
-			height: withTiming(pressed.value ? 200 : AnimatedBoxHeightValue, {
+			height: withTiming(pressed.value ? 400 : AnimatedBoxHeightValue, {
 				duration: 200,
 			}),
 			transform: [
@@ -184,20 +191,16 @@ const AnimatedWeekBox = ({ index, box, onDelete, onDrag, isActive }) => {
 			</GestureDetector>
 
 			<Animated.View style={[animatedContentStyle]}>
-				<TouchableOpacity onLongPress={onDrag} disabled={isActive} >
-					<View style={styles.header}>
-						{/* <Button onPress={toggleExpand}>{expandedText}</Button> */}
-					</View>
+				{/* <TouchableOpacity onLongPress={onDrag} disabled={isActive} > */}
 					<Button onPress={handleAddDay}>Add Day</Button>
 					<Button onPress={handleDelete}>Delete</Button>
             <DraggableFlatList
-								horizontal
                 data={days}
                 onDragEnd={({ data }) => setDays(data)}
                 keyExtractor={(item) => item.key}
                 renderItem={renderItem}
             />
-				</TouchableOpacity>
+				{/* </TouchableOpacity> */}
 			</Animated.View>
 		</Animated.View>
 	)
@@ -375,8 +378,8 @@ const styles = StyleSheet.create({
 		borderBottomRightRadius: 0,
 	},
 	dayBox: {
-		width: 80,
-		height: 80,
+		width: AnimatedDayBoxClosedWidthValue,
+		height: AnimatedDayBoxClosedHeightValue,
 		backgroundColor: 'beige',
 		borderRadius: 10,
 		justifyContent: 'center',
