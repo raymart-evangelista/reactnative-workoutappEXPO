@@ -21,7 +21,7 @@ import uuid from 'react-native-uuid'
 import DraggableFlatList, { ScaleDecorator, ShadowDecorator, OpacityDecorator } from 'react-native-draggable-flatlist'
 
 
-const AnimatedBoxHeightValue = 65
+const AnimatedBoxHeightValue = 120
 const AnimatedDayBoxClosedWidthValue = 80
 const AnimatedDayBoxClosedHeightValue = 80
 const AnimatedDayBoxOpenWidthValue = 200
@@ -86,6 +86,9 @@ const AnimatedWeekBox = ({ index, box, onDelete, onDrag, isActive }) => {
 		]
 	)
 
+	const dayBoxHeight = 120
+	const baseHeight = AnimatedBoxHeightValue
+	const totalHeight = baseHeight + (dayBoxHeight * days.length)
 	const pressed = useSharedValue(false)
 	const height = useSharedValue(AnimatedBoxHeightValue)
 	const expand = useSharedValue(false)
@@ -130,7 +133,7 @@ const AnimatedWeekBox = ({ index, box, onDelete, onDrag, isActive }) => {
 			// height: withTiming(height.value, {
 			//     duration: 200,
 			// }),
-			height: withTiming(pressed.value ? 400 : AnimatedBoxHeightValue, {
+			height: withTiming(pressed.value ? totalHeight : baseHeight, {
 				duration: 200,
 			}),
 			transform: [
@@ -302,30 +305,35 @@ const CreateProgramScreen = () => {
 		//         ))}
 		//     <Button onPress={handleSubmit(onSubmit)}>Submit</Button>
 		// </SafeAreaView>
-		<SafeAreaView>
-			<Button onPress={handleAddWeek}>Add Week</Button>
-			<DraggableFlatList
-				data={boxes}
-				onDragEnd={({ data }) => setBoxes(data)}
-				keyExtractor={(item) => item.key}
-				renderItem={renderItem}
-			/>
-			{/* <ScrollView>
-				{boxes.map((box, index) => (
-					<AnimatedBox 
-						key={box.id}
-						index={index}
-						box={box}
-						onDelete={() => handleRemoveWeek(box)}
-					/>
-				))}
-			</ScrollView> */}
+		<View style={styles.background} className="h-screen">
+			<SafeAreaView className="	my-20">
+				<Button onPress={handleAddWeek}>Add Week</Button>
+				<DraggableFlatList
+					data={boxes}
+					onDragEnd={({ data }) => setBoxes(data)}
+					keyExtractor={(item) => item.key}
+					renderItem={renderItem}
+				/>
+				{/* <ScrollView>
+					{boxes.map((box, index) => (
+						<AnimatedBox 
+							key={box.id}
+							index={index}
+							box={box}
+							onDelete={() => handleRemoveWeek(box)}
+						/>
+					))}
+				</ScrollView> */}
 
-		</SafeAreaView>
+			</SafeAreaView>
+		</View>
 	)
 }
 
 const styles = StyleSheet.create({
+	background: {
+    backgroundColor: '#F1FAEE',
+  },
 	container: {
 		flex: 1,
 		alignItems: 'center',
