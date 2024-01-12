@@ -307,7 +307,7 @@ const CreateProgramScreen = () => {
 		// </SafeAreaView>
 		<View style={styles.background} className="h-screen">
 			<SafeAreaView className="	my-20">
-				<Button onPress={handleAddWeek}>Add Week</Button>
+				<Button style={styles.button} onPress={handleAddWeek}>Add Week</Button>
 				<DraggableFlatList
 					data={boxes}
 					onDragEnd={({ data }) => setBoxes(data)}
@@ -332,7 +332,7 @@ const CreateProgramScreen = () => {
 
 const styles = StyleSheet.create({
 	background: {
-    backgroundColor: '#F1FAEE',
+    backgroundColor: '#F2F2F7',
   },
 	container: {
 		flex: 1,
