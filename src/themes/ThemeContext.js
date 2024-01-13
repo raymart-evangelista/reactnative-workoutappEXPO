@@ -1,7 +1,7 @@
 import { createContext, useCallback, useContext, useMemo, useState } from "react";
 import { useColorScheme } from "react-native";
 
-import { lightTheme2, darkTheme2 } from "./theme";
+import { lightTheme, darkTheme } from "./theme";
 
 import {
   Provider as PaperProvider,
@@ -15,23 +15,23 @@ import {
   DefaultTheme as NavigationDefaultTheme,
 } from '@react-navigation/native'
 
-const lightTheme = {
-  ...NavigationDefaultTheme,
-  ...PaperDefaultTheme,
-  colors: {
-    ...NavigationDefaultTheme.colors,
-    ...PaperDefaultTheme.colors,
-  }
-}
+// const lightTheme = {
+//   ...NavigationDefaultTheme,
+//   ...PaperDefaultTheme,
+//   colors: {
+//     ...NavigationDefaultTheme.colors,
+//     ...PaperDefaultTheme.colors,
+//   }
+// }
 
-const darkTheme = {
-  ...NavigationDarkTheme,
-  ...darkTheme2,
-  colors: {
-    ...NavigationDarkTheme.colors,
-    ...darkTheme2.colors,
-  }
-}
+// const darkTheme = {
+//   ...NavigationDarkTheme,
+//   ...darkTheme,
+//   colors: {
+//     ...NavigationDarkTheme.colors,
+//     ...darkTheme.colors,
+//   }
+// }
 
 export const ThemeContext = createContext({
   theme: lightTheme,
