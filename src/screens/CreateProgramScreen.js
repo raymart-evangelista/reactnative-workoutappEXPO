@@ -310,7 +310,13 @@ const CreateProgramScreen = () => {
 		<View className="h-screen">
 			<SafeAreaView className="	my-20">
 				<Button mode="contained" onPress={handleAddWeek}>Add Week</Button>
-				<CollapsibleCard headerContent='Some header text' bodyContent='Some body content' mode='elevated'></CollapsibleCard>
+				<CollapsibleCard 
+					headerContent='Some header text' 
+					mode='elevated'
+				>
+					<Button mode="contained" onPress={() => console.log('test')}>Add Day</Button>
+					<Button mode ="contained" onPress=''>Delete</Button>
+				</CollapsibleCard>
 				<DraggableFlatList
 					data={boxes}
 					onDragEnd={({ data }) => setBoxes(data)}
