@@ -22,26 +22,27 @@ const lightThemeDepricated = {
 }
 
 const lightTheme = {
+  "roundness": 10,
   "colors": {
-    "primary": "rgb(0, 91, 193)",
+    "primary": "rgb(0, 122, 255)", // Dynamic Blue (#007AFF)
     "onPrimary": "rgb(255, 255, 255)",
     "primaryContainer": "rgb(216, 226, 255)",
     "onPrimaryContainer": "rgb(0, 26, 65)",
-    "secondary": "rgb(0, 110, 40)",
+    "secondary": "rgb(51, 51, 51)", // Sleek Graphite (#333333)
     "onSecondary": "rgb(255, 255, 255)",
-    "secondaryContainer": "rgb(114, 254, 136)",
-    "onSecondaryContainer": "rgb(0, 33, 7)",
-    "tertiary": "rgb(0, 102, 135)",
-    "onTertiary": "rgb(255, 255, 255)",
-    "tertiaryContainer": "rgb(193, 232, 255)",
-    "onTertiaryContainer": "rgb(0, 30, 43)",
+    "secondaryContainer": "rgb(188, 233, 255)",
+    "onSecondaryContainer": "rgb(0, 31, 42)",
+    "tertiary": "rgb(242, 242, 247)", // Neutral Silver (#F2F2F7)
+    "onTertiary": "rgb(27, 27, 31)",
+    "tertiaryContainer": "rgb(211, 228, 255)",
+    "onTertiaryContainer": "rgb(0, 28, 56)",
     "error": "rgb(186, 26, 26)",
     "onError": "rgb(255, 255, 255)",
     "errorContainer": "rgb(255, 218, 214)",
     "onErrorContainer": "rgb(65, 0, 2)",
-    "background": "rgb(254, 251, 255)",
+    "background": "rgb(242, 242, 247)", // Neutral Silver (#F2F2F7)
     "onBackground": "rgb(27, 27, 31)",
-    "surface": "rgb(254, 251, 255)",
+    "surface": "rgb(242, 242, 247)", // Neutral Silver (#F2F2F7)
     "onSurface": "rgb(27, 27, 31)",
     "surfaceVariant": "rgb(225, 226, 236)",
     "onSurfaceVariant": "rgb(68, 71, 79)",
@@ -63,64 +64,52 @@ const lightTheme = {
     "surfaceDisabled": "rgba(27, 27, 31, 0.12)",
     "onSurfaceDisabled": "rgba(27, 27, 31, 0.38)",
     "backdrop": "rgba(46, 48, 56, 0.4)",
-    "primary2": "rgb(0, 104, 116)",
-    "onPrimary2": "rgb(255, 255, 255)",
-    "primary2Container": "rgb(151, 240, 255)",
-    "onPrimary2Container": "rgb(0, 31, 36)",
-    "primary3": "rgb(18, 96, 164)",
-    "onPrimary3": "rgb(255, 255, 255)",
-    "primary3Container": "rgb(211, 228, 255)",
-    "onPrimary3Container": "rgb(0, 28, 56)",
-    "secondary2": "rgb(140, 80, 0)",
-    "onSecondary2": "rgb(255, 255, 255)",
-    "secondary2Container": "rgb(255, 220, 191)",
-    "onSecondary2Container": "rgb(45, 22, 0)",
-    "secondary3": "rgb(190, 0, 54)",
-    "onSecondary3": "rgb(255, 255, 255)",
-    "secondary3Container": "rgb(255, 218, 218)",
-    "onSecondary3Container": "rgb(64, 0, 12)",
-    "tertiary2": "rgb(116, 91, 0)",
-    "onTertiary2": "rgb(255, 255, 255)",
-    "tertiary2Container": "rgb(255, 224, 139)",
-    "onTertiary2Container": "rgb(36, 26, 0)",
-    "tertiary3": "rgb(0, 104, 116)",
-    "onTertiary3": "rgb(255, 255, 255)",
-    "tertiary3Container": "rgb(151, 240, 255)",
-    "onTertiary3Container": "rgb(0, 31, 36)"
-  }
+  },
 }
 
+
 const darkTheme = {
+  "roundness": 10,
   "colors": {
-    "primary": "rgb(173, 198, 255)",
-    "onPrimary": "rgb(0, 46, 105)",
-    "primaryContainer": "rgb(0, 68, 147)",
-    "onPrimaryContainer": "rgb(216, 226, 255)",
-    "secondary": "rgb(83, 225, 111)",
-    "onSecondary": "rgb(0, 57, 17)",
-    "secondaryContainer": "rgb(0, 83, 28)",
-    "onSecondaryContainer": "rgb(114, 254, 136)",
-    "tertiary": "rgb(116, 209, 255)",
-    "onTertiary": "rgb(0, 53, 72)",
-    "tertiaryContainer": "rgb(0, 77, 103)",
-    "onTertiaryContainer": "rgb(193, 232, 255)",
-    "error": "rgb(255, 180, 171)",
-    "onError": "rgb(105, 0, 5)",
-    "errorContainer": "rgb(147, 0, 10)",
-    "onErrorContainer": "rgb(255, 180, 171)",
-    "background": "rgb(27, 27, 31)",
-    "onBackground": "rgb(227, 226, 230)",
-    "surface": "rgb(27, 27, 31)",
-    "onSurface": "rgb(227, 226, 230)",
-    "surfaceVariant": "rgb(68, 71, 79)",
-    "onSurfaceVariant": "rgb(196, 198, 208)",
-    "outline": "rgb(142, 144, 153)",
-    "outlineVariant": "rgb(68, 71, 79)",
-    "shadow": "rgb(0, 0, 0)",
-    "scrim": "rgb(0, 0, 0)",
-    "inverseSurface": "rgb(227, 226, 230)",
-    "inverseOnSurface": "rgb(48, 48, 51)",
-    "inversePrimary": "rgb(0, 91, 193)",
+    "primary": "rgb(0, 122, 255)", // Dynamic Blue (#007AFF)
+    "onPrimary": "rgb(255, 255, 255)", // White for contrast on Dynamic Blue
+    "primaryContainer": "rgb(0, 68, 147)", // Darker shade of Dynamic Blue
+    "onPrimaryContainer": "rgb(216, 226, 255)", // Lighter shade for contrast on darker blue
+
+    "secondary": "rgb(51, 51, 51)", // Sleek Graphite (#333333)
+    "onSecondary": "rgb(255, 255, 255)", // White for contrast on Sleek Graphite
+    "secondaryContainer": "rgb(0, 77, 99)", // Darker shade of secondary color
+    "onSecondaryContainer": "rgb(188, 233, 255)", // Lighter shade for contrast on darker secondary color
+
+    "tertiary": "rgb(242, 242, 247)", // Neutral Silver (#F2F2F7)
+    "onTertiary": "rgb(27, 27, 31)", // Dark shade for contrast on Neutral Silver
+    "tertiaryContainer": "rgb(0, 72, 128)", // Darker shade of tertiary color
+    "onTertiaryContainer": "rgb(211, 228, 255)", // Lighter shade for contrast on darker tertiary color
+
+    "error": "rgb(255, 180, 171)", // Error color
+    "onError": "rgb(105, 0, 5)", // Dark shade for contrast on error color
+    "errorContainer": "rgb(147, 0, 10)", // Darker shade of error color
+    "onErrorContainer": "rgb(255, 180, 171)", // Lighter shade for contrast on darker error color
+
+    "background": "rgb(27, 27, 31)", // Dark background
+    "onBackground": "rgb(227, 226, 230)", // Light shade for text on dark background
+
+    "surface": "rgb(27, 27, 31)", // Dark surface
+    "onSurface": "rgb(227, 226, 230)", // Light shade for text on dark surface
+
+    "surfaceVariant": "rgb(68, 71, 79)", // Surface variant color
+    "onSurfaceVariant": "rgb(196, 198, 208)", // Text on surface variant
+
+    "outline": "rgb(142, 144, 153)", // Outline color
+    "outlineVariant": "rgb(68, 71, 79)", // Outline variant color
+
+    "shadow": "rgb(0, 0, 0)", // Shadow color
+    "scrim": "rgb(0, 0, 0)", // Scrim color
+
+    "inverseSurface": "rgb(227, 226, 230)", // Inverse surface color
+    "inverseOnSurface": "rgb(48, 48, 51)", // Text on inverse surface
+
+    "inversePrimary": "rgb(0, 91, 193)", // Inverse of primary color
     "elevation": {
       "level0": "transparent",
       "level1": "rgb(34, 36, 42)",
@@ -131,32 +120,9 @@ const darkTheme = {
     },
     "surfaceDisabled": "rgba(227, 226, 230, 0.12)",
     "onSurfaceDisabled": "rgba(227, 226, 230, 0.38)",
-    "backdrop": "rgba(46, 48, 56, 0.4)",
-    "primary2": "rgb(79, 216, 235)",
-    "onPrimary2": "rgb(0, 54, 61)",
-    "primary2Container": "rgb(0, 79, 88)",
-    "onPrimary2Container": "rgb(151, 240, 255)",
-    "primary3": "rgb(161, 201, 255)",
-    "onPrimary3": "rgb(0, 49, 91)",
-    "primary3Container": "rgb(0, 72, 128)",
-    "onPrimary3Container": "rgb(211, 228, 255)",
-    "secondary2": "rgb(255, 184, 116)",
-    "onSecondary2": "rgb(75, 40, 0)",
-    "secondary2Container": "rgb(106, 59, 0)",
-    "onSecondary2Container": "rgb(255, 220, 191)",
-    "secondary3": "rgb(255, 179, 181)",
-    "onSecondary3": "rgb(104, 0, 25)",
-    "secondary3Container": "rgb(146, 0, 39)",
-    "onSecondary3Container": "rgb(255, 218, 218)",
-    "tertiary2": "rgb(241, 193, 0)",
-    "onTertiary2": "rgb(61, 47, 0)",
-    "tertiary2Container": "rgb(88, 68, 0)",
-    "onTertiary2Container": "rgb(255, 224, 139)",
-    "tertiary3": "rgb(79, 216, 235)",
-    "onTertiary3": "rgb(0, 54, 61)",
-    "tertiary3Container": "rgb(0, 79, 88)",
-    "onTertiary3Container": "rgb(151, 240, 255)"
+    "backdrop": "rgba(46, 48, 56, 0.4)"
   }
 }
+
 
 export { lightTheme, lightThemeDepricated, darkTheme }

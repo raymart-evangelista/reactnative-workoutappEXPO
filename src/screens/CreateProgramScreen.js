@@ -20,8 +20,10 @@ import { Gesture, GestureDetector, ScrollView } from "react-native-gesture-handl
 import uuid from 'react-native-uuid'
 import DraggableFlatList, { ScaleDecorator, ShadowDecorator, OpacityDecorator } from 'react-native-draggable-flatlist'
 
+import CollapsibleCard from "../components/CollapsibleCard";
 
-const AnimatedBoxHeightValue = 120
+
+const AnimatedBoxHeightValue = 50
 const AnimatedDayBoxClosedWidthValue = 80
 const AnimatedDayBoxClosedHeightValue = 80
 const AnimatedDayBoxOpenWidthValue = 200
@@ -168,7 +170,7 @@ const AnimatedWeekBox = ({ index, box, onDelete, onDrag, isActive }) => {
 				<AnimatedDayBox
 					day={item}
 					index={item.index}
-					onDelete={() => handleRemoveWeek(item)}
+					// onDelete={() => handleRemoveWeek(item)}
 					onDrag={drag}
 					isActive={isActive}
 				/>
@@ -195,8 +197,8 @@ const AnimatedWeekBox = ({ index, box, onDelete, onDrag, isActive }) => {
 
 			<Animated.View style={[animatedContentStyle]}>
 				{/* <TouchableOpacity onLongPress={onDrag} disabled={isActive} > */}
-					<Button onPress={handleAddDay}>Add Day</Button>
-					<Button onPress={handleDelete}>Delete</Button>
+					<Button mode="contained" onPress={handleAddDay}>Add Day</Button>
+					<Button mode ="contained" onPress={handleDelete}>Delete</Button>
             <DraggableFlatList
                 data={days}
                 onDragEnd={({ data }) => setDays(data)}
@@ -305,9 +307,10 @@ const CreateProgramScreen = () => {
 		//         ))}
 		//     <Button onPress={handleSubmit(onSubmit)}>Submit</Button>
 		// </SafeAreaView>
-		<View style={styles.background} className="h-screen">
+		<View className="h-screen">
 			<SafeAreaView className="	my-20">
-				<Button style={styles.button} onPress={handleAddWeek}>Add Week</Button>
+				<Button mode="contained" onPress={handleAddWeek}>Add Week</Button>
+				<CollapsibleCard headerContent='Some header text' bodyContent='Some body content' mode='elevated'></CollapsibleCard>
 				<DraggableFlatList
 					data={boxes}
 					onDragEnd={({ data }) => setBoxes(data)}
@@ -331,9 +334,9 @@ const CreateProgramScreen = () => {
 }
 
 const styles = StyleSheet.create({
-	background: {
-    backgroundColor: '#F2F2F7',
-  },
+	// background: {
+  //   // backgroundColor: '#F2F2F7',
+  // },
 	container: {
 		flex: 1,
 		alignItems: 'center',
@@ -365,7 +368,7 @@ const styles = StyleSheet.create({
 		alignItems: 'center',
 		// justifyContent: 'left',
 		// backgroundColor: '#e0e0e0',
-		backgroundColor: 'lightwhite',
+		// backgroundColor: 'lightwhite',
 		borderColor: 'black',
 		borderWidth: 1,
 		borderRadius: 10,

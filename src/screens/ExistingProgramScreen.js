@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { View, TouchableOpacity, Alert, Modal, TextInput, ScrollView, Dimensions } from "react-native";
 import { Text, Button } from "react-native-paper";
-import Card from "../components/Card";
+import Card from "../components/CardDepricated";
 
 import programsService from "../services/programs";
 

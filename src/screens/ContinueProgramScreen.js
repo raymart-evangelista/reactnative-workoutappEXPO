@@ -4,7 +4,7 @@ import { Formik, Form, Field, FieldArray, ErrorMessage } from "formik";
 import { Button, Text, Title, RadioButton, List, useTheme } from 'react-native-paper'
 import * as Yup from 'yup';
 
-import Card from "../components/Card";
+import Card from "../components/CardDepricated";
 
 import programsService from "../services/programs";
 import { useFocusEffect } from "@react-navigation/native";
