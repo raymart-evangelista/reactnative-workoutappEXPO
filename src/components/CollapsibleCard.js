@@ -6,7 +6,7 @@ import { useTheme } from '../themes/ThemeContext';
 import Animated, { useSharedValue, useAnimatedStyle, withTiming, FadeIn } from 'react-native-reanimated';
 import { Gesture, GestureDetector } from 'react-native-gesture-handler';
 
-const CollapsibleCard = ({ headerContent, children, mode }) => {
+const CollapsibleCard = ({ headerContent, children, mode, onLongPress, disabled }) => {
   const { theme } = useTheme();
 
   const cardStyle = {
@@ -46,7 +46,7 @@ const CollapsibleCard = ({ headerContent, children, mode }) => {
   return (
     <PaperCard style={cardStyle} mode={mode}>
       <GestureDetector gesture={tap}>
-          <TouchableOpacity style={gestureTapArea}>
+          <TouchableOpacity style={gestureTapArea} onLongPress={onLongPress} disabled={disabled}>
             <Text style={{ color: theme.colors.onPrimaryContainer }}>{headerContent}</Text>
           </TouchableOpacity>
       </GestureDetector>

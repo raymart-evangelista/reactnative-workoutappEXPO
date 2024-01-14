@@ -179,35 +179,39 @@ const AnimatedWeekBox = ({ index, box, onDelete, onDrag, isActive }) => {
 	}
 
 	return (
-		<Animated.View
-			// className="border-2 border-rose-600" 
-			entering={FadeIn}
-			style={[styles.weekBox, animatedStyle]}
-		>
-			<GestureDetector gesture={tap}>
-				<TouchableOpacity
-					// className="border-2 border-blue-600" 
-					style={styles.gestureTapArea}
-					onLongPress={onDrag}
-					disabled={isActive}
-				>
-					<Text>Week {box.index + 1}</Text>
-				</TouchableOpacity>
-			</GestureDetector>
+		<CollapsibleCard headerContent={`Week ${box.index + 1}`} onLongPress={onDrag} disabled={isActive}>
+			<Button mode="contained" onPress={handleAddDay}>Add Day</Button>
+			<Button mode ="contained" onPress={handleDelete}>Delete</Button>
+		</CollapsibleCard>
+		// <Animated.View
+		// 	// className="border-2 border-rose-600" 
+		// 	entering={FadeIn}
+		// 	style={[styles.weekBox, animatedStyle]}
+		// >
+		// 	<GestureDetector gesture={tap}>
+				// <TouchableOpacity
+				// 	// className="border-2 border-blue-600" 
+				// 	style={styles.gestureTapArea}
+				// 	onLongPress={onDrag}
+				// 	disabled={isActive}
+				// >
+		// 			<Text>Week {box.index + 1}</Text>
+		// 		</TouchableOpacity>
+		// 	</GestureDetector>
 
-			<Animated.View style={[animatedContentStyle]}>
-				{/* <TouchableOpacity onLongPress={onDrag} disabled={isActive} > */}
-					<Button mode="contained" onPress={handleAddDay}>Add Day</Button>
-					<Button mode ="contained" onPress={handleDelete}>Delete</Button>
-            <DraggableFlatList
-                data={days}
-                onDragEnd={({ data }) => setDays(data)}
-                keyExtractor={(item) => item.key}
-                renderItem={renderItem}
-            />
-				{/* </TouchableOpacity> */}
-			</Animated.View>
-		</Animated.View>
+		// 	<Animated.View style={[animatedContentStyle]}>
+		// 		{/* <TouchableOpacity onLongPress={onDrag} disabled={isActive} > */}
+					// <Button mode="contained" onPress={handleAddDay}>Add Day</Button>
+					// <Button mode ="contained" onPress={handleDelete}>Delete</Button>
+    //         <DraggableFlatList
+    //             data={days}
+    //             onDragEnd={({ data }) => setDays(data)}
+    //             keyExtractor={(item) => item.key}
+    //             renderItem={renderItem}
+    //         />
+		// 		{/* </TouchableOpacity> */}
+		// 	</Animated.View>
+		// </Animated.View>
 	)
 }
 
@@ -268,7 +272,6 @@ const CreateProgramScreen = () => {
 	)
 
 	const renderItem = ({ item, drag, isActive }) => {
-
 		return (
 			<ScaleDecorator>
 				<AnimatedWeekBox
@@ -310,13 +313,6 @@ const CreateProgramScreen = () => {
 		<View className="h-screen">
 			<SafeAreaView className="	my-20">
 				<Button mode="contained" onPress={handleAddWeek}>Add Week</Button>
-				<CollapsibleCard 
-					headerContent='Some header text' 
-					mode='elevated'
-				>
-					<Button mode="contained" onPress={() => console.log('test')}>Add Day</Button>
-					<Button mode ="contained" onPress=''>Delete</Button>
-				</CollapsibleCard>
 				<DraggableFlatList
 					data={boxes}
 					onDragEnd={({ data }) => setBoxes(data)}
