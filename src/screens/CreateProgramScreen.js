@@ -264,7 +264,7 @@ const CreateProgramScreen = () => {
 	const [isExtended, setIsExtended] = useState(false)
 
   const handleScrollOffsetChange = (offset) => {
-		const threshold = 50
+		const threshold = 10
 		setIsExtended(offset < threshold)
   }
 
