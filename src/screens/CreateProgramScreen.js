@@ -21,6 +21,7 @@ import uuid from 'react-native-uuid'
 import DraggableFlatList, { ScaleDecorator, ShadowDecorator, OpacityDecorator } from 'react-native-draggable-flatlist'
 
 import CollapsibleCard from "../components/CollapsibleCard";
+import { AnimatedFAB as AniFAB } from "react-native-paper";
 
 
 const AnimatedBoxHeightValue = 50
@@ -260,6 +261,13 @@ const CreateProgramScreen = () => {
 		)
 	}
 
+	const [isExtended, setIsExtended] = useState(false)
+
+  const handleScrollOffsetChange = (offset) => {
+		const threshold = 50
+		setIsExtended(offset < threshold)
+  }
+
 	return (
 		// <SafeAreaView>
 		//     <Controller
@@ -286,14 +294,28 @@ const CreateProgramScreen = () => {
 		//     <Button onPress={handleSubmit(onSubmit)}>Submit</Button>
 		// </SafeAreaView>
 		<View className="h-screen">
-			<SafeAreaView className="	my-20">
-				<Button mode="contained" onPress={handleAddWeek}>Add Week</Button>
-				<DraggableFlatList
-					data={boxes}
-					onDragEnd={({ data }) => setBoxes(data)}
-					keyExtractor={(item) => item.key}
-					renderItem={renderItem}
-				/>
+			<SafeAreaView className="flex-1 border-2 border-red-500">
+					<Button mode="contained" onPress={handleAddWeek}>Add Week</Button>
+					<DraggableFlatList
+						data={boxes}
+						onDragEnd={({ data }) => setBoxes(data)}
+						keyExtractor={(item) => item.key}
+						renderItem={renderItem}
+						containerStyle={{ flex: 1 }}
+						className="border-2 border-green-500"
+						onScrollOffsetChange={handleScrollOffsetChange}
+					/>
+					<AniFAB
+						icon={'plus'}
+						label={'Add Week'}
+						extended={isExtended}
+						onPress={handleAddWeek}
+						animateFrom={'right'}
+						iconMode={'dynamic'}
+						style={[styles.fabStyle]}
+					/>
+				{/* <AnimatedFAB label='Add Week' onPress={handleAddWeek} iconMode='dynamic'>
+				</AnimatedFAB> */}
 			</SafeAreaView>
 		</View>
 	)
@@ -306,6 +328,11 @@ const styles = StyleSheet.create({
 		justifyContent: 'center',
 		height: '100%',
 	},
+	fabStyle: {
+    bottom: 32,
+    right: 32,
+    position: 'absolute'
+  },
 	box: {
 		height: 120,
 		width: 120,
