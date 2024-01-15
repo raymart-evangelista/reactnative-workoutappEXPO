@@ -15,7 +15,6 @@ const CollapsibleCard = ({ headerContent, children, mode, onLongPress, disabled 
     borderRadius: theme.roundness,
     // overflow: 'hidden',
     marginVertical: 10,
-    // backgroundColor: 'blue',
   };
 
   const gestureTapArea = {
@@ -24,6 +23,10 @@ const CollapsibleCard = ({ headerContent, children, mode, onLongPress, disabled 
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: theme.colors.primaryContainer,
+    borderTopRightRadius: theme.roundness,
+    borderTopLeftRadius: theme.roundness,
+    borderBottomRightRadius: theme.roundness,
+    borderBottomLeftRadius: theme.roundness,
   };
 
   const bodyStyle = {
@@ -43,12 +46,25 @@ const CollapsibleCard = ({ headerContent, children, mode, onLongPress, disabled 
     };
   });
 
+  const animatedGestureTapAreaStyle = useAnimatedStyle(() => {
+    return {
+      borderBottomLeftRadius: withTiming(pressed.value ? 0 : theme.roundness, { duration: 200 }),
+      borderBottomRightRadius: withTiming(pressed.value ? 0 : theme.roundness, { duration: 200 }),
+    }
+  })
+
   return (
-    <PaperCard style={cardStyle} mode={mode}>
+    <PaperCard style={cardStyle} mode='elevated'>
       <GestureDetector gesture={tap}>
-          <TouchableOpacity style={gestureTapArea} onLongPress={onLongPress} disabled={disabled}>
-            <Text style={{ color: theme.colors.onPrimaryContainer }}>{headerContent}</Text>
-          </TouchableOpacity>
+          <Animated.View style={[gestureTapArea, animatedGestureTapAreaStyle]}>
+            <TouchableOpacity 
+              // style={gestureTapArea} 
+              onLongPress={onLongPress} 
+              disabled={disabled}
+            >
+              <Text style={{ color: theme.colors.onPrimaryContainer }}>{headerContent}</Text>
+            </TouchableOpacity>
+          </Animated.View>
       </GestureDetector>
       <Animated.View entering={FadeIn} style={animatedStyle}>
           <View>
