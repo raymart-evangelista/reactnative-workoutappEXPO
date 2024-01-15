@@ -154,7 +154,11 @@ const AnimatedWeekBox = ({ index, box, onDelete, onDrag, isActive }) => {
 	}
 
 	return (
-		<CollapsibleCard headerContent={`Week ${box.index + 1}`} onLongPress={onDrag} disabled={isActive}>
+		<CollapsibleCard 
+			headerContent={`Week ${box.index + 1}`} 
+			onLongPress={onDrag} 
+			disabled={isActive}
+		>
 			<Button mode="contained" onPress={handleAddDay}>Add Day</Button>
 			<Button mode ="contained" onPress={handleDelete}>Delete</Button>
 		</CollapsibleCard>
@@ -295,7 +299,6 @@ const CreateProgramScreen = () => {
 		// </SafeAreaView>
 		<View className="h-screen">
 			<SafeAreaView className="flex-1 border-2 border-red-500">
-					<Button mode="contained" onPress={handleAddWeek}>Add Week</Button>
 					<DraggableFlatList
 						data={boxes}
 						onDragEnd={({ data }) => setBoxes(data)}
