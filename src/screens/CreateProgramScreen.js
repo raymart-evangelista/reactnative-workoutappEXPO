@@ -69,10 +69,6 @@ const AnimatedDayBox = ({ day, onDelete, onDrag, isActive }) => {
 			>
 			<GestureDetector gesture={tap}>
 						<Text>Day</Text>
-
-			{/* <Animated.View style={[  ]}>
-				<Text>Day</Text>
-			</Animated.View> */}
 			</GestureDetector>
 			</TouchableOpacity>
 		</Animated.View>
@@ -101,33 +97,11 @@ const AnimatedWeekBox = ({ index, box, onDelete, onDrag, isActive }) => {
 		return index * 110
 	}
 
-	// const toggleExpand = () => {
-	//     setIsExpanded(!isExpanded)
-	//     setExpandedText(isExpanded ? 'Expand' : 'Close')
-	//     height.value = isExpanded ? AnimatedBoxHeightValue : 200
-	// }
-
 	const tap = Gesture.Tap()
 		.onEnd(() => {
 			console.log(box.index)
 			pressed.value = !pressed.value
 		})
-
-	// const longPress = Gesture.LongPress().minDuration(1000)
-	//     .onBegin(() => {
-
-	//     })
-	//     .onStart(() => {
-	//         console.log('after minDuration')
-	//         pressed.value = true
-	//     })
-	//     .onEnd(() => {
-	//         console.log(`long pressed`)
-
-	//     })
-	//     .onFinalize(() => {
-	//         pressed.value = false
-	//     })
 
 	const animatedStyle = useAnimatedStyle(() => {
 		const y = 0
@@ -247,6 +221,7 @@ const CreateProgramScreen = () => {
 	const handleRemoveWeek = (boxToRemove) => {
 		const keyToRemove = boxToRemove.key
 		setBoxes((currentBoxes) => currentBoxes.filter((box, index) => box.key !== keyToRemove))
+		console.log(`box with key [${keyToRemove}] removed`)
 	}
 
 	const handleAddWeek = () => {
@@ -319,26 +294,12 @@ const CreateProgramScreen = () => {
 					keyExtractor={(item) => item.key}
 					renderItem={renderItem}
 				/>
-				{/* <ScrollView>
-					{boxes.map((box, index) => (
-						<AnimatedBox 
-							key={box.id}
-							index={index}
-							box={box}
-							onDelete={() => handleRemoveWeek(box)}
-						/>
-					))}
-				</ScrollView> */}
-
 			</SafeAreaView>
 		</View>
 	)
 }
 
 const styles = StyleSheet.create({
-	// background: {
-  //   // backgroundColor: '#F2F2F7',
-  // },
 	container: {
 		flex: 1,
 		alignItems: 'center',
