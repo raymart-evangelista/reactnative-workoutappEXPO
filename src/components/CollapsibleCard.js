@@ -10,12 +10,16 @@ const CollapsibleCard = ({ headerContent, children, mode, onLongPress, disabled 
   const { theme } = useTheme();
 
   const cardStyle = {
+    borderRadius: theme.roundness,
     width: '90%',
     alignSelf: 'center',
-    borderRadius: theme.roundness,
-    // overflow: 'hidden',
     marginVertical: 10,
   };
+  
+  const cardContainerStyle = {
+    overflow: 'hidden',
+
+  }
 
   const gestureTapArea = {
     width: '100%', // Ensure it fills the width
@@ -54,24 +58,28 @@ const CollapsibleCard = ({ headerContent, children, mode, onLongPress, disabled 
   })
 
   return (
-    <PaperCard style={cardStyle} mode='elevated'>
-      <GestureDetector gesture={tap}>
-          <Animated.View style={[gestureTapArea, animatedGestureTapAreaStyle]}>
-            <TouchableOpacity 
-              // style={gestureTapArea} 
-              onLongPress={onLongPress} 
-              disabled={disabled}
+    <View style={cardContainerStyle}>
+      <PaperCard style={cardStyle} mode='elevated'>
+        <GestureDetector gesture={tap}>
+          <TouchableOpacity 
+            onLongPress={onLongPress} 
+            disabled={disabled}
+          >
+            <Animated.View 
+              style={[gestureTapArea, animatedGestureTapAreaStyle]}
+              onLongPress={onLongPress}
             >
-              <Text style={{ color: theme.colors.onPrimaryContainer }}>{headerContent}</Text>
-            </TouchableOpacity>
-          </Animated.View>
-      </GestureDetector>
-      <Animated.View entering={FadeIn} style={animatedStyle}>
-          <View>
-            {children}
-          </View>
-      </Animated.View>
-    </PaperCard>
+                <Text style={{ color: theme.colors.onPrimaryContainer }}>{headerContent}</Text>
+            </Animated.View>
+          </TouchableOpacity>
+        </GestureDetector>
+        <Animated.View entering={FadeIn} style={animatedStyle}>
+            <View>
+              {children}
+            </View>
+        </Animated.View>
+      </PaperCard>
+    </View>
   );
 };
 
