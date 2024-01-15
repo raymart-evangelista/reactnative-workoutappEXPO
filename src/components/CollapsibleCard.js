@@ -13,9 +13,9 @@ const CollapsibleCard = ({ headerContent, children, mode, onLongPress, disabled 
     width: '90%',
     alignSelf: 'center',
     borderRadius: theme.roundness,
-    overflow: 'hidden',
+    // overflow: 'hidden',
     marginVertical: 10,
-    backgroundColor: 'blue',
+    // backgroundColor: 'blue',
   };
 
   const gestureTapArea = {
