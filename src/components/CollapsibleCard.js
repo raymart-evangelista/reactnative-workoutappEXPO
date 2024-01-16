@@ -6,7 +6,7 @@ import { useTheme } from '../themes/ThemeContext';
 import Animated, { useSharedValue, useAnimatedStyle, withTiming, FadeIn } from 'react-native-reanimated';
 import { Gesture, GestureDetector } from 'react-native-gesture-handler';
 
-const CollapsibleCard = ({ headerContent, children, mode, onLongPress, disabled, passedValue }) => {
+const CollapsibleCard = ({ headerContent, children, mode, onLongPress, disabled }) => {
   const { theme } = useTheme();
 
   const estimatedHeightPerChildren = 150
