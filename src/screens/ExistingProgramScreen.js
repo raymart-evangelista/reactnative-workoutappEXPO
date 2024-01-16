@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { View, TouchableOpacity, Alert, Modal, TextInput, ScrollView, Dimensions } from "react-native";
-import { Text, Button } from "react-native-paper";
+import { View, TouchableOpacity, Alert, Modal, TextInput, ScrollView, Dimensions, StyleSheet } from "react-native";
+import { Text, Button, AnimatedFAB } from "react-native-paper";
 import Card from "../components/CardDepricated";
 
 import programsService from "../services/programs";
@@ -39,7 +39,12 @@ export function ExistingProgramsScreen({ navigation, screenType = null }) {
     setLastModified(Date.now())
   }
 
+  const handleAddProgram = () => {
+    navigation.navigate('CreateProgram')
+  }
+
   return (
+    <View style={styles.container}>
     <ScrollView 
       style={{ padding: '2%', paddingTop: desiredSpacing, paddingBottom: desiredSpacing }}
     >
@@ -58,6 +63,15 @@ export function ExistingProgramsScreen({ navigation, screenType = null }) {
         ))
       )}
     </ScrollView>
+      <AnimatedFAB
+      icon={'plus'}
+      label={'New Program'}
+      onPress={handleAddProgram}
+      animatedFrom='right'
+      iconMode={'dynamic'}
+      style={[styles.fabStyle]}
+      />
+      </View>
   )
 }
 
@@ -155,3 +169,17 @@ export function EditProgramScreen({ navigation, route }) {
     </View>
   )
 }
+
+const styles = StyleSheet.create({
+  container: {
+		flex: 1,
+		alignItems: 'center',
+		justifyContent: 'center',
+		height: '100%',
+	},
+  fabStyle: {
+    bottom: 32,
+    right: 32,
+    position: 'absolute'
+  },
+})
