@@ -20,11 +20,11 @@ import { ThemeContextProvider, useTheme } from './src/themes/ThemeContext';
 import LandingPage from './src/screens/LandingPage';
 
 const Stack = createNativeStackNavigator()
-const Tab = createBottomTabNavigator()
 
 import AuthProvider from './src/contexts/AuthContext';
 
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import TabNavigator from './src/navigation/TabNavigator';
 
 export default function App() {
 
@@ -32,23 +32,24 @@ export default function App() {
     <GestureHandlerRootView style={{ flex: 1 }}>
       <AuthProvider>
         <ThemeContextProvider>
-          <Stack.Navigator initialRouteName='CreateProgram' screenOptions={{headerShown: false}}>
-            <Stack.Screen name="Landing" component={LandingPage} />
-            <Stack.Screen name="LogIn" component={LogInScreen} />
-            <Stack.Screen name="SignUp" component={SignUpScreen} />
-            <Stack.Screen name="Home" component={HomeScreen} />
-            <Stack.Screen name="CreateProgram" component={CreateProgramScreen} />
-            <Stack.Screen name="ExistingPrograms" component={ExistingProgramsScreen} />
-            <Stack.Screen name="EditProgram" component={EditProgramScreen} />
-            {/* <Stack.Screen name="ContinueProgram" component={ContinueProgramScreen} /> */}
-            <Stack.Screen name="ProgramInformation" component={ProgramInformationScreen} />
-            <Stack.Screen name="ContinueWeek" component={ContinueWeekScreen} />
-            <Stack.Screen name="ContinueDay" component={ContinueDayScreen} />
-            <Stack.Screen name="Settings" component={SettingsScreen} />
-          </Stack.Navigator>
-          {/* <Stack.Navigator>
-            <Stack.Screen name="Test" component={TestScreen} />
-          </Stack.Navigator> */}
+          <NavigationContainer independent={true}>
+          {/* <Stack.Navigator initialRouteName='CreateProgram' screenOptions={{headerShown: true}}> */}
+            <Stack.Navigator>
+              <Stack.Screen name="TabNavigator" component={TabNavigator} options={{ headerShown: false}}/>
+              <Stack.Screen name="Landing" component={LandingPage} />
+              <Stack.Screen name="LogIn" component={LogInScreen} />
+              <Stack.Screen name="SignUp" component={SignUpScreen} />
+              <Stack.Screen name="Home" component={HomeScreen} />
+              <Stack.Screen name="CreateProgram" component={CreateProgramScreen} options={{ title: 'Create' }} />
+              <Stack.Screen name="ExistingPrograms" component={ExistingProgramsScreen} />
+              <Stack.Screen name="EditProgram" component={EditProgramScreen} />
+              {/* <Stack.Screen name="ContinueProgram" component={OldContinueProgramScreen} /> */}
+              <Stack.Screen name="ProgramInformation" component={ProgramInformationScreen} />
+              <Stack.Screen name="ContinueWeek" component={ContinueWeekScreen} />
+              <Stack.Screen name="ContinueDay" component={ContinueDayScreen} />
+              <Stack.Screen name="Settings" component={SettingsScreen} />
+            </Stack.Navigator>
+          </NavigationContainer>
         </ThemeContextProvider>
       </AuthProvider>
     </GestureHandlerRootView>
