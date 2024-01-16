@@ -25,9 +25,9 @@ import { AnimatedFAB as AniFAB } from "react-native-paper";
 
 
 const AnimatedBoxHeightValue = 50
-const AnimatedDayBoxClosedWidthValue = 80
+const AnimatedDayBoxClosedWidthValue = '100%'
 const AnimatedDayBoxClosedHeightValue = 80
-const AnimatedDayBoxOpenWidthValue = 200
+const AnimatedDayBoxOpenHeightValue = 200
 
 const generateUniqueId = () => {
 	return uuid.v4()
@@ -42,37 +42,43 @@ const AnimatedDayBox = ({ day, onDelete, onDrag, isActive }) => {
 	})
 
 	handlePress = () => {
-		console.log(day.key)
+		console.log(`$the key of this day is ${day.key}`)
 	}
 
 	const animatedStyle = useAnimatedStyle(() => {
-		const x = 0
+		const y = 0
 		return {
-			width: withTiming(pressed.value ? AnimatedDayBoxOpenWidthValue : AnimatedDayBoxClosedWidthValue, {
+			height: withTiming(pressed.value ? AnimatedDayBoxOpenHeightValue : AnimatedDayBoxClosedHeightValue, {
 				duration: 200,
 			}),
 			transform: [
-				{ translateX: x },
+				{ translateY: y },
 			],
 		}
 	})
 
 	return (
-		<Animated.View 
-			entering={FadeIn} 
-			style={[styles.dayBox, animatedStyle]}
+		// <Animated.View 
+		// 	entering={FadeIn} 
+		// 	style={[styles.dayBox, animatedStyle]}
+		// >
+		// 	<TouchableOpacity
+		// 		// style={styles.gestureTapArea}
+		// 		onLongPress={onDrag}
+		// 		disabled={isActive}
+		// 		onPress={handlePress}
+		// 	>
+		// 	<GestureDetector gesture={tap}>
+		// 				<Text>Day</Text>
+		// 	</GestureDetector>
+		// 	</TouchableOpacity>
+		// </Animated.View>
+		<CollapsibleCard
+			headerContent={`Day ${day.index + 1}`} 
+			onLongPress={onDrag} 
+			disabled={isActive}
 		>
-			<TouchableOpacity
-				// style={styles.gestureTapArea}
-				onLongPress={onDrag}
-				disabled={isActive}
-				// onPress={handlePress}
-			>
-			<GestureDetector gesture={tap}>
-						<Text>Day</Text>
-			</GestureDetector>
-			</TouchableOpacity>
-		</Animated.View>
+		</CollapsibleCard>
 	)
 }
 
@@ -80,63 +86,38 @@ const AnimatedWeekBox = ({ index, box, onDelete, onDrag, isActive }) => {
 	const [days, setDays] = useState(
 		[		
 			{
-				key: generateUniqueId()
+				key: generateUniqueId(),
+				index: 0
 			}
 		]
 	)
+	const [numDays, setNumDays] = useState(1)
 
-	const dayBoxHeight = 120
-	const baseHeight = AnimatedBoxHeightValue
-	const totalHeight = baseHeight + (dayBoxHeight * days.length)
-	const pressed = useSharedValue(false)
-	const height = useSharedValue(AnimatedBoxHeightValue)
-	const expand = useSharedValue(false)
-
-	const longPressed = useSharedValue(false)
-
-	const calculateNewBoxPosition = (index) => {
-		return index * 110
-	}
-
-	const tap = Gesture.Tap()
-		.onEnd(() => {
-			console.log(box.index)
-			pressed.value = !pressed.value
-		})
-
-	const animatedStyle = useAnimatedStyle(() => {
-		const y = 0
-		return {
-			// height: withTiming(height.value, {
-			//     duration: 200,
-			// }),
-			height: withTiming(pressed.value ? totalHeight : baseHeight, {
-				duration: 200,
-			}),
-			transform: [
-				{ translateY: y },
-				// {scale: withTiming(pressed.value ? 1.1 : 1)}, 
-				// {height: withTiming(pressed.value ? 200 : AnimatedBoxHeightValue )}
-			],
-		}
-	})
-
-	const animatedContentStyle = useAnimatedStyle(() => {
-		return {
-			opacity: pressed.value ? 1 : 0,
-			height: pressed.value ? 'auto' : 0,
-			paddingVertical: 15,
-		}
-	})
+	const [disableAddDays, setDisabledAddDays] = useState(false)
 
 	const handleDelete = () => {
 		onDelete()
+		setNumDays(numDays - 1)
+		if (numDays < 7) {
+			setDisabledAddDays(!disableAddDays)
+		}
 	}
 
 	const handleAddDay = () => {
-		setDays(prevDays => [...prevDays, {
-			key: generateUniqueId(),
-		}])
+		if (numDays < 7 ) {
+			const newDayIndex = days.length
+			setDays(prevDays => [...prevDays, {
+				key: generateUniqueId(),
+				index: newDayIndex,
+			}])
+			setNumDays(numDays + 1)
+		} else {
+			setDisabledAddDays(!disableAddDays)
+		}
+	}
+
+	const handleEditWeek = () => {
+
 	}
 
 	const renderItem = ({ item, drag, isActive }) => {
@@ -158,9 +139,17 @@ const AnimatedWeekBox = ({ index, box, onDelete, onDrag, isActive }) => {
 			headerContent={`Week ${box.index + 1}`} 
 			onLongPress={onDrag} 
 			disabled={isActive}
+			// passedValue={1000}
 		>
-			<Button mode="contained" onPress={handleAddDay}>Add Day</Button>
-			<Button mode ="contained" onPress={handleDelete}>Delete</Button>
+				<Button mode="contained" onPress={handleEditWeek}>Edit Week</Button>
+				<Button mode="contained" disabled={disableAddDays} onPress={handleAddDay}>Add Day</Button>
+				<Button mode ="contained" onPress={handleDelete}>Delete</Button>
+			<DraggableFlatList
+				data={days}
+				onDragEnd={({ data }) => setDays(data)}
+				keyExtractor={(item) => item.key}
+				renderItem={renderItem}
+			/>
 		</CollapsibleCard>
 		// <Animated.View
 		// 	// className="border-2 border-rose-600" 
@@ -298,14 +287,13 @@ const CreateProgramScreen = () => {
 		//     <Button onPress={handleSubmit(onSubmit)}>Submit</Button>
 		// </SafeAreaView>
 		<View className="h-screen">
-			<SafeAreaView className="flex-1 border-2 border-red-500">
+			<SafeAreaView className="flex-1">
 					<DraggableFlatList
 						data={boxes}
 						onDragEnd={({ data }) => setBoxes(data)}
 						keyExtractor={(item) => item.key}
 						renderItem={renderItem}
 						containerStyle={{ flex: 1 }}
-						className="border-2 border-green-500"
 						onScrollOffsetChange={handleScrollOffsetChange}
 					/>
 					<AniFAB
@@ -330,6 +318,10 @@ const styles = StyleSheet.create({
 		alignItems: 'center',
 		justifyContent: 'center',
 		height: '100%',
+	},
+	buttonContainer: {
+		flexDirection: 'row',
+		justifyContent: 'space-around',
 	},
 	fabStyle: {
     bottom: 32,
@@ -388,7 +380,7 @@ const styles = StyleSheet.create({
 		borderRadius: 10,
 		justifyContent: 'center',
 		alignItems: 'center',
-		margin: 5,
+		// margin: 5,
 		borderColor: 'black',
 		borderWidth: 1,
 	},

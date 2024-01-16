@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Card as PaperCard } from 'react-native-paper';
 import { View, Text, TouchableOpacity } from 'react-native';
 import { useTheme } from '../themes/ThemeContext';
@@ -6,8 +6,14 @@ import { useTheme } from '../themes/ThemeContext';
 import Animated, { useSharedValue, useAnimatedStyle, withTiming, FadeIn } from 'react-native-reanimated';
 import { Gesture, GestureDetector } from 'react-native-gesture-handler';
 
-const CollapsibleCard = ({ headerContent, children, mode, onLongPress, disabled }) => {
+const CollapsibleCard = ({ headerContent, children, mode, onLongPress, disabled, passedValue }) => {
   const { theme } = useTheme();
+
+  const estimatedHeightPerChildren = 150
+  const listChild = React.Children.toArray(children).find(child =>
+    child.$$typeof === Symbol.for('react.element') && child.props.data)
+  const dataLength = listChild?.props.data.length
+  const totalHeight = dataLength * estimatedHeightPerChildren
 
   const cardStyle = {
     borderRadius: theme.roundness,
@@ -33,12 +39,6 @@ const CollapsibleCard = ({ headerContent, children, mode, onLongPress, disabled 
     borderBottomLeftRadius: theme.roundness,
   };
 
-  const bodyStyle = {
-    backgroundColor: theme.colors.surface,
-    // backgroundColor: 'red',
-    padding: 10,
-  };
-
   const pressed = useSharedValue(false);
   const tap = Gesture.Tap().onEnd(() => {
     pressed.value = !pressed.value;
@@ -46,7 +46,7 @@ const CollapsibleCard = ({ headerContent, children, mode, onLongPress, disabled 
 
   const animatedStyle = useAnimatedStyle(() => {
     return {
-      height: withTiming(pressed.value ? 200 : 0, { duration: 200 }),
+      height: withTiming(pressed.value ? totalHeight : 0, { duration: 200 }),
     };
   });
 
@@ -73,7 +73,10 @@ const CollapsibleCard = ({ headerContent, children, mode, onLongPress, disabled 
             </Animated.View>
           </TouchableOpacity>
         </GestureDetector>
-        <Animated.View entering={FadeIn} style={animatedStyle}>
+        <Animated.View 
+          entering={FadeIn}
+          style={animatedStyle}
+        >
             <View>
               {children}
             </View>
