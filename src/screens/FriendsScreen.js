@@ -1,8 +1,9 @@
 import { View } from "react-native";
 
-export default function ProfileScreen({ navigation }) {
+export default function FriendsScreen({ navigation }) {
   return (
     <View>
+
     </View>
   )
 }
