@@ -34,20 +34,20 @@ export default function App() {
         <ThemeContextProvider>
           <NavigationContainer independent={true}>
           {/* <Stack.Navigator initialRouteName='CreateProgram' screenOptions={{headerShown: true}}> */}
-            <Stack.Navigator>
+            <Stack.Navigator initialRouteName='TabNavigator'>
               <Stack.Screen name="TabNavigator" component={TabNavigator} options={{ headerShown: false}}/>
-              <Stack.Screen name="Landing" component={LandingPage} />
-              <Stack.Screen name="LogIn" component={LogInScreen} />
-              <Stack.Screen name="SignUp" component={SignUpScreen} />
-              <Stack.Screen name="Home" component={HomeScreen} />
-              <Stack.Screen name="CreateProgram" component={CreateProgramScreen} options={{ title: 'Create' }} />
-              <Stack.Screen name="ExistingPrograms" component={ExistingProgramsScreen} />
-              <Stack.Screen name="EditProgram" component={EditProgramScreen} />
+              {/* <Stack.Screen name="Landing" component={LandingPage} /> */}
+              {/* <Stack.Screen name="LogIn" component={LogInScreen} /> */}
+              {/* <Stack.Screen name="SignUp" component={SignUpScreen} /> */}
+              {/* <Stack.Screen name="Home" component={HomeScreen} /> */}
+              {/* <Stack.Screen name="CreateProgram" component={CreateProgramScreen} options={{ title: 'Create' }} /> */}
+              {/* <Stack.Screen name="ExistingPrograms" component={ExistingProgramsScreen} /> */}
+              {/* <Stack.Screen name="EditProgram" component={EditProgramScreen} /> */}
               {/* <Stack.Screen name="ContinueProgram" component={OldContinueProgramScreen} /> */}
-              <Stack.Screen name="ProgramInformation" component={ProgramInformationScreen} />
-              <Stack.Screen name="ContinueWeek" component={ContinueWeekScreen} />
-              <Stack.Screen name="ContinueDay" component={ContinueDayScreen} />
-              <Stack.Screen name="Settings" component={SettingsScreen} />
+              {/* <Stack.Screen name="ProgramInformation" component={ProgramInformationScreen} /> */}
+              {/* <Stack.Screen name="ContinueWeek" component={ContinueWeekScreen} /> */}
+              {/* <Stack.Screen name="ContinueDay" component={ContinueDayScreen} /> */}
+              {/* <Stack.Screen name="Settings" component={SettingsScreen} /> */}
             </Stack.Navigator>
           </NavigationContainer>
         </ThemeContextProvider>
