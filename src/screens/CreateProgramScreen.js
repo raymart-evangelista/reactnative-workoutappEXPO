@@ -280,7 +280,7 @@ const CreateProgramScreen = () => {
 		//         ))}
 		//     <Button onPress={handleSubmit(onSubmit)}>Submit</Button>
 		// </SafeAreaView>
-		<View className="h-screen">
+		<View className="h-full border-red-500 border-4">
 			<SafeAreaView className="flex-1">
 					<DraggableFlatList
 						data={boxes}
@@ -318,8 +318,8 @@ const styles = StyleSheet.create({
 		justifyContent: 'space-around',
 	},
 	fabStyle: {
-    bottom: 32,
-    right: 32,
+    bottom: 16,
+    right: 16,
     position: 'absolute'
   },
 	box: {
