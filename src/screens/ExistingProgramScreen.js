@@ -12,8 +12,8 @@ const ExistingProgramsStack = createNativeStackNavigator()
 export function ExistingProgramsStackScreen() {
   return (
     <ExistingProgramsStack.Navigator>
-      <ExistingProgramsStack.Screen name="ExistingPrograms" component={ExistingProgramsScreen}/>
       <ExistingProgramsStack.Screen name="CreateProgram" component={CreateProgramScreen} />
+      <ExistingProgramsStack.Screen name="ExistingPrograms" component={ExistingProgramsScreen}/>
     </ExistingProgramsStack.Navigator>
   )
 }

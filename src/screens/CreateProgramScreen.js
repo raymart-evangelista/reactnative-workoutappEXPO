@@ -58,27 +58,21 @@ const AnimatedDayBox = ({ day, onDelete, onDrag, isActive }) => {
 	})
 
 	return (
-		// <Animated.View 
-		// 	entering={FadeIn} 
-		// 	style={[styles.dayBox, animatedStyle]}
-		// >
-		// 	<TouchableOpacity
-		// 		// style={styles.gestureTapArea}
-		// 		onLongPress={onDrag}
-		// 		disabled={isActive}
-		// 		onPress={handlePress}
-		// 	>
-		// 	<GestureDetector gesture={tap}>
-		// 				<Text>Day</Text>
-		// 	</GestureDetector>
-		// 	</TouchableOpacity>
-		// </Animated.View>
-		<CollapsibleCard
-			headerContent={`Day ${day.index + 1}`} 
-			onLongPress={onDrag} 
-			disabled={isActive}
+		<Animated.View 
+			entering={FadeIn} 
+			style={[styles.dayBox, animatedStyle]}
 		>
-		</CollapsibleCard>
+			<TouchableOpacity
+				// style={styles.gestureTapArea}
+				onLongPress={onDrag}
+				disabled={isActive}
+				onPress={handlePress}
+			>
+			<GestureDetector gesture={tap}>
+						<Text>Day</Text>
+			</GestureDetector>
+			</TouchableOpacity>
+		</Animated.View>
 	)
 }
 
