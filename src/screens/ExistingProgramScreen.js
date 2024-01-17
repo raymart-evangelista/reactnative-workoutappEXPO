@@ -5,6 +5,19 @@ import Card from "../components/CardDepricated";
 
 import programsService from "../services/programs";
 
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import CreateProgramScreen from "./CreateProgramScreen";
+const ExistingProgramsStack = createNativeStackNavigator()
+
+export function ExistingProgramsStackScreen() {
+  return (
+    <ExistingProgramsStack.Navigator>
+      <ExistingProgramsStack.Screen name="ExistingPrograms" component={ExistingProgramsScreen}/>
+      <ExistingProgramsStack.Screen name="CreateProgram" component={CreateProgramScreen} />
+    </ExistingProgramsStack.Navigator>
+  )
+}
+
 export function ExistingProgramsScreen({ navigation, screenType = null }) {
   const [programs, setPrograms] = useState([])
   const [deletedProgramId, setDeletedProgramId] = useState(null)
