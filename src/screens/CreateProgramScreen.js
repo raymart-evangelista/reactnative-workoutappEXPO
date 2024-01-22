@@ -84,7 +84,7 @@ const AnimatedDayBox = ({ day, onDelete, onDrag, isActive }) => {
 	)
 }
 
-const AnimatedWeekBox = ({ index, box, onDelete, onDrag, isActive, navigation }) => {
+const WeekContainer = ({ index, week, onDelete, onDrag, isActive, navigation }) => {
 	const [days, setDays] = useState(
 		[		
 			{
@@ -119,7 +119,7 @@ const AnimatedWeekBox = ({ index, box, onDelete, onDrag, isActive, navigation })
 	}
 
 	const handleEditWeek = () => {
-		navigation.navigate('EditWeek', { weekIndex: index, weekData: box })
+		navigation.navigate('EditWeek', { weekIndex: index, weekData: week })
 	}
 
 	const renderItem = ({ item, drag, isActive }) => {
@@ -154,7 +154,7 @@ const AnimatedWeekBox = ({ index, box, onDelete, onDrag, isActive, navigation })
 		// 	/>
 		// </CollapsibleCard>
 		<WeekCard
-			title={`Week ${box.index + 1}`}
+			title={`Week ${week.index + 1}`}
 			content={'some description for the week such as the number of weeks maybe what the program'}
 			onRemove={handleDeleteWeek}
 			onEdit={handleEditWeek}
@@ -180,9 +180,6 @@ const CreateProgramScreen = ({ navigation }) => {
 	//     name: "weeks"
 	// })
 
-	// Create an array to hold animated values for each week
-	// const weekAnimations = weekFields.map(() => useSharedValue(0))
-
 	// Function to append a week and initialize its animation
 	// const handleAddWeek = () => {
 	//     appendWeek({ days: [] })
@@ -194,28 +191,28 @@ const CreateProgramScreen = ({ navigation }) => {
 
 
 
-	const handleRemoveWeek = (boxToRemove) => {
-		const keyToRemove = boxToRemove.key
-		setBoxes((currentBoxes) => currentBoxes.filter((box, index) => box.key !== keyToRemove))
-		console.log(`box with key [${keyToRemove}] removed`)
+	const handleRemoveWeek = (weekToRemove) => {
+		const keyToRemove = weekToRemove.key
+		setWeeks((currentWeeks) => currentWeeks.filter((week, index) => week.key !== keyToRemove))
+		console.log(`week with key [${keyToRemove}] removed`)
 			
-		if (boxes.length < 8) {
+		if (weeks.length < 8) {
 			setDisabledAddWeekButton(false)
 		}
 	}
 
 	const handleAddWeek = () => {
-		if (boxes.length < 8) {
+		if (weeks.length < 8) {
 			
-			const newBoxIndex = boxes.length
+			const newWeekIndex = weeks.length
 
-			setBoxes(prevBoxes => [...prevBoxes, {
+			setWeeks(prevWeeks => [...prevWeeks, {
 				key: generateUniqueId(),
-				index: newBoxIndex,
+				index: newWeekIndex,
 			}])
 
-			if (boxes.length > 1) {
-				const indexToScroll = boxes.length - 1
+			if (weeks.length > 1) {
+				const indexToScroll = weeks.length - 1
 				setTimeout(() => {
 					flatListRef.current?.scrollToIndex({ animated: true, index: indexToScroll });
 				}, 100);
@@ -223,11 +220,7 @@ const CreateProgramScreen = ({ navigation }) => {
 		}
 	}
 
-	const calculateNewBoxPosition = (index) => {
-		return index * 110
-	}
-
-	const [boxes, setBoxes] = useState(
+	const [weeks, setWeeks] = useState(
 		[
 			{
 				key: generateUniqueId(),
@@ -239,8 +232,8 @@ const CreateProgramScreen = ({ navigation }) => {
 	const renderItem = ({ item, drag, isActive }) => {
 		return (
 			<ScaleDecorator>
-				<AnimatedWeekBox
-					box={item}
+				<WeekContainer
+					week={item}
 					index={item.index}
 					onDelete={() => handleRemoveWeek(item)}
 					onDrag={drag}
@@ -261,12 +254,12 @@ const CreateProgramScreen = ({ navigation }) => {
 	const flatListRef = useRef(0)
 
 	useEffect(() => {
-		if (boxes.length > 7) {
+		if (weeks.length > 7) {
 			setDisabledAddWeekButton(true)
 		} else {
 			setDisabledAddWeekButton(false)
 		}
-	}, [boxes])
+	}, [weeks])
 
 	return (
 		// <SafeAreaView>
@@ -296,8 +289,8 @@ const CreateProgramScreen = ({ navigation }) => {
 		<View className="h-full border-red-500 border-4">
 			<SafeAreaView className="flex-1">
 					<DraggableFlatList
-						data={boxes}
-						onDragEnd={({ data }) => setBoxes(data)}
+						data={weeks}
+						onDragEnd={({ data }) => setWeeks(data)}
 						keyExtractor={(item) => item.key}
 						renderItem={renderItem}
 						containerStyle={{ flex: 1 }}
@@ -314,8 +307,6 @@ const CreateProgramScreen = ({ navigation }) => {
 						style={[styles.fabStyle]}
 						disabled={disableAddWeekButton}
 					/>
-				{/* <AnimatedFAB label='Add Week' onPress={handleAddWeek} iconMode='dynamic'>
-				</AnimatedFAB> */}
 			</SafeAreaView>
 		</View>
 	)
