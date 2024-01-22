@@ -1,4 +1,4 @@
-import * as React from 'react'
+import { View } from 'react-native'
 import { Avatar, Card, Text, Button } from 'react-native-paper'
 import { StyleSheet } from 'react-native'
 
@@ -18,7 +18,7 @@ export const WeekCard = ({ title, content, onRemove, onEdit }) => {
         <Text variant="titleLarge">{title}</Text>
         <Text variant="bodyMedium" className="italic">{content}</Text>
       </Card.Content>
-      <Card.Actions>
+      <Card.Actions style={styles.cardActions}>
         <Button icon="trash-can-outline" onPress={onRemove}>Remove</Button>
         <Button icon="pencil-outline" onPress={onEdit}>Edit</Button>
       </Card.Actions>
@@ -29,6 +29,8 @@ export const WeekCard = ({ title, content, onRemove, onEdit }) => {
 const styles = StyleSheet.create({
   container: {
     margin: 8,
-    height: 200
-  }
+  },
+  cardActions: {
+    justifyContent: 'flex-end',
+  },
 })
