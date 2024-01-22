@@ -156,6 +156,9 @@ const AnimatedWeekBox = ({ index, box, onDelete, onDrag, isActive }) => {
 }
 
 const CreateProgramScreen = () => {
+
+	const [disableAddWeekButton, setDisabledAddWeekButton] = useState(false)
+
 	// const { control, handleSubmit, formState: { errors } } = useForm({
 	//     defaultValues: {
 	//         programName: "",
@@ -188,21 +191,28 @@ const CreateProgramScreen = () => {
 		const keyToRemove = boxToRemove.key
 		setBoxes((currentBoxes) => currentBoxes.filter((box, index) => box.key !== keyToRemove))
 		console.log(`box with key [${keyToRemove}] removed`)
+			
+		if (boxes.length < 8) {
+			setDisabledAddWeekButton(false)
+		}
 	}
 
 	const handleAddWeek = () => {
-		const newBoxIndex = boxes.length
+		if (boxes.length < 8) {
+			
+			const newBoxIndex = boxes.length
 
-		setBoxes(prevBoxes => [...prevBoxes, {
-			key: generateUniqueId(),
-			index: newBoxIndex,
-		}])
+			setBoxes(prevBoxes => [...prevBoxes, {
+				key: generateUniqueId(),
+				index: newBoxIndex,
+			}])
 
-		if (boxes.length > 1) {
-			const indexToScroll = boxes.length - 1
-			setTimeout(() => {
-				flatListRef.current?.scrollToIndex({ animated: true, index: indexToScroll });
-			}, 100);
+			if (boxes.length > 1) {
+				const indexToScroll = boxes.length - 1
+				setTimeout(() => {
+					flatListRef.current?.scrollToIndex({ animated: true, index: indexToScroll });
+				}, 100);
+			}
 		}
 	}
 
@@ -241,6 +251,14 @@ const CreateProgramScreen = () => {
   }
 
 	const flatListRef = useRef(0)
+
+	useEffect(() => {
+		if (boxes.length > 7) {
+			setDisabledAddWeekButton(true)
+		} else {
+			setDisabledAddWeekButton(false)
+		}
+	}, [boxes])
 
 	return (
 		// <SafeAreaView>
@@ -286,6 +304,7 @@ const CreateProgramScreen = () => {
 						animateFrom={'right'}
 						iconMode={'dynamic'}
 						style={[styles.fabStyle]}
+						disabled={disableAddWeekButton}
 					/>
 				{/* <AnimatedFAB label='Add Week' onPress={handleAddWeek} iconMode='dynamic'>
 				</AnimatedFAB> */}
