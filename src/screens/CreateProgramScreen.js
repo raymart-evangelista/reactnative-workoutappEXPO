@@ -22,7 +22,7 @@ import DraggableFlatList, { ScaleDecorator, ShadowDecorator, OpacityDecorator } 
 
 import CollapsibleCard from "../components/CollapsibleCard";
 import { AnimatedFAB as AniFAB } from "react-native-paper";
-import { WeekCard } from "../components/Card";
+import { WeekCard, DayCard } from "../components/Card";
 
 
 const AnimatedBoxHeightValue = 50
@@ -35,56 +35,6 @@ const generateUniqueId = () => {
 }
 
 const EditWeekScreen = ({ route, navigation }) => {
-	return (
-		<>
-		</>
-	)
-}
-
-const AnimatedDayBox = ({ day, onDelete, onDrag, isActive }) => {
-	const pressed = useSharedValue(false)
-
-	const tap = Gesture.Tap()
-	.onEnd(() => {
-		pressed.value = !pressed.value
-	})
-
-	handlePress = () => {
-		console.log(`$the key of this day is ${day.key}`)
-	}
-
-	const animatedStyle = useAnimatedStyle(() => {
-		const y = 0
-		return {
-			height: withTiming(pressed.value ? AnimatedDayBoxOpenHeightValue : AnimatedDayBoxClosedHeightValue, {
-				duration: 200,
-			}),
-			transform: [
-				{ translateY: y },
-			],
-		}
-	})
-
-	return (
-		<Animated.View 
-			entering={FadeIn} 
-			style={[styles.dayBox, animatedStyle]}
-		>
-			<TouchableOpacity
-				// style={styles.gestureTapArea}
-				onLongPress={onDrag}
-				disabled={isActive}
-				onPress={handlePress}
-			>
-			<GestureDetector gesture={tap}>
-						<Text>Day</Text>
-			</GestureDetector>
-			</TouchableOpacity>
-		</Animated.View>
-	)
-}
-
-const WeekContainer = ({ index, week, onDelete, onDrag, isActive, navigation }) => {
 	const [days, setDays] = useState(
 		[		
 			{
@@ -95,13 +45,22 @@ const WeekContainer = ({ index, week, onDelete, onDrag, isActive, navigation }) 
 	)
 	const [numDays, setNumDays] = useState(1)
 
-	const [disableAddDays, setDisabledAddDays] = useState(false)
+	const [disableAddDayButton, setDisableAddDayButton] = useState(false)
 
-	const handleDeleteWeek = () => {
+	const [isExtended, setIsExtended] = useState(false)
+
+	const flatListRef = useRef(0)
+
+  const handleScrollOffsetChange = (offset) => {
+		const threshold = 10
+		setIsExtended(offset < threshold)
+  }
+
+	const handleRemoveDay = () => {
 		onDelete()
 		setNumDays(numDays - 1)
 		if (numDays < 7) {
-			setDisabledAddDays(!disableAddDays)
+			setDisableAddDayButton(false)
 		}
 	}
 
@@ -114,6 +73,85 @@ const WeekContainer = ({ index, week, onDelete, onDrag, isActive, navigation }) 
 			}])
 			setNumDays(numDays + 1)
 		} else {
+			setDisableAddDayButton(true)
+		}
+	}
+
+
+
+	const renderItem = ({ item, drag, isActive }) => {
+		return (
+			<ScaleDecorator>
+				<DayContainer
+					day={item}
+					index={item.index}
+					onDelete={() => handleRemoveDay(item)}
+					onDrag={drag}
+					isActive={isActive}
+					navigation={navigation}
+				/>
+			</ScaleDecorator>
+		)
+	}
+
+	return (
+		<View className="h-full border-blue-500 border-4">
+			<SafeAreaView className="flex-1">
+					<DraggableFlatList
+						data={days}
+						onDragEnd={({ data }) => setDays(data)}
+						keyExtractor={(item) => item.key}
+						renderItem={renderItem}
+						containerStyle={{ flex: 1 }}
+						onScrollOffsetChange={handleScrollOffsetChange}
+						ref={flatListRef}
+					/>
+					<AniFAB
+						icon={'plus'}
+						label={'Add Day'}
+						extended={isExtended}
+						onPress={handleAddDay}
+						animateFrom={'right'}
+						iconMode={'dynamic'}
+						style={[styles.fabStyle]}
+						disabled={disableAddDayButton}
+					/>
+			</SafeAreaView>
+		</View>
+	)
+}
+
+const EditDayScreen = ({ route, navigation }) => {
+	return (
+		<View>
+
+		</View>
+	)
+}
+
+const DayContainer = ({ index, day, onDelete, onDrag, isActive, navigation }) => {
+	const handleDeleteDay = () => {
+
+	}
+
+	const handleEditDay = () => {
+		navigation.navigate('EditDay', { dayIndex: index, dayData: day })
+	}
+	return (
+		<DayCard
+		 title={`Day ${day.index + 1}`}
+		 content={'some description for the day such as the number of days maybe what the exercises are?'}
+		 onRemove={handleDeleteDay}
+		 onEdit={handleEditDay}
+		/>
+	)
+}
+
+const WeekContainer = ({ index, week, onDelete, onDrag, isActive, navigation }) => {
+	const handleDeleteWeek = () => {
+		onDelete()
+		setNumDays(numDays - 1)
+		if (numDays < 7) {
 			setDisabledAddDays(!disableAddDays)
 		}
 	}
@@ -122,37 +160,7 @@ const WeekContainer = ({ index, week, onDelete, onDrag, isActive, navigation }) 
 		navigation.navigate('EditWeek', { weekIndex: index, weekData: week })
 	}
 
-	const renderItem = ({ item, drag, isActive }) => {
-		return (
-			<ScaleDecorator>
-				<AnimatedDayBox
-					day={item}
-					index={item.index}
-					// onDelete={() => handleRemoveWeek(item)}
-					onDrag={drag}
-					isActive={isActive}
-				/>
-			</ScaleDecorator>
-		)
-	}
-
 	return (
-		// <CollapsibleCard 
-		// 	headerContent={`Week ${box.index + 1}`} 
-		// 	onLongPress={onDrag} 
-		// 	disabled={isActive}
-		// 	// passedValue={1000}
-		// >
-		// 		<Button mode="contained" onPress={handleEditWeek}>Edit Week</Button>
-		// 		<Button mode="contained" disabled={disableAddDays} onPress={handleAddDay}>Add Day</Button>
-		// 		<Button mode ="contained" onPress={handleDelete}>Delete</Button>
-		// 	<DraggableFlatList
-		// 		data={days}
-		// 		onDragEnd={({ data }) => setDays(data)}
-		// 		keyExtractor={(item) => item.key}
-		// 		renderItem={renderItem}
-		// 	/>
-		// </CollapsibleCard>
 		<WeekCard
 			title={`Week ${week.index + 1}`}
 			content={'some description for the week such as the number of weeks maybe what the program'}
@@ -173,7 +181,7 @@ const CreateProgramScreen = ({ navigation }) => {
 	//     }
 	// })
 
-	const onSubmit = (data) => console.log(data)
+	const onSubmit = (weeks) => console.log(weeks)
 
 	// const { fields: weekFields, append: appendWeek } = useFieldArray({
 	//     control,
@@ -284,10 +292,10 @@ const CreateProgramScreen = ({ navigation }) => {
 		//         <Text>Week {weekIndex + 1}</Text>
 		//         </TouchableOpacity>
 		//         ))}
-		//     <Button onPress={handleSubmit(onSubmit)}>Submit</Button>
 		// </SafeAreaView>
 		<View className="h-full border-red-500 border-4">
 			<SafeAreaView className="flex-1">
+					<Button onPress={() => console.log(weeks)}>Submit</Button>
 					<DraggableFlatList
 						data={weeks}
 						onDragEnd={({ data }) => setWeeks(data)}
@@ -400,4 +408,4 @@ const styles = StyleSheet.create({
 	},
 });
 
-export { CreateProgramScreen, EditWeekScreen }
+export { CreateProgramScreen, EditWeekScreen, EditDayScreen }

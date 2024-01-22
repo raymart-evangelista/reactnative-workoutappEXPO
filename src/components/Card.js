@@ -19,6 +19,24 @@ export const WeekCard = ({ title, content, onRemove, onEdit }) => {
         <Text variant="bodyMedium" className="italic">{content}</Text>
       </Card.Content>
       <Card.Actions style={styles.cardActions}>
+        {/* <Button icon="content-copy" onPress={`sd`}>Copy</Button> */}
+        <Button icon="trash-can-outline" onPress={onRemove}>Remove</Button>
+        <Button icon="pencil-outline" onPress={onEdit}>Edit</Button>
+      </Card.Actions>
+    </Card>
+  )
+}
+
+export const DayCard = ({ title, content, onRemove, onEdit }) => {
+  return (
+    <Card style={styles.container}>
+      {/* <Card.Title title="Card Title" subtitle="Card Subtitle" left={LeftContent} /> */}
+      <Card.Content>
+        <Text variant="titleLarge">{title}</Text>
+        <Text variant="bodyMedium" className="italic">{content}</Text>
+      </Card.Content>
+      <Card.Actions style={styles.cardActions}>
+        {/* <Button icon="content-copy" onPress={`sd`}>Copy</Button> */}
         <Button icon="trash-can-outline" onPress={onRemove}>Remove</Button>
         <Button icon="pencil-outline" onPress={onEdit}>Edit</Button>
       </Card.Actions>
