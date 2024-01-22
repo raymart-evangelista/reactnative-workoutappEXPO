@@ -6,7 +6,7 @@ import Card from "../components/CardDepricated";
 import programsService from "../services/programs";
 
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import CreateProgramScreen from "./CreateProgramScreen";
+import { CreateProgramScreen, EditWeekScreen } from "./CreateProgramScreen";
 const ExistingProgramsStack = createNativeStackNavigator()
 
 export function ExistingProgramsStackScreen() {
@@ -14,6 +14,7 @@ export function ExistingProgramsStackScreen() {
     <ExistingProgramsStack.Navigator>
       <ExistingProgramsStack.Screen name="CreateProgram" component={CreateProgramScreen} />
       <ExistingProgramsStack.Screen name="ExistingPrograms" component={ExistingProgramsScreen}/>
+      <ExistingProgramsStack.Screen name="EditWeek" component={EditWeekScreen} />
     </ExistingProgramsStack.Navigator>
   )
 }

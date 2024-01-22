@@ -34,6 +34,13 @@ const generateUniqueId = () => {
 	return uuid.v4()
 }
 
+const EditWeekScreen = ({ route, navigation }) => {
+	return (
+		<>
+		</>
+	)
+}
+
 const AnimatedDayBox = ({ day, onDelete, onDrag, isActive }) => {
 	const pressed = useSharedValue(false)
 
@@ -77,7 +84,7 @@ const AnimatedDayBox = ({ day, onDelete, onDrag, isActive }) => {
 	)
 }
 
-const AnimatedWeekBox = ({ index, box, onDelete, onDrag, isActive }) => {
+const AnimatedWeekBox = ({ index, box, onDelete, onDrag, isActive, navigation }) => {
 	const [days, setDays] = useState(
 		[		
 			{
@@ -112,7 +119,7 @@ const AnimatedWeekBox = ({ index, box, onDelete, onDrag, isActive }) => {
 	}
 
 	const handleEditWeek = () => {
-
+		navigation.navigate('EditWeek', { weekIndex: index, weekData: box })
 	}
 
 	const renderItem = ({ item, drag, isActive }) => {
@@ -155,7 +162,7 @@ const AnimatedWeekBox = ({ index, box, onDelete, onDrag, isActive }) => {
 	)
 }
 
-const CreateProgramScreen = () => {
+const CreateProgramScreen = ({ navigation }) => {
 
 	const [disableAddWeekButton, setDisabledAddWeekButton] = useState(false)
 
@@ -238,6 +245,7 @@ const CreateProgramScreen = () => {
 					onDelete={() => handleRemoveWeek(item)}
 					onDrag={drag}
 					isActive={isActive}
+					navigation={navigation}
 				/>
 			</ScaleDecorator>
 		)
@@ -401,4 +409,4 @@ const styles = StyleSheet.create({
 	},
 });
 
-export default CreateProgramScreen;
+export { CreateProgramScreen, EditWeekScreen }
