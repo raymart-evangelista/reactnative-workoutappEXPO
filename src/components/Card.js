@@ -19,10 +19,10 @@ export const WeekCard = ({ title, content, onRemove, onEdit }) => {
         <Text variant="bodyMedium" className="italic">{content}</Text>
       </Card.Content>
       <Card.Actions>
-      <Button icon="trash-can-outline" onPress={onRemove}>Remove</Button>
-      <Button icon="pencil-outline" onPress={onEdit}>Edit</Button>
-    </Card.Actions>
-  </Card>
+        <Button icon="trash-can-outline" onPress={onRemove}>Remove</Button>
+        <Button icon="pencil-outline" onPress={onEdit}>Edit</Button>
+      </Card.Actions>
+    </Card>
   )
 }
 
