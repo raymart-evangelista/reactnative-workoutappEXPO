@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { TouchableOpacity, View, StyleSheet, Dimensions, SafeAreaView } from "react-native";
 import { Button, Text, Title, RadioButton, List, useTheme } from 'react-native-paper';
 import * as Yup from 'yup';
@@ -22,6 +22,7 @@ import DraggableFlatList, { ScaleDecorator, ShadowDecorator, OpacityDecorator } 
 
 import CollapsibleCard from "../components/CollapsibleCard";
 import { AnimatedFAB as AniFAB } from "react-native-paper";
+import { WeekCard } from "../components/Card";
 
 
 const AnimatedBoxHeightValue = 50
@@ -89,7 +90,7 @@ const AnimatedWeekBox = ({ index, box, onDelete, onDrag, isActive }) => {
 
 	const [disableAddDays, setDisabledAddDays] = useState(false)
 
-	const handleDelete = () => {
+	const handleDeleteWeek = () => {
 		onDelete()
 		setNumDays(numDays - 1)
 		if (numDays < 7) {
@@ -129,51 +130,28 @@ const AnimatedWeekBox = ({ index, box, onDelete, onDrag, isActive }) => {
 	}
 
 	return (
-		<CollapsibleCard 
-			headerContent={`Week ${box.index + 1}`} 
-			onLongPress={onDrag} 
-			disabled={isActive}
-			// passedValue={1000}
-		>
-				<Button mode="contained" onPress={handleEditWeek}>Edit Week</Button>
-				<Button mode="contained" disabled={disableAddDays} onPress={handleAddDay}>Add Day</Button>
-				<Button mode ="contained" onPress={handleDelete}>Delete</Button>
-			<DraggableFlatList
-				data={days}
-				onDragEnd={({ data }) => setDays(data)}
-				keyExtractor={(item) => item.key}
-				renderItem={renderItem}
-			/>
-		</CollapsibleCard>
-		// <Animated.View
-		// 	// className="border-2 border-rose-600" 
-		// 	entering={FadeIn}
-		// 	style={[styles.weekBox, animatedStyle]}
+		// <CollapsibleCard 
+		// 	headerContent={`Week ${box.index + 1}`} 
+		// 	onLongPress={onDrag} 
+		// 	disabled={isActive}
+		// 	// passedValue={1000}
 		// >
-		// 	<GestureDetector gesture={tap}>
-				// <TouchableOpacity
-				// 	// className="border-2 border-blue-600" 
-				// 	style={styles.gestureTapArea}
-				// 	onLongPress={onDrag}
-				// 	disabled={isActive}
-				// >
-		// 			<Text>Week {box.index + 1}</Text>
-		// 		</TouchableOpacity>
-		// 	</GestureDetector>
-
-		// 	<Animated.View style={[animatedContentStyle]}>
-		// 		{/* <TouchableOpacity onLongPress={onDrag} disabled={isActive} > */}
-					// <Button mode="contained" onPress={handleAddDay}>Add Day</Button>
-					// <Button mode ="contained" onPress={handleDelete}>Delete</Button>
-    //         <DraggableFlatList
-    //             data={days}
-    //             onDragEnd={({ data }) => setDays(data)}
-    //             keyExtractor={(item) => item.key}
-    //             renderItem={renderItem}
-    //         />
-		// 		{/* </TouchableOpacity> */}
-		// 	</Animated.View>
-		// </Animated.View>
+		// 		<Button mode="contained" onPress={handleEditWeek}>Edit Week</Button>
+		// 		<Button mode="contained" disabled={disableAddDays} onPress={handleAddDay}>Add Day</Button>
+		// 		<Button mode ="contained" onPress={handleDelete}>Delete</Button>
+		// 	<DraggableFlatList
+		// 		data={days}
+		// 		onDragEnd={({ data }) => setDays(data)}
+		// 		keyExtractor={(item) => item.key}
+		// 		renderItem={renderItem}
+		// 	/>
+		// </CollapsibleCard>
+		<WeekCard
+			title={`Week ${box.index + 1}`}
+			content={'some description for the week such as the number of weeks maybe what the program'}
+			onRemove={handleDeleteWeek}
+			onEdit={handleEditWeek}
+		/>
 	)
 }
 
@@ -214,11 +192,18 @@ const CreateProgramScreen = () => {
 
 	const handleAddWeek = () => {
 		const newBoxIndex = boxes.length
+
 		setBoxes(prevBoxes => [...prevBoxes, {
 			key: generateUniqueId(),
 			index: newBoxIndex,
 		}])
-		console.log(boxes)
+
+		if (boxes.length > 1) {
+			const indexToScroll = boxes.length - 1
+			setTimeout(() => {
+				flatListRef.current?.scrollToIndex({ animated: true, index: indexToScroll });
+			}, 100);
+		}
 	}
 
 	const calculateNewBoxPosition = (index) => {
@@ -255,6 +240,8 @@ const CreateProgramScreen = () => {
 		setIsExtended(offset < threshold)
   }
 
+	const flatListRef = useRef(0)
+
 	return (
 		// <SafeAreaView>
 		//     <Controller
@@ -289,6 +276,7 @@ const CreateProgramScreen = () => {
 						renderItem={renderItem}
 						containerStyle={{ flex: 1 }}
 						onScrollOffsetChange={handleScrollOffsetChange}
+						ref={flatListRef}
 					/>
 					<AniFAB
 						icon={'plus'}
