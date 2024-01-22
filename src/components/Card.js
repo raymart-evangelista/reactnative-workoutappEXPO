@@ -1,21 +1,34 @@
 import * as React from 'react'
 import { Avatar, Card, Text, Button } from 'react-native-paper'
+import { StyleSheet } from 'react-native'
 
 const LeftContent = (props) => <Avatar.Icon {...props } icon="folder" />
 
-export const WeekCard = ({ title, content, }) => {
+{/* 
+  the title will be the Week number
+  the content will be the day names and exercises
+*/}
+
+
+export const WeekCard = ({ title, content, onRemove, onEdit }) => {
   return (
-    <Card>
-      <Card.Title title="Card Title" subtitle="Card Subtitle" left={LeftContent} />
+    <Card style={styles.container}>
+      {/* <Card.Title title="Card Title" subtitle="Card Subtitle" left={LeftContent} /> */}
       <Card.Content>
-        <Text variant="titleLarge">Card title</Text>
-        <Text variant="bodyMedium">Card content</Text>
+        <Text variant="titleLarge">{title}</Text>
+        <Text variant="bodyMedium" className="italic">{content}</Text>
       </Card.Content>
-      <Card.Cover source={{ uri: 'https://picsum.photos/700' }} />
       <Card.Actions>
-      <Button icon="trash-can-outline">Remove</Button>
-      <Button icon="pencil-outline">Edit</Button>
+      <Button icon="trash-can-outline" onPress={onRemove}>Remove</Button>
+      <Button icon="pencil-outline" onPress={onEdit}>Edit</Button>
     </Card.Actions>
   </Card>
   )
 }
+
+const styles = StyleSheet.create({
+  container: {
+    margin: 8,
+    height: 200
+  }
+})
