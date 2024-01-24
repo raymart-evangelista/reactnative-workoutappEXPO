@@ -165,6 +165,7 @@ const WeekContainer = ({ index, week, onDelete, onDrag, isActive, navigation }) 
 
 	return (
 		<WeekCard
+			weekId={week.id}
 			// title={`Week ${week.index + 1}`}
 			title={week.title}
 			content={week.description}

@@ -1,6 +1,7 @@
 import { View } from 'react-native'
 import { Avatar, Card, Text, Button } from 'react-native-paper'
 import { StyleSheet } from 'react-native'
+import { RemoveWeek } from '../features/weeks/RemoveWeek'
 
 const LeftContent = (props) => <Avatar.Icon {...props } icon="folder" />
 
@@ -10,7 +11,7 @@ const LeftContent = (props) => <Avatar.Icon {...props } icon="folder" />
 */}
 
 
-export const WeekCard = ({ title, content, onRemove, onEdit }) => {
+export const WeekCard = ({ weekId, title, content, onRemove, onEdit }) => {
   return (
     <Card style={styles.container}>
       {/* <Card.Title title="Card Title" subtitle="Card Subtitle" left={LeftContent} /> */}
@@ -20,7 +21,8 @@ export const WeekCard = ({ title, content, onRemove, onEdit }) => {
       </Card.Content>
       <Card.Actions style={styles.cardActions}>
         {/* <Button icon="content-copy" onPress={`sd`}>Copy</Button> */}
-        <Button icon="trash-can-outline" onPress={onRemove}>Remove</Button>
+        {/* <Button icon="trash-can-outline" onPress={onRemove}>Remove</Button> */}
+        <RemoveWeek weekId={weekId} />
         <Button icon="pencil-outline" onPress={onEdit}>Edit</Button>
       </Card.Actions>
     </Card>
