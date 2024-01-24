@@ -24,6 +24,9 @@ import CollapsibleCard from "../components/CollapsibleCard";
 import { AnimatedFAB as AniFAB } from "react-native-paper";
 import { WeekCard, DayCard } from "../components/Card";
 
+import { useSelector } from "react-redux";
+import { AddWeek } from "../features/weeks/AddWeek";
+
 
 const AnimatedBoxHeightValue = 50
 const AnimatedDayBoxClosedWidthValue = '100%'
@@ -228,14 +231,16 @@ const CreateProgramScreen = ({ navigation }) => {
 		}
 	}
 
-	const [weeks, setWeeks] = useState(
-		[
-			{
-				key: generateUniqueId(),
-				index: 0,
-			}
-		]
-	)
+	// const [weeks, setWeeks] = useState(
+	// 	[
+	// 		{
+	// 			key: generateUniqueId(),
+	// 			index: 0,
+	// 		}
+	// 	]
+	// )
+
+	const weeks = useSelector(state => state.weeks)
 
 	const renderItem = ({ item, drag, isActive }) => {
 		return (
@@ -305,7 +310,8 @@ const CreateProgramScreen = ({ navigation }) => {
 						onScrollOffsetChange={handleScrollOffsetChange}
 						ref={flatListRef}
 					/>
-					<AniFAB
+					<AddWeek />
+					{/* <AniFAB
 						icon={'plus'}
 						label={'Add Week'}
 						extended={isExtended}
@@ -314,7 +320,7 @@ const CreateProgramScreen = ({ navigation }) => {
 						iconMode={'dynamic'}
 						style={[styles.fabStyle]}
 						disabled={disableAddWeekButton}
-					/>
+					/> */}
 			</SafeAreaView>
 		</View>
 	)
