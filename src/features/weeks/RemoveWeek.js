@@ -12,6 +12,6 @@ export const RemoveWeek = ({ weekId }) => {
   }
 
   return (
-    <Button icon="trash-can-outline" onPress={onRemoveWeekClicked}>Remove</Button>
+    <Button icon="trash-can-outline" mode="outlined" onPress={onRemoveWeekClicked}>Remove</Button>
   )
 }
