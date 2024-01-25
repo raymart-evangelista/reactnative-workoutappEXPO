@@ -12,7 +12,12 @@ const initialState = [
     id: nanoid(),
     title: 'default week title',
     description: 'default week description',
-    index: 0
+    index: 0,
+    days: [{
+      id: nanoid(),
+      title: 'untitled day',
+      description: 'default day description',
+    }],
   }
 ]
 
@@ -25,6 +30,13 @@ export const weeksSlice = createSlice({
     },
     weekRemoved: (state, action) => {
       return state.filter(week => week.id !== action.payload.id)
+    },
+    dayAdded: (state, action) => {
+      const { weekId, day } = action.payload
+      const week = state.find(week => week.id === weekId)
+      if (week) {
+        week.days.push(day)
+      }
     }
   }
 })
@@ -37,5 +49,5 @@ export const weeksSlice = createSlice({
 
 // export const selectWeek = state => state.counter.value
 
-export const { weekAdded, weekRemoved } = weeksSlice.actions
+export const { weekAdded, weekRemoved, dayAdded } = weeksSlice.actions
 export default weeksSlice.reducer

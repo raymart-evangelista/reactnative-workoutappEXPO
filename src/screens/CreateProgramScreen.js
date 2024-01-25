@@ -26,6 +26,7 @@ import { WeekCard, DayCard } from "../components/Card";
 
 import { useSelector } from "react-redux";
 import { AddWeek } from "../features/weeks/AddWeek";
+import { AddDay } from "../features/weeks/days/AddDay";
 
 
 const AnimatedBoxHeightValue = 50
@@ -37,15 +38,15 @@ const generateUniqueId = () => {
 	return uuid.v4()
 }
 
-const EditWeekScreen = ({ route, navigation }) => {
-	const [days, setDays] = useState(
-		[		
-			{
-				key: generateUniqueId(),
-				index: 0
-			}
-		]
-	)
+const EditWeekScreen = ({ route, navigation, weekId }) => {
+	console.log(weekId)
+	const days = useSelector(state => {
+		const week = state.weeks.find(week => week.id === weekId)
+		return week ? week.days : []
+	})
+
+	console.log(days)
+
 	const [numDays, setNumDays] = useState(1)
 
 	const [disableAddDayButton, setDisableAddDayButton] = useState(false)
@@ -109,7 +110,8 @@ const EditWeekScreen = ({ route, navigation }) => {
 						onScrollOffsetChange={handleScrollOffsetChange}
 						ref={flatListRef}
 					/>
-					<AniFAB
+					<AddDay />
+					{/* <AniFAB
 						icon={'plus'}
 						label={'Add Day'}
 						extended={isExtended}
@@ -118,7 +120,8 @@ const EditWeekScreen = ({ route, navigation }) => {
 						iconMode={'dynamic'}
 						style={[styles.fabStyle]}
 						disabled={disableAddDayButton}
-					/>
+					/> */}
+
 			</SafeAreaView>
 		</View>
 	)
@@ -160,7 +163,7 @@ const WeekContainer = ({ index, week, onDelete, onDrag, isActive, navigation }) 
 	}
 
 	const handleEditWeek = () => {
-		navigation.navigate('EditWeek', { weekIndex: index, weekData: week })
+		navigation.navigate('EditWeek', { weekId: week.id, weekIndex: index, weekData: week })
 	}
 
 	return (
@@ -169,7 +172,7 @@ const WeekContainer = ({ index, week, onDelete, onDrag, isActive, navigation }) 
 			// title={`Week ${week.index + 1}`}
 			title={week.title}
 			content={week.description}
-			onRemove={handleDeleteWeek}
+			// onRemove={handleDeleteWeek}
 			onEdit={handleEditWeek}
 		/>
 	)
