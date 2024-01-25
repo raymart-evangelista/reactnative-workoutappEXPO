@@ -38,8 +38,8 @@ const generateUniqueId = () => {
 	return uuid.v4()
 }
 
-const EditWeekScreen = ({ route, navigation, weekId }) => {
-	console.log(weekId)
+const EditWeekScreen = ({ route, navigation }) => {
+	const weekId = route.params.weekId
 	const days = useSelector(state => {
 		const week = state.weeks.find(week => week.id === weekId)
 		return week ? week.days : []
