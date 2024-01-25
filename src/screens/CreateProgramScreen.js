@@ -34,10 +34,6 @@ const AnimatedDayBoxClosedWidthValue = '100%'
 const AnimatedDayBoxClosedHeightValue = 80
 const AnimatedDayBoxOpenHeightValue = 200
 
-const generateUniqueId = () => {
-	return uuid.v4()
-}
-
 const EditWeekScreen = ({ route, navigation }) => {
 	const weekId = route.params.weekId
 	const days = useSelector(state => {
@@ -47,10 +43,6 @@ const EditWeekScreen = ({ route, navigation }) => {
 
 	console.log(days)
 
-	const [numDays, setNumDays] = useState(1)
-
-	const [disableAddDayButton, setDisableAddDayButton] = useState(false)
-
 	const [isExtended, setIsExtended] = useState(false)
 
 	const flatListRef = useRef(0)
@@ -59,29 +51,6 @@ const EditWeekScreen = ({ route, navigation }) => {
 		const threshold = 10
 		setIsExtended(offset < threshold)
   }
-
-	const handleRemoveDay = () => {
-		onDelete()
-		setNumDays(numDays - 1)
-		if (numDays < 7) {
-			setDisableAddDayButton(false)
-		}
-	}
-
-	const handleAddDay = () => {
-		if (numDays < 7 ) {
-			const newDayIndex = days.length
-			setDays(prevDays => [...prevDays, {
-				key: generateUniqueId(),
-				index: newDayIndex,
-			}])
-			setNumDays(numDays + 1)
-		} else {
-			setDisableAddDayButton(true)
-		}
-	}
-
-
 
 	const renderItem = ({ item, drag, isActive }) => {
 		return (
@@ -111,17 +80,6 @@ const EditWeekScreen = ({ route, navigation }) => {
 						ref={flatListRef}
 					/>
 					<AddDay />
-					{/* <AniFAB
-						icon={'plus'}
-						label={'Add Day'}
-						extended={isExtended}
-						onPress={handleAddDay}
-						animateFrom={'right'}
-						iconMode={'dynamic'}
-						style={[styles.fabStyle]}
-						disabled={disableAddDayButton}
-					/> */}
-
 			</SafeAreaView>
 		</View>
 	)
@@ -217,34 +175,6 @@ const CreateProgramScreen = ({ navigation }) => {
 		}
 	}
 
-	const handleAddWeek = () => {
-		if (weeks.length < 8) {
-			
-			const newWeekIndex = weeks.length
-
-			setWeeks(prevWeeks => [...prevWeeks, {
-				key: generateUniqueId(),
-				index: newWeekIndex,
-			}])
-
-			if (weeks.length > 1) {
-				const indexToScroll = weeks.length - 1
-				setTimeout(() => {
-					flatListRef.current?.scrollToIndex({ animated: true, index: indexToScroll });
-				}, 100);
-			}
-		}
-	}
-
-	// const [weeks, setWeeks] = useState(
-	// 	[
-	// 		{
-	// 			key: generateUniqueId(),
-	// 			index: 0,
-	// 		}
-	// 	]
-	// )
-
 	const weeks = useSelector(state => state.weeks)
 
 	const renderItem = ({ item, drag, isActive }) => {
@@ -316,16 +246,6 @@ const CreateProgramScreen = ({ navigation }) => {
 						ref={flatListRef}
 					/>
 					<AddWeek />
-					{/* <AniFAB
-						icon={'plus'}
-						label={'Add Week'}
-						extended={isExtended}
-						onPress={handleAddWeek}
-						animateFrom={'right'}
-						iconMode={'dynamic'}
-						style={[styles.fabStyle]}
-						disabled={disableAddWeekButton}
-					/> */}
 			</SafeAreaView>
 		</View>
 	)
