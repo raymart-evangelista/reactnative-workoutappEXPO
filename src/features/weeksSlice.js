@@ -37,6 +37,13 @@ export const weeksSlice = createSlice({
       if (week) {
         week.days.push(day)
       }
+    },
+    dayRemoved: (state, action) => {
+      const { weekId, dayId } = action.payload
+      const week = state.find(week => week.id === weekId)
+      if (week) {
+        week.days = week.days.filter(day => day.id !== dayId)
+      }
     }
   }
 })
@@ -49,5 +56,5 @@ export const weeksSlice = createSlice({
 
 // export const selectWeek = state => state.counter.value
 
-export const { weekAdded, weekRemoved, dayAdded } = weeksSlice.actions
+export const { weekAdded, weekRemoved, dayAdded, dayRemoved } = weeksSlice.actions
 export default weeksSlice.reducer

@@ -56,6 +56,7 @@ const EditWeekScreen = ({ route, navigation }) => {
 		return (
 			<ScaleDecorator>
 				<DayContainer
+					weekId={weekId}
 					day={item}
 					index={item.index}
 					onDelete={() => handleRemoveDay(item)}
@@ -93,7 +94,7 @@ const EditDayScreen = ({ route, navigation }) => {
 	)
 }
 
-const DayContainer = ({ index, day, onDelete, onDrag, isActive, navigation }) => {
+const DayContainer = ({ weekId, index, day, onDelete, onDrag, isActive, navigation }) => {
 	const handleDeleteDay = () => {
 
 	}
@@ -104,10 +105,12 @@ const DayContainer = ({ index, day, onDelete, onDrag, isActive, navigation }) =>
 
 	return (
 		<DayCard
-		 title={day.title}
-		 content={day.description}
-		 onRemove={handleDeleteDay}
-		 onEdit={handleEditDay}
+			weekId={weekId}
+			dayId={day.id}
+			title={day.title}
+			content={day.description}
+			onRemove={handleDeleteDay}
+			onEdit={handleEditDay}
 		/>
 	)
 }
