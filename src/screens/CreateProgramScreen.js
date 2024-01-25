@@ -79,7 +79,7 @@ const EditWeekScreen = ({ route, navigation }) => {
 						onScrollOffsetChange={handleScrollOffsetChange}
 						ref={flatListRef}
 					/>
-					<AddDay />
+					<AddDay weekId={weekId} />
 			</SafeAreaView>
 		</View>
 	)
@@ -101,10 +101,11 @@ const DayContainer = ({ index, day, onDelete, onDrag, isActive, navigation }) =>
 	const handleEditDay = () => {
 		navigation.navigate('EditDay', { dayIndex: index, dayData: day })
 	}
+
 	return (
 		<DayCard
-		 title={`Day ${day.index + 1}`}
-		 content={'some description for the day such as the number of days maybe what the exercises are?'}
+		 title={day.title}
+		 content={day.description}
 		 onRemove={handleDeleteDay}
 		 onEdit={handleEditDay}
 		/>
@@ -112,14 +113,6 @@ const DayContainer = ({ index, day, onDelete, onDrag, isActive, navigation }) =>
 }
 
 const WeekContainer = ({ index, week, onDelete, onDrag, isActive, navigation }) => {
-	const handleDeleteWeek = () => {
-		onDelete()
-		setNumDays(numDays - 1)
-		if (numDays < 7) {
-			setDisabledAddDays(!disableAddDays)
-		}
-	}
-
 	const handleEditWeek = () => {
 		navigation.navigate('EditWeek', { weekId: week.id, weekIndex: index, weekData: week })
 	}
