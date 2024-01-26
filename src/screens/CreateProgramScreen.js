@@ -87,10 +87,43 @@ const EditWeekScreen = ({ route, navigation }) => {
 }
 
 const EditDayScreen = ({ route, navigation }) => {
-	return (
-		<View>
+	console.log(route)
+	const weekId = route.params.weekId
+	const dayId = route.params.day.id
 
+	const exercises = useSelector(state => {
+		const week = state.weeks.find(week => week.id === weekId)
+		if (!week) return []
+
+		const day = week.days.find(day => day.id === dayId)
+		return day ? day.exercises : []
+	})
+
+	const renderItem = ({ item, drag, isActive }) => {
+		return (
+			<ScaleDecorator>
+				<ExerciseContainer/>
+			</ScaleDecorator>
+		)
+	}
+	return (
+		<View className="h-full border-green-500 border-4">
+			<SafeAreaView className="flex-1">
+				{/* <DraggableFlatList
+					data={exercises}
+					onDragEnd={({ data }) => setExercises(data)}
+					keyExtractor={(item) => item.key}
+					renderItem={renderItem}
+					containerStyle={{ flex: 1 }}
+				/> */}
+			</SafeAreaView>
 		</View>
+	)
+}
+
+const ExerciseContainer = ({}) => {
+	return (
+		<Text>Hello</Text>
 	)
 }
 
@@ -100,7 +133,7 @@ const DayContainer = ({ weekId, index, day, onDelete, onDrag, isActive, navigati
 	}
 
 	const handleEditDay = () => {
-		navigation.navigate('EditDay', { dayIndex: index, dayData: day })
+		navigation.navigate('EditDay', { weekId, day })
 	}
 
 	return (
