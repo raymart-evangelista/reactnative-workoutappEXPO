@@ -12,7 +12,6 @@ const initialState = [
     id: nanoid(),
     title: 'default week title',
     description: 'default week description',
-    index: 0,
     days: [
       {
         id: nanoid(),
