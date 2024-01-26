@@ -47,6 +47,22 @@ export const DayCard = ({ weekId, dayId, title, content, onRemove, onEdit }) => 
   )
 }
 
+export const ExerciseCard = ({ weekId, dayId, exerciseId, title, content, onRemove, onEdit }) => {
+  return (
+    <Card style={styles.container}>
+      {/* <Card.Title title="Card Title" subtitle="Card Subtitle" left={LeftContent} /> */}
+      <Card.Content>
+        <Text variant="titleLarge">{exerciseId}</Text>
+        <Text variant="bodyMedium" className="italic">{content}</Text>
+      </Card.Content>
+      <Card.Actions style={styles.cardActions}>
+        {/* <RemoveDay weekId={weekId} dayId={dayId} /> */}
+        {/* <Button icon="pencil-outline" onPress={onEdit}>Edit</Button> */}
+      </Card.Actions>
+    </Card>
+  )
+}
+
 const styles = StyleSheet.create({
   container: {
     margin: 8,

@@ -22,11 +22,12 @@ import DraggableFlatList, { ScaleDecorator, ShadowDecorator, OpacityDecorator } 
 
 import CollapsibleCard from "../components/CollapsibleCard";
 import { AnimatedFAB as AniFAB } from "react-native-paper";
-import { WeekCard, DayCard } from "../components/Card";
+import { WeekCard, DayCard, ExerciseCard } from "../components/Card";
 
 import { useSelector } from "react-redux";
 import { AddWeek } from "../features/weeks/AddWeek";
 import { AddDay } from "../features/weeks/days/AddDay";
+import { AddExercise } from "../features/weeks/days/exercises/AddExercise";
 
 
 const AnimatedBoxHeightValue = 50
@@ -36,12 +37,11 @@ const AnimatedDayBoxOpenHeightValue = 200
 
 const EditWeekScreen = ({ route, navigation }) => {
 	const weekId = route.params.weekId
+
 	const days = useSelector(state => {
 		const week = state.weeks.find(week => week.id === weekId)
 		return week ? week.days : []
 	})
-
-	console.log(days)
 
 	const [isExtended, setIsExtended] = useState(false)
 
@@ -59,7 +59,7 @@ const EditWeekScreen = ({ route, navigation }) => {
 					weekId={weekId}
 					day={item}
 					index={item.index}
-					onDelete={() => handleRemoveDay(item)}
+					// onDelete={() => handleRemoveDay(item)}
 					onDrag={drag}
 					isActive={isActive}
 					navigation={navigation}
@@ -87,7 +87,6 @@ const EditWeekScreen = ({ route, navigation }) => {
 }
 
 const EditDayScreen = ({ route, navigation }) => {
-	console.log(route)
 	const weekId = route.params.weekId
 	const dayId = route.params.day.id
 
@@ -102,36 +101,49 @@ const EditDayScreen = ({ route, navigation }) => {
 	const renderItem = ({ item, drag, isActive }) => {
 		return (
 			<ScaleDecorator>
-				<ExerciseContainer/>
+				<ExerciseContainer
+					weekId={weekId}
+					dayId={dayId}
+					exercise={item}
+					onDrag={drag}
+					isActive={isActive}
+					navigation={navigation}
+				/>
 			</ScaleDecorator>
 		)
 	}
 	return (
 		<View className="h-full border-green-500 border-4">
 			<SafeAreaView className="flex-1">
-				{/* <DraggableFlatList
+				<DraggableFlatList
 					data={exercises}
 					onDragEnd={({ data }) => setExercises(data)}
 					keyExtractor={(item) => item.key}
 					renderItem={renderItem}
 					containerStyle={{ flex: 1 }}
-				/> */}
+				/>
+				<AddExercise weekId={weekId} dayId={dayId} />
 			</SafeAreaView>
 		</View>
 	)
 }
 
-const ExerciseContainer = ({}) => {
+const ExerciseContainer = ({ weekId, dayId, exercise, onDrag, isActive, navigation }) => {
+	const handleEditExercise = () => {
+		// navigation.navigate('EditExercise', { weekId, dayId, exercise })
+		console.log('inside handleEditExercise')
+	}
 	return (
-		<Text>Hello</Text>
+		<ExerciseCard
+			weekId={weekId}
+			dayId={dayId}
+			exerciseId={exercise.id}
+			onEdit={handleEditExercise}
+		/>
 	)
 }
 
-const DayContainer = ({ weekId, index, day, onDelete, onDrag, isActive, navigation }) => {
-	const handleDeleteDay = () => {
-
-	}
-
+const DayContainer = ({ weekId, day, onDelete, onDrag, isActive, navigation }) => {
 	const handleEditDay = () => {
 		navigation.navigate('EditDay', { weekId, day })
 	}
@@ -142,15 +154,15 @@ const DayContainer = ({ weekId, index, day, onDelete, onDrag, isActive, navigati
 			dayId={day.id}
 			title={day.title}
 			content={day.description}
-			onRemove={handleDeleteDay}
+			// onRemove={handleDeleteDay}
 			onEdit={handleEditDay}
 		/>
 	)
 }
 
-const WeekContainer = ({ index, week, onDelete, onDrag, isActive, navigation }) => {
+const WeekContainer = ({ week, onDelete, onDrag, isActive, navigation }) => {
 	const handleEditWeek = () => {
-		navigation.navigate('EditWeek', { weekId: week.id, weekIndex: index, weekData: week })
+		navigation.navigate('EditWeek', { weekId: week.id })
 	}
 
 	return (
