@@ -117,7 +117,7 @@ const EditDayScreen = ({ route, navigation }) => {
 			<SafeAreaView className="flex-1">
 				<DraggableFlatList
 					data={exercises}
-					onDragEnd={({ data }) => setExercises(data)}
+					// onDragEnd={({ data }) => setExercises(data)}
 					keyExtractor={(item) => item.id}
 					renderItem={renderItem}
 					containerStyle={{ flex: 1 }}

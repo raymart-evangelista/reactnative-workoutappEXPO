@@ -58,7 +58,7 @@ export const weeksSlice = createSlice({
       if (week) {
         const day = week.days.find(day => day.id === dayId)
         if (day) {
-          day.exercises = day.exercises.push(exercise)
+          day.exercises = [...day.exercises, { ...exercise, id: nanoid() }];
         }
       }
     }

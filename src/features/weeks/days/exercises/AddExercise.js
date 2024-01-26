@@ -14,7 +14,6 @@ export const AddExercise = ({ weekId, dayId }) => {
         weekId,
         dayId,
         exercise: {
-          id: nanoid(),
         }
       })
     )
