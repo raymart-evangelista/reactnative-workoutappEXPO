@@ -154,7 +154,6 @@ const DayContainer = ({ weekId, day, onDelete, onDrag, isActive, navigation }) =
 			dayId={day.id}
 			title={day.title}
 			content={day.description}
-			// onRemove={handleDeleteDay}
 			onEdit={handleEditDay}
 		/>
 	)
@@ -168,10 +167,8 @@ const WeekContainer = ({ week, onDelete, onDrag, isActive, navigation }) => {
 	return (
 		<WeekCard
 			weekId={week.id}
-			// title={`Week ${week.index + 1}`}
 			title={week.title}
 			content={week.description}
-			// onRemove={handleDeleteWeek}
 			onEdit={handleEditWeek}
 		/>
 	)
