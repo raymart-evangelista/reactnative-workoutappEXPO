@@ -74,7 +74,7 @@ const EditWeekScreen = ({ route, navigation }) => {
 					<DraggableFlatList
 						data={days}
 						onDragEnd={({ data }) => setDays(data)}
-						keyExtractor={(item) => item.key}
+						keyExtractor={(item) => item.id}
 						renderItem={renderItem}
 						containerStyle={{ flex: 1 }}
 						onScrollOffsetChange={handleScrollOffsetChange}
@@ -118,7 +118,7 @@ const EditDayScreen = ({ route, navigation }) => {
 				<DraggableFlatList
 					data={exercises}
 					onDragEnd={({ data }) => setExercises(data)}
-					keyExtractor={(item) => item.key}
+					keyExtractor={(item) => item.id}
 					renderItem={renderItem}
 					containerStyle={{ flex: 1 }}
 				/>
@@ -280,7 +280,7 @@ const CreateProgramScreen = ({ navigation }) => {
 					<DraggableFlatList
 						data={weeks}
 						onDragEnd={({ data }) => setWeeks(data)}
-						keyExtractor={(item) => item.key}
+						keyExtractor={(item) => item.id}
 						renderItem={renderItem}
 						containerStyle={{ flex: 1 }}
 						onScrollOffsetChange={handleScrollOffsetChange}
