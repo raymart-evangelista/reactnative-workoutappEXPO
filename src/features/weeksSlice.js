@@ -60,6 +60,16 @@ export const weeksSlice = createSlice({
           day.exercises = [...day.exercises, { ...exercise, id: nanoid() }];
         }
       }
+    },
+    exerciseRemoved: (state, action) => {
+      const { weekId, dayId, exerciseId } = action.payload
+      const week = state.find(week => week.id === weekId)
+      if (week) {
+        const day = week.days.find(day => day.id === dayId)
+        if (day) {
+          day.exercises = day.exercises.filter(exercise => exercise.id !== exerciseId)
+        }
+      }
     }
   }
 })
@@ -72,5 +82,5 @@ export const weeksSlice = createSlice({
 
 // export const selectWeek = state => state.counter.value
 
-export const { weekAdded, weekRemoved, dayAdded, dayRemoved, exerciseAdded } = weeksSlice.actions
+export const { weekAdded, weekRemoved, dayAdded, dayRemoved, exerciseAdded, exerciseRemoved } = weeksSlice.actions
 export default weeksSlice.reducer

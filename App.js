@@ -7,6 +7,7 @@ import { defaultStyles, lightStyles, darkStyles } from './src/styles/globalStyle
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import { DefaultTheme, Button, Headline, Provider as PaperProvider } from 'react-native-paper'
+import { NativeWindStyleSheet } from 'nativewind';
 
 import LogInScreen from './src/screens/LogInScreen';
 import SignUpScreen from './src/screens/SignUpScreen';
@@ -60,3 +61,7 @@ export default function App() {
     </ReduxProvider>
   );
 }
+
+NativeWindStyleSheet.setOutput({
+  default: 'native',
+})

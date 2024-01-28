@@ -3,6 +3,7 @@ import { Avatar, Card, Text, Button } from 'react-native-paper'
 import { StyleSheet } from 'react-native'
 import { RemoveWeek } from '../features/weeks/RemoveWeek'
 import { RemoveDay } from '../features/weeks/days/RemoveDay'
+import { RemoveExercise } from '../features/weeks/days/exercises/RemoveExercise'
 
 const LeftContent = (props) => <Avatar.Icon {...props } icon="folder" />
 
@@ -57,7 +58,7 @@ export const ExerciseCard = ({ weekId, dayId, exerciseId, title, content, onRemo
       </Card.Content>
       <Card.Actions style={styles.cardActions}>
         {/* <RemoveDay weekId={weekId} dayId={dayId} /> */}
-        {/* <Button icon="pencil-outline" onPress={onEdit}>Edit</Button> */}
+        <RemoveExercise weekId={weekId} dayId={dayId} exerciseId={exerciseId} />
       </Card.Actions>
     </Card>
   )
