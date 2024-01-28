@@ -22,8 +22,6 @@ export const WeekCard = ({ weekId, title, content, onRemove, onEdit }) => {
         <Text variant="bodyMedium" className="italic">{content}</Text>
       </Card.Content>
       <Card.Actions style={styles.cardActions}>
-        {/* <Button icon="content-copy" onPress={`sd`}>Copy</Button> */}
-        {/* <Button icon="trash-can-outline" onPress={onRemove}>Remove</Button> */}
         <RemoveWeek weekId={weekId} />
         <Button icon="pencil-outline" onPress={onEdit}>Edit</Button>
       </Card.Actions>
@@ -40,7 +38,6 @@ export const DayCard = ({ weekId, dayId, title, content, onRemove, onEdit }) => 
         <Text variant="bodyMedium" className="italic">{content}</Text>
       </Card.Content>
       <Card.Actions style={styles.cardActions}>
-        {/* <Button icon="content-copy" onPress={`sd`}>Copy</Button> */}
         <RemoveDay weekId={weekId} dayId={dayId} />
         <Button icon="pencil-outline" onPress={onEdit}>Edit</Button>
       </Card.Actions>
@@ -57,7 +54,6 @@ export const ExerciseCard = ({ weekId, dayId, exerciseId, title, content, onRemo
         <Text variant="bodyMedium" className="italic">{content}</Text>
       </Card.Content>
       <Card.Actions style={styles.cardActions}>
-        {/* <RemoveDay weekId={weekId} dayId={dayId} /> */}
         <RemoveExercise weekId={weekId} dayId={dayId} exerciseId={exerciseId} />
       </Card.Actions>
     </Card>
