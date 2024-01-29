@@ -1,12 +1,12 @@
-import { View } from "react-native";
-import { Avatar, Card, Text, Button } from "react-native-paper";
-import { StyleSheet } from "react-native";
-import { RemoveWeek } from "../features/weeks/RemoveWeek";
-import { RemoveDay } from "../features/weeks/days/RemoveDay";
-import { RemoveExercise } from "../features/weeks/days/exercises/RemoveExercise";
-import { useSelector } from "react-redux";
+import { View } from 'react-native'
+import { Avatar, Card, Text, Button } from 'react-native-paper'
+import { StyleSheet } from 'react-native'
+import { RemoveWeek } from '../features/weeks/RemoveWeek'
+import { RemoveDay } from '../features/weeks/days/RemoveDay'
+import { RemoveExercise } from '../features/weeks/days/exercises/RemoveExercise'
+import { useSelector } from 'react-redux'
 
-const LeftContent = (props) => <Avatar.Icon {...props} icon="folder" />;
+const LeftContent = (props) => <Avatar.Icon {...props} icon="folder" />
 
 {
   /* 
@@ -17,11 +17,11 @@ const LeftContent = (props) => <Avatar.Icon {...props} icon="folder" />;
 
 export const WeekCard = ({ weekId, title, description, onRemove, onEdit }) => {
   const days = useSelector((state) => {
-    const week = state.weeks.find((week) => week.id === weekId);
-    return week ? week.days : [];
-  });
+    const week = state.weeks.find((week) => week.id === weekId)
+    return week ? week.days : []
+  })
 
-  console.log(days);
+  console.log(days)
 
   return (
     <Card style={styles.container}>
@@ -32,10 +32,10 @@ export const WeekCard = ({ weekId, title, description, onRemove, onEdit }) => {
           {description}
         </Text>
         {days.length > 0 && days.length == 1 && (
-          <Text variant="bodySmall">{days.length} day</Text>
+          <Text variant="bodySmall">Contains {days.length} day</Text>
         )}
         {days.length > 0 && days.length > 1 && (
-          <Text variant="bodySmall">{days.length} days</Text>
+          <Text variant="bodySmall">Contains {days.length} days</Text>
         )}
       </Card.Content>
       <Card.Actions style={styles.cardActions}>
@@ -45,8 +45,8 @@ export const WeekCard = ({ weekId, title, description, onRemove, onEdit }) => {
         </Button>
       </Card.Actions>
     </Card>
-  );
-};
+  )
+}
 
 export const DayCard = ({
   weekId,
@@ -72,8 +72,8 @@ export const DayCard = ({
         </Button>
       </Card.Actions>
     </Card>
-  );
-};
+  )
+}
 
 export const ExerciseCard = ({
   weekId,
@@ -97,14 +97,14 @@ export const ExerciseCard = ({
         <RemoveExercise weekId={weekId} dayId={dayId} exerciseId={exerciseId} />
       </Card.Actions>
     </Card>
-  );
-};
+  )
+}
 
 const styles = StyleSheet.create({
   container: {
     margin: 8,
   },
   cardActions: {
-    justifyContent: "flex-end",
+    justifyContent: 'flex-end',
   },
-});
+})
