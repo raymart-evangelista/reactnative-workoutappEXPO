@@ -6,7 +6,7 @@ import { RemoveDay } from '../features/weeks/days/RemoveDay'
 import { RemoveExercise } from '../features/weeks/days/exercises/RemoveExercise'
 import { useSelector } from 'react-redux'
 
-const LeftContent = (props) => <Avatar.Icon {...props} icon="folder" />
+const LeftContent = (props) => <Avatar.Icon {...props } icon="folder" />
 
 {/* 
   the title will be the Week number
