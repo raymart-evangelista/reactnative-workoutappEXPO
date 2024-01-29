@@ -1,4 +1,4 @@
 export const SCREEN_TYPES = {
-  EDIT: 'EDIT',
-  CONTINUE: 'CONTINUE'
-}
+  EDIT: "EDIT",
+  CONTINUE: "CONTINUE",
+};

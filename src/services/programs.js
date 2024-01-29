@@ -1,197 +1,229 @@
-import axios from "axios"
+import axios from "axios";
 
-import Constants from 'expo-constants'
-const baseUrl =  Constants.expoConfig.extra.BASE_URL
+import Constants from "expo-constants";
+const baseUrl = Constants.expoConfig.extra.BASE_URL;
 
 // const baseUrl = 'http://localhost:3000/api/programs'
 // console.log(baseUrl)
 
 const getPrograms = async () => {
   try {
-    const res = await axios.get(baseUrl)
-    const programs = res.data.map(program => {
+    const res = await axios.get(baseUrl);
+    const programs = res.data.map((program) => {
       return {
         id: program._id,
         name: program.name,
         weeks: program.weeks,
         weekDetails: program.weekDetails,
         createdAt: program.createdAt,
-        updatedAt: program.updatedAt
-      }
-    })
+        updatedAt: program.updatedAt,
+      };
+    });
     // return res.data
-    return programs
+    return programs;
   } catch (error) {
-    console.error(error)
-    return []
+    console.error(error);
+    return [];
   }
-}
+};
 
 const getProgramById = async (id) => {
   try {
-    const res = await axios.get(`${baseUrl}/${id}`)
+    const res = await axios.get(`${baseUrl}/${id}`);
     const program = {
       id: res.data._id,
       name: res.data.name,
       weeks: res.data.weeks,
       weekDetails: res.data.weekDetails,
       createdAt: res.data.createdAt,
-      updatedAt: res.data.updatedAt
-    }
-    return program
+      updatedAt: res.data.updatedAt,
+    };
+    return program;
   } catch (error) {
-    console.error(error)
-    return null
+    console.error(error);
+    return null;
   }
-}
+};
 
 const deleteProgram = async (id) => {
   try {
-    console.log("****___****")
-    console.log(id)
-    const res = await axios.delete(`${baseUrl}/${id}`)
-    return res.data
-  } catch (error) {
-    
-  }
-}
+    console.log("****___****");
+    console.log(id);
+    const res = await axios.delete(`${baseUrl}/${id}`);
+    return res.data;
+  } catch (error) {}
+};
 
 const updateProgram = async (id, updatedFields) => {
-  console.log("/// inside services ///")
-  console.log(updatedFields)
-  console.log("/// inside services ///")
+  console.log("/// inside services ///");
+  console.log(updatedFields);
+  console.log("/// inside services ///");
 
   try {
-    const res = await axios.patch(`${baseUrl}/${id}`, updatedFields)
-    return res.data
+    const res = await axios.patch(`${baseUrl}/${id}`, updatedFields);
+    return res.data;
   } catch (error) {
-    console.error(error)
-    throw new Error('Failed to update program')
+    console.error(error);
+    throw new Error("Failed to update program");
   }
-}
+};
 
-const updateExerciseWeight = async (programId, weekId, dayId, exerciseId, weightValue) => {
-  console.log(`inside updateExerciseWeight service`)
+const updateExerciseWeight = async (
+  programId,
+  weekId,
+  dayId,
+  exerciseId,
+  weightValue,
+) => {
+  console.log(`inside updateExerciseWeight service`);
   try {
     // fetch program by ID
-    const program = await axios.get(`${baseUrl}/${programId}`)
-    const updatedProgram = program.data
-    
+    const program = await axios.get(`${baseUrl}/${programId}`);
+    const updatedProgram = program.data;
+
     // Find specified week, day, and exercise in the program
-    const week = updatedProgram.weekDetails.find(week => week._id === weekId)
+    const week = updatedProgram.weekDetails.find((week) => week._id === weekId);
     if (!week) {
-      throw new Error('Week not found')
+      throw new Error("Week not found");
     }
 
-    const day = week.dayDetails.find(day => day._id === dayId)
+    const day = week.dayDetails.find((day) => day._id === dayId);
     if (!day) {
-      throw new Error('Day not found')
+      throw new Error("Day not found");
     }
-    
-    const exercise = day.exercises.find(exercise => exercise._id === exerciseId)
-    console.log(exercise.weight.value)
+
+    const exercise = day.exercises.find(
+      (exercise) => exercise._id === exerciseId,
+    );
+    console.log(exercise.weight.value);
     if (!exercise) {
-      throw new Error('Exercise not found')
+      throw new Error("Exercise not found");
     }
 
     // update weight value
-    exercise.weight.value = weightValue
+    exercise.weight.value = weightValue;
 
-    console.log(`\tbaah`)
-    console.log(updatedProgram.weekDetails[0].dayDetails[0].exercises[0].weight)
+    console.log(`\tbaah`);
+    console.log(
+      updatedProgram.weekDetails[0].dayDetails[0].exercises[0].weight,
+    );
 
-    const res = await axios.patch(`${baseUrl}/${programId}`, updatedProgram)
+    const res = await axios.patch(`${baseUrl}/${programId}`, updatedProgram);
     // return res.data
 
     // return updated exercise
-    return exercise
+    return exercise;
   } catch (error) {
-    console.error(error)
-    throw new Error('Failed to update exercise weight')
+    console.error(error);
+    throw new Error("Failed to update exercise weight");
   }
-}
+};
 
 const updateExerciseSetsCompletionIndividual = async (
   setType,
-  programId, 
-  weekId, 
-  dayId, 
-  exerciseId, 
-  setsCompletionIndividual) => {
-
-  console.log(`${setType}SetsCompletionIndividual in updateExerciseSetsCompletionIndividual:`, setsCompletionIndividual)
+  programId,
+  weekId,
+  dayId,
+  exerciseId,
+  setsCompletionIndividual,
+) => {
+  console.log(
+    `${setType}SetsCompletionIndividual in updateExerciseSetsCompletionIndividual:`,
+    setsCompletionIndividual,
+  );
 
   try {
     // fetch program by ID
-    const program = await axios.get(`${baseUrl}/${programId}`)
-    const updatedProgram = program.data
-    
+    const program = await axios.get(`${baseUrl}/${programId}`);
+    const updatedProgram = program.data;
+
     // Find specified week, day, and exercise in the program
-    const week = updatedProgram.weekDetails.find(week => week._id === weekId)
+    const week = updatedProgram.weekDetails.find((week) => week._id === weekId);
     if (!week) {
-      throw new Error('Week not found')
+      throw new Error("Week not found");
     }
 
-    const day = week.dayDetails.find(day => day._id === dayId)
+    const day = week.dayDetails.find((day) => day._id === dayId);
     if (!day) {
-      throw new Error('Day not found')
+      throw new Error("Day not found");
     }
-    
-    const exercise = day.exercises.find(exercise => exercise._id === exerciseId)
+
+    const exercise = day.exercises.find(
+      (exercise) => exercise._id === exerciseId,
+    );
     if (!exercise) {
-      throw new Error('Exercise not found')
+      throw new Error("Exercise not found");
     }
 
     // update warmup sets completion individual array
     // console.log('exercise.warmupSetsCompletion.individual in updateExerciseWarmupSetsCompletionIndividual:', exercise.warmupSetsCompletion.individual)
 
     // exercise.warmupSetsCompletion.individual = warmupSetsCompletionIndividual
-    exercise[`${setType}SetsCompletion`].individual = setsCompletionIndividual
+    exercise[`${setType}SetsCompletion`].individual = setsCompletionIndividual;
 
     // console.log('exercise.warmupSetsCompletion.individual in updateExerciseWarmupSetsCompletionIndividual AFTER UPDATE:', exercise.warmupSetsCompletion.individual)
 
-    const res = await axios.patch(`${baseUrl}/${programId}`, updatedProgram)
+    const res = await axios.patch(`${baseUrl}/${programId}`, updatedProgram);
 
     // console.log(res.data.weekDetails[0].dayDetails[0].exercises[0].warmupSetsCompletion.individual)
     // console.log(updatedProgram.weekDetails[0].dayDetails[0].exercises[0].warmupSetsCompletion.individual)
 
-    return exercise
+    return exercise;
   } catch (error) {
-    console.error(error)
-    throw new Error('Failed to update exercise warmup sets completion individual')
+    console.error(error);
+    throw new Error(
+      "Failed to update exercise warmup sets completion individual",
+    );
   }
-}
+};
 
-const updateExerciseWarmupSetsCompletionOverall = async (programId, weekId, dayId, exerciseId, overallCompletionBoolean) => {
-  console.log('inside updateExerciseWarmupSetsCompletionOverall')
-}
+const updateExerciseWarmupSetsCompletionOverall = async (
+  programId,
+  weekId,
+  dayId,
+  exerciseId,
+  overallCompletionBoolean,
+) => {
+  console.log("inside updateExerciseWarmupSetsCompletionOverall");
+};
 
-const updateExerciseWorkingSetsCompletionIndividual = async (programId, weekId, dayId, exerciseId, individualCompletionArray) => {
-  console.log('inside updateExerciseWorkingSetsCompletionIndividual')
-}
+const updateExerciseWorkingSetsCompletionIndividual = async (
+  programId,
+  weekId,
+  dayId,
+  exerciseId,
+  individualCompletionArray,
+) => {
+  console.log("inside updateExerciseWorkingSetsCompletionIndividual");
+};
 
-const updateExerciseWorkingSetsCompletionOverall = async (programId, weekId, dayId, exerciseId, overallCompletionBoolean) => {
-  console.log('inside updateExerciseWorkingSetsCompletionOverall')
-}
+const updateExerciseWorkingSetsCompletionOverall = async (
+  programId,
+  weekId,
+  dayId,
+  exerciseId,
+  overallCompletionBoolean,
+) => {
+  console.log("inside updateExerciseWorkingSetsCompletionOverall");
+};
 
 // post new program, createProgram function
 const createProgram = async (programData) => {
   try {
-    console.log(programData)
-    const res = await axios.post(`${baseUrl}`, programData)
-    return res.data
+    console.log(programData);
+    const res = await axios.post(`${baseUrl}`, programData);
+    return res.data;
   } catch (error) {
-    console.error(error)
+    console.error(error);
   }
-
-}
+};
 
 export default {
-  getPrograms, 
-  getProgramById, 
-  deleteProgram, 
-  updateProgram, 
-  updateExerciseWeight, 
+  getPrograms,
+  getProgramById,
+  deleteProgram,
+  updateProgram,
+  updateExerciseWeight,
   createProgram,
-  updateExerciseSetsCompletionIndividual
-}
+  updateExerciseSetsCompletionIndividual,
+};

@@ -6,36 +6,35 @@ import { nanoid } from "@reduxjs/toolkit";
 import { StyleSheet } from "react-native";
 
 export const AddExercise = ({ weekId, dayId }) => {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   const onAddExerciseClicked = () => {
     dispatch(
       exerciseAdded({
         weekId,
         dayId,
-        exercise: {
-        }
-      })
-    )
-  }
+        exercise: {},
+      }),
+    );
+  };
 
   return (
     <AnimatedFAB
-      icon='plus'
-      label='Add Exercise'
+      icon="plus"
+      label="Add Exercise"
       onPress={onAddExerciseClicked}
       animateFrom="right"
-      iconMode='dynamic'
+      iconMode="dynamic"
       style={[styles.fabStyle]}
-      extended='true'
+      extended="true"
     />
-  )
-}
+  );
+};
 
 const styles = StyleSheet.create({
   fabStyle: {
     bottom: 16,
     right: 16,
-    position: 'absolute'
+    position: "absolute",
   },
-})
+});

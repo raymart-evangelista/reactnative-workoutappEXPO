@@ -1,30 +1,30 @@
 import { StyleSheet } from "react-native";
 
-const mainColor = '#000';
-const mainTextColor = '#ffffff';
-const secondaryColor = '#f9a825';
+const mainColor = "#000";
+const mainTextColor = "#ffffff";
+const secondaryColor = "#f9a825";
 
 const defaultStyles = StyleSheet.create({
   basic: {
     flex: 1,
     // alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: "center",
   },
   container: {
     flex: 1,
   },
   backgroundImage: {
     flex: 1,
-    justifyContent: 'center',
+    justifyContent: "center",
   },
   signupText: {
     fontSize: 30,
-    textAlign: 'center'
+    textAlign: "center",
   },
   signupInput: {
     borderBottomWidth: 0.5,
     height: 48,
-    borderBottomColor: '#8e93a1',
+    borderBottomColor: "#8e93a1",
     marginBottom: 30,
   },
   buttonStyle: {
@@ -37,42 +37,42 @@ const defaultStyles = StyleSheet.create({
   },
   buttonText: {
     fontSize: 20,
-    textAlign: 'center',
-    color: '#fff',
-    textTransform: 'uppercase',
-    fontWeight: 'bold'
+    textAlign: "center",
+    color: "#fff",
+    textTransform: "uppercase",
+    fontWeight: "bold",
   },
   headerFont: {
-    fontFamily: 'Montserrat-Bold',
+    fontFamily: "Montserrat-Bold",
     fontSize: 40,
-    textAlign: 'center',
+    textAlign: "center",
   },
   bodyFont: {
-    fontFamily: 'OpenSans-Regular',
+    fontFamily: "OpenSans-Regular",
     fontSize: 16,
   },
   buttonFont: {
-    fontFamily: 'Nunito-Bold',
+    fontFamily: "Nunito-Bold",
     fontSize: 18,
   },
-}) 
+});
 
 const lightStyles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: 'white',
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "white",
   },
   title: {
     fontSize: 24,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     color: mainColor,
     marginBottom: 10,
   },
   dashboardContainer: {
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     marginBottom: 20,
   },
   subtitle: {
@@ -84,46 +84,46 @@ const lightStyles = StyleSheet.create({
     marginBottom: 10,
   },
   startWorkoutButton: {
-    backgroundColor: '#4CAF50',
+    backgroundColor: "#4CAF50",
     color: mainTextColor,
     padding: 10,
     borderRadius: 5,
     marginBottom: 30,
   },
   startWorkoutButtonText: {
-    color: 'white',
-    fontWeight: 'bold',
-    textAlign: 'center',
+    color: "white",
+    fontWeight: "bold",
+    textAlign: "center",
   },
   logoutButton: {
-    backgroundColor: '#ff4d4d',
+    backgroundColor: "#ff4d4d",
     color: mainTextColor,
     padding: 10,
     borderRadius: 5,
     marginBottom: 30,
   },
   logoutButtonText: {
-    color: 'white',
-    fontWeight: 'bold',
-    textAlign: 'center',
-  }
+    color: "white",
+    fontWeight: "bold",
+    textAlign: "center",
+  },
 });
 const darkStyles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: 'black',
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "black",
   },
   title: {
     fontSize: 24,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     color: mainTextColor,
     marginBottom: 10,
   },
   dashboardContainer: {
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     color: mainTextColor,
     marginBottom: 20,
   },
@@ -138,29 +138,29 @@ const darkStyles = StyleSheet.create({
     marginBottom: 10,
   },
   startWorkoutButton: {
-    backgroundColor: '#4CAF50',
+    backgroundColor: "#4CAF50",
     color: mainTextColor,
     padding: 10,
     borderRadius: 5,
     marginBottom: 30,
   },
   startWorkoutButtonText: {
-    color: 'white',
-    fontWeight: 'bold',
-    textAlign: 'center',
+    color: "white",
+    fontWeight: "bold",
+    textAlign: "center",
   },
   logoutButton: {
-    backgroundColor: '#ff4d4d',
+    backgroundColor: "#ff4d4d",
     color: mainTextColor,
     padding: 10,
     borderRadius: 5,
     marginBottom: 30,
   },
   logoutButtonText: {
-    color: 'white',
-    fontWeight: 'bold',
-    textAlign: 'center',
-  }
+    color: "white",
+    fontWeight: "bold",
+    textAlign: "center",
+  },
 });
 
-export { defaultStyles, lightStyles, darkStyles}
+export { defaultStyles, lightStyles, darkStyles };

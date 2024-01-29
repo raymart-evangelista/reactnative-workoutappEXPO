@@ -1,17 +1,17 @@
-const mongoose = require('mongoose')
-const weekDetailSchema = require('./weekDetail')
+const mongoose = require("mongoose");
+const weekDetailSchema = require("./weekDetail");
 
 const programSchema = new mongoose.Schema({
   name: {
     type: String,
-    required: true
+    required: true,
   },
   numWeeks: {
     type: Number,
   },
   weeks: [weekDetailSchema],
-})
+});
 
-programSchema.set('timestamps', true)
+programSchema.set("timestamps", true);
 
-module.exports = mongoose.model('Program', programSchema)
+module.exports = mongoose.model("Program", programSchema);

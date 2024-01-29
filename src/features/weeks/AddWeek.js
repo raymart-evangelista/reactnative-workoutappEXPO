@@ -7,10 +7,10 @@ import { weekAdded } from "../weeksSlice";
 import { StyleSheet } from "react-native";
 
 export const AddWeek = () => {
-  const [title, setTitle] = useState('default week title')
-  const [description, setDescription] = useState('default week description')
+  const [title, setTitle] = useState("default week title");
+  const [description, setDescription] = useState("default week description");
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   const onAddWeekClicked = () => {
     dispatch(
@@ -18,38 +18,42 @@ export const AddWeek = () => {
         id: nanoid(),
         title,
         description,
-        days: [{
-          id: nanoid(),
-          title: 'untitled day',
-          description: 'default day description',
-          exercises: [{
+        days: [
+          {
             id: nanoid(),
-          }]
-        }],
-      })
-    )
+            title: "untitled day",
+            description: "default day description",
+            exercises: [
+              {
+                id: nanoid(),
+              },
+            ],
+          },
+        ],
+      }),
+    );
 
     // setTitle()
     // setDescription()
-  }
+  };
 
   return (
     <AnimatedFAB
-      icon={'plus'}
-      label={'Add Week'}
+      icon={"plus"}
+      label={"Add Week"}
       onPress={onAddWeekClicked}
-      animateFrom={'right'}
-      iconMode={'dynamic'} 
+      animateFrom={"right"}
+      iconMode={"dynamic"}
       style={[styles.fabStyle]}
-      extended={'true'}
+      extended={"true"}
     />
-  )
-}
+  );
+};
 
 const styles = StyleSheet.create({
   fabStyle: {
     bottom: 16,
     right: 16,
-    position: 'absolute'
+    position: "absolute",
   },
-})
+});

@@ -1,20 +1,27 @@
-import { TextInput as PaperTextInput } from 'react-native-paper'
+import { TextInput as PaperTextInput } from "react-native-paper";
 
-const TextInput = ({ field, label, placeholder, style, multiline = false, numberOfLines = 1, error}) => {
-
+const TextInput = ({
+  field,
+  label,
+  placeholder,
+  style,
+  multiline = false,
+  numberOfLines = 1,
+  error,
+}) => {
   return (
     <PaperTextInput
-      mode='outlined'
+      mode="outlined"
       label={label}
       multiline={multiline}
       numberOfLines={numberOfLines}
       onChangeText={field.onChange(field.name)}
       onBlur={field.onBlur(field.name)}
-      value={field.value ? field.value.toString() : ''}
+      value={field.value ? field.value.toString() : ""}
       placeholder={placeholder}
       error={error}
     />
-  )
-}
+  );
+};
 
-export default TextInput
+export default TextInput;

@@ -1,4 +1,10 @@
-import { createContext, useCallback, useContext, useMemo, useState } from "react";
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useMemo,
+  useState,
+} from "react";
 import { useColorScheme } from "react-native";
 
 import { lightTheme, darkTheme } from "./theme";
@@ -6,14 +12,14 @@ import { lightTheme, darkTheme } from "./theme";
 import {
   Provider as PaperProvider,
   DefaultTheme as PaperDefaultTheme,
-} from 'react-native-paper'
+} from "react-native-paper";
 
 import {
   NavigationContainer,
   Theme as NavigationTheme,
   DarkTheme as NavigationDarkTheme,
   DefaultTheme as NavigationDefaultTheme,
-} from '@react-navigation/native'
+} from "@react-navigation/native";
 
 // const lightTheme = {
 //   ...NavigationDefaultTheme,
@@ -35,24 +41,29 @@ import {
 
 export const ThemeContext = createContext({
   theme: lightTheme,
-  themeType: 'light',
+  themeType: "light",
   isDarkTheme: false,
   setThemeType: () => {},
   toggleThemeType: () => {},
-})
+});
 
-export const useTheme = () => useContext(ThemeContext)
+export const useTheme = () => useContext(ThemeContext);
 
 export const ThemeContextProvider = ({ children }) => {
-  const colorScheme = useColorScheme()
-  const [themeType, setThemeType] = useState(colorScheme === 'dark' ? 'dark' : 'light')
+  const colorScheme = useColorScheme();
+  const [themeType, setThemeType] = useState(
+    colorScheme === "dark" ? "dark" : "light",
+  );
 
   const toggleThemeType = useCallback(() => {
-    setThemeType(prev => (prev === 'dark' ? 'light' : 'dark'))
-  }, [])
+    setThemeType((prev) => (prev === "dark" ? "light" : "dark"));
+  }, []);
 
-  const isDarkTheme = useMemo(() => themeType === 'dark', [themeType])
-  const theme = useMemo(() => (isDarkTheme ? darkTheme : lightTheme), [isDarkTheme])
+  const isDarkTheme = useMemo(() => themeType === "dark", [themeType]);
+  const theme = useMemo(
+    () => (isDarkTheme ? darkTheme : lightTheme),
+    [isDarkTheme],
+  );
 
   return (
     <ThemeContext.Provider
@@ -65,10 +76,8 @@ export const ThemeContextProvider = ({ children }) => {
       }}
     >
       <NavigationContainer theme={theme}>
-        <PaperProvider theme={theme}>
-          {children}
-        </PaperProvider>
+        <PaperProvider theme={theme}>{children}</PaperProvider>
       </NavigationContainer>
     </ThemeContext.Provider>
-  )
-}
+  );
+};
