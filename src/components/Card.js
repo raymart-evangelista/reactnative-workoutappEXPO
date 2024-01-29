@@ -14,7 +14,7 @@ const LeftContent = (props) => <Avatar.Icon {...props } icon="folder" />
 */}
 
 
-export const WeekCard = ({ weekId, title, content, onRemove, onEdit }) => {
+export const WeekCard = ({ weekId, title, description, onRemove, onEdit }) => {
   const days = useSelector(state => {
     const week = state.weeks.find(week => week.id === weekId)
     return week ? week.days : []
@@ -27,7 +27,7 @@ export const WeekCard = ({ weekId, title, content, onRemove, onEdit }) => {
       {/* <Card.Title title="Card Title" subtitle="Card Subtitle" left={LeftContent} /> */}
       <Card.Content>
         <Text variant="titleLarge">{title}</Text>
-        <Text variant="bodyMedium" className="italic">{content}</Text>
+        <Text variant="bodyMedium" className="italic">{description}</Text>
         {days.length > 0 && days.length == 1 &&
           <Text variant='bodySmall'>{days.length} day</Text>
         }

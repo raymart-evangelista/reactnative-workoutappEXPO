@@ -170,7 +170,7 @@ const WeekContainer = ({ week, onDelete, onDrag, isActive, navigation }) => {
 		<WeekCard
 			weekId={week.id}
 			title={week.title}
-			content={week.description}
+			description={week.description}
 			onEdit={handleEditWeek}
 		/>
 	)
