@@ -28,8 +28,11 @@ export const WeekCard = ({ weekId, title, content, onRemove, onEdit }) => {
       <Card.Content>
         <Text variant="titleLarge">{title}</Text>
         <Text variant="bodyMedium" className="italic">{content}</Text>
-        {days.length > 0 &&
-          <Text variant='bodySmall'>Contains {days.length} days</Text>
+        {days.length > 0 && days.length == 1 &&
+          <Text variant='bodySmall'>{days.length} day</Text>
+        }
+        {days.length > 0 && days.length > 1 &&
+          <Text variant='bodySmall'>{days.length} days</Text>
         }
       </Card.Content>
       <Card.Actions style={styles.cardActions}>
