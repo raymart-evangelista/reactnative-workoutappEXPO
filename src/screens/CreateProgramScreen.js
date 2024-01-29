@@ -71,6 +71,8 @@ const EditWeekScreen = ({ route, navigation }) => {
 	return (
 		<View className="h-full border-blue-500 border-4">
 			<SafeAreaView className="flex-1">
+					<TextInput label={'Title'}/>
+					<TextInput label={'Description'}/>
 					<DraggableFlatList
 						data={days}
 						onDragEnd={({ data }) => setDays(data)}
