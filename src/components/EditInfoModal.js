@@ -90,17 +90,6 @@ const EditInfoModal = ({ data }) => {
           />
           {errors.description && <Text>Week description is too long.</Text>}
 
-          {/* <TextInput
-            label={'Title'}
-            value={title}
-            onChangeText={(newTitle) => setTitle(newTitle)}
-          />
-          <TextInput
-            label={'Description'}
-            value={description}
-            onChangeText={(newDescription) => setDescription(newDescription)}
-          /> */}
-          {/* <Text>Example Modal. Click outside this area to dismiss.</Text> */}
           <Button onPress={handleSubmit(onSubmit)}>Submit changes</Button>
         </Modal>
       </Portal>
