@@ -31,12 +31,12 @@ const EditInfoModal = ({ data }) => {
         >
           <TextInput
             label={'Title'}
-            value={data.title}
+            value={title}
             onChangeText={(newTitle) => setTitle(newTitle)}
           />
           <TextInput
             label={'Description'}
-            value={data.description}
+            value={description}
             onChangeText={(newDescription) => setDescription(newDescription)}
           />
           <Text>Example Modal. Click outside this area to dismiss.</Text>
