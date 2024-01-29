@@ -8,32 +8,14 @@ import { useState } from 'react'
 import { useForm, Controller } from 'react-hook-form'
 import { Modal, Portal, Text, Button, TextInput } from 'react-native-paper'
 import { useDispatch } from 'react-redux'
-import { weekUpdated } from '../features/weeksSlice'
 
-const EditInfoModal = ({ data }) => {
+const EditInfoModal = ({ data, updateAction, entityType }) => {
   const dispatch = useDispatch()
-  const onSubmit = (info) => {
-    // data that is passed through here means validation was successful
-    console.log(info)
-    hideModal()
-
-    dispatch(
-      weekUpdated({
-        id: data.id,
-        title: info.title,
-        description: info.description,
-      })
-    )
-  }
 
   const [visible, setVisible] = useState(false)
-
   const showModal = () => setVisible(true)
   const hideModal = () => setVisible(false)
   const containerStyle = { backgroundColor: 'white', padding: 20 }
-
-  const [title, setTitle] = useState(data.title)
-  const [description, setDescription] = useState(data.description)
 
   const {
     control,
@@ -41,10 +23,24 @@ const EditInfoModal = ({ data }) => {
     formState: { errors },
   } = useForm({
     defaultValues: {
-      title,
-      description,
+      title: data.title,
+      description: data.description,
     },
   })
+
+  const onSubmit = (info) => {
+    // data that is passed through here means validation was successful
+    console.log(info)
+    hideModal()
+
+    dispatch(
+      updateAction({
+        id: data.id,
+        title: info.title,
+        description: info.description,
+      })
+    )
+  }
 
   return (
     <>
@@ -70,12 +66,14 @@ const EditInfoModal = ({ data }) => {
             )}
             name="title"
           />
-          {errors.title && <Text>A week title is required.</Text>}
+          {errors.title && (
+            <Text>A {entityType.toLowerCase()} title is required.</Text>
+          )}
 
           <Controller
             control={control}
             rules={{
-              maxLength: 40,
+              maxLength: 200,
             }}
             render={({ field: { onChange, onBlur, value } }) => (
               <TextInput
@@ -88,7 +86,9 @@ const EditInfoModal = ({ data }) => {
             )}
             name="description"
           />
-          {errors.description && <Text>Week description is too long.</Text>}
+          {errors.description && (
+            <Text>{entityType} description is too long.</Text>
+          )}
 
           <Button onPress={handleSubmit(onSubmit)}>Submit changes</Button>
         </Modal>

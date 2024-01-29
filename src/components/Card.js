@@ -5,6 +5,7 @@ import { RemoveWeek } from '../features/weeks/RemoveWeek'
 import { RemoveDay } from '../features/weeks/days/RemoveDay'
 import { RemoveExercise } from '../features/weeks/days/exercises/RemoveExercise'
 import { useSelector } from 'react-redux'
+import { weekUpdated } from '../features/weeksSlice'
 import EditInfoModal from './EditInfoModal'
 
 const LeftContent = (props) => <Avatar.Icon {...props} icon="folder" />
@@ -47,7 +48,11 @@ export const WeekCard = ({
         )}
       </Card.Content>
       <Card.Actions style={styles.cardActions}>
-        <EditInfoModal data={week} />
+        <EditInfoModal
+          data={week}
+          updateAction={weekUpdated}
+          entityType="Week"
+        />
         <RemoveWeek weekId={weekId} />
         <Button icon="pencil-outline" onPress={onEdit}>
           Edit
