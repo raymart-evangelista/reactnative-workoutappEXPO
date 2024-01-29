@@ -1,7 +1,7 @@
-import { NavigationContainer } from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { StatusBar } from "expo-status-bar";
-import { useEffect, useState } from "react";
+import { NavigationContainer } from '@react-navigation/native'
+import { createNativeStackNavigator } from '@react-navigation/native-stack'
+import { StatusBar } from 'expo-status-bar'
+import { useEffect, useState } from 'react'
 import {
   Appearance,
   StyleSheet,
@@ -9,49 +9,49 @@ import {
   View,
   TextInput,
   useColorScheme,
-} from "react-native";
+} from 'react-native'
 import {
   defaultStyles,
   lightStyles,
   darkStyles,
-} from "./src/styles/globalStyles";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import Ionicons from "react-native-vector-icons/Ionicons";
+} from './src/styles/globalStyles'
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
+import Ionicons from 'react-native-vector-icons/Ionicons'
 import {
   DefaultTheme,
   Button,
   Headline,
   Provider as PaperProvider,
-} from "react-native-paper";
-import { NativeWindStyleSheet } from "nativewind";
+} from 'react-native-paper'
+import { NativeWindStyleSheet } from 'nativewind'
 
-import LogInScreen from "./src/screens/LogInScreen";
-import SignUpScreen from "./src/screens/SignUpScreen";
-import HomeScreen from "./src/screens/HomeScreen";
-import CreateProgramScreen from "./src/screens/CreateProgramScreen";
+import LogInScreen from './src/screens/LogInScreen'
+import SignUpScreen from './src/screens/SignUpScreen'
+import HomeScreen from './src/screens/HomeScreen'
+import CreateProgramScreen from './src/screens/CreateProgramScreen'
 import {
   ExistingProgramsScreen,
   EditProgramScreen,
-} from "./src/screens/ExistingProgramScreen";
+} from './src/screens/ExistingProgramScreen'
 import {
   ProgramInformationScreen,
   ContinueWeekScreen,
   ContinueDayScreen,
-} from "./src/screens/ContinueProgramScreen";
-import SettingsScreen from "./src/screens/SettingsScreen";
-import { ThemeContextProvider, useTheme } from "./src/themes/ThemeContext";
+} from './src/screens/ContinueProgramScreen'
+import SettingsScreen from './src/screens/SettingsScreen'
+import { ThemeContextProvider, useTheme } from './src/themes/ThemeContext'
 
-import LandingPage from "./src/screens/LandingPage";
+import LandingPage from './src/screens/LandingPage'
 
-const Stack = createNativeStackNavigator();
+const Stack = createNativeStackNavigator()
 
-import AuthProvider from "./src/contexts/AuthContext";
+import AuthProvider from './src/contexts/AuthContext'
 
-import { GestureHandlerRootView } from "react-native-gesture-handler";
-import TabNavigator from "./src/navigation/TabNavigator";
+import { GestureHandlerRootView } from 'react-native-gesture-handler'
+import TabNavigator from './src/navigation/TabNavigator'
 
-import { Provider as ReduxProvider } from "react-redux";
-import store from "./src/app/store";
+import { Provider as ReduxProvider } from 'react-redux'
+import store from './src/app/store'
 
 export default function App() {
   return (
@@ -85,9 +85,9 @@ export default function App() {
         </AuthProvider>
       </GestureHandlerRootView>
     </ReduxProvider>
-  );
+  )
 }
 
 NativeWindStyleSheet.setOutput({
-  default: "native",
-});
+  default: 'native',
+})
