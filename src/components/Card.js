@@ -4,6 +4,7 @@ import { StyleSheet } from 'react-native'
 import { RemoveWeek } from '../features/weeks/RemoveWeek'
 import { RemoveDay } from '../features/weeks/days/RemoveDay'
 import { RemoveExercise } from '../features/weeks/days/exercises/RemoveExercise'
+import { useSelector } from 'react-redux'
 
 const LeftContent = (props) => <Avatar.Icon {...props } icon="folder" />
 
@@ -14,12 +15,22 @@ const LeftContent = (props) => <Avatar.Icon {...props } icon="folder" />
 
 
 export const WeekCard = ({ weekId, title, content, onRemove, onEdit }) => {
+  const days = useSelector(state => {
+    const week = state.weeks.find(week => week.id === weekId)
+    return week ? week.days : []
+  })
+
+  console.log(days)
+
   return (
     <Card style={styles.container}>
       {/* <Card.Title title="Card Title" subtitle="Card Subtitle" left={LeftContent} /> */}
       <Card.Content>
         <Text variant="titleLarge">{title}</Text>
         <Text variant="bodyMedium" className="italic">{content}</Text>
+        {days.length > 0 &&
+          <Text variant='bodySmall'>Contains {days.length} days</Text>
+        }
       </Card.Content>
       <Card.Actions style={styles.cardActions}>
         <RemoveWeek weekId={weekId} />
