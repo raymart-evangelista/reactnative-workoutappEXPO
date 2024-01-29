@@ -1,6 +1,6 @@
-import { createSlice } from "@reduxjs/toolkit";
-import uuid from "react-native-uuid";
-import { nanoid } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit'
+import uuid from 'react-native-uuid'
+import { nanoid } from '@reduxjs/toolkit'
 
 // const generateUniqueId = () => {
 //   return uuid.v4()
@@ -10,13 +10,13 @@ const initialState = [
   {
     // id: generateUniqueId(),
     id: nanoid(),
-    title: "default week title",
-    description: "default week description",
+    title: 'default week title',
+    description: 'default week description',
     days: [
       {
         id: nanoid(),
-        title: "untitled day",
-        description: "default day description",
+        title: 'untitled day',
+        description: 'default day description',
         exercises: [
           {
             id: nanoid(),
@@ -25,64 +25,64 @@ const initialState = [
       },
     ],
   },
-];
+]
 
 export const weeksSlice = createSlice({
-  name: "weeks",
+  name: 'weeks',
   initialState,
   reducers: {
     weekAdded: (state, action) => {
-      state.push(action.payload);
+      state.push(action.payload)
     },
     weekRemoved: (state, action) => {
-      return state.filter((week) => week.id !== action.payload.id);
+      return state.filter((week) => week.id !== action.payload.id)
     },
     weekUpdated: (state, action) => {
-      const { id, title, description } = action.payload;
-      const week = state.find((week) => week.id === id);
+      const { id, title, description } = action.payload
+      const week = state.find((week) => week.id === id)
       if (week) {
-        week.title = title;
-        week.description = description;
+        week.title = title
+        week.description = description
       }
     },
     dayAdded: (state, action) => {
-      const { weekId, day } = action.payload;
-      const week = state.find((week) => week.id === weekId);
+      const { weekId, day } = action.payload
+      const week = state.find((week) => week.id === weekId)
       if (week) {
-        week.days.push(day);
+        week.days.push(day)
       }
     },
     dayRemoved: (state, action) => {
-      const { weekId, dayId } = action.payload;
-      const week = state.find((week) => week.id === weekId);
+      const { weekId, dayId } = action.payload
+      const week = state.find((week) => week.id === weekId)
       if (week) {
-        week.days = week.days.filter((day) => day.id !== dayId);
+        week.days = week.days.filter((day) => day.id !== dayId)
       }
     },
     exerciseAdded: (state, action) => {
-      const { weekId, dayId, exercise } = action.payload;
-      const week = state.find((week) => week.id === weekId);
+      const { weekId, dayId, exercise } = action.payload
+      const week = state.find((week) => week.id === weekId)
       if (week) {
-        const day = week.days.find((day) => day.id === dayId);
+        const day = week.days.find((day) => day.id === dayId)
         if (day) {
-          day.exercises = [...day.exercises, { ...exercise, id: nanoid() }];
+          day.exercises = [...day.exercises, { ...exercise, id: nanoid() }]
         }
       }
     },
     exerciseRemoved: (state, action) => {
-      const { weekId, dayId, exerciseId } = action.payload;
-      const week = state.find((week) => week.id === weekId);
+      const { weekId, dayId, exerciseId } = action.payload
+      const week = state.find((week) => week.id === weekId)
       if (week) {
-        const day = week.days.find((day) => day.id === dayId);
+        const day = week.days.find((day) => day.id === dayId)
         if (day) {
           day.exercises = day.exercises.filter(
-            (exercise) => exercise.id !== exerciseId,
-          );
+            (exercise) => exercise.id !== exerciseId
+          )
         }
       }
     },
   },
-});
+})
 
 // export const incrementAsync = amount => dispatch => {
 //   setTimeout(() => {
@@ -100,5 +100,5 @@ export const {
   exerciseAdded,
   exerciseRemoved,
   weekUpdated,
-} = weeksSlice.actions;
-export default weeksSlice.reducer;
+} = weeksSlice.actions
+export default weeksSlice.reducer

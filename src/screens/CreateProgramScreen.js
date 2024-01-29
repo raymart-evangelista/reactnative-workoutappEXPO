@@ -1,11 +1,11 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef } from 'react'
 import {
   TouchableOpacity,
   View,
   StyleSheet,
   Dimensions,
   SafeAreaView,
-} from "react-native";
+} from 'react-native'
 import {
   Button,
   Text,
@@ -13,18 +13,18 @@ import {
   RadioButton,
   List,
   useTheme,
-} from "react-native-paper";
-import * as Yup from "yup";
-import { FlatList } from "react-native";
+} from 'react-native-paper'
+import * as Yup from 'yup'
+import { FlatList } from 'react-native'
 
 // import TextInput from "../components/TextInput";
 
-import { TextInput } from "react-native-paper";
-import SegmentedButtonWithSelectedCheck from "../components/SegmentedButtonWithSelectedCheck";
+import { TextInput } from 'react-native-paper'
+import SegmentedButtonWithSelectedCheck from '../components/SegmentedButtonWithSelectedCheck'
 
-import programsService from "../services/programs";
+import programsService from '../services/programs'
 
-import { useFieldArray, useWatch, useForm, Controller } from "react-hook-form";
+import { useFieldArray, useWatch, useForm, Controller } from 'react-hook-form'
 
 import Animated, {
   runOnJS,
@@ -36,51 +36,55 @@ import Animated, {
   Easing,
   FadeIn,
   useDerivedValue,
-} from "react-native-reanimated";
-import { Circle, Svg } from "react-native-svg";
+} from 'react-native-reanimated'
+import { Circle, Svg } from 'react-native-svg'
 import {
   Gesture,
   GestureDetector,
   ScrollView,
-} from "react-native-gesture-handler";
+} from 'react-native-gesture-handler'
 
-import uuid from "react-native-uuid";
+import uuid from 'react-native-uuid'
 import DraggableFlatList, {
   ScaleDecorator,
   ShadowDecorator,
   OpacityDecorator,
-} from "react-native-draggable-flatlist";
+} from 'react-native-draggable-flatlist'
 
-import CollapsibleCard from "../components/CollapsibleCard";
-import { AnimatedFAB as AniFAB } from "react-native-paper";
-import { WeekCard, DayCard, ExerciseCard } from "../components/Card";
+import CollapsibleCard from '../components/CollapsibleCard'
+import { AnimatedFAB as AniFAB } from 'react-native-paper'
+import { WeekCard, DayCard, ExerciseCard } from '../components/Card'
 
-import { useSelector } from "react-redux";
-import { AddWeek } from "../features/weeks/AddWeek";
-import { AddDay } from "../features/weeks/days/AddDay";
-import { AddExercise } from "../features/weeks/days/exercises/AddExercise";
+import { useSelector } from 'react-redux'
+import { AddWeek } from '../features/weeks/AddWeek'
+import { AddDay } from '../features/weeks/days/AddDay'
+import { AddExercise } from '../features/weeks/days/exercises/AddExercise'
 
-const AnimatedBoxHeightValue = 50;
-const AnimatedDayBoxClosedWidthValue = "100%";
-const AnimatedDayBoxClosedHeightValue = 80;
-const AnimatedDayBoxOpenHeightValue = 200;
+const AnimatedBoxHeightValue = 50
+const AnimatedDayBoxClosedWidthValue = '100%'
+const AnimatedDayBoxClosedHeightValue = 80
+const AnimatedDayBoxOpenHeightValue = 200
 
 const EditWeekScreen = ({ route, navigation }) => {
-  const weekId = route.params.weekId;
+  const weekId = route.params.weekId
+  const week = route.params.week
 
   const days = useSelector((state) => {
-    const week = state.weeks.find((week) => week.id === weekId);
-    return week ? week.days : [];
-  });
+    const week = state.weeks.find((week) => week.id === weekId)
+    return week ? week.days : []
+  })
 
-  const [isExtended, setIsExtended] = useState(false);
+  const [title, setTitle] = useState(week.title)
+  const [description, setDescription] = useState(week.description)
 
-  const flatListRef = useRef(0);
+  const [isExtended, setIsExtended] = useState(false)
+
+  const flatListRef = useRef(0)
 
   const handleScrollOffsetChange = (offset) => {
-    const threshold = 10;
-    setIsExtended(offset < threshold);
-  };
+    const threshold = 10
+    setIsExtended(offset < threshold)
+  }
 
   const renderItem = ({ item, drag, isActive }) => {
     return (
@@ -95,14 +99,22 @@ const EditWeekScreen = ({ route, navigation }) => {
           navigation={navigation}
         />
       </ScaleDecorator>
-    );
-  };
+    )
+  }
 
   return (
     <View className="h-full border-blue-500 border-4">
       <SafeAreaView className="flex-1">
-        <TextInput label={"Title"} />
-        <TextInput label={"Description"} />
+        <TextInput
+          label={'Title'}
+          value={title}
+          onChangeText={(newTitle) => setTitle(newTitle)}
+        />
+        <TextInput
+          label={'Description'}
+          value={description}
+          onChangeText={(newDescription) => setDescription(newDescription)}
+        />
         <DraggableFlatList
           data={days}
           onDragEnd={({ data }) => setDays(data)}
@@ -115,20 +127,20 @@ const EditWeekScreen = ({ route, navigation }) => {
         <AddDay weekId={weekId} />
       </SafeAreaView>
     </View>
-  );
-};
+  )
+}
 
 const EditDayScreen = ({ route, navigation }) => {
-  const weekId = route.params.weekId;
-  const dayId = route.params.day.id;
+  const weekId = route.params.weekId
+  const dayId = route.params.day.id
 
   const exercises = useSelector((state) => {
-    const week = state.weeks.find((week) => week.id === weekId);
-    if (!week) return [];
+    const week = state.weeks.find((week) => week.id === weekId)
+    if (!week) return []
 
-    const day = week.days.find((day) => day.id === dayId);
-    return day ? day.exercises : [];
-  });
+    const day = week.days.find((day) => day.id === dayId)
+    return day ? day.exercises : []
+  })
 
   const renderItem = ({ item, drag, isActive }) => {
     return (
@@ -142,8 +154,8 @@ const EditDayScreen = ({ route, navigation }) => {
           navigation={navigation}
         />
       </ScaleDecorator>
-    );
-  };
+    )
+  }
   return (
     <View className="h-full border-green-500 border-4">
       <SafeAreaView className="flex-1">
@@ -157,8 +169,8 @@ const EditDayScreen = ({ route, navigation }) => {
         <AddExercise weekId={weekId} dayId={dayId} />
       </SafeAreaView>
     </View>
-  );
-};
+  )
+}
 
 const ExerciseContainer = ({
   weekId,
@@ -170,8 +182,8 @@ const ExerciseContainer = ({
 }) => {
   const handleEditExercise = () => {
     // navigation.navigate('EditExercise', { weekId, dayId, exercise })
-    console.log("inside handleEditExercise");
-  };
+    console.log('inside handleEditExercise')
+  }
   return (
     <ExerciseCard
       weekId={weekId}
@@ -179,8 +191,8 @@ const ExerciseContainer = ({
       exerciseId={exercise.id}
       onEdit={handleEditExercise}
     />
-  );
-};
+  )
+}
 
 const DayContainer = ({
   weekId,
@@ -191,8 +203,8 @@ const DayContainer = ({
   navigation,
 }) => {
   const handleEditDay = () => {
-    navigation.navigate("EditDay", { weekId, day });
-  };
+    navigation.navigate('EditDay', { weekId, day })
+  }
 
   return (
     <DayCard
@@ -202,26 +214,27 @@ const DayContainer = ({
       content={day.description}
       onEdit={handleEditDay}
     />
-  );
-};
+  )
+}
 
 const WeekContainer = ({ week, onDelete, onDrag, isActive, navigation }) => {
   const handleEditWeek = () => {
-    navigation.navigate("EditWeek", { weekId: week.id });
-  };
+    navigation.navigate('EditWeek', { weekId: week.id, week })
+  }
 
   return (
     <WeekCard
+      week={week}
       weekId={week.id}
       title={week.title}
       description={week.description}
       onEdit={handleEditWeek}
     />
-  );
-};
+  )
+}
 
 const CreateProgramScreen = ({ navigation }) => {
-  const [disableAddWeekButton, setDisabledAddWeekButton] = useState(false);
+  const [disableAddWeekButton, setDisabledAddWeekButton] = useState(false)
 
   // const { control, handleSubmit, formState: { errors } } = useForm({
   //     defaultValues: {
@@ -230,7 +243,7 @@ const CreateProgramScreen = ({ navigation }) => {
   //     }
   // })
 
-  const onSubmit = (weeks) => console.log(weeks);
+  const onSubmit = (weeks) => console.log(weeks)
 
   // const { fields: weekFields, append: appendWeek } = useFieldArray({
   //     control,
@@ -247,18 +260,18 @@ const CreateProgramScreen = ({ navigation }) => {
   // }
 
   const handleRemoveWeek = (weekToRemove) => {
-    const keyToRemove = weekToRemove.key;
+    const keyToRemove = weekToRemove.key
     setWeeks((currentWeeks) =>
-      currentWeeks.filter((week, index) => week.key !== keyToRemove),
-    );
-    console.log(`week with key [${keyToRemove}] removed`);
+      currentWeeks.filter((week, index) => week.key !== keyToRemove)
+    )
+    console.log(`week with key [${keyToRemove}] removed`)
 
     if (weeks.length < 8) {
-      setDisabledAddWeekButton(false);
+      setDisabledAddWeekButton(false)
     }
-  };
+  }
 
-  const weeks = useSelector((state) => state.weeks);
+  const weeks = useSelector((state) => state.weeks)
 
   const renderItem = ({ item, drag, isActive }) => {
     return (
@@ -272,25 +285,25 @@ const CreateProgramScreen = ({ navigation }) => {
           navigation={navigation}
         />
       </ScaleDecorator>
-    );
-  };
+    )
+  }
 
-  const [isExtended, setIsExtended] = useState(false);
+  const [isExtended, setIsExtended] = useState(false)
 
   const handleScrollOffsetChange = (offset) => {
-    const threshold = 10;
-    setIsExtended(offset < threshold);
-  };
+    const threshold = 10
+    setIsExtended(offset < threshold)
+  }
 
-  const flatListRef = useRef(0);
+  const flatListRef = useRef(0)
 
   useEffect(() => {
     if (weeks.length > 7) {
-      setDisabledAddWeekButton(true);
+      setDisabledAddWeekButton(true)
     } else {
-      setDisabledAddWeekButton(false);
+      setDisabledAddWeekButton(false)
     }
-  }, [weeks]);
+  }, [weeks])
 
   return (
     // <SafeAreaView>
@@ -331,35 +344,35 @@ const CreateProgramScreen = ({ navigation }) => {
         <AddWeek />
       </SafeAreaView>
     </View>
-  );
-};
+  )
+}
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-    height: "100%",
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: '100%',
   },
   buttonContainer: {
-    flexDirection: "row",
-    justifyContent: "space-around",
+    flexDirection: 'row',
+    justifyContent: 'space-around',
   },
   fabStyle: {
     bottom: 16,
     right: 16,
-    position: "absolute",
+    position: 'absolute',
   },
   box: {
     height: 120,
     width: 120,
-    backgroundColor: "#b58df1",
+    backgroundColor: '#b58df1',
     borderRadius: 20,
     marginVertical: 50,
   },
   svg: {
     height: 250,
-    width: "100%",
+    width: '100%',
   },
   circle: {
     height: 120,
@@ -368,56 +381,56 @@ const styles = StyleSheet.create({
   },
   weekBox: {
     height: AnimatedBoxHeightValue,
-    width: "90%",
+    width: '90%',
     // alignSelf: 'center',
     // flexDirection: 'row',
 
-    alignItems: "center",
+    alignItems: 'center',
     // justifyContent: 'left',
     // backgroundColor: '#e0e0e0',
     // backgroundColor: 'lightwhite',
-    borderColor: "black",
+    borderColor: 'black',
     borderWidth: 1,
     borderRadius: 10,
     marginVertical: 10,
-    marginHorizontal: "5%",
+    marginHorizontal: '5%',
     // paddingVertical: 15,
-    overflow: "hidden",
+    overflow: 'hidden',
   },
   gestureTapArea: {
-    width: "100%",
+    width: '100%',
     height: 50, // Fixed height for the tap area
     borderRadius: 10,
     // marginVertical: -1,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "#e0e0e0",
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#e0e0e0',
     borderBottomLeftRadius: 0,
     borderBottomRightRadius: 0,
   },
   dayBox: {
     width: AnimatedDayBoxClosedWidthValue,
     height: AnimatedDayBoxClosedHeightValue,
-    backgroundColor: "beige",
+    backgroundColor: 'beige',
     borderRadius: 10,
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
     // margin: 5,
-    borderColor: "black",
+    borderColor: 'black',
     borderWidth: 1,
   },
   box: {
     width: 100,
     height: 100,
-    backgroundColor: "blue",
+    backgroundColor: 'blue',
     margin: 5,
   },
   header: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
   },
   expandedContent: {},
-});
+})
 
-export { CreateProgramScreen, EditWeekScreen, EditDayScreen };
+export { CreateProgramScreen, EditWeekScreen, EditDayScreen }
