@@ -74,9 +74,6 @@ const EditWeekScreen = ({ route, navigation }) => {
     return week ? week.days : []
   })
 
-  const [title, setTitle] = useState(week.title)
-  const [description, setDescription] = useState(week.description)
-
   const [isExtended, setIsExtended] = useState(false)
 
   const flatListRef = useRef(0)
@@ -105,16 +102,6 @@ const EditWeekScreen = ({ route, navigation }) => {
   return (
     <View className="h-full border-blue-500 border-4">
       <SafeAreaView className="flex-1">
-        <TextInput
-          label={'Title'}
-          value={title}
-          onChangeText={(newTitle) => setTitle(newTitle)}
-        />
-        <TextInput
-          label={'Description'}
-          value={description}
-          onChangeText={(newDescription) => setDescription(newDescription)}
-        />
         <DraggableFlatList
           data={days}
           onDragEnd={({ data }) => setDays(data)}
