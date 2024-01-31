@@ -24,6 +24,7 @@ export const WeekCard = ({
   description,
   onRemove,
   onEdit,
+  onClick,
 }) => {
   const dispatch = useDispatch()
   const days = useSelector((state) => {
@@ -32,7 +33,7 @@ export const WeekCard = ({
   })
 
   return (
-    <Card style={styles.container}>
+    <Card style={styles.container} onPress={onClick}>
       {/* <Card.Title title="Card Title" subtitle="Card Subtitle" left={LeftContent} /> */}
       <Card.Content>
         <Text variant="titleLarge">{title}</Text>

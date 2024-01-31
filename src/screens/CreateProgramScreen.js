@@ -216,6 +216,7 @@ const WeekContainer = ({ week, onDelete, onDrag, isActive, navigation }) => {
       title={week.title}
       description={week.description}
       onEdit={handleEditWeek}
+      onClick={handleEditWeek}
     />
   )
 }
