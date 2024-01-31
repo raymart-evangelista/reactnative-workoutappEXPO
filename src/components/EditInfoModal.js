@@ -18,6 +18,28 @@ const EditInfoModal = ({ data, updateAction, entityType, onRemove }) => {
   const hideModal = () => setVisible(false)
   const containerStyle = { backgroundColor: 'white', padding: 20 }
 
+  const [showConfirmRemoveModal, setShowConfirmRemoveModal] = useState(false)
+
+  const ConfirmRemoveModal = () => (
+    <Modal
+      visible={showConfirmRemoveModal}
+      onDismiss={() => setShowConfirmRemoveModal(false)}
+      contentContainerStyle={containerStyle}
+    >
+      <Text>Are you sure you want to remove this week?</Text>
+      <Button
+        onPress={() => {
+          onRemove(data.id)
+          setShowConfirmRemoveModal(false)
+          hideModal()
+        }}
+      >
+        Yes
+      </Button>
+      <Button onPress={() => setShowConfirmRemoveModal(false)}>No</Button>
+    </Modal>
+  )
+
   const {
     control,
     handleSubmit,
@@ -55,7 +77,8 @@ const EditInfoModal = ({ data, updateAction, entityType, onRemove }) => {
             <Button
               icon="trash-can-outline"
               mode="outlined"
-              onPress={() => onRemove(data.id)}
+              // onPress={() => onRemove(data.id)}
+              onPress={() => setShowConfirmRemoveModal(true)}
             >
               Remove
             </Button>
@@ -102,6 +125,7 @@ const EditInfoModal = ({ data, updateAction, entityType, onRemove }) => {
 
           <Button onPress={handleSubmit(onSubmit)}>Submit changes</Button>
         </Modal>
+        <ConfirmRemoveModal />
       </Portal>
       <Button mode="contained" icon="pencil-outline" onPress={showModal}>
         Edit
