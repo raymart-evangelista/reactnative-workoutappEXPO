@@ -8,8 +8,9 @@ import { useState } from 'react'
 import { useForm, Controller } from 'react-hook-form'
 import { Modal, Portal, Text, Button, TextInput } from 'react-native-paper'
 import { useDispatch } from 'react-redux'
+import { RemoveWeek } from '../features/weeks/RemoveWeek'
 
-const EditInfoModal = ({ data, updateAction, entityType }) => {
+const EditInfoModal = ({ data, updateAction, entityType, onRemove }) => {
   const dispatch = useDispatch()
 
   const [visible, setVisible] = useState(false)
@@ -50,6 +51,15 @@ const EditInfoModal = ({ data, updateAction, entityType }) => {
           onDismiss={hideModal}
           contentContainerStyle={containerStyle}
         >
+          {onRemove && (
+            <Button
+              icon="trash-can-outline"
+              mode="outlined"
+              onPress={() => onRemove(data.id)}
+            >
+              Remove
+            </Button>
+          )}
           <Controller
             control={control}
             rules={{
@@ -93,7 +103,9 @@ const EditInfoModal = ({ data, updateAction, entityType }) => {
           <Button onPress={handleSubmit(onSubmit)}>Submit changes</Button>
         </Modal>
       </Portal>
-      <Button onPress={showModal}>Show modal</Button>
+      <Button mode="contained" icon="pencil-outline" onPress={showModal}>
+        Edit
+      </Button>
     </>
   )
 }

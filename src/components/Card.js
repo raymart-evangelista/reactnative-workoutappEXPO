@@ -4,8 +4,8 @@ import { StyleSheet } from 'react-native'
 import { RemoveWeek } from '../features/weeks/RemoveWeek'
 import { RemoveDay } from '../features/weeks/days/RemoveDay'
 import { RemoveExercise } from '../features/weeks/days/exercises/RemoveExercise'
-import { useSelector } from 'react-redux'
-import { weekUpdated } from '../features/weeksSlice'
+import { useDispatch, useSelector } from 'react-redux'
+import { weekRemoved, weekUpdated } from '../features/weeksSlice'
 import EditInfoModal from './EditInfoModal'
 
 const LeftContent = (props) => <Avatar.Icon {...props} icon="folder" />
@@ -25,12 +25,11 @@ export const WeekCard = ({
   onRemove,
   onEdit,
 }) => {
+  const dispatch = useDispatch()
   const days = useSelector((state) => {
     const week = state.weeks.find((week) => week.id === weekId)
     return week ? week.days : []
   })
-
-  console.log(days)
 
   return (
     <Card style={styles.container}>
@@ -52,11 +51,8 @@ export const WeekCard = ({
           data={week}
           updateAction={weekUpdated}
           entityType="Week"
+          onRemove={(weekId) => dispatch(weekRemoved({ id: weekId }))}
         />
-        <RemoveWeek weekId={weekId} />
-        <Button icon="pencil-outline" onPress={onEdit}>
-          Edit
-        </Button>
       </Card.Actions>
     </Card>
   )
