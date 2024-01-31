@@ -55,10 +55,11 @@ import CollapsibleCard from '../components/CollapsibleCard'
 import { AnimatedFAB as AniFAB } from 'react-native-paper'
 import { WeekCard, DayCard, ExerciseCard } from '../components/Card'
 
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { AddWeek } from '../features/weeks/AddWeek'
 import { AddDay } from '../features/weeks/days/AddDay'
 import { AddExercise } from '../features/weeks/days/exercises/AddExercise'
+import { weeksReordered } from '../features/weeksSlice'
 
 const AnimatedBoxHeightValue = 50
 const AnimatedDayBoxClosedWidthValue = '100%'
@@ -217,6 +218,7 @@ const WeekContainer = ({ week, onDelete, onDrag, isActive, navigation }) => {
       description={week.description}
       onEdit={handleEditWeek}
       onClick={handleEditWeek}
+      onDrag={onDrag}
     />
   )
 }
@@ -259,6 +261,7 @@ const CreateProgramScreen = ({ navigation }) => {
     }
   }
 
+  const dispatch = useDispatch()
   const weeks = useSelector((state) => state.weeks)
 
   const renderItem = ({ item, drag, isActive }) => {
@@ -322,7 +325,7 @@ const CreateProgramScreen = ({ navigation }) => {
         <Button onPress={() => console.log(weeks)}>Submit</Button>
         <DraggableFlatList
           data={weeks}
-          onDragEnd={({ data }) => setWeeks(data)}
+          onDragEnd={({ data }) => dispatch(weeksReordered(data))}
           keyExtractor={(item) => item.id}
           renderItem={renderItem}
           containerStyle={{ flex: 1 }}

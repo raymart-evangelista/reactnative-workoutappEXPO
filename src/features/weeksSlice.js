@@ -45,6 +45,9 @@ export const weeksSlice = createSlice({
         week.description = description
       }
     },
+    weeksReordered: (state, action) => {
+      return action.payload
+    },
     dayAdded: (state, action) => {
       const { weekId, day } = action.payload
       const week = state.find((week) => week.id === weekId)
@@ -100,5 +103,6 @@ export const {
   exerciseAdded,
   exerciseRemoved,
   weekUpdated,
+  weeksReordered,
 } = weeksSlice.actions
 export default weeksSlice.reducer
