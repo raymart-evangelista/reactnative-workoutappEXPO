@@ -16,7 +16,12 @@ const EditInfoModal = ({ data, updateAction, entityType, onRemove }) => {
   const [visible, setVisible] = useState(false)
   const showModal = () => setVisible(true)
   const hideModal = () => setVisible(false)
-  const containerStyle = { backgroundColor: 'white', padding: 20 }
+  const containerStyle = {
+    backgroundColor: 'white',
+    padding: 20,
+    margin: 30,
+    borderRadius: 15,
+  }
 
   const [showConfirmRemoveModal, setShowConfirmRemoveModal] = useState(false)
 
