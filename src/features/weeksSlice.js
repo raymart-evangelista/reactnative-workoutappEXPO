@@ -75,11 +75,10 @@ export const weeksSlice = createSlice({
     },
     daysReordered: (state, action) => {
       const { weekId, newDaysOrder } = action.payload
-      const weekIndex = stae.findIndex((week) => week.id === weekId)
+      const weekIndex = state.findIndex((week) => week.id === weekId)
       if (weekIndex !== -1) {
         state[weekIndex].days = newDaysOrder
       }
-      return action.payload
     },
     exerciseAdded: (state, action) => {
       const { weekId, dayId, exercise } = action.payload
