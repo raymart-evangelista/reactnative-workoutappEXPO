@@ -36,7 +36,7 @@ const EditInfoModal = ({ data, updateAction, entityType, onRemove }) => {
       </Text>
       <Button
         onPress={() => {
-          onRemove(data.id)
+          onRemove()
           setShowConfirmRemoveModal(false)
           hideModal()
         }}
