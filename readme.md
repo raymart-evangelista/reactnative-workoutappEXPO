@@ -1,10 +1,8 @@
 - ISSUES
 
   - UI shows success even though it should fail when user already exists in DB
-  - When days are added to the DB, going back to AddWeeksScreen and doing either will clear the days from the DB:
-    - 1. Selecting a week
-    - 2. Adding a new week
   - When adding/removing a new week/day/exercise, the backend doesn't update the correct index
+  - For the CreateProgramScreen DraggableFlatList components, unnecessary actions are initialized when Dragging and NOT reordering (for example, weeksReordered will still activate when reordering doesn't occur)
 
 - TODO
 
