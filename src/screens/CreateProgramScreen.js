@@ -101,9 +101,10 @@ const EditWeekScreen = ({ route, navigation }) => {
   }
 
   return (
-    <View className="h-full border-blue-500 border-4">
+    <View className="h-full">
       <SafeAreaView className="flex-1">
         <DraggableFlatList
+          dragHitSlop={{ left: -50 }}
           data={days}
           onDragEnd={({ data }) => setDays(data)}
           keyExtractor={(item) => item.id}
@@ -145,9 +146,10 @@ const EditDayScreen = ({ route, navigation }) => {
     )
   }
   return (
-    <View className="h-full border-green-500 border-4">
+    <View className="h-full">
       <SafeAreaView className="flex-1">
         <DraggableFlatList
+          dragHitSlop={{ left: -50 }}
           data={exercises}
           // onDragEnd={({ data }) => setExercises(data)}
           keyExtractor={(item) => item.id}
@@ -320,7 +322,7 @@ const CreateProgramScreen = ({ navigation }) => {
     //         </TouchableOpacity>
     //         ))}
     // </SafeAreaView>
-    <View className="h-full border-red-500 border-4">
+    <View className="h-full">
       <SafeAreaView className="flex-1">
         <Button onPress={() => console.log(weeks)}>Submit</Button>
         <DraggableFlatList
