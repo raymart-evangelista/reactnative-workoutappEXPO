@@ -200,6 +200,7 @@ const DayContainer = ({
     <DayCard
       weekId={weekId}
       dayId={day.id}
+      day={day}
       title={day.title}
       content={day.description}
       onEdit={handleEditDay}

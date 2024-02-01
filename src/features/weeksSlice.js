@@ -62,6 +62,17 @@ export const weeksSlice = createSlice({
         week.days = week.days.filter((day) => day.id !== dayId)
       }
     },
+    dayUpdated: (state, action) => {
+      const { weekId, dayId, title, description } = action.payload
+      const week = state.find((week) => week.id === weekId)
+      if (week) {
+        const day = week.days.find((day) => day.id === dayId)
+        if (day) {
+          day.title = title
+          day.description = description
+        }
+      }
+    },
     exerciseAdded: (state, action) => {
       const { weekId, dayId, exercise } = action.payload
       const week = state.find((week) => week.id === weekId)
@@ -100,6 +111,7 @@ export const {
   weekRemoved,
   dayAdded,
   dayRemoved,
+  dayUpdated,
   exerciseAdded,
   exerciseRemoved,
   weekUpdated,

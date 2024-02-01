@@ -5,7 +5,12 @@ import { RemoveWeek } from '../features/weeks/RemoveWeek'
 import { RemoveDay } from '../features/weeks/days/RemoveDay'
 import { RemoveExercise } from '../features/weeks/days/exercises/RemoveExercise'
 import { useDispatch, useSelector } from 'react-redux'
-import { weekRemoved, weekUpdated } from '../features/weeksSlice'
+import {
+  dayRemoved,
+  dayUpdated,
+  weekRemoved,
+  weekUpdated,
+} from '../features/weeksSlice'
 import EditInfoModal from './EditInfoModal'
 
 const LeftContent = (props) => <Avatar.Icon {...props} icon="folder" />
@@ -51,8 +56,16 @@ export const WeekCard = ({
       </Card.Content>
       <Card.Actions style={styles.cardActions}>
         <EditInfoModal
-          data={week}
-          updateAction={weekUpdated}
+          data={{ ...week }}
+          updateAction={(info) => {
+            dispatch(
+              weekUpdated({
+                id: info.id,
+                title: info.title,
+                description: info.description,
+              })
+            )
+          }}
           entityType="Week"
           onRemove={(weekId) => dispatch(weekRemoved({ id: weekId }))}
         />
@@ -64,11 +77,13 @@ export const WeekCard = ({
 export const DayCard = ({
   weekId,
   dayId,
+  day,
   title,
   content,
   onRemove,
   onEdit,
 }) => {
+  const dispatch = useDispatch()
   return (
     <Card style={styles.container}>
       {/* <Card.Title title="Card Title" subtitle="Card Subtitle" left={LeftContent} /> */}
@@ -79,6 +94,21 @@ export const DayCard = ({
         </Text>
       </Card.Content>
       <Card.Actions style={styles.cardActions}>
+        <EditInfoModal
+          data={{ ...day, weekId }}
+          updateAction={(info) => {
+            dispatch(
+              dayUpdated({
+                weekId: info.weekId,
+                dayId: info.id,
+                title: info.title,
+                description: info.description,
+              })
+            )
+          }}
+          entityType="Day"
+          onRemove={(weekId, dayId) => dispatch(dayRemoved({ weekId, dayId }))}
+        />
         <RemoveDay weekId={weekId} dayId={dayId} />
         <Button icon="pencil-outline" onPress={onEdit}>
           Edit

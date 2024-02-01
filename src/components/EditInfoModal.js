@@ -31,7 +31,9 @@ const EditInfoModal = ({ data, updateAction, entityType, onRemove }) => {
       onDismiss={() => setShowConfirmRemoveModal(false)}
       contentContainerStyle={containerStyle}
     >
-      <Text>Are you sure you want to remove this week?</Text>
+      <Text>
+        Are you sure you want to remove this {entityType.toLowerCase()}?
+      </Text>
       <Button
         onPress={() => {
           onRemove(data.id)
@@ -58,16 +60,12 @@ const EditInfoModal = ({ data, updateAction, entityType, onRemove }) => {
 
   const onSubmit = (info) => {
     // data that is passed through here means validation was successful
-    console.log(info)
     hideModal()
 
-    dispatch(
-      updateAction({
-        id: data.id,
-        title: info.title,
-        description: info.description,
-      })
-    )
+    updateAction({
+      ...data,
+      ...info,
+    })
   }
 
   return (
