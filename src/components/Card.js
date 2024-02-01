@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import {
   dayRemoved,
   dayUpdated,
+  exerciseUpdated,
   weekRemoved,
   weekUpdated,
 } from '../features/weeksSlice'
@@ -138,7 +139,19 @@ export const ExerciseCard = ({
         </Text>
       </Card.Content>
       <Card.Actions style={styles.cardActions}>
-        <RemoveExercise weekId={weekId} dayId={dayId} exerciseId={exerciseId} />
+        <EditInfoModal
+          data={{ ...exerciseId, weekId, dayId }}
+          updateAction={(info) => {
+            dispatch(
+              exerciseUpdated({
+                weekId,
+                dayId,
+                exerciseId,
+                // more props to pass in
+              })
+            )
+          }}
+        />
       </Card.Actions>
     </Card>
   )
