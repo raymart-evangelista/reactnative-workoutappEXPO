@@ -124,9 +124,12 @@ export const ExerciseCard = ({
   content,
   onRemove,
   onEdit,
+  onClick,
+  onDrag,
 }) => {
+  const dispatch = useDispatch()
   return (
-    <Card style={styles.container}>
+    <Card style={styles.container} onPress={onClick} onLongPress={onDrag}>
       {/* <Card.Title title="Card Title" subtitle="Card Subtitle" left={LeftContent} /> */}
       <Card.Content>
         <Text variant="titleLarge">{exerciseId}</Text>
