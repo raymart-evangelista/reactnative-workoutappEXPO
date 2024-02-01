@@ -82,10 +82,12 @@ export const DayCard = ({
   content,
   onRemove,
   onEdit,
+  onClick,
+  onDrag,
 }) => {
   const dispatch = useDispatch()
   return (
-    <Card style={styles.container}>
+    <Card style={styles.container} onPress={onClick} onLongPress={onDrag}>
       {/* <Card.Title title="Card Title" subtitle="Card Subtitle" left={LeftContent} /> */}
       <Card.Content>
         <Text variant="titleLarge">{title}</Text>
@@ -109,10 +111,6 @@ export const DayCard = ({
           entityType="Day"
           onRemove={() => dispatch(dayRemoved({ weekId, dayId: day.id }))}
         />
-        <RemoveDay weekId={weekId} dayId={dayId} />
-        <Button icon="pencil-outline" onPress={onEdit}>
-          Edit
-        </Button>
       </Card.Actions>
     </Card>
   )
