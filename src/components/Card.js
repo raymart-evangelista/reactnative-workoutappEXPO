@@ -67,7 +67,7 @@ export const WeekCard = ({
             )
           }}
           entityType="Week"
-          onRemove={(weekId) => dispatch(weekRemoved({ id: weekId }))}
+          onRemove={() => dispatch(weekRemoved({ id: weekId }))}
         />
       </Card.Actions>
     </Card>
@@ -107,7 +107,7 @@ export const DayCard = ({
             )
           }}
           entityType="Day"
-          onRemove={(weekId, dayId) => dispatch(dayRemoved({ weekId, dayId }))}
+          onRemove={() => dispatch(dayRemoved({ weekId, dayId: day.id }))}
         />
         <RemoveDay weekId={weekId} dayId={dayId} />
         <Button icon="pencil-outline" onPress={onEdit}>
