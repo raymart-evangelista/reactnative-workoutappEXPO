@@ -59,7 +59,11 @@ import { useDispatch, useSelector } from 'react-redux'
 import { AddWeek } from '../features/weeks/AddWeek'
 import { AddDay } from '../features/weeks/days/AddDay'
 import { AddExercise } from '../features/weeks/days/exercises/AddExercise'
-import { weeksReordered } from '../features/weeksSlice'
+import {
+  daysReordered,
+  exercisesReordered,
+  weeksReordered,
+} from '../features/weeksSlice'
 
 const AnimatedBoxHeightValue = 50
 const AnimatedDayBoxClosedWidthValue = '100%'
@@ -67,6 +71,7 @@ const AnimatedDayBoxClosedHeightValue = 80
 const AnimatedDayBoxOpenHeightValue = 200
 
 const EditWeekScreen = ({ route, navigation }) => {
+  const dispatch = useDispatch()
   const weekId = route.params.weekId
   const week = route.params.week
 
@@ -106,7 +111,9 @@ const EditWeekScreen = ({ route, navigation }) => {
         <DraggableFlatList
           dragHitSlop={{ left: -50 }}
           data={days}
-          onDragEnd={({ data }) => setDays(data)}
+          onDragEnd={({ data }) =>
+            dispatch(daysReordered({ weekId, newDaysOrder: data }))
+          }
           keyExtractor={(item) => item.id}
           renderItem={renderItem}
           containerStyle={{ flex: 1 }}
@@ -120,6 +127,7 @@ const EditWeekScreen = ({ route, navigation }) => {
 }
 
 const EditDayScreen = ({ route, navigation }) => {
+  const dispatch = useDispatch()
   const weekId = route.params.weekId
   const dayId = route.params.day.id
 
@@ -151,7 +159,11 @@ const EditDayScreen = ({ route, navigation }) => {
         <DraggableFlatList
           dragHitSlop={{ left: -50 }}
           data={exercises}
-          // onDragEnd={({ data }) => setExercises(data)}
+          onDragEnd={({ data }) =>
+            dispatch(
+              exercisesReordered({ weekId, dayId, newExercisesOrder: data })
+            )
+          }
           keyExtractor={(item) => item.id}
           renderItem={renderItem}
           containerStyle={{ flex: 1 }}
@@ -180,6 +192,8 @@ const ExerciseContainer = ({
       dayId={dayId}
       exerciseId={exercise.id}
       onEdit={handleEditExercise}
+      onClick={handleEditExercise}
+      onDrag={onDrag}
     />
   )
 }
@@ -204,6 +218,8 @@ const DayContainer = ({
       title={day.title}
       content={day.description}
       onEdit={handleEditDay}
+      onClick={handleEditDay}
+      onDrag={onDrag}
     />
   )
 }
