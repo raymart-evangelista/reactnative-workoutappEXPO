@@ -20,6 +20,8 @@ const initialState = [
         exercises: [
           {
             id: nanoid(),
+            name: 'unnamed exercise',
+            description: 'default exercise description',
           },
         ],
       },
