@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import {
   dayRemoved,
   dayUpdated,
+  exerciseRemoved,
   exerciseUpdated,
   weekRemoved,
   weekUpdated,
@@ -151,6 +152,10 @@ export const ExerciseCard = ({
               })
             )
           }}
+          entityType="Exercise"
+          onRemove={() =>
+            dispatch(exerciseRemoved({ weekId, dayId, exerciseId }))
+          }
         />
       </Card.Actions>
     </Card>
