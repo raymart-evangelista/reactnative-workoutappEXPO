@@ -103,16 +103,20 @@ export const weeksSlice = createSlice({
       }
     },
     exerciseUpdated: (state, action) => {
-      const { weekId, dayId, exerciseId } = action.payload
+      const { weekId, dayId, exerciseId, updates } = action.payload
       const week = state.find((week) => week.id === weekId)
       if (week) {
         const day = week.days.find((day) => day.id === dayId)
         if (day) {
-          const exercise = day.exercises.find(
+          const exerciseIndex = day.exercises.findIndex(
             (exercise) => exercise.id === exerciseId
           )
-          if (exercise) {
+          if (exerciseIndex !== -1) {
             // update logic here
+            day.exercises[exerciseIndex] = {
+              ...day.exercises[exerciseIndex],
+              ...updates,
+            }
           }
         }
       }
@@ -143,14 +147,14 @@ export const weeksSlice = createSlice({
 export const {
   weekAdded,
   weekRemoved,
+  weekUpdated,
+  weeksReordered,
   dayAdded,
   dayRemoved,
   dayUpdated,
+  daysReordered,
   exerciseAdded,
   exerciseRemoved,
-  weekUpdated,
-  weeksReordered,
-  daysReordered,
   exercisesReordered,
   exerciseUpdated,
 } = weeksSlice.actions
