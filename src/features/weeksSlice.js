@@ -83,12 +83,13 @@ export const weeksSlice = createSlice({
       }
     },
     exerciseAdded: (state, action) => {
-      const { weekId, dayId, exercise } = action.payload
+      const { weekId, dayId, exerciseData } = action.payload
       const week = state.find((week) => week.id === weekId)
       if (week) {
         const day = week.days.find((day) => day.id === dayId)
         if (day) {
-          day.exercises = [...day.exercises, { ...exercise, id: nanoid() }]
+          const newExercise = { id: nanoid(), ...exerciseData }
+          day.exercises.push(newExercise)
         }
       }
     },
