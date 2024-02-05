@@ -10,18 +10,22 @@ const initialState = [
   {
     // id: generateUniqueId(),
     id: nanoid(),
-    title: 'default week title',
-    description: 'default week description',
+    title: 'Loading week',
+    description: 'During this week, get muscles used to movements.',
     days: [
       {
         id: nanoid(),
-        title: 'untitled day',
-        description: 'default day description',
+        title: 'Push',
+        description: 'chest, triceps, and shoulders',
         exercises: [
           {
             id: nanoid(),
-            name: 'unnamed exercise',
+            name: 'Bench Press',
             description: 'default exercise description',
+            warmupSets: { min: 2, max: 4 },
+            workingSets: 3,
+            reps: { min: 8, max: 12 },
+            RPE: { min: 6, max: 8 },
           },
         ],
       },
