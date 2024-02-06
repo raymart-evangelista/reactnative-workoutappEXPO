@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import {
   AnimatedFAB,
@@ -29,14 +29,36 @@ export const AddExercise = ({ weekId, dayId }) => {
   const {
     control,
     handleSubmit,
-    formState: { errors },
+    reset,
+    formState,
+    formState: { errors, isSubmitSuccessful },
   } = useForm({
     defaultValues: {
       name: '',
-      warmupSets: { min: '', max: '' },
-      workingSets: { min: '', max: '' },
-      reps: { min: '', max: '' },
-      RPE: { min: '', max: '' },
+      warmupSets: {
+        value: '',
+        min: '',
+        max: '',
+        isRange: false,
+      },
+      workingSets: {
+        value: '',
+        min: '',
+        max: '',
+        isRange: false,
+      },
+      reps: {
+        value: '',
+        min: '',
+        max: '',
+        isRange: false,
+      },
+      RPE: {
+        value: '',
+        min: '',
+        max: '',
+        isRange: false,
+      },
     },
   })
 
@@ -50,6 +72,48 @@ export const AddExercise = ({ weekId, dayId }) => {
   }
 
   const onSubmit = (data) => {
+    console.log(data)
+
+    const warmupSetsPayload = useRangeForWarmupSets
+      ? {
+          isRange: true,
+          min: data.warmupSets.min,
+          max: data.warmupSets.max,
+        }
+      : {
+          isRange: false,
+          value: data.warmupSets.value,
+        }
+    const workingSetsPayload = useRangeForWorkingSets
+      ? {
+          isRange: true,
+          min: data.workingSets.min,
+          max: data.workingSets.max,
+        }
+      : {
+          isRange: false,
+          value: data.workingSets.value,
+        }
+    const repsPayload = useRangeForReps
+      ? {
+          isRange: true,
+          min: data.reps.min,
+          max: data.reps.max,
+        }
+      : {
+          isRange: false,
+          value: data.reps.value,
+        }
+    const rpePayload = useRangeForRPE
+      ? {
+          isRange: true,
+          min: data.rpe.min,
+          max: data.rpe.max,
+        }
+      : {
+          isRange: false,
+          value: data.rpe.value,
+        }
     dispatch(
       exerciseAdded({
         weekId,
@@ -57,15 +121,47 @@ export const AddExercise = ({ weekId, dayId }) => {
         exercise: {
           id: nanoid(),
           name: data.name,
-          warmupSets: data.warmupSets,
-          workingSets: data.workingSets,
-          reps: data.reps,
-          RPE: data.RPE,
+          warmupSets: warmupSetsPayload,
+          workingSets: workingSetsPayload,
+          reps: repsPayload,
+          RPE: rpePayload,
         },
       })
     )
     hideModal()
   }
+
+  useEffect(() => {
+    if (isSubmitSuccessful) {
+      reset({
+        name: '',
+        warmupSets: {
+          value: '',
+          min: '',
+          max: '',
+          isRange: false,
+        },
+        workingSets: {
+          value: '',
+          min: '',
+          max: '',
+          isRange: false,
+        },
+        reps: {
+          value: '',
+          min: '',
+          max: '',
+          isRange: false,
+        },
+        RPE: {
+          value: '',
+          min: '',
+          max: '',
+          isRange: false,
+        },
+      })
+    }
+  }, [formState, reset])
 
   return (
     <>
@@ -94,7 +190,11 @@ export const AddExercise = ({ weekId, dayId }) => {
             )}
           />
           {errors.name && <Text>Exercise name is required.</Text>}
-          {/* form stuff in here */}
+
+          {/* 
+          warmup sets
+          */}
+
           <View style={styles.switchContainer}>
             <Text>Use range for warmup sets?</Text>
             <Switch
@@ -136,7 +236,7 @@ export const AddExercise = ({ weekId, dayId }) => {
                     label="Warmup sets (maximum)"
                     onBlur={onBlur}
                     onChangeText={onChange}
-                    value={value}
+                    value={value || ''}
                     style={styles.input}
                     error={!!error}
                   />
@@ -155,7 +255,7 @@ export const AddExercise = ({ weekId, dayId }) => {
                   fieldState: { error },
                 }) => (
                   <TextInput
-                    label="Warmup sets (minimum)"
+                    label="Warmup sets"
                     onBlur={onBlur}
                     onChangeText={onChange}
                     value={value}
@@ -164,7 +264,235 @@ export const AddExercise = ({ weekId, dayId }) => {
                   />
                 )}
               />
-              {errors.name && <Text>Minimum warmup sets required.</Text>}
+              {errors.name && <Text>Warmup set amount is required.</Text>}
+            </>
+          )}
+
+          {/* 
+          working sets
+          */}
+
+          <View style={styles.switchContainer}>
+            <Text>Use range for working sets?</Text>
+            <Switch
+              value={useRangeForWorkingSets}
+              onValueChange={setUseRangeForWorkingSets}
+            />
+          </View>
+
+          {useRangeForWorkingSets ? (
+            <>
+              <Controller
+                control={control}
+                name="workingSets.min"
+                rules={{ required: true, min: 0, max: 9 }}
+                render={({
+                  field: { onChange, onBlur, value },
+                  fieldState: { error },
+                }) => (
+                  <TextInput
+                    label="Working sets (minimum)"
+                    onBlur={onBlur}
+                    onChangeText={onChange}
+                    value={value}
+                    style={styles.input}
+                    error={!!error}
+                  />
+                )}
+              />
+              {errors.name && <Text>Minimum working sets required.</Text>}
+              <Controller
+                control={control}
+                name="workingSets.max"
+                rules={{ required: true, min: 1, max: 10 }}
+                render={({
+                  field: { onChange, onBlur, value },
+                  fieldState: { error },
+                }) => (
+                  <TextInput
+                    label="Working sets (maximum)"
+                    onBlur={onBlur}
+                    onChangeText={onChange}
+                    value={value || ''}
+                    style={styles.input}
+                    error={!!error}
+                  />
+                )}
+              />
+              {errors.name && <Text>Maximum working sets required.</Text>}
+            </>
+          ) : (
+            <>
+              <Controller
+                control={control}
+                name="workingSets.value"
+                rules={{ required: true, min: 0, max: 9 }}
+                render={({
+                  field: { onChange, onBlur, value },
+                  fieldState: { error },
+                }) => (
+                  <TextInput
+                    label="Working sets"
+                    onBlur={onBlur}
+                    onChangeText={onChange}
+                    value={value}
+                    style={styles.input}
+                    error={!!error}
+                  />
+                )}
+              />
+              {errors.name && <Text>Working set amount is required.</Text>}
+            </>
+          )}
+
+          {/* 
+            reps for working sets
+          */}
+
+          <View style={styles.switchContainer}>
+            <Text>Use range for reps?</Text>
+            <Switch
+              value={useRangeForReps}
+              onValueChange={setUseRangeForReps}
+            />
+          </View>
+
+          {useRangeForReps ? (
+            <>
+              <Controller
+                control={control}
+                name="reps.min"
+                rules={{ required: true, min: 1 }}
+                render={({
+                  field: { onChange, onBlur, value },
+                  fieldState: { error },
+                }) => (
+                  <TextInput
+                    label="Reps (minimum)"
+                    onBlur={onBlur}
+                    onChangeText={onChange}
+                    value={value}
+                    style={styles.input}
+                    error={!!error}
+                  />
+                )}
+              />
+              {errors.name && <Text>Value for reps (min) is required.</Text>}
+              <Controller
+                control={control}
+                name="reps.max"
+                rules={{ required: true, min: 2 }}
+                render={({
+                  field: { onChange, onBlur, value },
+                  fieldState: { error },
+                }) => (
+                  <TextInput
+                    label="Reps (maximum)"
+                    onBlur={onBlur}
+                    onChangeText={onChange}
+                    value={value || ''}
+                    style={styles.input}
+                    error={!!error}
+                  />
+                )}
+              />
+              {errors.name && <Text>Value for reps (max) is required.</Text>}
+            </>
+          ) : (
+            <>
+              <Controller
+                control={control}
+                name="reps.value"
+                rules={{ required: true, min: 1 }}
+                render={({
+                  field: { onChange, onBlur, value },
+                  fieldState: { error },
+                }) => (
+                  <TextInput
+                    label="Reps"
+                    onBlur={onBlur}
+                    onChangeText={onChange}
+                    value={value}
+                    style={styles.input}
+                    error={!!error}
+                  />
+                )}
+              />
+              {errors.name && <Text>Value for reps is required.</Text>}
+            </>
+          )}
+
+          {/* 
+            RPE for working sets
+          */}
+
+          <View style={styles.switchContainer}>
+            <Text>Use range for RPE?</Text>
+            <Switch value={useRangeForRPE} onValueChange={setUseRangeForRPE} />
+          </View>
+
+          {useRangeForRPE ? (
+            <>
+              <Controller
+                control={control}
+                name="rpe.min"
+                rules={{ required: true, min: 1 }}
+                render={({
+                  field: { onChange, onBlur, value },
+                  fieldState: { error },
+                }) => (
+                  <TextInput
+                    label="RPE (minimum)"
+                    onBlur={onBlur}
+                    onChangeText={onChange}
+                    value={value}
+                    style={styles.input}
+                    error={!!error}
+                  />
+                )}
+              />
+              {errors.name && <Text>Value for RPE (min) is required.</Text>}
+              <Controller
+                control={control}
+                name="rpe.max"
+                rules={{ required: true, min: 2 }}
+                render={({
+                  field: { onChange, onBlur, value },
+                  fieldState: { error },
+                }) => (
+                  <TextInput
+                    label="RPE (maximum)"
+                    onBlur={onBlur}
+                    onChangeText={onChange}
+                    value={value || ''}
+                    style={styles.input}
+                    error={!!error}
+                  />
+                )}
+              />
+              {errors.name && <Text>Value for RPE (max) is required.</Text>}
+            </>
+          ) : (
+            <>
+              <Controller
+                control={control}
+                name="rpe.value"
+                rules={{ required: true, min: 1 }}
+                render={({
+                  field: { onChange, onBlur, value },
+                  fieldState: { error },
+                }) => (
+                  <TextInput
+                    label="RPE"
+                    onBlur={onBlur}
+                    onChangeText={onChange}
+                    value={value}
+                    style={styles.input}
+                    error={!!error}
+                  />
+                )}
+              />
+              {errors.name && <Text>Value for RPE is required.</Text>}
             </>
           )}
 
