@@ -13,6 +13,7 @@ import { exerciseAdded } from '../../../weeksSlice'
 import { nanoid } from '@reduxjs/toolkit'
 import { StyleSheet, View } from 'react-native'
 import { useForm, Controller } from 'react-hook-form'
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
 export const AddExercise = ({ weekId, dayId }) => {
   const dispatch = useDispatch()
@@ -171,334 +172,339 @@ export const AddExercise = ({ weekId, dayId }) => {
           onDismiss={hideModal}
           contentContainerStyle={styles.containerStyle}
         >
-          <Controller
-            control={control}
-            name="name"
-            rules={{ required: true }}
-            render={({
-              field: { onChange, onBlur, value },
-              fieldState: { error },
-            }) => (
-              <TextInput
-                label="Exercise Name"
-                onBlur={onBlur}
-                onChangeText={onChange}
-                value={value}
-                style={styles.input}
-                error={!!error}
-              />
-            )}
-          />
-          {errors.name && <Text>Exercise name is required.</Text>}
+          <KeyboardAwareScrollView>
+            <Controller
+              control={control}
+              name="name"
+              rules={{ required: true }}
+              render={({
+                field: { onChange, onBlur, value },
+                fieldState: { error },
+              }) => (
+                <TextInput
+                  label="Exercise Name"
+                  onBlur={onBlur}
+                  onChangeText={onChange}
+                  value={value}
+                  style={styles.input}
+                  error={!!error}
+                />
+              )}
+            />
+            {errors.name && <Text>Exercise name is required.</Text>}
 
-          {/* 
+            {/* 
           warmup sets
           */}
 
-          <View style={styles.switchContainer}>
-            <Text>Use range for warmup sets?</Text>
-            <Switch
-              value={useRangeForWarmupSets}
-              onValueChange={setUseRangeForWarmupSets}
-            />
-          </View>
+            <View style={styles.switchContainer}>
+              <Text>Use range for warmup sets?</Text>
+              <Switch
+                value={useRangeForWarmupSets}
+                onValueChange={setUseRangeForWarmupSets}
+              />
+            </View>
 
-          {useRangeForWarmupSets ? (
-            <>
-              <Controller
-                control={control}
-                name="warmupSets.min"
-                rules={{ required: true, min: 0, max: 9 }}
-                render={({
-                  field: { onChange, onBlur, value },
-                  fieldState: { error },
-                }) => (
-                  <TextInput
-                    label="Warmup sets (minimum)"
-                    onBlur={onBlur}
-                    onChangeText={onChange}
-                    value={value}
-                    style={styles.input}
-                    error={!!error}
-                  />
-                )}
-              />
-              {errors.name && <Text>Minimum warmup sets required.</Text>}
-              <Controller
-                control={control}
-                name="warmupSets.max"
-                rules={{ required: true, min: 1, max: 10 }}
-                render={({
-                  field: { onChange, onBlur, value },
-                  fieldState: { error },
-                }) => (
-                  <TextInput
-                    label="Warmup sets (maximum)"
-                    onBlur={onBlur}
-                    onChangeText={onChange}
-                    value={value || ''}
-                    style={styles.input}
-                    error={!!error}
-                  />
-                )}
-              />
-              {errors.name && <Text>Maximum warmup sets required.</Text>}
-            </>
-          ) : (
-            <>
-              <Controller
-                control={control}
-                name="warmupSets.value"
-                rules={{ required: true, min: 0, max: 9 }}
-                render={({
-                  field: { onChange, onBlur, value },
-                  fieldState: { error },
-                }) => (
-                  <TextInput
-                    label="Warmup sets"
-                    onBlur={onBlur}
-                    onChangeText={onChange}
-                    value={value}
-                    style={styles.input}
-                    error={!!error}
-                  />
-                )}
-              />
-              {errors.name && <Text>Warmup set amount is required.</Text>}
-            </>
-          )}
+            {useRangeForWarmupSets ? (
+              <>
+                <Controller
+                  control={control}
+                  name="warmupSets.min"
+                  rules={{ required: true, min: 0, max: 9 }}
+                  render={({
+                    field: { onChange, onBlur, value },
+                    fieldState: { error },
+                  }) => (
+                    <TextInput
+                      label="Warmup sets (minimum)"
+                      onBlur={onBlur}
+                      onChangeText={onChange}
+                      value={value}
+                      style={styles.input}
+                      error={!!error}
+                    />
+                  )}
+                />
+                {errors.name && <Text>Minimum warmup sets required.</Text>}
+                <Controller
+                  control={control}
+                  name="warmupSets.max"
+                  rules={{ required: true, min: 1, max: 10 }}
+                  render={({
+                    field: { onChange, onBlur, value },
+                    fieldState: { error },
+                  }) => (
+                    <TextInput
+                      label="Warmup sets (maximum)"
+                      onBlur={onBlur}
+                      onChangeText={onChange}
+                      value={value || ''}
+                      style={styles.input}
+                      error={!!error}
+                    />
+                  )}
+                />
+                {errors.name && <Text>Maximum warmup sets required.</Text>}
+              </>
+            ) : (
+              <>
+                <Controller
+                  control={control}
+                  name="warmupSets.value"
+                  rules={{ required: true, min: 0, max: 9 }}
+                  render={({
+                    field: { onChange, onBlur, value },
+                    fieldState: { error },
+                  }) => (
+                    <TextInput
+                      label="Warmup sets"
+                      onBlur={onBlur}
+                      onChangeText={onChange}
+                      value={value}
+                      style={styles.input}
+                      error={!!error}
+                    />
+                  )}
+                />
+                {errors.name && <Text>Warmup set amount is required.</Text>}
+              </>
+            )}
 
-          {/* 
+            {/* 
           working sets
           */}
 
-          <View style={styles.switchContainer}>
-            <Text>Use range for working sets?</Text>
-            <Switch
-              value={useRangeForWorkingSets}
-              onValueChange={setUseRangeForWorkingSets}
-            />
-          </View>
+            <View style={styles.switchContainer}>
+              <Text>Use range for working sets?</Text>
+              <Switch
+                value={useRangeForWorkingSets}
+                onValueChange={setUseRangeForWorkingSets}
+              />
+            </View>
 
-          {useRangeForWorkingSets ? (
-            <>
-              <Controller
-                control={control}
-                name="workingSets.min"
-                rules={{ required: true, min: 0, max: 9 }}
-                render={({
-                  field: { onChange, onBlur, value },
-                  fieldState: { error },
-                }) => (
-                  <TextInput
-                    label="Working sets (minimum)"
-                    onBlur={onBlur}
-                    onChangeText={onChange}
-                    value={value}
-                    style={styles.input}
-                    error={!!error}
-                  />
-                )}
-              />
-              {errors.name && <Text>Minimum working sets required.</Text>}
-              <Controller
-                control={control}
-                name="workingSets.max"
-                rules={{ required: true, min: 1, max: 10 }}
-                render={({
-                  field: { onChange, onBlur, value },
-                  fieldState: { error },
-                }) => (
-                  <TextInput
-                    label="Working sets (maximum)"
-                    onBlur={onBlur}
-                    onChangeText={onChange}
-                    value={value || ''}
-                    style={styles.input}
-                    error={!!error}
-                  />
-                )}
-              />
-              {errors.name && <Text>Maximum working sets required.</Text>}
-            </>
-          ) : (
-            <>
-              <Controller
-                control={control}
-                name="workingSets.value"
-                rules={{ required: true, min: 0, max: 9 }}
-                render={({
-                  field: { onChange, onBlur, value },
-                  fieldState: { error },
-                }) => (
-                  <TextInput
-                    label="Working sets"
-                    onBlur={onBlur}
-                    onChangeText={onChange}
-                    value={value}
-                    style={styles.input}
-                    error={!!error}
-                  />
-                )}
-              />
-              {errors.name && <Text>Working set amount is required.</Text>}
-            </>
-          )}
+            {useRangeForWorkingSets ? (
+              <>
+                <Controller
+                  control={control}
+                  name="workingSets.min"
+                  rules={{ required: true, min: 0, max: 9 }}
+                  render={({
+                    field: { onChange, onBlur, value },
+                    fieldState: { error },
+                  }) => (
+                    <TextInput
+                      label="Working sets (minimum)"
+                      onBlur={onBlur}
+                      onChangeText={onChange}
+                      value={value}
+                      style={styles.input}
+                      error={!!error}
+                    />
+                  )}
+                />
+                {errors.name && <Text>Minimum working sets required.</Text>}
+                <Controller
+                  control={control}
+                  name="workingSets.max"
+                  rules={{ required: true, min: 1, max: 10 }}
+                  render={({
+                    field: { onChange, onBlur, value },
+                    fieldState: { error },
+                  }) => (
+                    <TextInput
+                      label="Working sets (maximum)"
+                      onBlur={onBlur}
+                      onChangeText={onChange}
+                      value={value || ''}
+                      style={styles.input}
+                      error={!!error}
+                    />
+                  )}
+                />
+                {errors.name && <Text>Maximum working sets required.</Text>}
+              </>
+            ) : (
+              <>
+                <Controller
+                  control={control}
+                  name="workingSets.value"
+                  rules={{ required: true, min: 0, max: 9 }}
+                  render={({
+                    field: { onChange, onBlur, value },
+                    fieldState: { error },
+                  }) => (
+                    <TextInput
+                      label="Working sets"
+                      onBlur={onBlur}
+                      onChangeText={onChange}
+                      value={value}
+                      style={styles.input}
+                      error={!!error}
+                    />
+                  )}
+                />
+                {errors.name && <Text>Working set amount is required.</Text>}
+              </>
+            )}
 
-          {/* 
+            {/* 
             reps for working sets
           */}
 
-          <View style={styles.switchContainer}>
-            <Text>Use range for reps?</Text>
-            <Switch
-              value={useRangeForReps}
-              onValueChange={setUseRangeForReps}
-            />
-          </View>
+            <View style={styles.switchContainer}>
+              <Text>Use range for reps?</Text>
+              <Switch
+                value={useRangeForReps}
+                onValueChange={setUseRangeForReps}
+              />
+            </View>
 
-          {useRangeForReps ? (
-            <>
-              <Controller
-                control={control}
-                name="reps.min"
-                rules={{ required: true, min: 1 }}
-                render={({
-                  field: { onChange, onBlur, value },
-                  fieldState: { error },
-                }) => (
-                  <TextInput
-                    label="Reps (minimum)"
-                    onBlur={onBlur}
-                    onChangeText={onChange}
-                    value={value}
-                    style={styles.input}
-                    error={!!error}
-                  />
-                )}
-              />
-              {errors.name && <Text>Value for reps (min) is required.</Text>}
-              <Controller
-                control={control}
-                name="reps.max"
-                rules={{ required: true, min: 2 }}
-                render={({
-                  field: { onChange, onBlur, value },
-                  fieldState: { error },
-                }) => (
-                  <TextInput
-                    label="Reps (maximum)"
-                    onBlur={onBlur}
-                    onChangeText={onChange}
-                    value={value || ''}
-                    style={styles.input}
-                    error={!!error}
-                  />
-                )}
-              />
-              {errors.name && <Text>Value for reps (max) is required.</Text>}
-            </>
-          ) : (
-            <>
-              <Controller
-                control={control}
-                name="reps.value"
-                rules={{ required: true, min: 1 }}
-                render={({
-                  field: { onChange, onBlur, value },
-                  fieldState: { error },
-                }) => (
-                  <TextInput
-                    label="Reps"
-                    onBlur={onBlur}
-                    onChangeText={onChange}
-                    value={value}
-                    style={styles.input}
-                    error={!!error}
-                  />
-                )}
-              />
-              {errors.name && <Text>Value for reps is required.</Text>}
-            </>
-          )}
+            {useRangeForReps ? (
+              <>
+                <Controller
+                  control={control}
+                  name="reps.min"
+                  rules={{ required: true, min: 1 }}
+                  render={({
+                    field: { onChange, onBlur, value },
+                    fieldState: { error },
+                  }) => (
+                    <TextInput
+                      label="Reps (minimum)"
+                      onBlur={onBlur}
+                      onChangeText={onChange}
+                      value={value}
+                      style={styles.input}
+                      error={!!error}
+                    />
+                  )}
+                />
+                {errors.name && <Text>Value for reps (min) is required.</Text>}
+                <Controller
+                  control={control}
+                  name="reps.max"
+                  rules={{ required: true, min: 2 }}
+                  render={({
+                    field: { onChange, onBlur, value },
+                    fieldState: { error },
+                  }) => (
+                    <TextInput
+                      label="Reps (maximum)"
+                      onBlur={onBlur}
+                      onChangeText={onChange}
+                      value={value || ''}
+                      style={styles.input}
+                      error={!!error}
+                    />
+                  )}
+                />
+                {errors.name && <Text>Value for reps (max) is required.</Text>}
+              </>
+            ) : (
+              <>
+                <Controller
+                  control={control}
+                  name="reps.value"
+                  rules={{ required: true, min: 1 }}
+                  render={({
+                    field: { onChange, onBlur, value },
+                    fieldState: { error },
+                  }) => (
+                    <TextInput
+                      label="Reps"
+                      onBlur={onBlur}
+                      onChangeText={onChange}
+                      value={value}
+                      style={styles.input}
+                      error={!!error}
+                    />
+                  )}
+                />
+                {errors.name && <Text>Value for reps is required.</Text>}
+              </>
+            )}
 
-          {/* 
+            {/* 
             RPE for working sets
           */}
 
-          <View style={styles.switchContainer}>
-            <Text>Use range for RPE?</Text>
-            <Switch value={useRangeForRPE} onValueChange={setUseRangeForRPE} />
-          </View>
+            <View style={styles.switchContainer}>
+              <Text>Use range for RPE?</Text>
+              <Switch
+                value={useRangeForRPE}
+                onValueChange={setUseRangeForRPE}
+              />
+            </View>
 
-          {useRangeForRPE ? (
-            <>
-              <Controller
-                control={control}
-                name="rpe.min"
-                rules={{ required: true, min: 1 }}
-                render={({
-                  field: { onChange, onBlur, value },
-                  fieldState: { error },
-                }) => (
-                  <TextInput
-                    label="RPE (minimum)"
-                    onBlur={onBlur}
-                    onChangeText={onChange}
-                    value={value}
-                    style={styles.input}
-                    error={!!error}
-                  />
-                )}
-              />
-              {errors.name && <Text>Value for RPE (min) is required.</Text>}
-              <Controller
-                control={control}
-                name="rpe.max"
-                rules={{ required: true, min: 2 }}
-                render={({
-                  field: { onChange, onBlur, value },
-                  fieldState: { error },
-                }) => (
-                  <TextInput
-                    label="RPE (maximum)"
-                    onBlur={onBlur}
-                    onChangeText={onChange}
-                    value={value || ''}
-                    style={styles.input}
-                    error={!!error}
-                  />
-                )}
-              />
-              {errors.name && <Text>Value for RPE (max) is required.</Text>}
-            </>
-          ) : (
-            <>
-              <Controller
-                control={control}
-                name="rpe.value"
-                rules={{ required: true, min: 1 }}
-                render={({
-                  field: { onChange, onBlur, value },
-                  fieldState: { error },
-                }) => (
-                  <TextInput
-                    label="RPE"
-                    onBlur={onBlur}
-                    onChangeText={onChange}
-                    value={value}
-                    style={styles.input}
-                    error={!!error}
-                  />
-                )}
-              />
-              {errors.name && <Text>Value for RPE is required.</Text>}
-            </>
-          )}
+            {useRangeForRPE ? (
+              <>
+                <Controller
+                  control={control}
+                  name="rpe.min"
+                  rules={{ required: true, min: 1 }}
+                  render={({
+                    field: { onChange, onBlur, value },
+                    fieldState: { error },
+                  }) => (
+                    <TextInput
+                      label="RPE (minimum)"
+                      onBlur={onBlur}
+                      onChangeText={onChange}
+                      value={value}
+                      style={styles.input}
+                      error={!!error}
+                    />
+                  )}
+                />
+                {errors.name && <Text>Value for RPE (min) is required.</Text>}
+                <Controller
+                  control={control}
+                  name="rpe.max"
+                  rules={{ required: true, min: 2 }}
+                  render={({
+                    field: { onChange, onBlur, value },
+                    fieldState: { error },
+                  }) => (
+                    <TextInput
+                      label="RPE (maximum)"
+                      onBlur={onBlur}
+                      onChangeText={onChange}
+                      value={value || ''}
+                      style={styles.input}
+                      error={!!error}
+                    />
+                  )}
+                />
+                {errors.name && <Text>Value for RPE (max) is required.</Text>}
+              </>
+            ) : (
+              <>
+                <Controller
+                  control={control}
+                  name="rpe.value"
+                  rules={{ required: true, min: 1 }}
+                  render={({
+                    field: { onChange, onBlur, value },
+                    fieldState: { error },
+                  }) => (
+                    <TextInput
+                      label="RPE"
+                      onBlur={onBlur}
+                      onChangeText={onChange}
+                      value={value}
+                      style={styles.input}
+                      error={!!error}
+                    />
+                  )}
+                />
+                {errors.name && <Text>Value for RPE is required.</Text>}
+              </>
+            )}
 
-          <Button mode="contained" onPress={handleSubmit(onSubmit)}>
-            Submit
-          </Button>
+            <Button mode="contained" onPress={handleSubmit(onSubmit)}>
+              Submit
+            </Button>
+          </KeyboardAwareScrollView>
         </Modal>
       </Portal>
       <AnimatedFAB
