@@ -54,7 +54,7 @@ export const AddExercise = ({ weekId, dayId }) => {
         max: '',
         isRange: false,
       },
-      RPE: {
+      rpe: {
         value: '',
         min: '',
         max: '',
@@ -154,7 +154,7 @@ export const AddExercise = ({ weekId, dayId }) => {
           max: '',
           isRange: false,
         },
-        RPE: {
+        rpe: {
           value: '',
           min: '',
           max: '',
@@ -185,7 +185,7 @@ export const AddExercise = ({ weekId, dayId }) => {
                   label="Exercise Name"
                   onBlur={onBlur}
                   onChangeText={onChange}
-                  value={value}
+                  value={value || ''}
                   style={styles.input}
                   error={!!error}
                 />
@@ -219,7 +219,7 @@ export const AddExercise = ({ weekId, dayId }) => {
                       label="Warmup sets (minimum)"
                       onBlur={onBlur}
                       onChangeText={onChange}
-                      value={value}
+                      value={value || ''}
                       style={styles.input}
                       error={!!error}
                     />
@@ -260,7 +260,7 @@ export const AddExercise = ({ weekId, dayId }) => {
                       label="Warmup sets"
                       onBlur={onBlur}
                       onChangeText={onChange}
-                      value={value}
+                      value={value || ''}
                       style={styles.input}
                       error={!!error}
                     />
@@ -296,7 +296,7 @@ export const AddExercise = ({ weekId, dayId }) => {
                       label="Working sets (minimum)"
                       onBlur={onBlur}
                       onChangeText={onChange}
-                      value={value}
+                      value={value || ''}
                       style={styles.input}
                       error={!!error}
                     />
@@ -337,7 +337,7 @@ export const AddExercise = ({ weekId, dayId }) => {
                       label="Working sets"
                       onBlur={onBlur}
                       onChangeText={onChange}
-                      value={value}
+                      value={value || ''}
                       style={styles.input}
                       error={!!error}
                     />
@@ -373,7 +373,7 @@ export const AddExercise = ({ weekId, dayId }) => {
                       label="Reps (minimum)"
                       onBlur={onBlur}
                       onChangeText={onChange}
-                      value={value}
+                      value={value || ''}
                       style={styles.input}
                       error={!!error}
                     />
@@ -414,7 +414,7 @@ export const AddExercise = ({ weekId, dayId }) => {
                       label="Reps"
                       onBlur={onBlur}
                       onChangeText={onChange}
-                      value={value}
+                      value={value || ''}
                       style={styles.input}
                       error={!!error}
                     />
@@ -450,7 +450,7 @@ export const AddExercise = ({ weekId, dayId }) => {
                       label="RPE (minimum)"
                       onBlur={onBlur}
                       onChangeText={onChange}
-                      value={value}
+                      value={value || ''}
                       style={styles.input}
                       error={!!error}
                     />
@@ -491,7 +491,7 @@ export const AddExercise = ({ weekId, dayId }) => {
                       label="RPE"
                       onBlur={onBlur}
                       onChangeText={onChange}
-                      value={value}
+                      value={value || ''}
                       style={styles.input}
                       error={!!error}
                     />
