@@ -7,22 +7,38 @@ import {
   Modal,
   TextInput,
   Text,
+  Switch,
 } from 'react-native-paper'
 import { exerciseAdded } from '../../../weeksSlice'
 import { nanoid } from '@reduxjs/toolkit'
-import { StyleSheet } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 import { useForm, Controller } from 'react-hook-form'
 
 export const AddExercise = ({ weekId, dayId }) => {
   const dispatch = useDispatch()
-  const [visible, setVisible] = useState()
+  const [visible, setVisible] = useState(false)
+  const [isRange, setIsRange] = useState(false)
+  const [useRangeForWarmupSets, setUseRangeForWarmupSets] = useState(false)
+  const [useRangeForWorkingSets, setUseRangeForWorkingSets] = useState(false)
+  const [useRangeForReps, setUseRangeForReps] = useState(false)
+  const [useRangeForRPE, setUseRangeForRPE] = useState(false)
+
   const showModal = () => setVisible(true)
   const hideModal = () => setVisible(false)
+
   const {
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm({})
+  } = useForm({
+    defaultValues: {
+      name: '',
+      warmupSets: { min: '', max: '' },
+      workingSets: { min: '', max: '' },
+      reps: { min: '', max: '' },
+      RPE: { min: '', max: '' },
+    },
+  })
 
   // /**
   //  * When a user is adding a new exercise, before dispatching, they must input the exercise info
@@ -51,18 +67,6 @@ export const AddExercise = ({ weekId, dayId }) => {
     hideModal()
   }
 
-  const onValidSubmission = () => {
-    dispatch(
-      exerciseAdded({
-        weekId,
-        dayId,
-        exercise: {
-          // data here
-        },
-      })
-    )
-  }
-
   return (
     <>
       <Portal>
@@ -75,18 +79,95 @@ export const AddExercise = ({ weekId, dayId }) => {
             control={control}
             name="name"
             rules={{ required: true }}
-            render={({ field: { onChange, onBlur, value } }) => (
+            render={({
+              field: { onChange, onBlur, value },
+              fieldState: { error },
+            }) => (
               <TextInput
                 label="Exercise Name"
                 onBlur={onBlur}
                 onChangeText={onChange}
                 value={value}
                 style={styles.input}
+                error={!!error}
               />
             )}
           />
           {errors.name && <Text>Exercise name is required.</Text>}
           {/* form stuff in here */}
+          <View style={styles.switchContainer}>
+            <Text>Use range for warmup sets?</Text>
+            <Switch
+              value={useRangeForWarmupSets}
+              onValueChange={setUseRangeForWarmupSets}
+            />
+          </View>
+
+          {useRangeForWarmupSets ? (
+            <>
+              <Controller
+                control={control}
+                name="warmupSets.min"
+                rules={{ required: true, min: 0, max: 9 }}
+                render={({
+                  field: { onChange, onBlur, value },
+                  fieldState: { error },
+                }) => (
+                  <TextInput
+                    label="Warmup sets (minimum)"
+                    onBlur={onBlur}
+                    onChangeText={onChange}
+                    value={value}
+                    style={styles.input}
+                    error={!!error}
+                  />
+                )}
+              />
+              {errors.name && <Text>Minimum warmup sets required.</Text>}
+              <Controller
+                control={control}
+                name="warmupSets.max"
+                rules={{ required: true, min: 1, max: 10 }}
+                render={({
+                  field: { onChange, onBlur, value },
+                  fieldState: { error },
+                }) => (
+                  <TextInput
+                    label="Warmup sets (maximum)"
+                    onBlur={onBlur}
+                    onChangeText={onChange}
+                    value={value}
+                    style={styles.input}
+                    error={!!error}
+                  />
+                )}
+              />
+              {errors.name && <Text>Maximum warmup sets required.</Text>}
+            </>
+          ) : (
+            <>
+              <Controller
+                control={control}
+                name="warmupSets.value"
+                rules={{ required: true, min: 0, max: 9 }}
+                render={({
+                  field: { onChange, onBlur, value },
+                  fieldState: { error },
+                }) => (
+                  <TextInput
+                    label="Warmup sets (minimum)"
+                    onBlur={onBlur}
+                    onChangeText={onChange}
+                    value={value}
+                    style={styles.input}
+                    error={!!error}
+                  />
+                )}
+              />
+              {errors.name && <Text>Minimum warmup sets required.</Text>}
+            </>
+          )}
+
           <Button mode="contained" onPress={handleSubmit(onSubmit)}>
             Submit
           </Button>
@@ -119,5 +200,11 @@ const styles = StyleSheet.create({
   },
   input: {
     marginBottom: 10,
+  },
+  switchContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginVertical: 10,
   },
 })
