@@ -18,7 +18,6 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 export const AddExercise = ({ weekId, dayId }) => {
   const dispatch = useDispatch()
   const [visible, setVisible] = useState(false)
-  const [isRange, setIsRange] = useState(false)
   const [useRangeForWarmupSets, setUseRangeForWarmupSets] = useState(false)
   const [useRangeForWorkingSets, setUseRangeForWorkingSets] = useState(false)
   const [useRangeForReps, setUseRangeForReps] = useState(false)
@@ -170,6 +169,10 @@ export const AddExercise = ({ weekId, dayId }) => {
       })
     )
     hideModal()
+    setUseRangeForWarmupSets(false)
+    setUseRangeForWorkingSets(false)
+    setUseRangeForReps(false)
+    setUseRangeForRPE(false)
   }
 
   useEffect(() => {
