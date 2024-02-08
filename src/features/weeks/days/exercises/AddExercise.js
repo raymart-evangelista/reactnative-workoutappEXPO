@@ -36,29 +36,69 @@ export const AddExercise = ({ weekId, dayId }) => {
   } = useForm({
     defaultValues: {
       name: '',
-      warmupSets: {
-        value: '',
-        min: '',
-        max: '',
-        isRange: false,
+      warmup: {
+        sets: {
+          amount: {
+            single: '',
+            range: {
+              min: '',
+              max: '',
+            },
+          },
+          useRange: false,
+        },
+        reps: {
+          amount: {
+            single: '',
+            range: {
+              min: '',
+              max: '',
+            },
+          },
+          useRange: false,
+        },
+        rpe: {
+          amount: {
+            single: '',
+            range: {
+              min: '',
+              max: '',
+            },
+          },
+          useRange: false,
+        },
       },
-      workingSets: {
-        value: '',
-        min: '',
-        max: '',
-        isRange: false,
-      },
-      reps: {
-        value: '',
-        min: '',
-        max: '',
-        isRange: false,
-      },
-      rpe: {
-        value: '',
-        min: '',
-        max: '',
-        isRange: false,
+      working: {
+        sets: {
+          amount: {
+            single: '',
+            range: {
+              min: '',
+              max: '',
+            },
+          },
+          useRange: false,
+        },
+        reps: {
+          amount: {
+            single: '',
+            range: {
+              min: '',
+              max: '',
+            },
+          },
+          useRange: false,
+        },
+        rpe: {
+          amount: {
+            single: '',
+            range: {
+              min: '',
+              max: '',
+            },
+          },
+          useRange: false,
+        },
       },
     },
   })
