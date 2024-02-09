@@ -15,6 +15,125 @@ import { StyleSheet, View } from 'react-native'
 import { useForm, Controller } from 'react-hook-form'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
+const RangeOrSingleInput = ({
+  control,
+  useRange,
+  setUseRange,
+  rangeMinName,
+  rangeMaxName,
+  singleName,
+  label,
+}) => {
+  return (
+    <View style={styles.exerciseDataContainer}>
+      <Text className="text-2xl">{label}</Text>
+      <View style={styles.exerciseDataContainer2}>
+        <Text className="text-lg">Set amount</Text>
+        <View style={styles.exerciseDataContainer3}>
+          <View style={styles.exerciseNumberInputContainer}>
+            {useRange ? (
+              <View style={styles.exerciseDataContainer5}>
+                <Controller
+                  control={control}
+                  name={rangeMinName}
+                  rules={{
+                    required: 'This field is required',
+                    min: { value: 0, message: 'Minimum value is 0' },
+                    max: { value: 9, message: 'Maximum value is 9' },
+                    pattern: {
+                      value: /^[0-9]$/,
+                      message: 'Please enter a number between 0 and 9',
+                    },
+                  }}
+                  render={({
+                    field: { onChange, onBlur, value },
+                    fieldState: { error },
+                  }) => (
+                    <TextInput
+                      label="min"
+                      style={styles.rangedTextInput}
+                      onBlur={onBlur}
+                      onChangeText={onChange}
+                      value={value.toString()}
+                      error={!!error}
+                      keyboardType="numeric"
+                      mode={'outlined'}
+                    />
+                  )}
+                />
+                <Text>-</Text>
+                <Controller
+                  control={control}
+                  name={rangeMaxName}
+                  rules={{
+                    required: 'This field is required',
+                    min: { value: 1, message: 'Minimum value is 0' },
+                    max: { value: 9, message: 'Maximum value is 9' },
+                    pattern: {
+                      value: /^[0-9]$/,
+                      message: 'Please enter a number between 1 and 9',
+                    },
+                  }}
+                  render={({
+                    field: { onChange, onBlur, value },
+                    fieldState: { error },
+                  }) => (
+                    <TextInput
+                      label="max"
+                      style={styles.rangedTextInput}
+                      onBlur={onBlur}
+                      onChangeText={onChange}
+                      value={value.toString()}
+                      error={!!error}
+                      keyboardType="numeric"
+                      mode={'outlined'}
+                    />
+                  )}
+                />
+              </View>
+            ) : (
+              <>
+                <Controller
+                  control={control}
+                  name={singleName}
+                  rules={{
+                    required: 'This field is required',
+                    min: { value: 0, message: 'Minimum value is 0' },
+                    max: { value: 9, message: 'Maximum value is 9' },
+                    pattern: {
+                      value: /^[0-9]$/,
+                      message: 'Please enter a number between 0 and 9',
+                    },
+                  }}
+                  render={({
+                    field: { onChange, onBlur, value },
+                    fieldState: { error },
+                  }) => (
+                    <TextInput
+                      label="value"
+                      style={styles.singleTextInput}
+                      onBlur={onBlur}
+                      onChangeText={onChange}
+                      value={value.toString()}
+                      error={!!error}
+                      keyboardType="numeric"
+                      mode={'outlined'}
+                    />
+                  )}
+                />
+              </>
+            )}
+          </View>
+          <View style={styles.exerciseRangeContainer}>
+            <Text>Range</Text>
+            <Switch value={useRange} onValueChange={setUseRange} />
+          </View>
+        </View>
+      </View>
+    </View>
+  )
+}
+
 export const AddExercise = ({ weekId, dayId }) => {
   const dispatch = useDispatch()
   const [visible, setVisible] = useState(false)
@@ -312,7 +431,7 @@ export const AddExercise = ({ weekId, dayId }) => {
                       <>
                         <Controller
                           control={control}
-                          name="warmup.reps.amount.single"
+                          name="warmup.sets.amount.single"
                           rules={{
                             required: 'This field is required',
                             min: { value: 0, message: 'Minimum value is 0' },
@@ -355,6 +474,23 @@ export const AddExercise = ({ weekId, dayId }) => {
             {/* 
           working sets
           */}
+            {/*   control,
+  useRange,
+  setUseRange,
+  rangeMinName,
+  rangeMaxName,
+  singleName,
+  label, */}
+
+            <RangeOrSingleInput
+              control={control}
+              useRange={useRangeForWorkingSets}
+              setUseRange={setUseRangeForWorkingSets}
+              rangeMinName={'working.sets.amount.range.min'}
+              rangeMaxName={'working.sets.amount.range.max'}
+              singleName={'working.sets.amount.single'}
+              label={'Working'}
+            />
 
             <View style={styles.switchContainer}>
               <Text>Use range for working sets?</Text>
