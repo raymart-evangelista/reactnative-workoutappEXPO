@@ -25,109 +25,106 @@ const RangeOrSingleInput = ({
   label,
 }) => {
   return (
-    <View style={styles.exerciseDataContainer}>
-      <Text className="text-2xl">{label}</Text>
-      <View style={styles.exerciseDataContainer2}>
-        <Text className="text-lg">Set amount</Text>
-        <View style={styles.exerciseDataContainer3}>
-          <View style={styles.exerciseNumberInputContainer}>
-            {useRange ? (
-              <View style={styles.exerciseDataContainer5}>
-                <Controller
-                  control={control}
-                  name={rangeMinName}
-                  rules={{
-                    required: 'This field is required',
-                    min: { value: 0, message: 'Minimum value is 0' },
-                    max: { value: 9, message: 'Maximum value is 9' },
-                    pattern: {
-                      value: /^[0-9]$/,
-                      message: 'Please enter a number between 0 and 9',
-                    },
-                  }}
-                  render={({
-                    field: { onChange, onBlur, value },
-                    fieldState: { error },
-                  }) => (
-                    <TextInput
-                      label="min"
-                      style={styles.rangedTextInput}
-                      onBlur={onBlur}
-                      onChangeText={onChange}
-                      value={value.toString()}
-                      error={!!error}
-                      keyboardType="numeric"
-                      mode={'outlined'}
-                    />
-                  )}
-                />
-                <Text>-</Text>
-                <Controller
-                  control={control}
-                  name={rangeMaxName}
-                  rules={{
-                    required: 'This field is required',
-                    min: { value: 1, message: 'Minimum value is 0' },
-                    max: { value: 9, message: 'Maximum value is 9' },
-                    pattern: {
-                      value: /^[0-9]$/,
-                      message: 'Please enter a number between 1 and 9',
-                    },
-                  }}
-                  render={({
-                    field: { onChange, onBlur, value },
-                    fieldState: { error },
-                  }) => (
-                    <TextInput
-                      label="max"
-                      style={styles.rangedTextInput}
-                      onBlur={onBlur}
-                      onChangeText={onChange}
-                      value={value.toString()}
-                      error={!!error}
-                      keyboardType="numeric"
-                      mode={'outlined'}
-                    />
-                  )}
-                />
-              </View>
-            ) : (
-              <>
-                <Controller
-                  control={control}
-                  name={singleName}
-                  rules={{
-                    required: 'This field is required',
-                    min: { value: 0, message: 'Minimum value is 0' },
-                    max: { value: 9, message: 'Maximum value is 9' },
-                    pattern: {
-                      value: /^[0-9]$/,
-                      message: 'Please enter a number between 0 and 9',
-                    },
-                  }}
-                  render={({
-                    field: { onChange, onBlur, value },
-                    fieldState: { error },
-                  }) => (
-                    <TextInput
-                      label="value"
-                      style={styles.singleTextInput}
-                      onBlur={onBlur}
-                      onChangeText={onChange}
-                      value={value.toString()}
-                      error={!!error}
-                      keyboardType="numeric"
-                      mode={'outlined'}
-                    />
-                  )}
-                />
-              </>
-            )}
-          </View>
-          <View style={styles.exerciseRangeContainer}>
-            <Text>Range</Text>
-            <Switch value={useRange} onValueChange={setUseRange} />
-          </View>
+    <View style={styles.exerciseDataContainer2}>
+      <Text className="text-lg">{label}</Text>
+      <View style={styles.exerciseDataContainer3}>
+        <View style={styles.exerciseNumberInputContainer}>
+          {useRange ? (
+            <View style={styles.exerciseDataContainer5}>
+              <Controller
+                control={control}
+                name={rangeMinName}
+                rules={{
+                  required: 'This field is required',
+                  min: { value: 0, message: 'Minimum value is 0' },
+                  max: { value: 9, message: 'Maximum value is 9' },
+                  pattern: {
+                    value: /^[0-9]$/,
+                    message: 'Please enter a number between 0 and 9',
+                  },
+                }}
+                render={({
+                  field: { onChange, onBlur, value },
+                  fieldState: { error },
+                }) => (
+                  <TextInput
+                    label="min"
+                    style={styles.rangedTextInput}
+                    onBlur={onBlur}
+                    onChangeText={onChange}
+                    value={value.toString()}
+                    error={!!error}
+                    keyboardType="numeric"
+                    mode={'outlined'}
+                  />
+                )}
+              />
+              <Text>-</Text>
+              <Controller
+                control={control}
+                name={rangeMaxName}
+                rules={{
+                  required: 'This field is required',
+                  min: { value: 1, message: 'Minimum value is 0' },
+                  max: { value: 9, message: 'Maximum value is 9' },
+                  pattern: {
+                    value: /^[0-9]$/,
+                    message: 'Please enter a number between 1 and 9',
+                  },
+                }}
+                render={({
+                  field: { onChange, onBlur, value },
+                  fieldState: { error },
+                }) => (
+                  <TextInput
+                    label="max"
+                    style={styles.rangedTextInput}
+                    onBlur={onBlur}
+                    onChangeText={onChange}
+                    value={value.toString()}
+                    error={!!error}
+                    keyboardType="numeric"
+                    mode={'outlined'}
+                  />
+                )}
+              />
+            </View>
+          ) : (
+            <>
+              <Controller
+                control={control}
+                name={singleName}
+                rules={{
+                  required: 'This field is required',
+                  min: { value: 0, message: 'Minimum value is 0' },
+                  max: { value: 9, message: 'Maximum value is 9' },
+                  pattern: {
+                    value: /^[0-9]$/,
+                    message: 'Please enter a number between 0 and 9',
+                  },
+                }}
+                render={({
+                  field: { onChange, onBlur, value },
+                  fieldState: { error },
+                }) => (
+                  <TextInput
+                    label="value"
+                    style={styles.singleTextInput}
+                    onBlur={onBlur}
+                    onChangeText={onChange}
+                    value={value.toString()}
+                    error={!!error}
+                    keyboardType="numeric"
+                    mode={'outlined'}
+                  />
+                )}
+              />
+            </>
+          )}
+        </View>
+        <View style={styles.exerciseRangeContainer}>
+          <Text>Range</Text>
+          <Switch value={useRange} onValueChange={setUseRange} />
         </View>
       </View>
     </View>
@@ -138,9 +135,12 @@ export const AddExercise = ({ weekId, dayId }) => {
   const dispatch = useDispatch()
   const [visible, setVisible] = useState(false)
   const [useRangeForWarmupSets, setUseRangeForWarmupSets] = useState(false)
+  const [useRangeForWarmupReps, setUseRangeForWarmupReps] = useState(false)
+  const [useRangeForWarmupRPE, setUseRangeForWarmupRPE] = useState(false)
+
   const [useRangeForWorkingSets, setUseRangeForWorkingSets] = useState(false)
-  const [useRangeForReps, setUseRangeForReps] = useState(false)
-  const [useRangeForRPE, setUseRangeForRPE] = useState(false)
+  const [useRangeForWorkingReps, setUseRangeForWorkingReps] = useState(false)
+  const [useRangeForWorkingRPE, setUseRangeForWorkingRPE] = useState(false)
 
   const showModal = () => setVisible(true)
   const hideModal = () => setVisible(false)
@@ -253,26 +253,6 @@ export const AddExercise = ({ weekId, dayId }) => {
           isRange: false,
           value: data.workingSets.value,
         }
-    const repsPayload = useRangeForReps
-      ? {
-          isRange: true,
-          min: data.reps.min,
-          max: data.reps.max,
-        }
-      : {
-          isRange: false,
-          value: data.reps.value,
-        }
-    const rpePayload = useRangeForRPE
-      ? {
-          isRange: true,
-          min: data.rpe.min,
-          max: data.rpe.max,
-        }
-      : {
-          isRange: false,
-          value: data.rpe.value,
-        }
     dispatch(
       exerciseAdded({
         weekId,
@@ -363,112 +343,35 @@ export const AddExercise = ({ weekId, dayId }) => {
 
             <View style={styles.exerciseDataContainer}>
               <Text className="text-2xl">Warmup</Text>
-              <View style={styles.exerciseDataContainer2}>
-                <Text className="text-lg">Set amount</Text>
-                <View style={styles.exerciseDataContainer3}>
-                  <View style={styles.exerciseNumberInputContainer}>
-                    {useRangeForWarmupSets ? (
-                      <View style={styles.exerciseDataContainer5}>
-                        <Controller
-                          control={control}
-                          name="warmup.sets.amount.range.min"
-                          rules={{
-                            required: 'This field is required',
-                            min: { value: 0, message: 'Minimum value is 0' },
-                            max: { value: 9, message: 'Maximum value is 9' },
-                            pattern: {
-                              value: /^[0-9]$/,
-                              message: 'Please enter a number between 0 and 9',
-                            },
-                          }}
-                          render={({
-                            field: { onChange, onBlur, value },
-                            fieldState: { error },
-                          }) => (
-                            <TextInput
-                              label="min"
-                              style={styles.rangedTextInput}
-                              onBlur={onBlur}
-                              onChangeText={onChange}
-                              value={value.toString()}
-                              error={!!error}
-                              keyboardType="numeric"
-                              mode={'outlined'}
-                            />
-                          )}
-                        />
-                        <Text>-</Text>
-                        <Controller
-                          control={control}
-                          name="warmup.sets.amount.range.max"
-                          rules={{
-                            required: 'This field is required',
-                            min: { value: 1, message: 'Minimum value is 0' },
-                            max: { value: 9, message: 'Maximum value is 9' },
-                            pattern: {
-                              value: /^[0-9]$/,
-                              message: 'Please enter a number between 1 and 9',
-                            },
-                          }}
-                          render={({
-                            field: { onChange, onBlur, value },
-                            fieldState: { error },
-                          }) => (
-                            <TextInput
-                              label="max"
-                              style={styles.rangedTextInput}
-                              onBlur={onBlur}
-                              onChangeText={onChange}
-                              value={value.toString()}
-                              error={!!error}
-                              keyboardType="numeric"
-                              mode={'outlined'}
-                            />
-                          )}
-                        />
-                      </View>
-                    ) : (
-                      <>
-                        <Controller
-                          control={control}
-                          name="warmup.sets.amount.single"
-                          rules={{
-                            required: 'This field is required',
-                            min: { value: 0, message: 'Minimum value is 0' },
-                            max: { value: 9, message: 'Maximum value is 9' },
-                            pattern: {
-                              value: /^[0-9]$/,
-                              message: 'Please enter a number between 0 and 9',
-                            },
-                          }}
-                          render={({
-                            field: { onChange, onBlur, value },
-                            fieldState: { error },
-                          }) => (
-                            <TextInput
-                              label="value"
-                              style={styles.singleTextInput}
-                              onBlur={onBlur}
-                              onChangeText={onChange}
-                              value={value.toString()}
-                              error={!!error}
-                              keyboardType="numeric"
-                              mode={'outlined'}
-                            />
-                          )}
-                        />
-                      </>
-                    )}
-                  </View>
-                  <View style={styles.exerciseRangeContainer}>
-                    <Text>Range</Text>
-                    <Switch
-                      value={useRangeForWarmupSets}
-                      onValueChange={setUseRangeForWarmupSets}
-                    />
-                  </View>
-                </View>
-              </View>
+              <RangeOrSingleInput
+                control={control}
+                useRange={useRangeForWarmupSets}
+                setUseRange={setUseRangeForWarmupSets}
+                rangeMinName={'warmup.sets.amount.range.min'}
+                rangeMaxName={'warmup.sets.amount.range.max'}
+                singleName={'warmup.sets.amount.single'}
+                label={'Sets amount'}
+              />
+
+              <RangeOrSingleInput
+                control={control}
+                useRange={useRangeForWarmupReps}
+                setUseRange={setUseRangeForWarmupReps}
+                rangeMinName={'warmup.reps.amount.range.min'}
+                rangeMaxName={'warmup.reps.amount.range.max'}
+                singleName={'warmup.reps.amount.single'}
+                label={'Reps amount'}
+              />
+
+              <RangeOrSingleInput
+                control={control}
+                useRange={useRangeForWarmupRPE}
+                setUseRange={setUseRangeForWarmupRPE}
+                rangeMinName={'warmup.rpe.amount.range.min'}
+                rangeMaxName={'warmup.rpe.amount.range.max'}
+                singleName={'warmup.rpe.amount.single'}
+                label={'RPE amount'}
+              />
             </View>
 
             {/* 
@@ -481,243 +384,38 @@ export const AddExercise = ({ weekId, dayId }) => {
   rangeMaxName,
   singleName,
   label, */}
+            <View style={styles.exerciseDataContainer}>
+              <Text className="text-2xl">Working</Text>
+              <RangeOrSingleInput
+                control={control}
+                useRange={useRangeForWorkingSets}
+                setUseRange={setUseRangeForWorkingSets}
+                rangeMinName={'working.sets.amount.range.min'}
+                rangeMaxName={'working.sets.amount.range.max'}
+                singleName={'working.sets.amount.single'}
+                label={'Sets amount'}
+              />
 
-            <RangeOrSingleInput
-              control={control}
-              useRange={useRangeForWorkingSets}
-              setUseRange={setUseRangeForWorkingSets}
-              rangeMinName={'working.sets.amount.range.min'}
-              rangeMaxName={'working.sets.amount.range.max'}
-              singleName={'working.sets.amount.single'}
-              label={'Working'}
-            />
+              <RangeOrSingleInput
+                control={control}
+                useRange={useRangeForWorkingReps}
+                setUseRange={setUseRangeForWorkingReps}
+                rangeMinName={'working.reps.amount.range.min'}
+                rangeMaxName={'working.reps.amount.range.max'}
+                singleName={'working.reps.amount.single'}
+                label={'Reps amount'}
+              />
 
-            <View style={styles.switchContainer}>
-              <Text>Use range for working sets?</Text>
-              <Switch
-                value={useRangeForWorkingSets}
-                onValueChange={setUseRangeForWorkingSets}
+              <RangeOrSingleInput
+                control={control}
+                useRange={useRangeForWorkingRPE}
+                setUseRange={setUseRangeForWorkingRPE}
+                rangeMinName={'working.rpe.amount.range.min'}
+                rangeMaxName={'working.rpe.amount.range.max'}
+                singleName={'working.rpe.amount.single'}
+                label={'RPE amount'}
               />
             </View>
-
-            {useRangeForWorkingSets ? (
-              <>
-                <Controller
-                  control={control}
-                  name="workingSets.min"
-                  rules={{ required: true, min: 0, max: 9 }}
-                  render={({
-                    field: { onChange, onBlur, value },
-                    fieldState: { error },
-                  }) => (
-                    <TextInput
-                      label="Working sets (minimum)"
-                      onBlur={onBlur}
-                      onChangeText={onChange}
-                      value={value || ''}
-                      style={styles.input}
-                      error={!!error}
-                    />
-                  )}
-                />
-                {errors.name && <Text>Minimum working sets required.</Text>}
-                <Controller
-                  control={control}
-                  name="workingSets.max"
-                  rules={{ required: true, min: 1, max: 10 }}
-                  render={({
-                    field: { onChange, onBlur, value },
-                    fieldState: { error },
-                  }) => (
-                    <TextInput
-                      label="Working sets (maximum)"
-                      onBlur={onBlur}
-                      onChangeText={onChange}
-                      value={value || ''}
-                      style={styles.input}
-                      error={!!error}
-                    />
-                  )}
-                />
-                {errors.name && <Text>Maximum working sets required.</Text>}
-              </>
-            ) : (
-              <>
-                <Controller
-                  control={control}
-                  name="workingSets.value"
-                  rules={{ required: true, min: 0, max: 9 }}
-                  render={({
-                    field: { onChange, onBlur, value },
-                    fieldState: { error },
-                  }) => (
-                    <TextInput
-                      label="Working sets"
-                      onBlur={onBlur}
-                      onChangeText={onChange}
-                      value={value || ''}
-                      style={styles.input}
-                      error={!!error}
-                    />
-                  )}
-                />
-                {errors.name && <Text>Working set amount is required.</Text>}
-              </>
-            )}
-
-            {/* 
-            reps for working sets
-          */}
-
-            <View style={styles.switchContainer}>
-              <Text>Use range for reps?</Text>
-              <Switch
-                value={useRangeForReps}
-                onValueChange={setUseRangeForReps}
-              />
-            </View>
-
-            {useRangeForReps ? (
-              <>
-                <Controller
-                  control={control}
-                  name="reps.min"
-                  rules={{ required: true, min: 1 }}
-                  render={({
-                    field: { onChange, onBlur, value },
-                    fieldState: { error },
-                  }) => (
-                    <TextInput
-                      label="Reps (minimum)"
-                      onBlur={onBlur}
-                      onChangeText={onChange}
-                      value={value || ''}
-                      style={styles.input}
-                      error={!!error}
-                    />
-                  )}
-                />
-                {errors.name && <Text>Value for reps (min) is required.</Text>}
-                <Controller
-                  control={control}
-                  name="reps.max"
-                  rules={{ required: true, min: 2 }}
-                  render={({
-                    field: { onChange, onBlur, value },
-                    fieldState: { error },
-                  }) => (
-                    <TextInput
-                      label="Reps (maximum)"
-                      onBlur={onBlur}
-                      onChangeText={onChange}
-                      value={value || ''}
-                      style={styles.input}
-                      error={!!error}
-                    />
-                  )}
-                />
-                {errors.name && <Text>Value for reps (max) is required.</Text>}
-              </>
-            ) : (
-              <>
-                <Controller
-                  control={control}
-                  name="reps.value"
-                  rules={{ required: true, min: 1 }}
-                  render={({
-                    field: { onChange, onBlur, value },
-                    fieldState: { error },
-                  }) => (
-                    <TextInput
-                      label="Reps"
-                      onBlur={onBlur}
-                      onChangeText={onChange}
-                      value={value || ''}
-                      style={styles.input}
-                      error={!!error}
-                    />
-                  )}
-                />
-                {errors.name && <Text>Value for reps is required.</Text>}
-              </>
-            )}
-
-            {/* 
-            RPE for working sets
-          */}
-
-            <View style={styles.switchContainer}>
-              <Text>Use range for RPE?</Text>
-              <Switch
-                value={useRangeForRPE}
-                onValueChange={setUseRangeForRPE}
-              />
-            </View>
-
-            {useRangeForRPE ? (
-              <>
-                <Controller
-                  control={control}
-                  name="rpe.min"
-                  rules={{ required: true, min: 1 }}
-                  render={({
-                    field: { onChange, onBlur, value },
-                    fieldState: { error },
-                  }) => (
-                    <TextInput
-                      label="RPE (minimum)"
-                      onBlur={onBlur}
-                      onChangeText={onChange}
-                      value={value || ''}
-                      style={styles.input}
-                      error={!!error}
-                    />
-                  )}
-                />
-                {errors.name && <Text>Value for RPE (min) is required.</Text>}
-                <Controller
-                  control={control}
-                  name="rpe.max"
-                  rules={{ required: true, min: 2 }}
-                  render={({
-                    field: { onChange, onBlur, value },
-                    fieldState: { error },
-                  }) => (
-                    <TextInput
-                      label="RPE (maximum)"
-                      onBlur={onBlur}
-                      onChangeText={onChange}
-                      value={value || ''}
-                      style={styles.input}
-                      error={!!error}
-                    />
-                  )}
-                />
-                {errors.name && <Text>Value for RPE (max) is required.</Text>}
-              </>
-            ) : (
-              <>
-                <Controller
-                  control={control}
-                  name="rpe.value"
-                  rules={{ required: true, min: 1 }}
-                  render={({
-                    field: { onChange, onBlur, value },
-                    fieldState: { error },
-                  }) => (
-                    <TextInput
-                      label="RPE"
-                      onBlur={onBlur}
-                      onChangeText={onChange}
-                      value={value || ''}
-                      style={styles.input}
-                      error={!!error}
-                    />
-                  )}
-                />
-                {errors.name && <Text>Value for RPE is required.</Text>}
-              </>
-            )}
 
             <Button mode="contained" onPress={handleSubmit(onSubmit)}>
               Submit
@@ -779,6 +477,7 @@ const styles = StyleSheet.create({
     borderColor: '#CCCCCC',
     borderRadius: 15,
     padding: 10,
+    marginVertical: 10,
   },
   exerciseDataContainer2: {
     // borderWidth: 1,
