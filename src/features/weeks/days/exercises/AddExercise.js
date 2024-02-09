@@ -216,6 +216,7 @@ export const AddExercise = ({ weekId, dayId }) => {
           contentContainerStyle={styles.containerStyle}
         >
           <KeyboardAwareScrollView>
+            <Text className="text-2xl">Add Exercise</Text>
             <Controller
               control={control}
               name="name"
@@ -231,6 +232,7 @@ export const AddExercise = ({ weekId, dayId }) => {
                   value={value || ''}
                   style={styles.input}
                   error={!!error}
+                  mode={'outlined'}
                 />
               )}
             />
@@ -240,78 +242,115 @@ export const AddExercise = ({ weekId, dayId }) => {
           warmup sets
           */}
 
-            <View style={styles.switchContainer}>
-              <Text>Use range for warmup sets?</Text>
-              <Switch
-                value={useRangeForWarmupSets}
-                onValueChange={setUseRangeForWarmupSets}
-              />
+            <View style={styles.exerciseDataContainer}>
+              <Text className="text-2xl">Warmup</Text>
+              <View style={styles.exerciseDataContainer2}>
+                <Text className="text-lg">Set amount</Text>
+                <View style={styles.exerciseDataContainer3}>
+                  <View style={styles.exerciseNumberInputContainer}>
+                    {useRangeForWarmupSets ? (
+                      <View style={styles.exerciseDataContainer5}>
+                        <Controller
+                          control={control}
+                          name="warmup.sets.amount.range.min"
+                          rules={{
+                            required: 'This field is required',
+                            min: { value: 0, message: 'Minimum value is 0' },
+                            max: { value: 9, message: 'Maximum value is 9' },
+                            pattern: {
+                              value: /^[0-9]$/,
+                              message: 'Please enter a number between 0 and 9',
+                            },
+                          }}
+                          render={({
+                            field: { onChange, onBlur, value },
+                            fieldState: { error },
+                          }) => (
+                            <TextInput
+                              label="min"
+                              style={styles.rangedTextInput}
+                              onBlur={onBlur}
+                              onChangeText={onChange}
+                              value={value.toString()}
+                              error={!!error}
+                              keyboardType="numeric"
+                              mode={'outlined'}
+                            />
+                          )}
+                        />
+                        <Text>-</Text>
+                        <Controller
+                          control={control}
+                          name="warmup.sets.amount.range.max"
+                          rules={{
+                            required: 'This field is required',
+                            min: { value: 1, message: 'Minimum value is 0' },
+                            max: { value: 9, message: 'Maximum value is 9' },
+                            pattern: {
+                              value: /^[0-9]$/,
+                              message: 'Please enter a number between 1 and 9',
+                            },
+                          }}
+                          render={({
+                            field: { onChange, onBlur, value },
+                            fieldState: { error },
+                          }) => (
+                            <TextInput
+                              label="max"
+                              style={styles.rangedTextInput}
+                              onBlur={onBlur}
+                              onChangeText={onChange}
+                              value={value.toString()}
+                              error={!!error}
+                              keyboardType="numeric"
+                              mode={'outlined'}
+                            />
+                          )}
+                        />
+                      </View>
+                    ) : (
+                      <>
+                        <Controller
+                          control={control}
+                          name="warmup.reps.amount.single"
+                          rules={{
+                            required: 'This field is required',
+                            min: { value: 0, message: 'Minimum value is 0' },
+                            max: { value: 9, message: 'Maximum value is 9' },
+                            pattern: {
+                              value: /^[0-9]$/,
+                              message: 'Please enter a number between 0 and 9',
+                            },
+                          }}
+                          render={({
+                            field: { onChange, onBlur, value },
+                            fieldState: { error },
+                          }) => (
+                            <TextInput
+                              label="value"
+                              style={styles.singleTextInput}
+                              onBlur={onBlur}
+                              onChangeText={onChange}
+                              value={value.toString()}
+                              error={!!error}
+                              keyboardType="numeric"
+                              mode={'outlined'}
+                            />
+                          )}
+                        />
+                      </>
+                    )}
+                  </View>
+                  <View style={styles.exerciseRangeContainer}>
+                    <Text>Range</Text>
+                    <Switch
+                      value={useRangeForWarmupSets}
+                      onValueChange={setUseRangeForWarmupSets}
+                    />
+                  </View>
+                </View>
+              </View>
             </View>
-
-            {useRangeForWarmupSets ? (
-              <>
-                <Controller
-                  control={control}
-                  name="warmupSets.min"
-                  rules={{ required: true, min: 0, max: 9 }}
-                  render={({
-                    field: { onChange, onBlur, value },
-                    fieldState: { error },
-                  }) => (
-                    <TextInput
-                      label="Warmup sets (minimum)"
-                      onBlur={onBlur}
-                      onChangeText={onChange}
-                      value={value || ''}
-                      style={styles.input}
-                      error={!!error}
-                    />
-                  )}
-                />
-                {errors.name && <Text>Minimum warmup sets required.</Text>}
-                <Controller
-                  control={control}
-                  name="warmupSets.max"
-                  rules={{ required: true, min: 1, max: 10 }}
-                  render={({
-                    field: { onChange, onBlur, value },
-                    fieldState: { error },
-                  }) => (
-                    <TextInput
-                      label="Warmup sets (maximum)"
-                      onBlur={onBlur}
-                      onChangeText={onChange}
-                      value={value || ''}
-                      style={styles.input}
-                      error={!!error}
-                    />
-                  )}
-                />
-                {errors.name && <Text>Maximum warmup sets required.</Text>}
-              </>
-            ) : (
-              <>
-                <Controller
-                  control={control}
-                  name="warmupSets.value"
-                  rules={{ required: true, min: 0, max: 9 }}
-                  render={({
-                    field: { onChange, onBlur, value },
-                    fieldState: { error },
-                  }) => (
-                    <TextInput
-                      label="Warmup sets"
-                      onBlur={onBlur}
-                      onChangeText={onChange}
-                      value={value || ''}
-                      style={styles.input}
-                      error={!!error}
-                    />
-                  )}
-                />
-                {errors.name && <Text>Warmup set amount is required.</Text>}
-              </>
-            )}
 
             {/* 
           working sets
@@ -569,6 +608,16 @@ const styles = StyleSheet.create({
     right: 16,
     position: 'absolute',
   },
+  container: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  inputContainer: {
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    // width: '20%',
+  },
   containerStyle: {
     backgroundColor: 'white',
     padding: 20,
@@ -576,12 +625,70 @@ const styles = StyleSheet.create({
     borderRadius: 15,
   },
   input: {
-    marginBottom: 10,
+    flex: 1,
+    // width: 75,
+    margin: 4,
   },
   switchContainer: {
-    flexDirection: 'row',
+    flexDirection: 'column',
     alignItems: 'center',
+    justifyContent: 'center',
+    width: '40%',
+    borderWidth: 1,
+    borderColor: 'yellow',
+    borderRadius: 15,
+  },
+  exerciseDataContainer: {
+    borderWidth: 1,
+    borderColor: '#CCCCCC',
+    borderRadius: 15,
+    padding: 10,
+  },
+  exerciseDataContainer2: {
+    // borderWidth: 1,
+    // borderColor: 'blue',
+    // borderRadius: 15,
+    // padding: 5,
+  },
+  exerciseDataContainer3: {
+    flexDirection: 'row',
     justifyContent: 'space-between',
-    marginVertical: 10,
+    // borderWidth: 1,
+    // borderColor: 'green',
+    // borderRadius: 15,
+    // padding: 5,
+  },
+  exerciseNumberInputContainer: {
+    flexDirection: 'row',
+    flex: 2,
+    // borderWidth: 1,
+    // borderColor: 'purple',
+    // borderRadius: 15,
+    // padding: 5,
+  },
+  exerciseDataContainer5: {
+    width: '100%',
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+    // alignContent: 'space-around',
+    alignItems: 'center',
+    // borderWidth: 1,
+    // borderColor: 'orange',
+    // borderRadius: 15,
+  },
+  exerciseRangeContainer: {
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    flex: 1,
+    // borderWidth: 1,
+    // borderColor: 'yellow',
+    // borderRadius: 15,
+  },
+  singleTextInput: {
+    flex: 1,
+  },
+  rangedTextInput: {
+    width: 70,
   },
 })
