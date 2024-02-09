@@ -145,6 +145,32 @@ export const AddExercise = ({ weekId, dayId }) => {
   const showModal = () => setVisible(true)
   const hideModal = () => setVisible(false)
 
+  const createPayload = (data) => {
+    const constructAmountPayload = (amountData) => {
+      return amountData.useRange
+        ? {
+            isRange: true,
+            min: amountData.range.min,
+            max: amountData.range.max,
+          }
+        : {
+            isRange: false,
+            value: amountData.single,
+          }
+    }
+
+    const warmupPayload = {
+      sets: constructAmountPayload(data.warmup.sets.amount),
+      reps: constructAmountPayload(data.warmup.reps.amount),
+      rpe: constructAmountPayload(data.warmup.rpe.amount),
+    }
+
+    const workingPayload = {
+      sets: constructAmountPayload(data.working.sets.amount),
+      reps: constructAmountPayload(data.working.reps.amount),
+      rpe: constructAmountPayload(data.working.rpe.amount),
+    }
+  }
   const {
     control,
     handleSubmit,
@@ -233,6 +259,8 @@ export const AddExercise = ({ weekId, dayId }) => {
   const onSubmit = (data) => {
     console.log(data)
 
+    const warmupPayload = {}
+
     const warmupSetsPayload = useRangeForWarmupSets
       ? {
           isRange: true,
@@ -262,45 +290,86 @@ export const AddExercise = ({ weekId, dayId }) => {
           name: data.name,
           warmupSets: warmupSetsPayload,
           workingSets: workingSetsPayload,
-          reps: repsPayload,
-          RPE: rpePayload,
         },
       })
     )
     hideModal()
     setUseRangeForWarmupSets(false)
+    setUseRangeForWarmupReps(false)
+    setUseRangeForWarmupRPE(false)
+
     setUseRangeForWorkingSets(false)
-    setUseRangeForReps(false)
-    setUseRangeForRPE(false)
+    setUseRangeForWorkingReps(false)
+    setUseRangeForWorkingRPE(false)
   }
 
   useEffect(() => {
     if (isSubmitSuccessful) {
       reset({
         name: '',
-        warmupSets: {
-          value: '',
-          min: '',
-          max: '',
-          isRange: false,
+        warmup: {
+          sets: {
+            amount: {
+              single: '',
+              range: {
+                min: '',
+                max: '',
+              },
+            },
+            useRange: false,
+          },
+          reps: {
+            amount: {
+              single: '',
+              range: {
+                min: '',
+                max: '',
+              },
+            },
+            useRange: false,
+          },
+          rpe: {
+            amount: {
+              single: '',
+              range: {
+                min: '',
+                max: '',
+              },
+            },
+            useRange: false,
+          },
         },
-        workingSets: {
-          value: '',
-          min: '',
-          max: '',
-          isRange: false,
-        },
-        reps: {
-          value: '',
-          min: '',
-          max: '',
-          isRange: false,
-        },
-        rpe: {
-          value: '',
-          min: '',
-          max: '',
-          isRange: false,
+        working: {
+          sets: {
+            amount: {
+              single: '',
+              range: {
+                min: '',
+                max: '',
+              },
+            },
+            useRange: false,
+          },
+          reps: {
+            amount: {
+              single: '',
+              range: {
+                min: '',
+                max: '',
+              },
+            },
+            useRange: false,
+          },
+          rpe: {
+            amount: {
+              single: '',
+              range: {
+                min: '',
+                max: '',
+              },
+            },
+            useRange: false,
+          },
         },
       })
     }
@@ -338,8 +407,8 @@ export const AddExercise = ({ weekId, dayId }) => {
             {errors.name && <Text>Exercise name is required.</Text>}
 
             {/* 
-          warmup sets
-          */}
+              warmup sets
+            */}
 
             <View style={styles.exerciseDataContainer}>
               <Text className="text-2xl">Warmup</Text>
@@ -352,7 +421,6 @@ export const AddExercise = ({ weekId, dayId }) => {
                 singleName={'warmup.sets.amount.single'}
                 label={'Sets amount'}
               />
-
               <RangeOrSingleInput
                 control={control}
                 useRange={useRangeForWarmupReps}
@@ -362,7 +430,6 @@ export const AddExercise = ({ weekId, dayId }) => {
                 singleName={'warmup.reps.amount.single'}
                 label={'Reps amount'}
               />
-
               <RangeOrSingleInput
                 control={control}
                 useRange={useRangeForWarmupRPE}
@@ -375,15 +442,9 @@ export const AddExercise = ({ weekId, dayId }) => {
             </View>
 
             {/* 
-          working sets
-          */}
-            {/*   control,
-  useRange,
-  setUseRange,
-  rangeMinName,
-  rangeMaxName,
-  singleName,
-  label, */}
+              working sets
+            */}
+
             <View style={styles.exerciseDataContainer}>
               <Text className="text-2xl">Working</Text>
               <RangeOrSingleInput
@@ -395,7 +456,6 @@ export const AddExercise = ({ weekId, dayId }) => {
                 singleName={'working.sets.amount.single'}
                 label={'Sets amount'}
               />
-
               <RangeOrSingleInput
                 control={control}
                 useRange={useRangeForWorkingReps}
@@ -405,7 +465,6 @@ export const AddExercise = ({ weekId, dayId }) => {
                 singleName={'working.reps.amount.single'}
                 label={'Reps amount'}
               />
-
               <RangeOrSingleInput
                 control={control}
                 useRange={useRangeForWorkingRPE}
