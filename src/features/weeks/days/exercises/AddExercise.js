@@ -145,32 +145,6 @@ export const AddExercise = ({ weekId, dayId }) => {
   const showModal = () => setVisible(true)
   const hideModal = () => setVisible(false)
 
-  const createPayload = (data) => {
-    const constructAmountPayload = (amountData) => {
-      return amountData.useRange
-        ? {
-            isRange: true,
-            min: amountData.range.min,
-            max: amountData.range.max,
-          }
-        : {
-            isRange: false,
-            value: amountData.single,
-          }
-    }
-
-    const warmupPayload = {
-      sets: constructAmountPayload(data.warmup.sets.amount),
-      reps: constructAmountPayload(data.warmup.reps.amount),
-      rpe: constructAmountPayload(data.warmup.rpe.amount),
-    }
-
-    const workingPayload = {
-      sets: constructAmountPayload(data.working.sets.amount),
-      reps: constructAmountPayload(data.working.reps.amount),
-      rpe: constructAmountPayload(data.working.rpe.amount),
-    }
-  }
   const {
     control,
     handleSubmit,
@@ -259,48 +233,71 @@ export const AddExercise = ({ weekId, dayId }) => {
   const onSubmit = (data) => {
     console.log(data)
 
-    const warmupPayload = {}
-
-    const warmupSetsPayload = useRangeForWarmupSets
-      ? {
-          isRange: true,
-          min: data.warmupSets.min,
-          max: data.warmupSets.max,
-        }
-      : {
-          isRange: false,
-          value: data.warmupSets.value,
-        }
-    const workingSetsPayload = useRangeForWorkingSets
-      ? {
-          isRange: true,
-          min: data.workingSets.min,
-          max: data.workingSets.max,
-        }
-      : {
-          isRange: false,
-          value: data.workingSets.value,
-        }
-    dispatch(
-      exerciseAdded({
-        weekId,
-        dayId,
-        exercise: {
-          id: nanoid(),
-          name: data.name,
-          warmupSets: warmupSetsPayload,
-          workingSets: workingSetsPayload,
+    const payload = {
+      weekId,
+      dayId,
+      exercise: {
+        id: nanoid(),
+        name: data.name,
+        warmup: {
+          sets: useRangeForWarmupSets
+            ? {
+                min: parseInt(data.warmup.sets.amount.range.min, 10),
+                max: parseInt(data.warmup.sets.amount.range.max, 10),
+              }
+            : parseInt(data.warmup.sets.amount.single, 10),
+          reps: useRangeForWarmupReps
+            ? {
+                min: parseInt(data.warmup.reps.amount.range.min, 10),
+                max: parseInt(data.warmup.reps.amount.range.max, 10),
+              }
+            : parseInt(data.warmup.reps.amount.single, 10),
+          rpe: useRangeForWarmupRPE
+            ? {
+                min: parseInt(data.warmup.rpe.amount.range.min, 10),
+                max: parseInt(data.warmup.rpe.amount.range.max, 10),
+              }
+            : parseInt(data.warmup.rpe.amount.single, 10),
         },
-      })
-    )
-    hideModal()
-    setUseRangeForWarmupSets(false)
-    setUseRangeForWarmupReps(false)
-    setUseRangeForWarmupRPE(false)
+        working: {
+          sets: useRangeForWorkingSets
+            ? {
+                min: parseInt(data.working.sets.amount.range.min, 10),
+                max: parseInt(data.working.sets.amount.range.max, 10),
+              }
+            : parseInt(data.working.sets.amount.single, 10),
+          reps: useRangeForWorkingReps
+            ? {
+                min: parseInt(data.working.reps.amount.range.min, 10),
+                max: parseInt(data.working.reps.amount.range.max, 10),
+              }
+            : parseInt(data.working.reps.amount.single, 10),
+          rpe: useRangeForWorkingRPE
+            ? {
+                min: parseInt(data.working.rpe.amount.range.min, 10),
+                max: parseInt(data.working.rpe.amount.range.max, 10),
+              }
+            : parseInt(data.working.rpe.amount.single, 10),
+        },
+      },
+    }
 
-    setUseRangeForWorkingSets(false)
-    setUseRangeForWorkingReps(false)
-    setUseRangeForWorkingRPE(false)
+    console.log(payload)
+
+    // dispatch(
+    //   exerciseAdded({
+    //     weekId,
+    //     dayId,
+    //     exercise: {
+    //       id: nanoid(),
+    //       name: data.name,
+    //       warmupSets: warmupSetsPayload,
+    //       workingSets: workingSetsPayload,
+    //     },
+    //   })
+    // )
+
+    hideModal()
   }
 
   useEffect(() => {
@@ -372,6 +369,13 @@ export const AddExercise = ({ weekId, dayId }) => {
           },
         },
       })
+      setUseRangeForWarmupSets(false)
+      setUseRangeForWarmupReps(false)
+      setUseRangeForWarmupRPE(false)
+
+      setUseRangeForWorkingSets(false)
+      setUseRangeForWorkingReps(false)
+      setUseRangeForWorkingRPE(false)
     }
   }, [formState, reset])
 
