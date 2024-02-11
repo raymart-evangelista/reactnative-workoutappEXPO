@@ -59,7 +59,7 @@ const RangeOrSingleInput = ({
                   />
                 )}
               />
-              <Text>-</Text>
+              <Text style={styles.dash}>-</Text>
               <Controller
                 control={control}
                 name={rangeMaxName}
@@ -520,7 +520,8 @@ const styles = StyleSheet.create({
   input: {
     flex: 1,
     // width: 75,
-    margin: 4,
+    // margin: 4,
+    marginVertical: 10,
   },
   switchContainer: {
     flexDirection: 'column',
@@ -559,16 +560,22 @@ const styles = StyleSheet.create({
     // borderColor: 'purple',
     // borderRadius: 15,
     // padding: 5,
+    justifyContent: 'space-evenly',
+    alignItems: 'center',
   },
   exerciseDataContainer5: {
-    width: '100%',
-    flexDirection: 'row',
-    justifyContent: 'space-evenly',
+    // width: '100%',
+    // flexDirection: 'row',
+    // justifyContent: 'space-evenly',
     // alignContent: 'space-around',
-    alignItems: 'center',
+    // alignItems: 'center',
     // borderWidth: 1,
     // borderColor: 'orange',
     // borderRadius: 15,
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+    alignItems: 'center',
+    flex: 1,
   },
   exerciseRangeContainer: {
     flexDirection: 'column',
@@ -583,6 +590,11 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   rangedTextInput: {
-    width: 70,
+    // width: 70,
+    // padding: 5,
+    flex: 1,
+  },
+  dash: {
+    padding: 10,
   },
 })
