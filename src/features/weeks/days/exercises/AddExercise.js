@@ -15,6 +15,8 @@ import { StyleSheet, View } from 'react-native'
 import { useForm, Controller } from 'react-hook-form'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
+import { useTheme } from '../../../../themes/ThemeContext'
+
 const RangeOrSingleInput = ({
   control,
   useRange,
@@ -379,13 +381,22 @@ export const AddExercise = ({ weekId, dayId }) => {
     }
   }, [formState, reset])
 
+  const { theme } = useTheme()
+  const modalStyle = StyleSheet.create({
+    containerStyle: {
+      backgroundColor: theme.colors.background,
+      padding: 20,
+      margin: 30,
+      borderRadius: 15,
+    },
+  })
   return (
     <>
       <Portal>
         <Modal
           visible={visible}
           onDismiss={hideModal}
-          contentContainerStyle={styles.containerStyle}
+          contentContainerStyle={modalStyle.containerStyle}
         >
           <KeyboardAwareScrollView>
             <Text className="text-2xl">Add Exercise</Text>
