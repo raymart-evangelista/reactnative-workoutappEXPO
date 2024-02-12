@@ -29,6 +29,10 @@ const RangeOrSingleInput = ({
       <Text className="text-lg">{label}</Text>
       <View style={styles.exerciseDataContainer3}>
         <View style={styles.exerciseNumberInputContainer}>
+          <View style={styles.exerciseRangeContainer}>
+            <Text>Range</Text>
+            <Switch value={useRange} onValueChange={setUseRange} />
+          </View>
           {useRange ? (
             <View style={styles.exerciseDataContainer5}>
               <Controller
@@ -121,10 +125,6 @@ const RangeOrSingleInput = ({
               />
             </>
           )}
-        </View>
-        <View style={styles.exerciseRangeContainer}>
-          <Text>Range</Text>
-          <Switch value={useRange} onValueChange={setUseRange} />
         </View>
       </View>
     </View>
