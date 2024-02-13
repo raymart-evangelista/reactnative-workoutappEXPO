@@ -242,44 +242,116 @@ export const AddExercise = ({ weekId, dayId }) => {
         id: nanoid(),
         name: data.name,
         warmup: {
-          sets: useRangeForWarmupSets
-            ? {
-                min: parseInt(data.warmup.sets.amount.range.min, 10),
-                max: parseInt(data.warmup.sets.amount.range.max, 10),
-              }
-            : parseInt(data.warmup.sets.amount.single, 10),
-          reps: useRangeForWarmupReps
-            ? {
-                min: parseInt(data.warmup.reps.amount.range.min, 10),
-                max: parseInt(data.warmup.reps.amount.range.max, 10),
-              }
-            : parseInt(data.warmup.reps.amount.single, 10),
-          rpe: useRangeForWarmupRPE
-            ? {
-                min: parseInt(data.warmup.rpe.amount.range.min, 10),
-                max: parseInt(data.warmup.rpe.amount.range.max, 10),
-              }
-            : parseInt(data.warmup.rpe.amount.single, 10),
+          sets: {
+            amount: useRangeForWarmupSets
+              ? {
+                  single: '',
+                  range: {
+                    min: parseInt(data.warmup.sets.amount.range.min, 10),
+                    max: parseInt(data.warmup.sets.amount.range.max, 10),
+                  },
+                }
+              : {
+                  single: parseInt(data.warmup.sets.amount.single, 10),
+                  range: {
+                    min: '',
+                    max: '',
+                  },
+                },
+            useRange: useRangeForWarmupSets ? true : false,
+          },
+          reps: {
+            amount: useRangeForWarmupReps
+              ? {
+                  single: '',
+                  range: {
+                    min: parseInt(data.warmup.reps.amount.range.min, 10),
+                    max: parseInt(data.warmup.reps.amount.range.max, 10),
+                  },
+                }
+              : {
+                  single: parseInt(data.warmup.sets.amount.single, 10),
+                  range: {
+                    min: '',
+                    max: '',
+                  },
+                },
+            useRange: useRangeForWarmupReps ? true : false,
+          },
+          rpe: {
+            amount: useRangeForWarmupRPE
+              ? {
+                  single: '',
+                  range: {
+                    min: parseInt(data.warmup.rpe.amount.range.min, 10),
+                    max: parseInt(data.warmup.rpe.amount.range.max, 10),
+                  },
+                }
+              : {
+                  single: parseInt(data.warmup.rpe.amount.single, 10),
+                  range: {
+                    min: '',
+                    max: '',
+                  },
+                },
+            useRange: useRangeForWarmupRPE ? true : false,
+          },
         },
         working: {
-          sets: useRangeForWorkingSets
-            ? {
-                min: parseInt(data.working.sets.amount.range.min, 10),
-                max: parseInt(data.working.sets.amount.range.max, 10),
-              }
-            : parseInt(data.working.sets.amount.single, 10),
-          reps: useRangeForWorkingReps
-            ? {
-                min: parseInt(data.working.reps.amount.range.min, 10),
-                max: parseInt(data.working.reps.amount.range.max, 10),
-              }
-            : parseInt(data.working.reps.amount.single, 10),
-          rpe: useRangeForWorkingRPE
-            ? {
-                min: parseInt(data.working.rpe.amount.range.min, 10),
-                max: parseInt(data.working.rpe.amount.range.max, 10),
-              }
-            : parseInt(data.working.rpe.amount.single, 10),
+          sets: {
+            amount: useRangeForWorkingSets
+              ? {
+                  single: '',
+                  range: {
+                    min: parseInt(data.working.sets.amount.range.min, 10),
+                    max: parseInt(data.working.sets.amount.range.max, 10),
+                  },
+                }
+              : {
+                  single: parseInt(data.working.sets.amount.single, 10),
+                  range: {
+                    min: '',
+                    max: '',
+                  },
+                },
+            useRange: useRangeForWorkingSets ? true : false,
+          },
+          reps: {
+            amount: useRangeForWorkingReps
+              ? {
+                  single: '',
+                  range: {
+                    min: parseInt(data.working.reps.amount.range.min, 10),
+                    max: parseInt(data.working.reps.amount.range.max, 10),
+                  },
+                }
+              : {
+                  single: parseInt(data.working.sets.amount.single, 10),
+                  range: {
+                    min: '',
+                    max: '',
+                  },
+                },
+            useRange: useRangeForWorkingReps ? true : false,
+          },
+          rpe: {
+            amount: useRangeForWorkingRPE
+              ? {
+                  single: '',
+                  range: {
+                    min: parseInt(data.working.rpe.amount.range.min, 10),
+                    max: parseInt(data.working.rpe.amount.range.max, 10),
+                  },
+                }
+              : {
+                  single: parseInt(data.working.rpe.amount.single, 10),
+                  range: {
+                    min: '',
+                    max: '',
+                  },
+                },
+            useRange: useRangeForWorkingRPE ? true : false,
+          },
         },
       },
     }
