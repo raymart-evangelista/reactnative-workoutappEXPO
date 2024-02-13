@@ -286,18 +286,13 @@ export const AddExercise = ({ weekId, dayId }) => {
 
     console.log(payload)
 
-    // dispatch(
-    //   exerciseAdded({
-    //     weekId,
-    //     dayId,
-    //     exercise: {
-    //       id: nanoid(),
-    //       name: data.name,
-    //       warmupSets: warmupSetsPayload,
-    //       workingSets: workingSetsPayload,
-    //     },
-    //   })
-    // )
+    dispatch(
+      exerciseAdded({
+        weekId: payload.weekId,
+        dayId: payload.dayId,
+        exercise: payload.exercise,
+      })
+    )
 
     hideModal()
   }
