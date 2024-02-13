@@ -17,17 +17,7 @@ const initialState = [
         id: nanoid(),
         title: 'Push',
         description: 'chest, triceps, and shoulders',
-        exercises: [
-          {
-            id: nanoid(),
-            name: 'Bench Press',
-            description: 'default exercise description',
-            warmupSets: { min: 2, max: 4 },
-            workingSets: 3,
-            reps: { min: 8, max: 12 },
-            RPE: { min: 6, max: 8 },
-          },
-        ],
+        exercises: [],
       },
     ],
   },
