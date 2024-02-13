@@ -188,6 +188,7 @@ const ExerciseContainer = ({
   }
   return (
     <ExerciseCard
+      exercise={exercise}
       weekId={weekId}
       dayId={dayId}
       exerciseId={exercise.id}
