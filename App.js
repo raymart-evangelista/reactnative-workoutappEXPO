@@ -59,7 +59,6 @@ import store from './src/app/store'
 
 export default function App() {
   const colorScheme = useColorScheme()
-  const { theme } = useTheme()
   return (
     <ReduxProvider store={store}>
       <GestureHandlerRootView style={{ flex: 1 }}>
