@@ -1,14 +1,22 @@
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import HomeScreen from "../screens/HomeScreen";
-import { ExistingProgramsStackScreen } from "../screens/ExistingProgramScreen";
-import ProfileScreen from "../screens/ProfileScreen";
-import FriendsScreen from "../screens/FriendsScreen";
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
+import HomeScreen from '../screens/HomeScreen'
+import { ExistingProgramsStackScreen } from '../screens/ExistingProgramScreen'
+import ProfileScreen from '../screens/ProfileScreen'
+import FriendsScreen from '../screens/FriendsScreen'
+import { useTheme } from '../themes/ThemeContext'
 
-const Tab = createBottomTabNavigator();
+const Tab = createBottomTabNavigator()
 
 export default function TabNavigator() {
+  const { theme } = useTheme()
   return (
-    <Tab.Navigator>
+    <Tab.Navigator
+      screenOptions={
+        {
+          // tabBarStyle: { backgroundColor: theme.colors.background },
+        }
+      }
+    >
       <Tab.Screen
         name="Programs"
         component={ExistingProgramsStackScreen}
@@ -20,5 +28,5 @@ export default function TabNavigator() {
       <Tab.Screen name="Friends" component={FriendsScreen} />
       <Tab.Screen name="You" component={ProfileScreen} />
     </Tab.Navigator>
-  );
+  )
 }

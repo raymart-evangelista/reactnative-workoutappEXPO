@@ -1,4 +1,8 @@
-import { NavigationContainer } from '@react-navigation/native'
+import {
+  DarkTheme as NavigationDarkTheme,
+  DefaultTheme as NavigationDefaultTheme,
+  NavigationContainer,
+} from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { StatusBar } from 'expo-status-bar'
 import { useEffect, useState } from 'react'
@@ -54,31 +58,29 @@ import { Provider as ReduxProvider } from 'react-redux'
 import store from './src/app/store'
 
 export default function App() {
+  const colorScheme = useColorScheme()
+  const { theme } = useTheme()
   return (
     <ReduxProvider store={store}>
       <GestureHandlerRootView style={{ flex: 1 }}>
         <AuthProvider>
           <ThemeContextProvider>
-            <NavigationContainer independent={true}>
+            <NavigationContainer
+              independent={true}
+              theme={
+                colorScheme === 'dark'
+                  ? NavigationDarkTheme
+                  : NavigationDefaultTheme
+              }
+            >
               {/* <Stack.Navigator initialRouteName='CreateProgram' screenOptions={{headerShown: true}}> */}
               <Stack.Navigator initialRouteName="TabNavigator">
+                <Stack.Screen name="Settings" component={SettingsScreen} />
                 <Stack.Screen
                   name="TabNavigator"
                   component={TabNavigator}
                   options={{ headerShown: false }}
                 />
-                {/* <Stack.Screen name="Landing" component={LandingPage} /> */}
-                {/* <Stack.Screen name="LogIn" component={LogInScreen} /> */}
-                {/* <Stack.Screen name="SignUp" component={SignUpScreen} /> */}
-                {/* <Stack.Screen name="Home" component={HomeScreen} /> */}
-                {/* <Stack.Screen name="CreateProgram" component={CreateProgramScreen} options={{ title: 'Create' }} /> */}
-                {/* <Stack.Screen name="ExistingPrograms" component={ExistingProgramsScreen} /> */}
-                {/* <Stack.Screen name="EditProgram" component={EditProgramScreen} /> */}
-                {/* <Stack.Screen name="ContinueProgram" component={OldContinueProgramScreen} /> */}
-                {/* <Stack.Screen name="ProgramInformation" component={ProgramInformationScreen} /> */}
-                {/* <Stack.Screen name="ContinueWeek" component={ContinueWeekScreen} /> */}
-                {/* <Stack.Screen name="ContinueDay" component={ContinueDayScreen} /> */}
-                {/* <Stack.Screen name="Settings" component={SettingsScreen} /> */}
               </Stack.Navigator>
             </NavigationContainer>
           </ThemeContextProvider>
