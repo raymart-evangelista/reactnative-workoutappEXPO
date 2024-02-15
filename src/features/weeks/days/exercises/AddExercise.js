@@ -17,6 +17,16 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 
 import { useTheme } from '../../../../themes/ThemeContext'
 
+const requiredIf = (condition) => (value) => {
+  if (condition && !value) return 'This field is required'
+  return true
+}
+
+const maxSets = (value) => value <= 5 || 'Maximum of 5 sets are allowed'
+const maxReps = (value) => value <= 30 || 'Maximum of 30 reps are allowed'
+const rpeRange = (value) =>
+  (value >= 1 && value <= 10) || 'RPE must be between 1 and 10'
+
 const RangeOrSingleInput = ({
   control,
   useRange,
