@@ -17,7 +17,144 @@ const initialState = [
         id: nanoid(),
         title: 'Push',
         description: 'chest, triceps, and shoulders',
-        exercises: [],
+        exercises: [
+          {
+            id: '-950OHZxdV8NO5waHS5TB',
+            name: 'chest press',
+            warmup: {
+              sets: {
+                amount: {
+                  single: 1,
+                  range: {
+                    min: '',
+                    max: '',
+                  },
+                },
+                useRange: false,
+              },
+              reps: {
+                amount: {
+                  single: 1,
+                  range: {
+                    min: '',
+                    max: '',
+                  },
+                },
+                useRange: false,
+              },
+              rpe: {
+                amount: {
+                  single: 3,
+                  range: {
+                    min: '',
+                    max: '',
+                  },
+                },
+                useRange: false,
+              },
+            },
+            working: {
+              sets: {
+                amount: {
+                  single: 4,
+                  range: {
+                    min: '',
+                    max: '',
+                  },
+                },
+                useRange: false,
+              },
+              reps: {
+                amount: {
+                  single: 4,
+                  range: {
+                    min: '',
+                    max: '',
+                  },
+                },
+                useRange: false,
+              },
+              rpe: {
+                amount: {
+                  single: 6,
+                  range: {
+                    min: '',
+                    max: '',
+                  },
+                },
+                useRange: false,
+              },
+            },
+          },
+          {
+            id: '1DB0_3Y5RHcWVsQ9qr1xt',
+            name: 'shoulder press',
+            warmup: {
+              sets: {
+                amount: {
+                  single: '',
+                  range: {
+                    min: 0,
+                    max: 2,
+                  },
+                },
+                useRange: true,
+              },
+              reps: {
+                amount: {
+                  single: '',
+                  range: {
+                    min: 5,
+                    max: 8,
+                  },
+                },
+                useRange: true,
+              },
+              rpe: {
+                amount: {
+                  single: '',
+                  range: {
+                    min: 4,
+                    max: 6,
+                  },
+                },
+                useRange: true,
+              },
+            },
+            working: {
+              sets: {
+                amount: {
+                  single: 2,
+                  range: {
+                    min: '',
+                    max: '',
+                  },
+                },
+                useRange: false,
+              },
+              reps: {
+                amount: {
+                  single: '',
+                  range: {
+                    min: 7,
+                    max: 9,
+                  },
+                },
+                useRange: true,
+              },
+              rpe: {
+                amount: {
+                  single: 9,
+                  range: {
+                    min: '',
+                    max: '',
+                  },
+                },
+                useRange: false,
+              },
+            },
+          },
+        ],
       },
     ],
   },
