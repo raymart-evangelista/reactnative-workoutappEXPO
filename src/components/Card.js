@@ -119,6 +119,7 @@ export const DayCard = ({
 }
 
 export const ExerciseCard = ({
+  exercise,
   weekId,
   dayId,
   exerciseId,
@@ -130,16 +131,97 @@ export const ExerciseCard = ({
   onDrag,
 }) => {
   const dispatch = useDispatch()
+  console.log(exercise)
   return (
     <Card style={styles.container} onPress={onClick} onLongPress={onDrag}>
       {/* <Card.Title title="Card Title" subtitle="Card Subtitle" left={LeftContent} /> */}
-      <Card.Content>
-        <Text variant="titleLarge">{exerciseId}</Text>
-        <Text variant="bodyMedium" className="italic">
-          {content}
-        </Text>
+      <Card.Content className="border-2 border-red-500">
+        <Text variant="titleLarge">{exercise.name}</Text>
+        <View className="flex flex-row justify-evenly border-2 border-purple-500">
+          <View className="border-2 border-orange-500">
+            <Text variant="bodyMedium" className="italic">
+              Warmup sets
+            </Text>
+            {exercise.warmup.sets.useRange ? (
+              <>
+                <Text>
+                  {exercise.warmup.sets.amount.range.min}-
+                  {exercise.warmup.sets.amount.range.max} x{' '}
+                  {exercise.warmup.reps.useRange ? (
+                    <>
+                      <Text>{exercise.warmup.reps.amount.range.min}</Text>-
+                      <Text>{exercise.warmup.reps.amount.range.max}</Text>
+                    </>
+                  ) : (
+                    <>
+                      <Text>{exercise.warmup.reps.amount.single}</Text>
+                    </>
+                  )}
+                </Text>
+              </>
+            ) : (
+              <>
+                <Text>
+                  {exercise.warmup.sets.amount.single} x{' '}
+                  {exercise.warmup.reps.useRange ? (
+                    <>
+                      <Text>{exercise.warmup.reps.amount.range.min}</Text>-
+                      <Text>{exercise.warmup.reps.amount.range.max}</Text>
+                    </>
+                  ) : (
+                    <>
+                      <Text>{exercise.warmup.reps.amount.single}</Text>
+                    </>
+                  )}
+                </Text>
+              </>
+            )}
+          </View>
+          <View className="border-2 border-orange-500">
+            <Text variant="bodyMedium" className="italic">
+              Working sets
+            </Text>
+            {exercise.working.sets.useRange ? (
+              <>
+                <Text>
+                  {exercise.working.sets.amount.range.min}-
+                  {exercise.working.sets.amount.range.max} x{' '}
+                  {exercise.working.reps.useRange ? (
+                    <>
+                      <Text>{exercise.working.reps.amount.range.min}</Text>-
+                      <Text>{exercise.working.reps.amount.range.max}</Text>
+                    </>
+                  ) : (
+                    <>
+                      <Text>{exercise.working.reps.amount.single}</Text>
+                    </>
+                  )}
+                </Text>
+              </>
+            ) : (
+              <>
+                <Text>
+                  {exercise.working.sets.amount.single} x{' '}
+                  {exercise.working.reps.useRange ? (
+                    <>
+                      <Text>{exercise.working.reps.amount.range.min}</Text>-
+                      <Text>{exercise.working.reps.amount.range.max}</Text>
+                    </>
+                  ) : (
+                    <>
+                      <Text>{exercise.working.reps.amount.single}</Text>
+                    </>
+                  )}
+                </Text>
+              </>
+            )}
+          </View>
+        </View>
       </Card.Content>
-      <Card.Actions style={styles.cardActions}>
+      <Card.Actions
+        style={styles.cardActions}
+        className="border-2 border-green-500"
+      >
         <EditInfoModal
           data={{ ...exerciseId, weekId, dayId }}
           updateAction={(info) => {
