@@ -17,6 +17,9 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 
 import { useTheme } from '../../../../themes/ThemeContext'
 
+import { yupResolver } from '@hookform/resolvers/yup'
+import * as yup from 'yup'
+
 const requiredIf = (condition) => (value) => {
   if (condition && !value) return 'This field is required'
   return true
@@ -27,6 +30,212 @@ const maxReps = (value) => value <= 30 || 'Maximum of 30 reps are allowed'
 const rpeRange = (value) =>
   (value >= 1 && value <= 10) || 'RPE must be between 1 and 10'
 
+const exerciseSchema = yup.object({
+  name: yup.string().required('Exercise name is required'),
+  warmup: yup.object().shape({
+    sets: yup.object().shape({
+      amount: yup.object().shape({
+        single: yup.number().when('useRange', {
+          is: false,
+          then: yup
+            .number()
+            // .positive('Must be a positive number')
+            // .integer('Must be an integer'),
+            .min(1, 'Reps must be at least 1')
+            .max(10, 'Reps must be at most 99'),
+          otherwise: yup.number().notRequired(),
+        }),
+        range: yup.object().when('useRange', {
+          is: true,
+          then: yup.object().shape({
+            min: yup
+              .number()
+              // .positive('Must be a positive number')
+              // .integer('Must be an integer')
+              .min(1, 'Reps must be at least 1')
+              .max(10, 'Reps must be at most 99')
+              .required('Min is required'),
+            max: yup
+              .number()
+              // .positive('Must be a positive number')
+              // .integer('Must be an integer')
+              .min(1, 'Reps must be at least 1')
+              .max(10, 'Reps must be at most 99')
+              .moreThan(yup.ref('min'), 'Max must be greater than Min')
+              .required('Max is required'),
+          }),
+          otherwise: yup.object().notRequired(),
+        }),
+      }),
+      useRange: yup.boolean(),
+    }),
+    reps: yup.object().shape({
+      amount: yup.object().shape({
+        single: yup.number().when('useRange', {
+          is: false,
+          then: yup
+            .number()
+            .min(1, 'Reps must be at least 1')
+            .max(99, 'Reps must be at most 99'),
+          otherwise: yup.number().notRequired(),
+        }),
+        range: yup.object().when('useRange', {
+          is: true,
+          then: yup.object().shape({
+            min: yup
+              .number()
+              .min(1, 'Reps must be at least 1')
+              .max(99, 'Reps must be at most 99')
+              // .positive('Must be a positive number')
+              // .integer('Must be an integer')
+              .required('Min is required'),
+            max: yup
+              .number()
+              // .positive('Must be a positive number')
+              // .integer('Must be an integer')
+              .min(1, 'Reps must be at least 1')
+              .max(99, 'Reps must be at most 99')
+              .moreThan(yup.ref('min'), 'Max must be greater than Min')
+              .required('Max is required'),
+          }),
+          otherwise: yup.object().notRequired(),
+        }),
+      }),
+      useRange: yup.boolean(),
+    }),
+    rpe: yup.object().shape({
+      amount: yup.object().shape({
+        single: yup.number().when('useRange', {
+          is: false,
+          then: yup
+            .number()
+            .min(1, 'RPE must be at least 1')
+            .max(10, 'RPE must be at most 10'),
+          otherwise: yup.number().notRequired(),
+        }),
+        range: yup.object().when('useRange', {
+          is: true,
+          then: yup.object().shape({
+            min: yup
+              .number()
+              .min(1, 'RPE must be at least 1')
+              .max(10, 'RPE must be at most 10')
+              .required('Min is required'),
+            max: yup
+              .number()
+              .min(1, 'RPE must be at least 1')
+              .max(10, 'RPE must be at most 10')
+              .moreThan(yup.ref('min'), 'Max must be greater than Min')
+              .required('Max is required'),
+          }),
+          otherwise: yup.object().notRequired(),
+        }),
+      }),
+      useRange: yup.boolean(),
+    }),
+  }),
+  working: yup.object().shape({
+    sets: yup.object().shape({
+      amount: yup.object().shape({
+        single: yup.number().when('useRange', {
+          is: false,
+          then: yup
+            .number()
+            .min(1, 'Sets must be at least 1')
+            .max(5, 'Sets must be at most 5')
+            .required('Sets are required'),
+          otherwise: yup.number().notRequired(),
+        }),
+        range: yup.object().when('useRange', {
+          is: true,
+          then: yup.object().shape({
+            min: yup
+              .number()
+              .min(1, 'Sets must be at least 1')
+              .max(5, 'Sets must be at most 5')
+              .required('Min sets is required'),
+            max: yup
+              .number()
+              .min(1, 'Sets must be at least 1')
+              .max(5, 'Sets must be at most 5')
+              .moreThan(
+                yup.ref('min'),
+                'Max sets must be greater than Min sets'
+              )
+              .required('Max sets is required'),
+          }),
+          otherwise: yup.object().notRequired(),
+        }),
+      }),
+      useRange: yup.boolean(),
+    }),
+    reps: yup.object().shape({
+      amount: yup.object().shape({
+        single: yup.number().when('useRange', {
+          is: false,
+          then: yup
+            .number()
+            .min(1, 'Reps must be at least 1')
+            .max(30, 'Reps must be at most 30')
+            .required('Reps are required'),
+          otherwise: yup.number().notRequired(),
+        }),
+        range: yup.object().when('useRange', {
+          is: true,
+          then: yup.object().shape({
+            min: yup
+              .number()
+              .min(1, 'Reps must be at least 1')
+              .max(30, 'Reps must be at most 30')
+              .required('Min reps is required'),
+            max: yup
+              .number()
+              .min(1, 'Reps must be at least 1')
+              .max(30, 'Reps must be at most 30')
+              .moreThan(
+                yup.ref('min'),
+                'Max reps must be greater than Min reps'
+              )
+              .required('Max reps is required'),
+          }),
+          otherwise: yup.object().notRequired(),
+        }),
+      }),
+      useRange: yup.boolean(),
+    }),
+    rpe: yup.object().shape({
+      amount: yup.object().shape({
+        single: yup.number().when('useRange', {
+          is: false,
+          then: yup
+            .number()
+            .min(1, 'RPE must be at least 1')
+            .max(10, 'RPE must be at most 10')
+            .required('RPE is required'),
+          otherwise: yup.number().notRequired(),
+        }),
+        range: yup.object().when('useRange', {
+          is: true,
+          then: yup.object().shape({
+            min: yup
+              .number()
+              .min(1, 'RPE must be at least 1')
+              .max(10, 'RPE must be at most 10')
+              .required('Min RPE is required'),
+            max: yup
+              .number()
+              .min(1, 'RPE must be at least 1')
+              .max(10, 'RPE must be at most 10')
+              .moreThan(yup.ref('min'), 'Max RPE must be greater than Min RPE')
+              .required('Max RPE is required'),
+          }),
+          otherwise: yup.object().notRequired(),
+        }),
+      }),
+      useRange: yup.boolean(),
+    }),
+  }),
+})
 const RangeOrSingleInput = ({
   control,
   useRange,
@@ -35,6 +244,7 @@ const RangeOrSingleInput = ({
   rangeMaxName,
   singleName,
   label,
+  watch,
 }) => {
   return (
     <View style={styles.exerciseDataContainer2}>
@@ -163,7 +373,9 @@ export const AddExercise = ({ weekId, dayId }) => {
     reset,
     formState,
     formState: { errors, isSubmitSuccessful },
+    watch,
   } = useForm({
+    resolver: yupResolver(exerciseSchema),
     defaultValues: {
       name: '',
       warmup: {
@@ -512,6 +724,7 @@ export const AddExercise = ({ weekId, dayId }) => {
                 rangeMaxName={'warmup.sets.amount.range.max'}
                 singleName={'warmup.sets.amount.single'}
                 label={'Sets amount'}
+                watch={watch}
               />
               <RangeOrSingleInput
                 control={control}
@@ -521,6 +734,7 @@ export const AddExercise = ({ weekId, dayId }) => {
                 rangeMaxName={'warmup.reps.amount.range.max'}
                 singleName={'warmup.reps.amount.single'}
                 label={'Reps amount'}
+                watch={watch}
               />
               <RangeOrSingleInput
                 control={control}
@@ -530,6 +744,7 @@ export const AddExercise = ({ weekId, dayId }) => {
                 rangeMaxName={'warmup.rpe.amount.range.max'}
                 singleName={'warmup.rpe.amount.single'}
                 label={'RPE amount'}
+                watch={watch}
               />
             </View>
 
