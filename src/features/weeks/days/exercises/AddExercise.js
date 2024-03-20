@@ -32,26 +32,6 @@ const rpeRange = (value) =>
 
 const exerciseSchema = yup.object({
   name: yup.string().required('Exercise namee is required'),
-  // warmup: yup.object().shape({
-  //   sets: yup.object().shape({
-  //     amount: yup.object().shape({
-  //       single: yup
-  //         .number()
-  //         .transform((value, originalValue) =>
-  //           originalValue.trim() === '' ? undefined : value
-  //         )
-  //         .when('useRange', {
-  //           is: false,
-  //           then: yup
-  //             .number()
-  //             .typeError('Sets must be a number')
-  //             .integer('Must be an integer')
-  //             .min(0, 'Sets must be at least 0')
-  //             .max(10, 'Sets must be at most 10'),
-  //         }),
-  //     }),
-  //   }),
-  // }),
   warmup: yup.object({
     sets: yup.object({
       amount: yup.object({
