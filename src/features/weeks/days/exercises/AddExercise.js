@@ -61,10 +61,36 @@ const exerciseSchema = yup.object({
           .transform((value, originalValue) =>
             String(originalValue).trim() === '' ? null : value
           )
-          .typeError('Set amount must be a number')
-          .min(1, 'Reps must be at least 1')
-          .max(10, 'Reps must be at most 10')
+          .typeError('*Sets amount must be a number')
+          .min(1, '*Sets amount must be at least 1')
+          .max(10, '*Sets amount must be at most 10')
           .notRequired(),
+        range: yup.object({
+          min: yup
+            .number()
+            .nullable(true)
+            .transform((value, originalValue) =>
+              String(originalValue).trim() === '' ? null : value
+            )
+            .typeError('*Sets minimum amount must be a number')
+            .min(1, '*Sets minimum must be at least 1')
+            .max(10, '*Sets amount must be at most 10')
+            .notRequired(),
+          max: yup
+            .number()
+            .nullable(true)
+            .transform((value, originalValue) =>
+              String(originalValue).trim() === '' ? null : value
+            )
+            .typeError('*Sets maximum amount must be a number')
+            .min(1, '*Sets maximum amount must be at least 1')
+            .max(10, '*Sets maximum amount must be at most 10')
+            .notRequired()
+            .moreThan(
+              yup.ref('min'),
+              'Sets maximum must be greater than minimum amount'
+            ),
+        }),
       }),
     }),
   }),
@@ -285,13 +311,13 @@ const RangeOrSingleInput = ({
   errors,
 }) => {
   console.log(label)
-  const errorMin = errors?.[rangeMinName]
-  const errorMax = errors?.[rangeMaxName]
+  console.log(errors?.[sectionType]?.[subSectionType])
+  const errorMin =
+    errors?.[sectionType]?.[subSectionType]?.amount?.range?.min?.message
+  const errorMax =
+    errors?.[sectionType]?.[subSectionType]?.amount?.range?.max?.message
   const errorSingle =
-    errors?.[sectionType]?.[subSectionType]?.amount.single.message
-  console.log('****//// this is errors')
-  console.log(errorSingle)
-  // console.log(errors.warmup.sets.amount.single.message)
+    errors?.[sectionType]?.[subSectionType]?.amount?.single?.message
 
   return (
     <View style={styles.exerciseDataContainer2}>
@@ -307,15 +333,6 @@ const RangeOrSingleInput = ({
               <Controller
                 control={control}
                 name={rangeMinName}
-                rules={{
-                  required: 'This field is required',
-                  min: { value: 0, message: 'Minimum value is 0' },
-                  max: { value: 9, message: 'Maximum value is 9' },
-                  pattern: {
-                    value: /^[0-9]$/,
-                    message: 'Please enter a number between 0 and 9',
-                  },
-                }}
                 render={({
                   field: { onChange, onBlur, value },
                   fieldState: { error },
@@ -337,15 +354,6 @@ const RangeOrSingleInput = ({
               <Controller
                 control={control}
                 name={rangeMaxName}
-                rules={{
-                  required: 'This field is required',
-                  min: { value: 1, message: 'Minimum value is 0' },
-                  max: { value: 9, message: 'Maximum value is 9' },
-                  pattern: {
-                    value: /^[0-9]$/,
-                    message: 'Please enter a number between 1 and 9',
-                  },
-                }}
                 render={({
                   field: { onChange, onBlur, value },
                   fieldState: { error },
@@ -365,7 +373,7 @@ const RangeOrSingleInput = ({
               {errorMax && <Text>{errorMax.message}</Text>}
             </View>
           ) : (
-            <>
+            <View style={styles.exerciseDataContainer5}>
               <Controller
                 control={control}
                 name={singleName}
@@ -385,11 +393,13 @@ const RangeOrSingleInput = ({
                   />
                 )}
               />
-              {errorSingle && <Text>{errorSingle}</Text>}
-            </>
+            </View>
           )}
         </View>
       </View>
+      {errorMin && <Text style={styles.errorText}>{errorMin}</Text>}
+      {errorMax && <Text style={styles.errorText}>{errorMax}</Text>}
+      {errorSingle && <Text style={styles.errorText}>{errorSingle}</Text>}
     </View>
   )
 }
@@ -852,6 +862,11 @@ export const AddExercise = ({ weekId, dayId }) => {
 }
 
 const styles = StyleSheet.create({
+  errorText: {
+    color: 'red',
+    fontSize: 14,
+    marginTop: 5,
+  },
   fabStyle: {
     bottom: 16,
     right: 16,
@@ -904,9 +919,9 @@ const styles = StyleSheet.create({
   exerciseDataContainer3: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    // borderWidth: 1,
-    // borderColor: 'green',
-    // borderRadius: 15,
+    borderWidth: 1,
+    borderColor: 'green',
+    borderRadius: 15,
     // padding: 5,
   },
   exerciseNumberInputContainer: {
@@ -925,9 +940,9 @@ const styles = StyleSheet.create({
     // justifyContent: 'space-evenly',
     // alignContent: 'space-around',
     // alignItems: 'center',
-    // borderWidth: 1,
-    // borderColor: 'orange',
-    // borderRadius: 15,
+    borderWidth: 1,
+    borderColor: 'orange',
+    borderRadius: 15,
     flexDirection: 'row',
     justifyContent: 'space-evenly',
     alignItems: 'center',
