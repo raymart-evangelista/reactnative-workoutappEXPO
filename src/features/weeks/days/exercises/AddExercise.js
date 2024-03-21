@@ -34,17 +34,21 @@ const exerciseSchema = yup.object({
   name: yup.string().required('Exercise namee is required'),
   warmup: yup.object({
     sets: yup.object({
+      useRange: yup.boolean(),
       amount: yup.object({
-        single: yup
-          .number()
-          .nullable(true)
-          .transform((value, originalValue) =>
-            String(originalValue).trim() === '' ? null : value
-          )
-          .typeError('*Sets amount must be a number')
-          .min(1, '*Sets amount must be at least 1')
-          .max(10, '*Sets amount must be at most 10')
-          .notRequired(),
+        single: yup.number().when('useRange', {
+          is: false,
+          then: yup
+            .number()
+            .nullable(true)
+            .transform((value, originalValue) =>
+              String(originalValue).trim() === '' ? null : value
+            )
+            .typeError('*Sets amount must be a number')
+            .min(1, '*Sets amount must be at least 1')
+            .max(10, '*Sets amount must be at most 10')
+            .notRequired(),
+        }),
         range: yup.object({
           min: yup
             .number()
@@ -87,14 +91,18 @@ const RangeOrSingleInput = ({
   label,
   errors,
 }) => {
-  console.log(label)
-  console.log(errors?.[sectionType]?.[subSectionType])
+  // console.log(label)
+  // console.log(errors?.[sectionType]?.[subSectionType])
   const errorMin =
     errors?.[sectionType]?.[subSectionType]?.amount?.range?.min?.message
   const errorMax =
     errors?.[sectionType]?.[subSectionType]?.amount?.range?.max?.message
   const errorSingle =
     errors?.[sectionType]?.[subSectionType]?.amount?.single?.message
+  const useRangeName = `${sectionType}.${subSectionType}.useRange`
+  // console.log('this is the useRange name')
+  // console.log(useRangeName)
+  // console.log(`${sectionType}.${subSectionType}.useRange`)
 
   return (
     <View style={styles.exerciseDataContainer2}>
@@ -103,7 +111,22 @@ const RangeOrSingleInput = ({
         <View style={styles.exerciseNumberInputContainer}>
           <View style={styles.exerciseRangeContainer}>
             <Text>Range</Text>
-            <Switch value={useRange} onValueChange={setUseRange} />
+            {/* <Switch value={useRange} onValueChange={setUseRange} /> */}
+            <Controller
+              control={control}
+              name={useRangeName}
+              render={({ field: { onChange, onBlur, value } }) => (
+                <>
+                  <Switch
+                    value={value}
+                    onValueChange={onChange}
+                    onBlur={onBlur}
+                  />
+                  {value && <Text>Switch is on</Text>}
+                  {!value && <Text>Switch is off</Text>}
+                </>
+              )}
+            />
           </View>
           {useRange ? (
             <View style={styles.exerciseDataContainer5}>
