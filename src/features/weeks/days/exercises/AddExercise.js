@@ -80,6 +80,7 @@ const exerciseSchema = yup.object({
   }),
 })
 const RangeOrSingleInput = ({
+  watch,
   control,
   useRange,
   setUseRange,
@@ -91,8 +92,6 @@ const RangeOrSingleInput = ({
   label,
   errors,
 }) => {
-  // console.log(label)
-  // console.log(errors?.[sectionType]?.[subSectionType])
   const errorMin =
     errors?.[sectionType]?.[subSectionType]?.amount?.range?.min?.message
   const errorMax =
@@ -100,9 +99,7 @@ const RangeOrSingleInput = ({
   const errorSingle =
     errors?.[sectionType]?.[subSectionType]?.amount?.single?.message
   const useRangeName = `${sectionType}.${subSectionType}.useRange`
-  // console.log('this is the useRange name')
-  // console.log(useRangeName)
-  // console.log(`${sectionType}.${subSectionType}.useRange`)
+  const useRangeValue = watch(useRangeName)
 
   return (
     <View style={styles.exerciseDataContainer2}>
@@ -128,7 +125,7 @@ const RangeOrSingleInput = ({
               )}
             />
           </View>
-          {useRange ? (
+          {useRangeValue ? (
             <View style={styles.exerciseDataContainer5}>
               <Controller
                 control={control}
@@ -222,6 +219,7 @@ export const AddExercise = ({ weekId, dayId }) => {
     control,
     handleSubmit,
     reset,
+    watch,
     formState,
     formState: { errors, isSubmitSuccessful },
   } = useForm({
@@ -567,6 +565,7 @@ export const AddExercise = ({ weekId, dayId }) => {
             <View style={styles.exerciseDataContainer}>
               <Text className="text-2xl">Warmup</Text>
               <RangeOrSingleInput
+                watch={watch}
                 control={control}
                 useRange={useRangeForWarmupSets}
                 setUseRange={setUseRangeForWarmupSets}
@@ -579,6 +578,7 @@ export const AddExercise = ({ weekId, dayId }) => {
                 errors={errors}
               />
               <RangeOrSingleInput
+                watch={watch}
                 control={control}
                 useRange={useRangeForWarmupReps}
                 setUseRange={setUseRangeForWarmupReps}
@@ -591,6 +591,7 @@ export const AddExercise = ({ weekId, dayId }) => {
                 errors={errors}
               />
               <RangeOrSingleInput
+                watch={watch}
                 control={control}
                 useRange={useRangeForWarmupRPE}
                 setUseRange={setUseRangeForWarmupRPE}
@@ -611,6 +612,7 @@ export const AddExercise = ({ weekId, dayId }) => {
             <View style={styles.exerciseDataContainer}>
               <Text className="text-2xl">Working</Text>
               <RangeOrSingleInput
+                watch={watch}
                 control={control}
                 useRange={useRangeForWorkingSets}
                 setUseRange={setUseRangeForWorkingSets}
@@ -621,6 +623,7 @@ export const AddExercise = ({ weekId, dayId }) => {
                 errors={errors}
               />
               <RangeOrSingleInput
+                watch={watch}
                 control={control}
                 useRange={useRangeForWorkingReps}
                 setUseRange={setUseRangeForWorkingReps}
@@ -631,6 +634,7 @@ export const AddExercise = ({ weekId, dayId }) => {
                 errors={errors}
               />
               <RangeOrSingleInput
+                watch={watch}
                 control={control}
                 useRange={useRangeForWorkingRPE}
                 setUseRange={setUseRangeForWorkingRPE}
