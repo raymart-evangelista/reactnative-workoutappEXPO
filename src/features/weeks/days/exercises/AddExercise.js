@@ -436,65 +436,41 @@ export const AddExercise = ({ weekId, dayId }) => {
         name: '',
         warmup: {
           sets: {
-            amount: {
-              single: '',
-              range: {
-                min: '',
-                max: '',
-              },
-            },
+            single: '',
+            min: '',
+            max: '',
             useRange: false,
           },
           reps: {
-            amount: {
-              single: '',
-              range: {
-                min: '',
-                max: '',
-              },
-            },
+            single: '',
+            min: '',
+            max: '',
             useRange: false,
           },
           rpe: {
-            amount: {
-              single: '',
-              range: {
-                min: '',
-                max: '',
-              },
-            },
+            single: '',
+            min: '',
+            max: '',
             useRange: false,
           },
         },
         working: {
           sets: {
-            amount: {
-              single: '',
-              range: {
-                min: '',
-                max: '',
-              },
-            },
+            single: '',
+            min: '',
+            max: '',
             useRange: false,
           },
           reps: {
-            amount: {
-              single: '',
-              range: {
-                min: '',
-                max: '',
-              },
-            },
+            single: '',
+            min: '',
+            max: '',
             useRange: false,
           },
           rpe: {
-            amount: {
-              single: '',
-              range: {
-                min: '',
-                max: '',
-              },
-            },
+            single: '',
+            min: '',
+            max: '',
             useRange: false,
           },
         },
