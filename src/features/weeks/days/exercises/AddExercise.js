@@ -31,60 +31,31 @@ const rpeRange = (value) =>
   (value >= 1 && value <= 10) || 'RPE must be between 1 and 10'
 
 const exerciseSchema = yup.object({
-  name: yup.string().required('Exercise namee is required'),
+  name: yup.string().required('Exercise name is required'),
   warmup: yup.object({
     sets: yup.object({
-      useRange: yup.boolean(),
-      amount: yup.object({
-        single: yup
+      single: yup.number().when('useRange', {
+        is: false,
+        then: yup
           .number()
-          .nullable(true)
-          .transform((value, originalValue) =>
-            originalValue === '' ? undefined : value
-          )
-          // .when('useRange', (useRange, schema) =>
-          //   useRange === false
-          //     ? schema
-          //         .min(1, '*Sets amount must be at least 1')
-          //         .max(10, '*Sets amount must be at most 10')
-          //     : schema.notRequired()
-          // ),
-          .when('useRange', {
-            is: false,
-            then: (schema) => {
-              schema
-                .min(1, '*Sets amount must be at least 1')
-                .max(10, '*Sets amount must be at most 10')
-            },
-            otherwise: (schema) => schema.notRequired(),
-          }),
-        // range: yup.object({
-        //   min: yup
-        //     .number()
-        //     .nullable(true)
-        //     .transform((value, originalValue) =>
-        //       String(originalValue).trim() === '' ? null : value
-        //     )
-        //     .typeError('*Sets minimum amount must be a number')
-        //     .min(1, '*Sets minimum must be at least 1')
-        //     .max(10, '*Sets amount must be at most 10')
-        //     .notRequired(),
-        //   max: yup
-        //     .number()
-        //     .nullable(true)
-        //     .transform((value, originalValue) =>
-        //       String(originalValue).trim() === '' ? null : value
-        //     )
-        //     .typeError('*Sets maximum amount must be a number')
-        //     .min(1, '*Sets maximum amount must be at least 1')
-        //     .max(10, '*Sets maximum amount must be at most 10')
-        //     .notRequired()
-        //     .moreThan(
-        //       yup.ref('min'),
-        //       'Sets maximum must be greater than minimum amount'
-        //     ),
-        // }),
+          .min(1, 'Minimum 1 set required')
+          .max(10, 'Maximum 10 sets allowed'),
+        otherwise: yup.number().notRequired(),
       }),
+      min: yup.number().when('useRange', {
+        is: true,
+        then: yup.number().min(1, 'Minimum 1 set required'),
+        otherwise: yup.number().notRequired(),
+      }),
+      max: yup.number().when('useRange', {
+        is: true,
+        then: yup
+          .number()
+          .min(yup.ref('min'), 'Max must be greater than min')
+          .max(10, 'Maximum 10 sets allowed'),
+        otherwise: yup.number().notRequired(),
+      }),
+      useRange: yup.boolean(),
     }),
   }),
 })
