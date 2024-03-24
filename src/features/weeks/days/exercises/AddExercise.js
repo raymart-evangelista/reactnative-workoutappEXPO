@@ -36,45 +36,54 @@ const exerciseSchema = yup.object({
     sets: yup.object({
       useRange: yup.boolean(),
       amount: yup.object({
-        single: yup.number().when('useRange', {
-          is: false,
-          then: yup
-            .number()
-            .nullable(true)
-            .transform((value, originalValue) =>
-              String(originalValue).trim() === '' ? null : value
-            )
-            .typeError('*Sets amount must be a number')
-            .min(1, '*Sets amount must be at least 1')
-            .max(10, '*Sets amount must be at most 10')
-            .notRequired(),
-        }),
-        range: yup.object({
-          min: yup
-            .number()
-            .nullable(true)
-            .transform((value, originalValue) =>
-              String(originalValue).trim() === '' ? null : value
-            )
-            .typeError('*Sets minimum amount must be a number')
-            .min(1, '*Sets minimum must be at least 1')
-            .max(10, '*Sets amount must be at most 10')
-            .notRequired(),
-          max: yup
-            .number()
-            .nullable(true)
-            .transform((value, originalValue) =>
-              String(originalValue).trim() === '' ? null : value
-            )
-            .typeError('*Sets maximum amount must be a number')
-            .min(1, '*Sets maximum amount must be at least 1')
-            .max(10, '*Sets maximum amount must be at most 10')
-            .notRequired()
-            .moreThan(
-              yup.ref('min'),
-              'Sets maximum must be greater than minimum amount'
-            ),
-        }),
+        single: yup
+          .number()
+          .nullable(true)
+          .transform((value, originalValue) =>
+            originalValue === '' ? undefined : value
+          )
+          // .when('useRange', (useRange, schema) =>
+          //   useRange === false
+          //     ? schema
+          //         .min(1, '*Sets amount must be at least 1')
+          //         .max(10, '*Sets amount must be at most 10')
+          //     : schema.notRequired()
+          // ),
+          .when('useRange', {
+            is: false,
+            then: (schema) => {
+              schema
+                .min(1, '*Sets amount must be at least 1')
+                .max(10, '*Sets amount must be at most 10')
+            },
+            otherwise: (schema) => schema.notRequired(),
+          }),
+        // range: yup.object({
+        //   min: yup
+        //     .number()
+        //     .nullable(true)
+        //     .transform((value, originalValue) =>
+        //       String(originalValue).trim() === '' ? null : value
+        //     )
+        //     .typeError('*Sets minimum amount must be a number')
+        //     .min(1, '*Sets minimum must be at least 1')
+        //     .max(10, '*Sets amount must be at most 10')
+        //     .notRequired(),
+        //   max: yup
+        //     .number()
+        //     .nullable(true)
+        //     .transform((value, originalValue) =>
+        //       String(originalValue).trim() === '' ? null : value
+        //     )
+        //     .typeError('*Sets maximum amount must be a number')
+        //     .min(1, '*Sets maximum amount must be at least 1')
+        //     .max(10, '*Sets maximum amount must be at most 10')
+        //     .notRequired()
+        //     .moreThan(
+        //       yup.ref('min'),
+        //       'Sets maximum must be greater than minimum amount'
+        //     ),
+        // }),
       }),
     }),
   }),
@@ -100,6 +109,8 @@ const RangeOrSingleInput = ({
     errors?.[sectionType]?.[subSectionType]?.amount?.single?.message
   const useRangeName = `${sectionType}.${subSectionType}.useRange`
   const useRangeValue = watch(useRangeName)
+  console.log(`this is useRangeName: ${useRangeName}`)
+  console.log(errors?.[sectionType]?.[subSectionType])
 
   return (
     <View style={styles.exerciseDataContainer2}>
@@ -146,7 +157,6 @@ const RangeOrSingleInput = ({
                   />
                 )}
               />
-              {errorMin && <Text>{errorMin.message}</Text>}
               <Text style={styles.dash}>-</Text>
               <Controller
                 control={control}
@@ -167,7 +177,6 @@ const RangeOrSingleInput = ({
                   />
                 )}
               />
-              {errorMax && <Text>{errorMax.message}</Text>}
             </View>
           ) : (
             <View style={styles.exerciseDataContainer5}>
@@ -194,9 +203,15 @@ const RangeOrSingleInput = ({
           )}
         </View>
       </View>
-      {errorMin && <Text style={styles.errorText}>{errorMin}</Text>}
-      {errorMax && <Text style={styles.errorText}>{errorMax}</Text>}
-      {errorSingle && <Text style={styles.errorText}>{errorSingle}</Text>}
+      {useRangeValue && errorMin && (
+        <Text style={styles.errorText}>{errorMin}</Text>
+      )}
+      {useRangeValue && errorMax && (
+        <Text style={styles.errorText}>{errorMax}</Text>
+      )}
+      {!useRangeValue && errorSingle && (
+        <Text style={styles.errorText}>{errorSingle}</Text>
+      )}
     </View>
   )
 }
@@ -228,65 +243,41 @@ export const AddExercise = ({ weekId, dayId }) => {
       name: '',
       warmup: {
         sets: {
-          amount: {
-            single: '',
-            range: {
-              min: '',
-              max: '',
-            },
-          },
+          single: '',
+          min: '',
+          max: '',
           useRange: false,
         },
         reps: {
-          amount: {
-            single: '',
-            range: {
-              min: '',
-              max: '',
-            },
-          },
+          single: '',
+          min: '',
+          max: '',
           useRange: false,
         },
         rpe: {
-          amount: {
-            single: '',
-            range: {
-              min: '',
-              max: '',
-            },
-          },
+          single: '',
+          min: '',
+          max: '',
           useRange: false,
         },
       },
       working: {
         sets: {
-          amount: {
-            single: '',
-            range: {
-              min: '',
-              max: '',
-            },
-          },
+          single: '',
+          min: '',
+          max: '',
           useRange: false,
         },
         reps: {
-          amount: {
-            single: '',
-            range: {
-              min: '',
-              max: '',
-            },
-          },
+          single: '',
+          min: '',
+          max: '',
           useRange: false,
         },
         rpe: {
-          amount: {
-            single: '',
-            range: {
-              min: '',
-              max: '',
-            },
-          },
+          single: '',
+          min: '',
+          max: '',
           useRange: false,
         },
       },
