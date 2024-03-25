@@ -36,13 +36,13 @@ const exerciseSchema = yup.object({
           is: false,
           then: (schema) =>
             schema
-              .min(1, '*minimum set value must be 1 or greater')
-              .max(10, '*minimum set value must be 10 or less'),
+              .min(1, '*min sets value must be at least 1')
+              .max(99, '*max sets value must be at most 99'),
           otherwise: (schema) => schema.notRequired(),
         }),
       min: yup
         .number()
-        .typeError('*sets min value must be a number')
+        .typeError('*min sets value must be a number')
         .nullable(true)
         .transform((value, originalValue) =>
           originalValue.trim() === '' ? undefined : Number(originalValue)
@@ -51,13 +51,16 @@ const exerciseSchema = yup.object({
           is: true,
           then: (schema) =>
             schema
-              .min(1, '*min set value must be 1 or greater')
-              .lessThan(yup.ref('max'), '*min must be less than max'),
+              .min(1, '*min sets value must be at least 1')
+              .lessThan(
+                yup.ref('max'),
+                '*min sets value must be less than max sets value'
+              ),
           otherwise: (schema) => schema.notRequired(),
         }),
       max: yup
         .number()
-        .typeError('*sets max value must be a number')
+        .typeError('*max sets value must be a number')
         .nullable(true)
         .transform((value, originalValue) =>
           originalValue.trim() === '' ? undefined : Number(originalValue)
@@ -66,8 +69,11 @@ const exerciseSchema = yup.object({
           is: (useRange, min, schema) => useRange === true,
           then: (schema, context) =>
             schema
-              .moreThan(yup.ref('min'), '*max must be greater than min')
-              .max(10, '*max set value must be 10 or less'),
+              .moreThan(
+                yup.ref('min'),
+                '*max sets value must be greater than min sets value'
+              )
+              .max(99, '*max sets value must be at most 99'),
           otherwise: (schema) => schema.notRequired(),
         }),
     }),
@@ -84,13 +90,13 @@ const exerciseSchema = yup.object({
           is: false,
           then: (schema) =>
             schema
-              .min(1, '*minimum rep value must be 1 or greater')
-              .max(99, '*minimum rep value must be 99 or less'),
+              .min(1, '*min reps value must be at least 1')
+              .max(99, '*max reps value must be at most 99'),
           otherwise: (schema) => schema.notRequired(),
         }),
       min: yup
         .number()
-        .typeError('*reps min value must be a number')
+        .typeError('*min reps value must be a number')
         .nullable(true)
         .transform((value, originalValue) =>
           originalValue.trim() === '' ? undefined : Number(originalValue)
@@ -99,13 +105,16 @@ const exerciseSchema = yup.object({
           is: true,
           then: (schema) =>
             schema
-              .min(1, '*min rep value must be 1 or greater')
-              .lessThan(yup.ref('max'), '*min must be less than max'),
+              .min(1, '*min reps value must be at least 1')
+              .lessThan(
+                yup.ref('max'),
+                '*min reps value must be less than max reps value'
+              ),
           otherwise: (schema) => schema.notRequired(),
         }),
       max: yup
         .number()
-        .typeError('*reps max value must be a number')
+        .typeError('*max reps value must be a number')
         .nullable(true)
         .transform((value, originalValue) =>
           originalValue.trim() === '' ? undefined : Number(originalValue)
@@ -114,8 +123,65 @@ const exerciseSchema = yup.object({
           is: (useRange, min, schema) => useRange === true,
           then: (schema, context) =>
             schema
-              .moreThan(yup.ref('min'), '*max must be greater than min')
-              .max(99, '*max rep value must be 99 or less'),
+              .moreThan(
+                yup.ref('min'),
+                '*max reps value must be greater than min reps value'
+              )
+              .max(99, '*max reps value must be at most 99'),
+          otherwise: (schema) => schema.notRequired(),
+        }),
+    }),
+    rpe: yup.object({
+      useRange: yup.boolean(),
+      single: yup
+        .number()
+        .typeError('*rpe value must be a number')
+        .nullable(true)
+        .transform((value, originalValue) =>
+          originalValue.trim() === '' ? undefined : Number(originalValue)
+        )
+        .when('useRange', {
+          is: false,
+          then: (schema) =>
+            schema
+              .min(1, '*min rpe value must be at least 1')
+              .max(10, '*max rpe value must be at most 10'),
+          otherwise: (schema) => schema.notRequired(),
+        }),
+      min: yup
+        .number()
+        .typeError('*min rpe value must be a number')
+        .nullable(true)
+        .transform((value, originalValue) =>
+          originalValue.trim() === '' ? undefined : Number(originalValue)
+        )
+        .when('useRange', {
+          is: true,
+          then: (schema) =>
+            schema
+              .min(1, '*min rpe value must be at least 1')
+              .lessThan(
+                yup.ref('max'),
+                '*min rpe value must be less than max rpe value'
+              ),
+          otherwise: (schema) => schema.notRequired(),
+        }),
+      max: yup
+        .number()
+        .typeError('*max rpe value must be a number')
+        .nullable(true)
+        .transform((value, originalValue) =>
+          originalValue.trim() === '' ? undefined : Number(originalValue)
+        )
+        .when(['useRange', 'min'], {
+          is: (useRange, min, schema) => useRange === true,
+          then: (schema, context) =>
+            schema
+              .moreThan(
+                yup.ref('min'),
+                '*max rpe value must be greater than min rpe value'
+              )
+              .max(10, '*max rpe value must be at most 10'),
           otherwise: (schema) => schema.notRequired(),
         }),
     }),
