@@ -20,65 +20,59 @@ import { useTheme } from '../../../../themes/ThemeContext'
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
 
-const requiredIf = (condition) => (value) => {
-  if (condition && !value) return 'This field is required'
-  return true
-}
-
-const maxSets = (value) => value <= 5 || 'Maximum of 5 sets are allowed'
-const maxReps = (value) => value <= 30 || 'Maximum of 30 reps are allowed'
-const rpeRange = (value) =>
-  (value >= 1 && value <= 10) || 'RPE must be between 1 and 10'
-
 const exerciseSchema = yup.object({
   name: yup.string().required('Exercise name is required'),
   warmup: yup.object({
     sets: yup.object({
-      single: yup.number().when('useRange', {
-        is: false,
-        then: yup
-          .number()
-          .min(1, 'Minimum 1 set required')
-          .max(10, 'Maximum 10 sets allowed'),
-        otherwise: yup.number().notRequired(),
-      }),
-      min: yup.number().when('useRange', {
-        is: true,
-        then: yup.number().min(1, 'Minimum 1 set required'),
-        otherwise: yup.number().notRequired(),
-      }),
-      max: yup.number().when('useRange', {
-        is: true,
-        then: yup
-          .number()
-          .min(yup.ref('min'), 'Max must be greater than min')
-          .max(10, 'Maximum 10 sets allowed'),
-        otherwise: yup.number().notRequired(),
-      }),
       useRange: yup.boolean(),
+      single: yup
+        .number()
+        .nullable(true)
+        .transform((value, originalValue) =>
+          originalValue.trim() === '' ? undefined : Number(originalValue)
+        )
+        .when('useRange', {
+          is: false,
+          then: (schema) => schema.min(1).max(10),
+          otherwise: (schema) => schema.notRequired(),
+        }),
+      // min: yup.number().when('useRange', {
+      //   is: true,
+      //   then: yup.number().min(1, 'Minimum 1 set required'),
+      //   otherwise: yup.number().notRequired(),
+      // }),
+      // max: yup.number().when('useRange', {
+      //   is: true,
+      //   then: yup
+      //     .number()
+      //     .min(yup.ref('min'), 'Max must be greater than min')
+      //     .max(10, 'Maximum 10 sets allowed'),
+      //   otherwise: yup.number().notRequired(),
+      // }),
     }),
   }),
 })
 const RangeOrSingleInput = ({
   watch,
   control,
-  useRange,
-  setUseRange,
-  rangeMinName,
-  rangeMaxName,
-  singleName,
+  // useRange,
+  // setUseRange,
+  // rangeMinName,
+  // rangeMaxName,
+  // singleName,
   sectionType,
   subSectionType,
   label,
   errors,
 }) => {
-  const errorMin =
-    errors?.[sectionType]?.[subSectionType]?.amount?.range?.min?.message
-  const errorMax =
-    errors?.[sectionType]?.[subSectionType]?.amount?.range?.max?.message
-  const errorSingle =
-    errors?.[sectionType]?.[subSectionType]?.amount?.single?.message
+  const errorMin = errors?.[sectionType]?.[subSectionType]?.min?.message
+  const errorMax = errors?.[sectionType]?.[subSectionType]?.max?.message
+  const errorSingle = errors?.[sectionType]?.[subSectionType]?.single?.message
   const useRangeName = `${sectionType}.${subSectionType}.useRange`
+  const minName = `${sectionType}.${subSectionType}.min`
+  const maxName = `${sectionType}.${subSectionType}.max`
+  const singleName = `${sectionType}.${subSectionType}.single`
+  console.log(singleName)
   const useRangeValue = watch(useRangeName)
   console.log(`this is useRangeName: ${useRangeName}`)
   console.log(errors?.[sectionType]?.[subSectionType])
@@ -111,7 +105,7 @@ const RangeOrSingleInput = ({
             <View style={styles.exerciseDataContainer5}>
               <Controller
                 control={control}
-                name={rangeMinName}
+                name={minName}
                 render={({
                   field: { onChange, onBlur, value },
                   fieldState: { error },
@@ -131,7 +125,7 @@ const RangeOrSingleInput = ({
               <Text style={styles.dash}>-</Text>
               <Controller
                 control={control}
-                name={rangeMaxName}
+                name={maxName}
                 render={({
                   field: { onChange, onBlur, value },
                   fieldState: { error },
@@ -190,13 +184,14 @@ const RangeOrSingleInput = ({
 export const AddExercise = ({ weekId, dayId }) => {
   const dispatch = useDispatch()
   const [visible, setVisible] = useState(false)
-  const [useRangeForWarmupSets, setUseRangeForWarmupSets] = useState(false)
-  const [useRangeForWarmupReps, setUseRangeForWarmupReps] = useState(false)
-  const [useRangeForWarmupRPE, setUseRangeForWarmupRPE] = useState(false)
 
-  const [useRangeForWorkingSets, setUseRangeForWorkingSets] = useState(false)
-  const [useRangeForWorkingReps, setUseRangeForWorkingReps] = useState(false)
-  const [useRangeForWorkingRPE, setUseRangeForWorkingRPE] = useState(false)
+  // const [useRangeForWarmupSets, setUseRangeForWarmupSets] = useState(false)
+  // const [useRangeForWarmupReps, setUseRangeForWarmupReps] = useState(false)
+  // const [useRangeForWarmupRPE, setUseRangeForWarmupRPE] = useState(false)
+
+  // const [useRangeForWorkingSets, setUseRangeForWorkingSets] = useState(false)
+  // const [useRangeForWorkingReps, setUseRangeForWorkingReps] = useState(false)
+  // const [useRangeForWorkingRPE, setUseRangeForWorkingRPE] = useState(false)
 
   const showModal = () => setVisible(true)
   const hideModal = () => setVisible(false)
@@ -275,114 +270,78 @@ export const AddExercise = ({ weekId, dayId }) => {
         name: data.name,
         warmup: {
           sets: {
-            amount: useRangeForWarmupSets
-              ? {
-                  single: '',
-                  range: {
-                    min: parseInt(data.warmup.sets.amount.range.min, 10),
-                    max: parseInt(data.warmup.sets.amount.range.max, 10),
-                  },
-                }
-              : {
-                  single: parseInt(data.warmup.sets.amount.single, 10),
-                  range: {
-                    min: '',
-                    max: '',
-                  },
-                },
-            useRange: useRangeForWarmupSets ? true : false,
+            single: data.warmup.sets.useRange
+              ? ''
+              : parseInt(data.warmup.sets.single, 10),
+            min: data.warmup.sets.useRange
+              ? parseInt(data.warmup.sets.min, 10)
+              : '',
+            max: data.warmup.sets.useRange
+              ? parseInt(data.warmup.sets.max, 10)
+              : '',
+            useRange: data.warmup.sets.useRange,
           },
           reps: {
-            amount: useRangeForWarmupReps
-              ? {
-                  single: '',
-                  range: {
-                    min: parseInt(data.warmup.reps.amount.range.min, 10),
-                    max: parseInt(data.warmup.reps.amount.range.max, 10),
-                  },
-                }
-              : {
-                  single: parseInt(data.warmup.sets.amount.single, 10),
-                  range: {
-                    min: '',
-                    max: '',
-                  },
-                },
-            useRange: useRangeForWarmupReps ? true : false,
+            single: data.warmup.reps.useRange
+              ? ''
+              : parseInt(data.warmup.reps.single, 10),
+            min: data.warmup.reps.useRange
+              ? parseInt(data.warmup.reps.min, 10)
+              : '',
+            max: data.warmup.reps.useRange
+              ? parseInt(data.warmup.reps.max, 10)
+              : '',
+            useRange: data.warmup.reps.useRange,
           },
           rpe: {
-            amount: useRangeForWarmupRPE
-              ? {
-                  single: '',
-                  range: {
-                    min: parseInt(data.warmup.rpe.amount.range.min, 10),
-                    max: parseInt(data.warmup.rpe.amount.range.max, 10),
-                  },
-                }
-              : {
-                  single: parseInt(data.warmup.rpe.amount.single, 10),
-                  range: {
-                    min: '',
-                    max: '',
-                  },
-                },
-            useRange: useRangeForWarmupRPE ? true : false,
+            single: data.warmup.rpe.useRange
+              ? ''
+              : parseInt(data.warmup.rpe.single, 10),
+            min: data.warmup.rpe.useRange
+              ? parseInt(data.warmup.rpe.min, 10)
+              : '',
+            max: data.warmup.rpe.useRange
+              ? parseInt(data.warmup.rpe.max, 10)
+              : '',
+            useRange: data.warmup.rpe.useRange,
           },
         },
         working: {
           sets: {
-            amount: useRangeForWorkingSets
-              ? {
-                  single: '',
-                  range: {
-                    min: parseInt(data.working.sets.amount.range.min, 10),
-                    max: parseInt(data.working.sets.amount.range.max, 10),
-                  },
-                }
-              : {
-                  single: parseInt(data.working.sets.amount.single, 10),
-                  range: {
-                    min: '',
-                    max: '',
-                  },
-                },
-            useRange: useRangeForWorkingSets ? true : false,
+            single: data.working.sets.useRange
+              ? ''
+              : parseInt(data.working.sets.single, 10),
+            min: data.working.sets.useRange
+              ? parseInt(data.working.sets.min, 10)
+              : '',
+            max: data.working.sets.useRange
+              ? parseInt(data.working.sets.max, 10)
+              : '',
+            useRange: data.working.sets.useRange,
           },
           reps: {
-            amount: useRangeForWorkingReps
-              ? {
-                  single: '',
-                  range: {
-                    min: parseInt(data.working.reps.amount.range.min, 10),
-                    max: parseInt(data.working.reps.amount.range.max, 10),
-                  },
-                }
-              : {
-                  single: parseInt(data.working.sets.amount.single, 10),
-                  range: {
-                    min: '',
-                    max: '',
-                  },
-                },
-            useRange: useRangeForWorkingReps ? true : false,
+            single: data.working.reps.useRange
+              ? ''
+              : parseInt(data.working.reps.single, 10),
+            min: data.working.reps.useRange
+              ? parseInt(data.working.reps.min, 10)
+              : '',
+            max: data.working.reps.useRange
+              ? parseInt(data.working.reps.max, 10)
+              : '',
+            useRange: data.working.reps.useRange,
           },
           rpe: {
-            amount: useRangeForWorkingRPE
-              ? {
-                  single: '',
-                  range: {
-                    min: parseInt(data.working.rpe.amount.range.min, 10),
-                    max: parseInt(data.working.rpe.amount.range.max, 10),
-                  },
-                }
-              : {
-                  single: parseInt(data.working.rpe.amount.single, 10),
-                  range: {
-                    min: '',
-                    max: '',
-                  },
-                },
-            useRange: useRangeForWorkingRPE ? true : false,
+            single: data.working.rpe.useRange
+              ? ''
+              : parseInt(data.working.rpe.single, 10),
+            min: data.working.rpe.useRange
+              ? parseInt(data.working.rpe.min, 10)
+              : '',
+            max: data.working.rpe.useRange
+              ? parseInt(data.working.rpe.max, 10)
+              : '',
+            useRange: data.working.rpe.useRange,
           },
         },
       },
@@ -446,13 +405,6 @@ export const AddExercise = ({ weekId, dayId }) => {
           },
         },
       })
-      setUseRangeForWarmupSets(false)
-      setUseRangeForWarmupReps(false)
-      setUseRangeForWarmupRPE(false)
-
-      setUseRangeForWorkingSets(false)
-      setUseRangeForWorkingReps(false)
-      setUseRangeForWorkingRPE(false)
     }
   }, [formState, reset])
 
@@ -505,11 +457,6 @@ export const AddExercise = ({ weekId, dayId }) => {
               <RangeOrSingleInput
                 watch={watch}
                 control={control}
-                useRange={useRangeForWarmupSets}
-                setUseRange={setUseRangeForWarmupSets}
-                rangeMinName={'warmup.sets.amount.range.min'}
-                rangeMaxName={'warmup.sets.amount.range.max'}
-                singleName={'warmup.sets.amount.single'}
                 sectionType={'warmup'}
                 subSectionType={'sets'}
                 label={'Sets amount'}
@@ -518,11 +465,6 @@ export const AddExercise = ({ weekId, dayId }) => {
               <RangeOrSingleInput
                 watch={watch}
                 control={control}
-                useRange={useRangeForWarmupReps}
-                setUseRange={setUseRangeForWarmupReps}
-                rangeMinName={'warmup.reps.amount.range.min'}
-                rangeMaxName={'warmup.reps.amount.range.max'}
-                singleName={'warmup.reps.amount.single'}
                 sectionType={'warmup'}
                 subSectionType={'reps'}
                 label={'Reps amount'}
@@ -531,11 +473,6 @@ export const AddExercise = ({ weekId, dayId }) => {
               <RangeOrSingleInput
                 watch={watch}
                 control={control}
-                useRange={useRangeForWarmupRPE}
-                setUseRange={setUseRangeForWarmupRPE}
-                rangeMinName={'warmup.rpe.amount.range.min'}
-                rangeMaxName={'warmup.rpe.amount.range.max'}
-                singleName={'warmup.rpe.amount.single'}
                 sectionType={'warmup'}
                 subSectionType={'rpe'}
                 label={'RPE amount'}
@@ -552,33 +489,24 @@ export const AddExercise = ({ weekId, dayId }) => {
               <RangeOrSingleInput
                 watch={watch}
                 control={control}
-                useRange={useRangeForWorkingSets}
-                setUseRange={setUseRangeForWorkingSets}
-                rangeMinName={'working.sets.amount.range.min'}
-                rangeMaxName={'working.sets.amount.range.max'}
-                singleName={'working.sets.amount.single'}
+                sectionType={'working'}
+                subSectionType={'sets'}
                 label={'Sets amount'}
                 errors={errors}
               />
               <RangeOrSingleInput
                 watch={watch}
                 control={control}
-                useRange={useRangeForWorkingReps}
-                setUseRange={setUseRangeForWorkingReps}
-                rangeMinName={'working.reps.amount.range.min'}
-                rangeMaxName={'working.reps.amount.range.max'}
-                singleName={'working.reps.amount.single'}
+                sectionType={'working'}
+                subSectionType={'reps'}
                 label={'Reps amount'}
                 errors={errors}
               />
               <RangeOrSingleInput
                 watch={watch}
                 control={control}
-                useRange={useRangeForWorkingRPE}
-                setUseRange={setUseRangeForWorkingRPE}
-                rangeMinName={'working.rpe.amount.range.min'}
-                rangeMaxName={'working.rpe.amount.range.max'}
-                singleName={'working.rpe.amount.single'}
+                sectionType={'working'}
+                subSectionType={'rpe'}
                 label={'RPE amount'}
                 errors={errors}
               />
