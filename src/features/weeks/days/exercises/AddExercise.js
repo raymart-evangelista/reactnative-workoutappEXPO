@@ -63,24 +63,23 @@ const exerciseSchema = yup.object({
           is: (useRange, min, schema) => useRange === true,
           then: (schema, context) =>
             schema
-              .min(yup.ref('min'), '*max must be greater than min')
+              .moreThan(yup.ref('min'), '*max must be greater than min')
               .max(10, '*max set value must be 10 or less'),
+          // then: (schema) =>
+          //   schema
+          //     .number()
+          //     .moreThan(yup.ref('min'), '*value must be greater than min value')
+          //     .max(10, '*max set value must be 10 or less'),
           otherwise: (schema) => schema.notRequired(),
         }),
-      // min: yup.number().when('useRange', {
-      //   is: true,
-      //   then: yup.number().min(1, 'Minimum 1 set required'),
-      //   otherwise: yup.number().notRequired(),
-      // }),
-      // max: yup.number().when('useRange', {
-      //   is: true,
-      //   then: yup
-      //     .number()
-      //     .min(yup.ref('min'), 'Max must be greater than min')
-      //     .max(10, 'Maximum 10 sets allowed'),
-      //   otherwise: yup.number().notRequired(),
-      // }),
     }),
+    // .test('min-max', '*min must be smaller than max', function (value) {
+    //   const { min, max, useRange } = value
+    //   if (useRange && min !== undefined && max !== undefined) {
+    //     return min < max
+    //   }
+    //   return true
+    // }),
   }),
 })
 const RangeOrSingleInput = ({
@@ -101,7 +100,7 @@ const RangeOrSingleInput = ({
   const maxName = `${sectionType}.${subSectionType}.max`
   const singleName = `${sectionType}.${subSectionType}.single`
   const useRangeValue = watch(useRangeName)
-  console.log(errors)
+  console.log(errors?.warmup)
 
   useEffect(() => {
     if (useRangeValue) {
