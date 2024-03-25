@@ -21,19 +21,50 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
 
 const exerciseSchema = yup.object({
-  name: yup.string().required('Exercise name is required'),
+  name: yup.string().required('*Exercise name is required'),
   warmup: yup.object({
     sets: yup.object({
       useRange: yup.boolean(),
       single: yup
         .number()
+        .typeError('*sets value must be a number')
         .nullable(true)
         .transform((value, originalValue) =>
           originalValue.trim() === '' ? undefined : Number(originalValue)
         )
         .when('useRange', {
           is: false,
-          then: (schema) => schema.min(1).max(10),
+          then: (schema) =>
+            schema
+              .min(1, '*minimum set value must be 1 or greater')
+              .max(10, '*minimum set value must be 10 or less'),
+          otherwise: (schema) => schema.notRequired(),
+        }),
+      min: yup
+        .number()
+        .typeError('*sets min value must be a number')
+        .nullable(true)
+        .transform((value, originalValue) =>
+          originalValue.trim() === '' ? undefined : Number(originalValue)
+        )
+        .when('useRange', {
+          is: true,
+          then: (schema) => schema.min(1, '*min value must be 1 or greater'),
+          otherwise: (schema) => schema.notRequired(),
+        }),
+      max: yup
+        .number()
+        .typeError('*sets max value must be a number')
+        .nullable(true)
+        .transform((value, originalValue) =>
+          originalValue.trim() === '' ? undefined : Number(originalValue)
+        )
+        .when(['useRange', 'min'], {
+          is: (useRange, min, schema) => useRange === true,
+          then: (schema, context) =>
+            schema
+              .min(yup.ref('min'), '*max must be greater than min')
+              .max(10, '*max set value must be 10 or less'),
           otherwise: (schema) => schema.notRequired(),
         }),
       // min: yup.number().when('useRange', {
@@ -55,11 +86,6 @@ const exerciseSchema = yup.object({
 const RangeOrSingleInput = ({
   watch,
   control,
-  // useRange,
-  // setUseRange,
-  // rangeMinName,
-  // rangeMaxName,
-  // singleName,
   sectionType,
   subSectionType,
   label,
@@ -446,7 +472,9 @@ export const AddExercise = ({ weekId, dayId }) => {
                 />
               )}
             />
-            {errors.name && <Text>{errors.name.message}</Text>}
+            {errors.name && (
+              <Text style={styles.errorText}>{errors.name.message}</Text>
+            )}
 
             {/* 
               warmup sets
