@@ -49,7 +49,10 @@ const exerciseSchema = yup.object({
         )
         .when('useRange', {
           is: true,
-          then: (schema) => schema.min(1, '*min value must be 1 or greater'),
+          then: (schema) =>
+            schema
+              .min(1, '*min value must be 1 or greater')
+              .lessThan(yup.ref('max'), '*min must be less than max'),
           otherwise: (schema) => schema.notRequired(),
         }),
       max: yup
