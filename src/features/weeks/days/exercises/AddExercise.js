@@ -85,6 +85,8 @@ const exerciseSchema = yup.object({
 })
 const RangeOrSingleInput = ({
   watch,
+  setValue,
+  resetField,
   control,
   sectionType,
   subSectionType,
@@ -98,10 +100,17 @@ const RangeOrSingleInput = ({
   const minName = `${sectionType}.${subSectionType}.min`
   const maxName = `${sectionType}.${subSectionType}.max`
   const singleName = `${sectionType}.${subSectionType}.single`
-  console.log(singleName)
   const useRangeValue = watch(useRangeName)
-  console.log(`this is useRangeName: ${useRangeName}`)
-  console.log(errors?.[sectionType]?.[subSectionType])
+  console.log(errors)
+
+  useEffect(() => {
+    if (useRangeValue) {
+      resetField(singleName, { defaultValue: '' })
+    } else {
+      resetField(minName, { defaultValue: '' })
+      resetField(maxName, { defaultValue: '' })
+    }
+  }, [useRangeValue])
 
   return (
     <View style={styles.exerciseDataContainer2}>
@@ -110,7 +119,6 @@ const RangeOrSingleInput = ({
         <View style={styles.exerciseNumberInputContainer}>
           <View style={styles.exerciseRangeContainer}>
             <Text>Range</Text>
-            {/* <Switch value={useRange} onValueChange={setUseRange} /> */}
             <Controller
               control={control}
               name={useRangeName}
@@ -118,11 +126,17 @@ const RangeOrSingleInput = ({
                 <>
                   <Switch
                     value={value}
-                    onValueChange={onChange}
+                    onValueChange={(newValue) => {
+                      onChange(newValue)
+                      if (newValue) {
+                        setValue(singleName, '')
+                      } else {
+                        setValue(minName, '')
+                        setValue(maxName, '')
+                      }
+                    }}
                     onBlur={onBlur}
                   />
-                  {value && <Text>Switch is on</Text>}
-                  {!value && <Text>Switch is off</Text>}
                 </>
               )}
             />
@@ -211,14 +225,6 @@ export const AddExercise = ({ weekId, dayId }) => {
   const dispatch = useDispatch()
   const [visible, setVisible] = useState(false)
 
-  // const [useRangeForWarmupSets, setUseRangeForWarmupSets] = useState(false)
-  // const [useRangeForWarmupReps, setUseRangeForWarmupReps] = useState(false)
-  // const [useRangeForWarmupRPE, setUseRangeForWarmupRPE] = useState(false)
-
-  // const [useRangeForWorkingSets, setUseRangeForWorkingSets] = useState(false)
-  // const [useRangeForWorkingReps, setUseRangeForWorkingReps] = useState(false)
-  // const [useRangeForWorkingRPE, setUseRangeForWorkingRPE] = useState(false)
-
   const showModal = () => setVisible(true)
   const hideModal = () => setVisible(false)
 
@@ -227,6 +233,8 @@ export const AddExercise = ({ weekId, dayId }) => {
     handleSubmit,
     reset,
     watch,
+    setValue,
+    resetField,
     formState,
     formState: { errors, isSubmitSuccessful },
   } = useForm({
@@ -484,6 +492,8 @@ export const AddExercise = ({ weekId, dayId }) => {
               <Text className="text-2xl">Warmup</Text>
               <RangeOrSingleInput
                 watch={watch}
+                setValue={setValue}
+                resetField={resetField}
                 control={control}
                 sectionType={'warmup'}
                 subSectionType={'sets'}
@@ -492,6 +502,8 @@ export const AddExercise = ({ weekId, dayId }) => {
               />
               <RangeOrSingleInput
                 watch={watch}
+                setValue={setValue}
+                resetField={resetField}
                 control={control}
                 sectionType={'warmup'}
                 subSectionType={'reps'}
@@ -500,6 +512,8 @@ export const AddExercise = ({ weekId, dayId }) => {
               />
               <RangeOrSingleInput
                 watch={watch}
+                setValue={setValue}
+                resetField={resetField}
                 control={control}
                 sectionType={'warmup'}
                 subSectionType={'rpe'}
@@ -516,6 +530,8 @@ export const AddExercise = ({ weekId, dayId }) => {
               <Text className="text-2xl">Working</Text>
               <RangeOrSingleInput
                 watch={watch}
+                setValue={setValue}
+                resetField={resetField}
                 control={control}
                 sectionType={'working'}
                 subSectionType={'sets'}
@@ -524,6 +540,8 @@ export const AddExercise = ({ weekId, dayId }) => {
               />
               <RangeOrSingleInput
                 watch={watch}
+                setValue={setValue}
+                resetField={resetField}
                 control={control}
                 sectionType={'working'}
                 subSectionType={'reps'}
@@ -532,6 +550,8 @@ export const AddExercise = ({ weekId, dayId }) => {
               />
               <RangeOrSingleInput
                 watch={watch}
+                setValue={setValue}
+                resetField={resetField}
                 control={control}
                 sectionType={'working'}
                 subSectionType={'rpe'}
