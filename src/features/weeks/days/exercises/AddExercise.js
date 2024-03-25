@@ -51,7 +51,7 @@ const exerciseSchema = yup.object({
           is: true,
           then: (schema) =>
             schema
-              .min(1, '*min value must be 1 or greater')
+              .min(1, '*min set value must be 1 or greater')
               .lessThan(yup.ref('max'), '*min must be less than max'),
           otherwise: (schema) => schema.notRequired(),
         }),
@@ -68,21 +68,57 @@ const exerciseSchema = yup.object({
             schema
               .moreThan(yup.ref('min'), '*max must be greater than min')
               .max(10, '*max set value must be 10 or less'),
-          // then: (schema) =>
-          //   schema
-          //     .number()
-          //     .moreThan(yup.ref('min'), '*value must be greater than min value')
-          //     .max(10, '*max set value must be 10 or less'),
           otherwise: (schema) => schema.notRequired(),
         }),
     }),
-    // .test('min-max', '*min must be smaller than max', function (value) {
-    //   const { min, max, useRange } = value
-    //   if (useRange && min !== undefined && max !== undefined) {
-    //     return min < max
-    //   }
-    //   return true
-    // }),
+    reps: yup.object({
+      useRange: yup.boolean(),
+      single: yup
+        .number()
+        .typeError('*reps value must be a number')
+        .nullable(true)
+        .transform((value, originalValue) =>
+          originalValue.trim() === '' ? undefined : Number(originalValue)
+        )
+        .when('useRange', {
+          is: false,
+          then: (schema) =>
+            schema
+              .min(1, '*minimum rep value must be 1 or greater')
+              .max(99, '*minimum rep value must be 99 or less'),
+          otherwise: (schema) => schema.notRequired(),
+        }),
+      min: yup
+        .number()
+        .typeError('*reps min value must be a number')
+        .nullable(true)
+        .transform((value, originalValue) =>
+          originalValue.trim() === '' ? undefined : Number(originalValue)
+        )
+        .when('useRange', {
+          is: true,
+          then: (schema) =>
+            schema
+              .min(1, '*min rep value must be 1 or greater')
+              .lessThan(yup.ref('max'), '*min must be less than max'),
+          otherwise: (schema) => schema.notRequired(),
+        }),
+      max: yup
+        .number()
+        .typeError('*reps max value must be a number')
+        .nullable(true)
+        .transform((value, originalValue) =>
+          originalValue.trim() === '' ? undefined : Number(originalValue)
+        )
+        .when(['useRange', 'min'], {
+          is: (useRange, min, schema) => useRange === true,
+          then: (schema, context) =>
+            schema
+              .moreThan(yup.ref('min'), '*max must be greater than min')
+              .max(99, '*max rep value must be 99 or less'),
+          otherwise: (schema) => schema.notRequired(),
+        }),
+    }),
   }),
 })
 const RangeOrSingleInput = ({
