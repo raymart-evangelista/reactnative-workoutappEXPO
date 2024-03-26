@@ -21,7 +21,7 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
 
 const exerciseSchema = yup.object({
-  name: yup.string().required('*Exercise name is required'),
+  name: yup.string().required('* Exercise name is required'),
   warmup: yup.object({
     sets: yup.object({
       useRange: yup.boolean(),
@@ -354,6 +354,7 @@ const RangeOrSingleInput = ({
   sectionType,
   subSectionType,
   label,
+  touchedFields,
   errors,
 }) => {
   const errorMin = errors?.[sectionType]?.[subSectionType]?.min?.message
@@ -366,7 +367,8 @@ const RangeOrSingleInput = ({
   const useRangeValue = watch(useRangeName)
   const min = watch(minName)
   const max = watch(maxName)
-  console.log(errors?.working)
+  // console.log(errors?.working)
+  console.log(touchedFields)
 
   useEffect(() => {
     if (useRangeValue) {
@@ -488,6 +490,9 @@ const RangeOrSingleInput = ({
       {useRangeValue && errorMin && (
         <Text style={styles.errorText}>{errorMin}</Text>
       )}
+      {useRangeValue && !errorMin && touchedFields.min && (
+        <Text style={styles.validText}>✓ min value is valid</Text>
+      )}
       {useRangeValue && errorMax && (
         <Text style={styles.errorText}>{errorMax}</Text>
       )}
@@ -514,9 +519,10 @@ export const AddExercise = ({ weekId, dayId }) => {
     setValue,
     resetField,
     formState,
-    formState: { errors, isSubmitSuccessful },
+    formState: { errors, isSubmitSuccessful, touchedFields },
   } = useForm({
     resolver: yupResolver(exerciseSchema),
+    mode: 'onTouched',
     defaultValues: {
       name: '',
       warmup: {
@@ -745,7 +751,7 @@ export const AddExercise = ({ weekId, dayId }) => {
               rules={{ required: true }}
               render={({
                 field: { onChange, onBlur, value },
-                fieldState: { error },
+                fieldState: { error, isTouched },
               }) => (
                 <TextInput
                   label="Exercise Name"
@@ -755,11 +761,16 @@ export const AddExercise = ({ weekId, dayId }) => {
                   style={styles.input}
                   error={!!error}
                   mode={'outlined'}
+                  // outlineStyle={!error && isTouched ? styles.greenOutline : {}}
                 />
               )}
             />
             {errors.name && (
               <Text style={styles.errorText}>{errors.name.message}</Text>
+            )}
+
+            {touchedFields.name && !errors.name && (
+              <Text style={styles.validText}>✓ Exercise name is valid</Text>
             )}
 
             {/* 
@@ -777,6 +788,7 @@ export const AddExercise = ({ weekId, dayId }) => {
                 sectionType={'warmup'}
                 subSectionType={'sets'}
                 label={'Sets amount'}
+                touchedFields={touchedFields}
                 errors={errors}
               />
               <RangeOrSingleInput
@@ -788,6 +800,7 @@ export const AddExercise = ({ weekId, dayId }) => {
                 sectionType={'warmup'}
                 subSectionType={'reps'}
                 label={'Reps amount'}
+                touchedFields={touchedFields}
                 errors={errors}
               />
               <RangeOrSingleInput
@@ -799,9 +812,17 @@ export const AddExercise = ({ weekId, dayId }) => {
                 sectionType={'warmup'}
                 subSectionType={'rpe'}
                 label={'RPE amount'}
+                touchedFields={touchedFields}
                 errors={errors}
               />
             </View>
+
+            {touchedFields.warmup?.sets &&
+              touchedFields.warmup?.reps &&
+              touchedFields.warmup?.rpe &&
+              !errors.warmup && (
+                <Text style={styles.validText}>✓ Warmup inputs are valid</Text>
+              )}
 
             {/* 
               working sets
@@ -818,6 +839,7 @@ export const AddExercise = ({ weekId, dayId }) => {
                 sectionType={'working'}
                 subSectionType={'sets'}
                 label={'Sets amount'}
+                touchedFields={touchedFields}
                 errors={errors}
               />
               <RangeOrSingleInput
@@ -829,6 +851,7 @@ export const AddExercise = ({ weekId, dayId }) => {
                 sectionType={'working'}
                 subSectionType={'reps'}
                 label={'Reps amount'}
+                touchedFields={touchedFields}
                 errors={errors}
               />
               <RangeOrSingleInput
@@ -840,11 +863,23 @@ export const AddExercise = ({ weekId, dayId }) => {
                 sectionType={'working'}
                 subSectionType={'rpe'}
                 label={'RPE amount'}
+                touchedFields={touchedFields}
                 errors={errors}
               />
             </View>
 
-            <Button mode="contained" onPress={handleSubmit(onSubmit)}>
+            {touchedFields.working?.sets &&
+              touchedFields.working?.reps &&
+              touchedFields.working?.rpe &&
+              !errors.working && (
+                <Text style={styles.validText}>✓ Working inputs are valid</Text>
+              )}
+
+            <Button
+              mode="contained"
+              style={styles.button}
+              onPress={handleSubmit(onSubmit)}
+            >
               Submit
             </Button>
           </KeyboardAwareScrollView>
@@ -864,10 +899,15 @@ export const AddExercise = ({ weekId, dayId }) => {
 }
 
 const styles = StyleSheet.create({
+  validText: {
+    color: 'green',
+    fontSize: 14,
+    // marginTop: 5,
+  },
   errorText: {
     color: 'red',
     fontSize: 14,
-    marginTop: 5,
+    // marginTop: 5,
   },
   fabStyle: {
     bottom: 16,
@@ -961,13 +1001,18 @@ const styles = StyleSheet.create({
   },
   singleTextInput: {
     flex: 1,
+    marginVertical: 10,
   },
   rangedTextInput: {
     // width: 70,
     // padding: 5,
     flex: 1,
+    marginVertical: 10,
   },
   dash: {
     padding: 10,
+  },
+  button: {
+    marginVertical: 10,
   },
 })
