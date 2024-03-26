@@ -347,6 +347,7 @@ const exerciseSchema = yup.object({
 })
 const RangeOrSingleInput = ({
   watch,
+  trigger,
   setValue,
   resetField,
   control,
@@ -363,6 +364,8 @@ const RangeOrSingleInput = ({
   const maxName = `${sectionType}.${subSectionType}.max`
   const singleName = `${sectionType}.${subSectionType}.single`
   const useRangeValue = watch(useRangeName)
+  const min = watch(minName)
+  const max = watch(maxName)
   console.log(errors?.working)
 
   useEffect(() => {
@@ -373,6 +376,18 @@ const RangeOrSingleInput = ({
       resetField(maxName, { defaultValue: '' })
     }
   }, [useRangeValue])
+
+  useEffect(() => {
+    if (useRangeValue) {
+      trigger(minName)
+    }
+  }, [min, max])
+
+  useEffect(() => {
+    if (useRangeValue) {
+      trigger(maxName)
+    }
+  }, [min])
 
   return (
     <View style={styles.exerciseDataContainer2}>
@@ -495,6 +510,7 @@ export const AddExercise = ({ weekId, dayId }) => {
     handleSubmit,
     reset,
     watch,
+    trigger,
     setValue,
     resetField,
     formState,
@@ -754,6 +770,7 @@ export const AddExercise = ({ weekId, dayId }) => {
               <Text className="text-2xl">Warmup</Text>
               <RangeOrSingleInput
                 watch={watch}
+                trigger={trigger}
                 setValue={setValue}
                 resetField={resetField}
                 control={control}
@@ -764,6 +781,7 @@ export const AddExercise = ({ weekId, dayId }) => {
               />
               <RangeOrSingleInput
                 watch={watch}
+                trigger={trigger}
                 setValue={setValue}
                 resetField={resetField}
                 control={control}
@@ -774,6 +792,7 @@ export const AddExercise = ({ weekId, dayId }) => {
               />
               <RangeOrSingleInput
                 watch={watch}
+                trigger={trigger}
                 setValue={setValue}
                 resetField={resetField}
                 control={control}
@@ -792,6 +811,7 @@ export const AddExercise = ({ weekId, dayId }) => {
               <Text className="text-2xl">Working</Text>
               <RangeOrSingleInput
                 watch={watch}
+                trigger={trigger}
                 setValue={setValue}
                 resetField={resetField}
                 control={control}
@@ -802,6 +822,7 @@ export const AddExercise = ({ weekId, dayId }) => {
               />
               <RangeOrSingleInput
                 watch={watch}
+                trigger={trigger}
                 setValue={setValue}
                 resetField={resetField}
                 control={control}
@@ -812,6 +833,7 @@ export const AddExercise = ({ weekId, dayId }) => {
               />
               <RangeOrSingleInput
                 watch={watch}
+                trigger={trigger}
                 setValue={setValue}
                 resetField={resetField}
                 control={control}
