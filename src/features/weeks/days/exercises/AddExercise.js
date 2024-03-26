@@ -186,6 +186,164 @@ const exerciseSchema = yup.object({
         }),
     }),
   }),
+  working: yup.object({
+    sets: yup.object({
+      useRange: yup.boolean(),
+      single: yup
+        .number()
+        .typeError('*sets value must be a number')
+        .when('useRange', {
+          is: false,
+          then: (schema) =>
+            schema
+              .min(1, '*min sets value must be at least 1')
+              .max(99, '*max sets value must be at most 99'),
+          otherwise: (schema) => schema.strip(),
+        }),
+      min: yup
+        .number()
+        .typeError('*min sets value must be a number')
+        .nullable(true)
+        .transform((value, originalValue) =>
+          originalValue.trim() === '' ? undefined : Number(originalValue)
+        )
+        .when('useRange', {
+          is: true,
+          then: (schema) =>
+            schema
+              .min(1, '*min sets value must be at least 1')
+              .lessThan(
+                yup.ref('max'),
+                '*min sets value must be less than max sets value'
+              )
+              .required('*min sets value is required'),
+          otherwise: (schema) => schema.strip(),
+        }),
+      max: yup
+        .number()
+        .typeError('*max sets value must be a number')
+        .nullable(true)
+        .transform((value, originalValue) =>
+          originalValue.trim() === '' ? undefined : Number(originalValue)
+        )
+        .when(['useRange', 'min'], {
+          is: (useRange, min, schema) => useRange === true,
+          then: (schema, context) =>
+            schema
+              .moreThan(
+                yup.ref('min'),
+                '*max sets value must be greater than min sets value'
+              )
+              .max(99, '*max sets value must be at most 99')
+              .required('*max sets value is required'),
+          otherwise: (schema) => schema.strip(),
+        }),
+    }),
+    reps: yup.object({
+      useRange: yup.boolean(),
+      single: yup
+        .number()
+        .typeError('*reps value must be a number')
+        .when('useRange', {
+          is: false,
+          then: (schema) =>
+            schema
+              .min(1, '*min reps value must be at least 1')
+              .max(99, '*max reps value must be at most 99'),
+          otherwise: (schema) => schema.strip(),
+        }),
+      min: yup
+        .number()
+        .typeError('*min reps value must be a number')
+        .nullable(true)
+        .transform((value, originalValue) =>
+          originalValue.trim() === '' ? undefined : Number(originalValue)
+        )
+        .when('useRange', {
+          is: true,
+          then: (schema) =>
+            schema
+              .min(1, '*min reps value must be at least 1')
+              .lessThan(
+                yup.ref('max'),
+                '*min reps value must be less than max reps value'
+              )
+              .required('*min reps value is required'),
+          otherwise: (schema) => schema.strip(),
+        }),
+      max: yup
+        .number()
+        .typeError('*max reps value must be a number')
+        .nullable(true)
+        .transform((value, originalValue) =>
+          originalValue.trim() === '' ? undefined : Number(originalValue)
+        )
+        .when(['useRange', 'min'], {
+          is: (useRange, min, schema) => useRange === true,
+          then: (schema, context) =>
+            schema
+              .moreThan(
+                yup.ref('min'),
+                '*max reps value must be greater than min reps value'
+              )
+              .max(99, '*max reps value must be at most 99')
+              .required('*max reps value is required'),
+          otherwise: (schema) => schema.strip(),
+        }),
+    }),
+    rpe: yup.object({
+      useRange: yup.boolean(),
+      single: yup
+        .number()
+        .typeError('*rpe value must be a number')
+        .when('useRange', {
+          is: false,
+          then: (schema) =>
+            schema
+              .min(1, '*min rpe value must be at least 1')
+              .max(10, '*max rpe value must be at most 10'),
+          otherwise: (schema) => schema.strip(),
+        }),
+      min: yup
+        .number()
+        .typeError('*min rpe value must be a number')
+        .nullable(true)
+        .transform((value, originalValue) =>
+          originalValue.trim() === '' ? undefined : Number(originalValue)
+        )
+        .when('useRange', {
+          is: true,
+          then: (schema) =>
+            schema
+              .min(1, '*min rpe value must be at least 1')
+              .lessThan(
+                yup.ref('max'),
+                '*min rpe value must be less than max rpe value'
+              )
+              .required('*min rpe value is required'),
+          otherwise: (schema) => schema.strip(),
+        }),
+      max: yup
+        .number()
+        .typeError('*max rpe value must be a number')
+        .nullable(true)
+        .transform((value, originalValue) =>
+          originalValue.trim() === '' ? undefined : Number(originalValue)
+        )
+        .when(['useRange', 'min'], {
+          is: (useRange, min, schema) => useRange === true,
+          then: (schema, context) =>
+            schema
+              .moreThan(
+                yup.ref('min'),
+                '*max rpe value must be greater than min rpe value'
+              )
+              .max(10, '*max rpe value must be at most 10')
+              .required('*max rpe value is required'),
+          otherwise: (schema) => schema.strip(),
+        }),
+    }),
+  }),
 })
 const RangeOrSingleInput = ({
   watch,
@@ -205,7 +363,7 @@ const RangeOrSingleInput = ({
   const maxName = `${sectionType}.${subSectionType}.max`
   const singleName = `${sectionType}.${subSectionType}.single`
   const useRangeValue = watch(useRangeName)
-  console.log(errors?.warmup)
+  console.log(errors?.working)
 
   useEffect(() => {
     if (useRangeValue) {
