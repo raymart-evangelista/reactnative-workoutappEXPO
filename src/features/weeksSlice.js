@@ -23,65 +23,41 @@ const initialState = [
             name: 'chest press',
             warmup: {
               sets: {
-                amount: {
-                  single: 1,
-                  range: {
-                    min: '',
-                    max: '',
-                  },
-                },
+                single: 1,
+                min: '',
+                max: '',
                 useRange: false,
               },
               reps: {
-                amount: {
-                  single: 1,
-                  range: {
-                    min: '',
-                    max: '',
-                  },
-                },
+                single: 1,
+                min: '',
+                max: '',
                 useRange: false,
               },
               rpe: {
-                amount: {
-                  single: 3,
-                  range: {
-                    min: '',
-                    max: '',
-                  },
-                },
+                single: 3,
+                min: '',
+                max: '',
                 useRange: false,
               },
             },
             working: {
               sets: {
-                amount: {
-                  single: 4,
-                  range: {
-                    min: '',
-                    max: '',
-                  },
-                },
+                single: 4,
+                min: '',
+                max: '',
                 useRange: false,
               },
               reps: {
-                amount: {
-                  single: 4,
-                  range: {
-                    min: '',
-                    max: '',
-                  },
-                },
+                single: 4,
+                min: '',
+                max: '',
                 useRange: false,
               },
               rpe: {
-                amount: {
-                  single: 6,
-                  range: {
-                    min: '',
-                    max: '',
-                  },
-                },
+                single: 6,
+                min: '',
+                max: '',
                 useRange: false,
               },
             },
@@ -91,65 +67,41 @@ const initialState = [
             name: 'shoulder press',
             warmup: {
               sets: {
-                amount: {
-                  single: '',
-                  range: {
-                    min: 0,
-                    max: 2,
-                  },
-                },
+                single: '',
+                min: 0,
+                max: 2,
                 useRange: true,
               },
               reps: {
-                amount: {
-                  single: '',
-                  range: {
-                    min: 5,
-                    max: 8,
-                  },
-                },
+                single: '',
+                min: 5,
+                max: 8,
                 useRange: true,
               },
               rpe: {
-                amount: {
-                  single: '',
-                  range: {
-                    min: 4,
-                    max: 6,
-                  },
-                },
+                single: '',
+                min: 4,
+                max: 6,
                 useRange: true,
               },
             },
             working: {
               sets: {
-                amount: {
-                  single: 2,
-                  range: {
-                    min: '',
-                    max: '',
-                  },
-                },
+                single: 2,
+                min: '',
+                max: '',
                 useRange: false,
               },
               reps: {
-                amount: {
-                  single: '',
-                  range: {
-                    min: 7,
-                    max: 9,
-                  },
-                },
+                single: '',
+                min: 7,
+                max: 9,
                 useRange: true,
               },
               rpe: {
-                amount: {
-                  single: 9,
-                  range: {
-                    min: '',
-                    max: '',
-                  },
-                },
+                single: 9,
+                min: '',
+                max: '',
                 useRange: false,
               },
             },
