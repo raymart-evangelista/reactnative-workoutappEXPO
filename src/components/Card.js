@@ -145,16 +145,15 @@ export const ExerciseCard = ({
             {exercise.warmup.sets.useRange ? (
               <>
                 <Text>
-                  {exercise.warmup.sets.amount.range.min}-
-                  {exercise.warmup.sets.amount.range.max} x{' '}
+                  {exercise.warmup.sets.min}-{exercise.warmup.sets.max} x{' '}
                   {exercise.warmup.reps.useRange ? (
                     <>
-                      <Text>{exercise.warmup.reps.amount.range.min}</Text>-
-                      <Text>{exercise.warmup.reps.amount.range.max}</Text>
+                      <Text>{exercise.warmup.reps.min}</Text>-
+                      <Text>{exercise.warmup.reps.max}</Text>
                     </>
                   ) : (
                     <>
-                      <Text>{exercise.warmup.reps.amount.single}</Text>
+                      <Text>{exercise.warmup.reps.single}</Text>
                     </>
                   )}
                 </Text>
@@ -162,15 +161,15 @@ export const ExerciseCard = ({
             ) : (
               <>
                 <Text>
-                  {exercise.warmup.sets.amount.single} x{' '}
+                  {exercise.warmup.sets.single} x{' '}
                   {exercise.warmup.reps.useRange ? (
                     <>
-                      <Text>{exercise.warmup.reps.amount.range.min}</Text>-
-                      <Text>{exercise.warmup.reps.amount.range.max}</Text>
+                      <Text>{exercise.warmup.reps.min}</Text>-
+                      <Text>{exercise.warmup.reps.max}</Text>
                     </>
                   ) : (
                     <>
-                      <Text>{exercise.warmup.reps.amount.single}</Text>
+                      <Text>{exercise.warmup.reps.single}</Text>
                     </>
                   )}
                 </Text>
@@ -184,16 +183,15 @@ export const ExerciseCard = ({
             {exercise.working.sets.useRange ? (
               <>
                 <Text>
-                  {exercise.working.sets.amount.range.min}-
-                  {exercise.working.sets.amount.range.max} x{' '}
+                  {exercise.working.sets.min}-{exercise.working.sets.max} x{' '}
                   {exercise.working.reps.useRange ? (
                     <>
-                      <Text>{exercise.working.reps.amount.range.min}</Text>-
-                      <Text>{exercise.working.reps.amount.range.max}</Text>
+                      <Text>{exercise.working.reps.min}</Text>-
+                      <Text>{exercise.working.reps.max}</Text>
                     </>
                   ) : (
                     <>
-                      <Text>{exercise.working.reps.amount.single}</Text>
+                      <Text>{exercise.working.reps.single}</Text>
                     </>
                   )}
                 </Text>
@@ -201,15 +199,15 @@ export const ExerciseCard = ({
             ) : (
               <>
                 <Text>
-                  {exercise.working.sets.amount.single} x{' '}
+                  {exercise.working.sets.single} x{' '}
                   {exercise.working.reps.useRange ? (
                     <>
-                      <Text>{exercise.working.reps.amount.range.min}</Text>-
-                      <Text>{exercise.working.reps.amount.range.max}</Text>
+                      <Text>{exercise.working.reps.min}</Text>-
+                      <Text>{exercise.working.reps.max}</Text>
                     </>
                   ) : (
                     <>
-                      <Text>{exercise.working.reps.amount.single}</Text>
+                      <Text>{exercise.working.reps.single}</Text>
                     </>
                   )}
                 </Text>
