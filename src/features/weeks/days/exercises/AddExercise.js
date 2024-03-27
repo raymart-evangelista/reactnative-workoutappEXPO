@@ -368,7 +368,7 @@ const RangeOrSingleInput = ({
   const min = watch(minName)
   const max = watch(maxName)
   // console.log(errors?.working)
-  console.log(touchedFields)
+  // console.log(touchedFields)
 
   useEffect(() => {
     if (useRangeValue) {
