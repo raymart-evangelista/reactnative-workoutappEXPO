@@ -221,7 +221,7 @@ export const ExerciseCard = ({
         className="border-2 border-green-500"
       >
         <EditInfoModal
-          data={{ ...exerciseId, weekId, dayId }}
+          data={{ exerciseId, weekId, dayId }}
           updateAction={(info) => {
             dispatch(
               exerciseUpdated({
