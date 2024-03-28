@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react'
 import {
   View,
   TouchableOpacity,
@@ -8,23 +8,23 @@ import {
   ScrollView,
   Dimensions,
   StyleSheet,
-} from "react-native";
-import { Text, Button, AnimatedFAB } from "react-native-paper";
-import Card from "../components/CardDepricated";
+} from 'react-native'
+import { Text, Button, AnimatedFAB } from 'react-native-paper'
+import Card from '../components/CardDepricated'
 
-import programsService from "../services/programs";
+import programsService from '../services/programs'
 
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import {
   CreateProgramScreen,
   EditWeekScreen,
   EditDayScreen,
-} from "./CreateProgramScreen";
-const ExistingProgramsStack = createNativeStackNavigator();
+} from './CreateProgramScreen'
+const ExistingProgramsStack = createNativeStackNavigator()
 
 export function ExistingProgramsStackScreen() {
   return (
-    <ExistingProgramsStack.Navigator>
+    <ExistingProgramsStack.Navigator screenOptions={{ headerShown: false }}>
       <ExistingProgramsStack.Screen
         name="CreateProgram"
         component={CreateProgramScreen}
@@ -39,51 +39,51 @@ export function ExistingProgramsStackScreen() {
       />
       <ExistingProgramsStack.Screen name="EditDay" component={EditDayScreen} />
     </ExistingProgramsStack.Navigator>
-  );
+  )
 }
 
 export function ExistingProgramsScreen({ navigation, screenType = null }) {
-  const [programs, setPrograms] = useState([]);
-  const [deletedProgramId, setDeletedProgramId] = useState(null);
-  const [lastModified, setLastModified] = useState(Date.now());
+  const [programs, setPrograms] = useState([])
+  const [deletedProgramId, setDeletedProgramId] = useState(null)
+  const [lastModified, setLastModified] = useState(Date.now())
 
-  const windowHeight = Dimensions.get("window").height;
-  const desiredSpacing = windowHeight * 0.075;
+  const windowHeight = Dimensions.get('window').height
+  const desiredSpacing = windowHeight * 0.075
 
   const handleProgramPress = (program) => {
-    navigation.navigate("EditProgram", {
+    navigation.navigate('EditProgram', {
       program: program,
       // onProgramDeleted: handleProgramDeleted
       onProgramModified: handleProgramModified,
-    });
-  };
+    })
+  }
 
   useEffect(() => {
     const fetchPrograms = async () => {
-      const existingPrograms = await programsService.getPrograms();
-      setPrograms(existingPrograms);
-    };
+      const existingPrograms = await programsService.getPrograms()
+      setPrograms(existingPrograms)
+    }
 
-    fetchPrograms();
-  }, [deletedProgramId, lastModified]);
+    fetchPrograms()
+  }, [deletedProgramId, lastModified])
 
   const handleProgramDeleted = (programId) => {
-    setDeletedProgramId(programId);
-  };
+    setDeletedProgramId(programId)
+  }
 
   const handleProgramModified = () => {
-    setLastModified(Date.now());
-  };
+    setLastModified(Date.now())
+  }
 
   const handleAddProgram = () => {
-    navigation.navigate("CreateProgram");
-  };
+    navigation.navigate('CreateProgram')
+  }
 
   return (
     <View style={styles.container}>
       <ScrollView
         style={{
-          padding: "2%",
+          padding: '2%',
           paddingTop: desiredSpacing,
           paddingBottom: desiredSpacing,
         }}
@@ -108,87 +108,87 @@ export function ExistingProgramsScreen({ navigation, screenType = null }) {
         )}
       </ScrollView>
       <AnimatedFAB
-        icon={"plus"}
-        label={"New Program"}
+        icon={'plus'}
+        label={'New Program'}
         onPress={handleAddProgram}
         animatedFrom="right"
-        iconMode={"dynamic"}
+        iconMode={'dynamic'}
         style={[styles.fabStyle]}
       />
     </View>
-  );
+  )
 }
 
 export function EditProgramScreen({ navigation, route }) {
   // want to send the route to CreateProgramScreen
 
-  const program = route.params.program;
-  const [modalVisible, setModalVisible] = useState(false);
-  const [newProgramName, setNewProgramName] = useState(program.name);
+  const program = route.params.program
+  const [modalVisible, setModalVisible] = useState(false)
+  const [newProgramName, setNewProgramName] = useState(program.name)
   // const onProgramDeleted = route.params.onProgramDeleted
-  const onProgramModified = route.params.onProgramModified;
+  const onProgramModified = route.params.onProgramModified
 
   const deleteProgramPress = () => {
     Alert.alert(
-      "Confirm Deletion",
-      "Do you really want to delete this program?",
+      'Confirm Deletion',
+      'Do you really want to delete this program?',
       [
         {
-          text: "Cancel",
+          text: 'Cancel',
         },
         {
-          text: "DELETE",
+          text: 'DELETE',
           onPress: async () => {
             try {
-              console.log("****___****");
-              console.log(program.id);
-              await programsService.deleteProgram(program.id);
-              navigation.goBack();
+              console.log('****___****')
+              console.log(program.id)
+              await programsService.deleteProgram(program.id)
+              navigation.goBack()
               // onProgramDeleted(program.id)
-              onProgramModified();
+              onProgramModified()
             } catch (error) {
-              console.log(error);
+              console.log(error)
             }
           },
         },
       ],
-      { cancelable: false },
-    );
-  };
+      { cancelable: false }
+    )
+  }
 
   const handleSaveNameChange = async () => {
     // TODO: Update program name in the database and navigate back
-    await programsService.updateProgram(program.id, { name: newProgramName });
-    setModalVisible(false);
-    navigation.goBack();
-    onProgramModified();
+    await programsService.updateProgram(program.id, { name: newProgramName })
+    setModalVisible(false)
+    navigation.goBack()
+    onProgramModified()
     try {
     } catch (error) {
-      console.error(error);
+      console.error(error)
     } finally {
     }
-  };
+  }
 
   const editProgram = () => {
     // console.log(`inside editProgram`)
-    console.log(program.id);
+    console.log(program.id)
 
     // we want to navigate to ProgramNameInputScreen
     // send in the program as well
-    navigation.navigate("CreateProgram", { programId: program.id });
-  };
+    navigation.navigate('CreateProgram', { programId: program.id })
+  }
 
   const continueProgram = () => {
-    navigation.navigate("ProgramInformation", { programId: program.id });
-  };
+    navigation.navigate('ProgramInformation', { programId: program.id })
+  }
 
-  const windowHeight = Dimensions.get("window").height;
-  const desiredSpacing = windowHeight * 0.075;
+  const windowHeight = Dimensions.get('window').height
+  const desiredSpacing = windowHeight * 0.075
 
   return (
     <View
       style={{
-        padding: "2%",
+        padding: '2%',
         paddingTop: desiredSpacing,
         paddingBottom: desiredSpacing,
       }}
@@ -202,7 +202,7 @@ export function EditProgramScreen({ navigation, route }) {
 
       <Modal visible={modalVisible} animationType="fade">
         <View
-          style={{ flex: 1, alignItems: "center", justifyContent: "center" }}
+          style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}
         >
           <Text>Editing Program Name</Text>
           <TextInput value={newProgramName} onChangeText={setNewProgramName} />
@@ -217,19 +217,19 @@ export function EditProgramScreen({ navigation, route }) {
         <Text>Continue program</Text>
       </TouchableOpacity>
     </View>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-    height: "100%",
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: '100%',
   },
   fabStyle: {
     bottom: 32,
     right: 32,
-    position: "absolute",
+    position: 'absolute',
   },
-});
+})
