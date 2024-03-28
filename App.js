@@ -58,34 +58,37 @@ import { Provider as ReduxProvider } from 'react-redux'
 import store from './src/app/store'
 
 export default function App() {
-  const colorScheme = useColorScheme()
   return (
     <ReduxProvider store={store}>
       <GestureHandlerRootView style={{ flex: 1 }}>
         <AuthProvider>
           <ThemeContextProvider>
-            <NavigationContainer
-              independent={true}
-              theme={
-                colorScheme === 'dark'
-                  ? NavigationDarkTheme
-                  : NavigationDefaultTheme
-              }
-            >
-              {/* <Stack.Navigator initialRouteName='CreateProgram' screenOptions={{headerShown: true}}> */}
-              <Stack.Navigator initialRouteName="TabNavigator">
-                <Stack.Screen name="Settings" component={SettingsScreen} />
-                <Stack.Screen
-                  name="TabNavigator"
-                  component={TabNavigator}
-                  options={{ headerShown: false }}
-                />
-              </Stack.Navigator>
-            </NavigationContainer>
+            <AppContent />
           </ThemeContextProvider>
         </AuthProvider>
       </GestureHandlerRootView>
     </ReduxProvider>
+  )
+}
+
+function AppContent() {
+  const { theme } = useTheme()
+
+  return (
+    <NavigationContainer theme={theme}>
+      {/* <Stack.Navigator initialRouteName='CreateProgram' screenOptions={{headerShown: true}}> */}
+      <Stack.Navigator
+        initialRouteName="TabNavigator"
+        screenOptions={{ headerShown: false }}
+      >
+        <Stack.Screen name="Settings" component={SettingsScreen} />
+        <Stack.Screen
+          name="TabNavigator"
+          component={TabNavigator}
+          options={{ headerShown: false }}
+        />
+      </Stack.Navigator>
+    </NavigationContainer>
   )
 }
 
