@@ -11,11 +11,12 @@ export default function TabNavigator() {
   const { theme } = useTheme()
   return (
     <Tab.Navigator
-      screenOptions={
-        {
-          // tabBarStyle: { backgroundColor: theme.colors.background },
-        }
-      }
+      screenOptions={{
+        tabBarActiveTintColor: theme.colors.primary,
+        tabBarInactiveTintColor: theme.colors.onPrimary,
+        tabBarStyle: { backgroundColor: theme.colors.background },
+      }}
+      theme={theme}
     >
       <Tab.Screen
         name="Programs"
@@ -23,7 +24,7 @@ export default function TabNavigator() {
         options={{ headerShown: false }}
       />
       <Tab.Screen name="Home" component={HomeScreen} />
-      {/* <Tab.Screen name='Programs' component={ExistingProgramsScreen} /> */}
+      {/* <Tab.Screen name="Programs" component={ExistingProgramsScreen} /> */}
       <Tab.Screen name="Log" component="" />
       <Tab.Screen name="Friends" component={FriendsScreen} />
       <Tab.Screen name="You" component={ProfileScreen} />
