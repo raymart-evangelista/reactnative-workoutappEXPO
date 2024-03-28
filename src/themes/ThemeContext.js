@@ -6,11 +6,12 @@ import {
   useState,
 } from 'react'
 
-import { useColorScheme } from 'react-native'
+import { Appearance, useColorScheme } from 'react-native'
 import { lightTheme, darkTheme } from './theme'
 import {
   Provider as PaperProvider,
   DefaultTheme as PaperDefaultTheme,
+  MD3DarkTheme as PaperDarkTheme,
 } from 'react-native-paper'
 import {
   NavigationContainer,
@@ -19,17 +20,26 @@ import {
   DefaultTheme as NavigationDefaultTheme,
 } from '@react-navigation/native'
 
-// const lightTheme = {
-//   ...NavigationDefaultTheme,
-//   ...PaperDefaultTheme,
-//   colors: {
-//     ...NavigationDefaultTheme.colors,
-//     ...PaperDefaultTheme.colors,
-//   }
-// }
+const customLightTheme = {
+  ...PaperDefaultTheme,
+  ...lightTheme,
+  colors: {
+    ...PaperDefaultTheme.colors,
+    ...lightTheme.colors,
+  },
+}
+
+const customDarkTheme = {
+  ...PaperDarkTheme,
+  ...darkTheme,
+  colors: {
+    ...PaperDarkTheme.colors,
+    ...darkTheme.colors,
+  },
+}
 
 export const ThemeContext = createContext({
-  theme: lightTheme,
+  theme: customLightTheme,
   themeType: 'light',
   isDarkTheme: false,
   setThemeType: () => {},
@@ -40,34 +50,39 @@ export const useTheme = () => useContext(ThemeContext)
 
 export const ThemeContextProvider = ({ children }) => {
   const colorScheme = useColorScheme()
-  console.log(`the colorScheme is: ${colorScheme}`)
-  const [themeType, setThemeType] = useState(
-    colorScheme === 'dark' ? 'dark' : 'light'
-  )
-
-  const toggleThemeType = useCallback(() => {
-    setThemeType((prev) => (prev === 'dark' ? 'light' : 'dark'))
-  }, [])
-
-  const isDarkTheme = useMemo(() => themeType === 'dark', [themeType])
+  const isDarkTheme = colorScheme === 'dark'
   const theme = useMemo(
     () => (isDarkTheme ? darkTheme : lightTheme),
     [isDarkTheme]
   )
+  // const [themeType, setThemeType] = useState(
+  //   colorScheme === 'dark' ? 'dark' : 'light'
+  // )
+
+  // const toggleThemeType = useCallback(() => {
+  //   setThemeType((prev) => (prev === 'dark' ? 'light' : 'dark'))
+  //   console.log(`the colorScheme is: ${colorScheme}`)
+  //   console.log(Appearance.getColorScheme())
+  // }, [])
+
+  // const isDarkTheme = useMemo(() => themeType === 'dark', [themeType])
+  // const theme = useMemo(
+  //   () => (isDarkTheme ? darkTheme : lightTheme),
+  //   [isDarkTheme]
+  // )
 
   return (
     <ThemeContext.Provider
       value={{
         theme,
-        themeType,
         isDarkTheme,
-        setThemeType,
-        toggleThemeType,
+        // themeType,
+        // isDarkTheme,
+        // setThemeType,
+        // toggleThemeType,
       }}
     >
-      <NavigationContainer theme={theme}>
-        <PaperProvider theme={theme}>{children}</PaperProvider>
-      </NavigationContainer>
+      <PaperProvider theme={theme}>{children}</PaperProvider>
     </ThemeContext.Provider>
   )
 }
