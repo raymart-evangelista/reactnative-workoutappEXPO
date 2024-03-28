@@ -1,36 +1,38 @@
-require("dotenv/config");
+require('dotenv/config')
 
 export default {
   expo: {
-    name: "WorkoutAppExpo",
-    slug: "WorkoutAppExpo",
-    version: "1.0.0",
-    orientation: "portrait",
-    icon: "./assets/icon.png",
-    userInterfaceStyle: "automatic",
+    name: 'WorkoutAppExpo',
+    slug: 'WorkoutAppExpo',
+    version: '1.0.0',
+    orientation: 'portrait',
+    icon: './assets/icon.png',
+    userInterfaceStyle: 'automatic',
     splash: {
-      image: "./assets/splash.png",
-      resizeMode: "contain",
-      backgroundColor: "#ffffff",
+      image: './assets/splash.png',
+      resizeMode: 'contain',
+      backgroundColor: '#ffffff',
     },
     updates: {
       fallbackToCacheTimeout: 0,
     },
-    assetBundlePatterns: ["**/*"],
+    assetBundlePatterns: ['**/*'],
     ios: {
       supportsTablet: true,
+      userInterfaceStyle: 'automatic',
     },
     android: {
       adaptiveIcon: {
-        foregroundImage: "./assets/adaptive-icon.png",
-        backgroundColor: "#FFFFFF",
+        foregroundImage: './assets/adaptive-icon.png',
+        backgroundColor: '#FFFFFF',
       },
+      userInterfaceStyle: 'automatic',
     },
     web: {
-      favicon: "./assets/favicon.png",
+      favicon: './assets/favicon.png',
     },
     extra: {
       BASE_URL: process.env.BASE_URL,
     },
   },
-};
+}
