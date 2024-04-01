@@ -13,7 +13,7 @@ export default function TabNavigator() {
     <Tab.Navigator
       screenOptions={{
         tabBarActiveTintColor: theme.colors.primary,
-        tabBarInactiveTintColor: theme.colors.onPrimary,
+        tabBarInactiveTintColor: theme.colors.onBackground,
         tabBarStyle: { backgroundColor: theme.colors.background },
       }}
     >

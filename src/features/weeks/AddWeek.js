@@ -5,8 +5,10 @@ import { AnimatedFAB } from 'react-native-paper'
 import { nanoid } from '@reduxjs/toolkit'
 import { weekAdded } from '../weeksSlice'
 import { StyleSheet } from 'react-native'
+import { useThemedStyles } from '../../styles/globalStyles'
 
 export const AddWeek = () => {
+  const styles = useThemedStyles()
   const [title, setTitle] = useState('default week title')
   const [description, setDescription] = useState('default week description')
 
@@ -40,16 +42,8 @@ export const AddWeek = () => {
       onPress={onAddWeekClicked}
       animateFrom={'right'}
       iconMode={'dynamic'}
-      style={[styles.fabStyle]}
+      style={styles.fabStyle}
       extended={'true'}
     />
   )
 }
-
-const styles = StyleSheet.create({
-  fabStyle: {
-    bottom: 16,
-    right: 16,
-    position: 'absolute',
-  },
-})

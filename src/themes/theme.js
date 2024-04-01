@@ -2,7 +2,7 @@ const lightTheme = {
   roundness: 10,
   colors: {
     primary: 'rgb(0, 122, 255)', // Dynamic Blue (#007AFF)
-    onPrimary: 'rgb(0,0,0)',
+    onPrimary: 'rgb(255, 255, 255)',
     primaryContainer: 'rgb(216, 226, 255)',
     onPrimaryContainer: 'rgb(0, 26, 65)',
     secondary: 'rgb(51, 51, 51)', // Sleek Graphite (#333333)

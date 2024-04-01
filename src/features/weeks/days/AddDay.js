@@ -1,15 +1,17 @@
-import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { AnimatedFAB, Button } from "react-native-paper";
-import { dayAdded } from "../../weeksSlice";
-import { nanoid } from "@reduxjs/toolkit";
-import { StyleSheet } from "react-native";
+import { useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { AnimatedFAB, Button } from 'react-native-paper'
+import { dayAdded } from '../../weeksSlice'
+import { nanoid } from '@reduxjs/toolkit'
+import { StyleSheet } from 'react-native'
+import { useThemedStyles } from '../../../styles/globalStyles'
 
 export const AddDay = ({ weekId }) => {
-  const [title, setTitle] = useState("untitled day");
-  const [description, setDescription] = useState("default day description");
+  const styles = useThemedStyles()
+  const [title, setTitle] = useState('untitled day')
+  const [description, setDescription] = useState('default day description')
 
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
 
   const onAddDayClicked = () => {
     dispatch(
@@ -25,9 +27,9 @@ export const AddDay = ({ weekId }) => {
             },
           ],
         },
-      }),
-    );
-  };
+      })
+    )
+  }
 
   return (
     <AnimatedFAB
@@ -36,16 +38,8 @@ export const AddDay = ({ weekId }) => {
       onPress={onAddDayClicked}
       animateFrom="right"
       iconMode="dynamic"
-      style={[styles.fabStyle]}
+      style={styles.fabStyle}
       extended="true"
     />
-  );
-};
-
-const styles = StyleSheet.create({
-  fabStyle: {
-    bottom: 16,
-    right: 16,
-    position: "absolute",
-  },
-});
+  )
+}

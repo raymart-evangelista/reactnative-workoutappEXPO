@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native'
+import { useTheme } from '../themes/ThemeContext'
 
 const mainColor = '#000'
 const mainTextColor = '#ffffff'
@@ -163,4 +164,136 @@ const darkStyles = StyleSheet.create({
   },
 })
 
-export { defaultStyles, lightStyles, darkStyles }
+const useThemedStyles = () => {
+  const { theme } = useTheme()
+  const styles = StyleSheet.create({
+    validText: {
+      color: 'green',
+      fontSize: 14,
+      // marginTop: 5,
+    },
+    errorText: {
+      color: 'red',
+      fontSize: 14,
+      // marginTop: 5,
+    },
+    fabStyle: {
+      bottom: 16,
+      right: 16,
+      position: 'absolute',
+    },
+    container: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+    },
+    inputContainer: {
+      flexDirection: 'row',
+      justifyContent: 'flex-start',
+      // width: '20%',
+    },
+    modalContainerStyle: {
+      backgroundColor: theme.colors.background,
+      padding: 20,
+      margin: 30,
+      borderRadius: 15,
+    },
+    input: {
+      flex: 1,
+      // width: 75,
+      // margin: 4,
+      marginVertical: 10,
+    },
+    switchContainer: {
+      flexDirection: 'column',
+      alignItems: 'center',
+      justifyContent: 'center',
+      width: '40%',
+      // borderWidth: 1,
+      // borderColor: 'yellow',
+      borderRadius: 15,
+    },
+    exerciseDataContainer: {
+      borderWidth: 1,
+      borderColor: '#CCCCCC',
+      borderRadius: 15,
+      padding: 10,
+      marginVertical: 10,
+    },
+    exerciseDataContainer2: {
+      // borderWidth: 1,
+      // borderColor: 'blue',
+      // borderRadius: 15,
+      // padding: 5,
+    },
+    exerciseDataContainer3: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      // borderWidth: 1,
+      // borderColor: 'green',
+      borderRadius: 15,
+      // padding: 5,
+    },
+    exerciseNumberInputContainer: {
+      flexDirection: 'row',
+      flex: 2,
+      // borderWidth: 1,
+      // borderColor: 'purple',
+      // borderRadius: 15,
+      // padding: 5,
+      justifyContent: 'space-evenly',
+      alignItems: 'center',
+    },
+    exerciseDataContainer5: {
+      // width: '100%',
+      // flexDirection: 'row',
+      // justifyContent: 'space-evenly',
+      // alignContent: 'space-around',
+      // alignItems: 'center',
+      // borderWidth: 1,
+      // borderColor: 'orange',
+      borderRadius: 15,
+      flexDirection: 'row',
+      justifyContent: 'space-evenly',
+      alignItems: 'center',
+      flex: 1,
+    },
+    exerciseRangeContainer: {
+      flexDirection: 'column',
+      alignItems: 'center',
+      justifyContent: 'center',
+      flex: 1,
+      // borderWidth: 1,
+      // borderColor: 'yellow',
+      // borderRadius: 15,
+    },
+    singleTextInput: {
+      flex: 1,
+      marginVertical: 10,
+    },
+    rangedTextInput: {
+      // width: 70,
+      // padding: 5,
+      flex: 1,
+      marginVertical: 10,
+    },
+    dash: {
+      padding: 10,
+    },
+    button: {
+      marginVertical: 10,
+    },
+    screenWithOptions: {
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
+      padding: 16,
+      // borderWidth: 1,
+      // borderColor: 'orange',
+    },
+  })
+
+  return styles
+}
+
+export { useThemedStyles, defaultStyles, lightStyles, darkStyles }

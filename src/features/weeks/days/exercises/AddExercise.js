@@ -16,6 +16,7 @@ import { useForm, Controller } from 'react-hook-form'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
 import { useTheme } from '../../../../themes/ThemeContext'
+import { useThemedStyles } from '../../../../styles/globalStyles'
 
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
@@ -357,6 +358,7 @@ const RangeOrSingleInput = ({
   touchedFields,
   errors,
 }) => {
+  const styles = useThemedStyles()
   const errorMin = errors?.[sectionType]?.[subSectionType]?.min?.message
   const errorMax = errors?.[sectionType]?.[subSectionType]?.max?.message
   const errorSingle = errors?.[sectionType]?.[subSectionType]?.single?.message
@@ -504,6 +506,7 @@ const RangeOrSingleInput = ({
 }
 
 export const AddExercise = ({ weekId, dayId }) => {
+  const styles = useThemedStyles()
   const dispatch = useDispatch()
   const [visible, setVisible] = useState(false)
 
@@ -727,21 +730,13 @@ export const AddExercise = ({ weekId, dayId }) => {
   }, [formState, reset])
 
   const { theme } = useTheme()
-  const modalStyle = StyleSheet.create({
-    containerStyle: {
-      backgroundColor: theme.colors.background,
-      padding: 20,
-      margin: 30,
-      borderRadius: 15,
-    },
-  })
   return (
     <>
       <Portal>
         <Modal
           visible={visible}
           onDismiss={hideModal}
-          contentContainerStyle={modalStyle.containerStyle}
+          contentContainerStyle={styles.modalContainerStyle}
         >
           <KeyboardAwareScrollView>
             <Text className="text-2xl">Add Exercise</Text>
@@ -891,128 +886,9 @@ export const AddExercise = ({ weekId, dayId }) => {
         onPress={onAddExerciseClicked}
         animateFrom="right"
         iconMode="dynamic"
-        style={[styles.fabStyle]}
+        style={styles.fabStyle}
         extended="true"
       />
     </>
   )
 }
-
-const styles = StyleSheet.create({
-  validText: {
-    color: 'green',
-    fontSize: 14,
-    // marginTop: 5,
-  },
-  errorText: {
-    color: 'red',
-    fontSize: 14,
-    // marginTop: 5,
-  },
-  fabStyle: {
-    bottom: 16,
-    right: 16,
-    position: 'absolute',
-  },
-  container: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-  },
-  inputContainer: {
-    flexDirection: 'row',
-    justifyContent: 'flex-start',
-    // width: '20%',
-  },
-  containerStyle: {
-    backgroundColor: 'white',
-    padding: 20,
-    margin: 30,
-    borderRadius: 15,
-  },
-  input: {
-    flex: 1,
-    // width: 75,
-    // margin: 4,
-    marginVertical: 10,
-  },
-  switchContainer: {
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: '40%',
-    // borderWidth: 1,
-    // borderColor: 'yellow',
-    borderRadius: 15,
-  },
-  exerciseDataContainer: {
-    borderWidth: 1,
-    borderColor: '#CCCCCC',
-    borderRadius: 15,
-    padding: 10,
-    marginVertical: 10,
-  },
-  exerciseDataContainer2: {
-    // borderWidth: 1,
-    // borderColor: 'blue',
-    // borderRadius: 15,
-    // padding: 5,
-  },
-  exerciseDataContainer3: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    // borderWidth: 1,
-    // borderColor: 'green',
-    borderRadius: 15,
-    // padding: 5,
-  },
-  exerciseNumberInputContainer: {
-    flexDirection: 'row',
-    flex: 2,
-    // borderWidth: 1,
-    // borderColor: 'purple',
-    // borderRadius: 15,
-    // padding: 5,
-    justifyContent: 'space-evenly',
-    alignItems: 'center',
-  },
-  exerciseDataContainer5: {
-    // width: '100%',
-    // flexDirection: 'row',
-    // justifyContent: 'space-evenly',
-    // alignContent: 'space-around',
-    // alignItems: 'center',
-    // borderWidth: 1,
-    // borderColor: 'orange',
-    borderRadius: 15,
-    flexDirection: 'row',
-    justifyContent: 'space-evenly',
-    alignItems: 'center',
-    flex: 1,
-  },
-  exerciseRangeContainer: {
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'center',
-    flex: 1,
-    // borderWidth: 1,
-    // borderColor: 'yellow',
-    // borderRadius: 15,
-  },
-  singleTextInput: {
-    flex: 1,
-    marginVertical: 10,
-  },
-  rangedTextInput: {
-    // width: 70,
-    // padding: 5,
-    flex: 1,
-    marginVertical: 10,
-  },
-  dash: {
-    padding: 10,
-  },
-  button: {
-    marginVertical: 10,
-  },
-})
