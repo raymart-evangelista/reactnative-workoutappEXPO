@@ -9,19 +9,16 @@ import { useForm, Controller } from 'react-hook-form'
 import { Modal, Portal, Text, Button, TextInput } from 'react-native-paper'
 import { useDispatch } from 'react-redux'
 import { RemoveWeek } from '../features/weeks/RemoveWeek'
+import { useThemedStyles } from '../styles/globalStyles'
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
 const EditInfoModal = ({ data, updateAction, entityType, onRemove }) => {
+  const styles = useThemedStyles()
   const dispatch = useDispatch()
 
   const [visible, setVisible] = useState(false)
   const showModal = () => setVisible(true)
   const hideModal = () => setVisible(false)
-  const containerStyle = {
-    backgroundColor: 'white',
-    padding: 20,
-    margin: 30,
-    borderRadius: 15,
-  }
 
   const [showConfirmRemoveModal, setShowConfirmRemoveModal] = useState(false)
 
@@ -29,7 +26,7 @@ const EditInfoModal = ({ data, updateAction, entityType, onRemove }) => {
     <Modal
       visible={showConfirmRemoveModal}
       onDismiss={() => setShowConfirmRemoveModal(false)}
-      contentContainerStyle={containerStyle}
+      contentContainerStyle={styles.modalContainerStyle}
     >
       <Text>
         Are you sure you want to remove this {entityType.toLowerCase()}?
@@ -74,59 +71,63 @@ const EditInfoModal = ({ data, updateAction, entityType, onRemove }) => {
         <Modal
           visible={visible}
           onDismiss={hideModal}
-          contentContainerStyle={containerStyle}
+          contentContainerStyle={styles.modalContainerStyle}
         >
-          {onRemove && (
-            <Button
-              icon="trash-can-outline"
-              mode="outlined"
-              // onPress={() => onRemove(data.id)}
-              onPress={() => setShowConfirmRemoveModal(true)}
-            >
-              Remove
-            </Button>
-          )}
-          <Controller
-            control={control}
-            rules={{
-              required: true,
-            }}
-            render={({ field: { onChange, onBlur, value } }) => (
-              <TextInput
-                // placeholder={'defualt placeholder'}
-                label={'Title'}
-                onBlur={onBlur}
-                onChangeText={onChange}
-                value={value}
-              />
+          <KeyboardAwareScrollView>
+            {onRemove && (
+              <Button
+                icon="trash-can-outline"
+                mode="outlined"
+                // onPress={() => onRemove(data.id)}
+                onPress={() => setShowConfirmRemoveModal(true)}
+              >
+                Remove
+              </Button>
             )}
-            name="title"
-          />
-          {errors.title && (
-            <Text>A {entityType.toLowerCase()} title is required.</Text>
-          )}
-
-          <Controller
-            control={control}
-            rules={{
-              maxLength: 200,
-            }}
-            render={({ field: { onChange, onBlur, value } }) => (
-              <TextInput
-                // placeholder={'defualt placeholder'}
-                label={'Description'}
-                onBlur={onBlur}
-                onChangeText={onChange}
-                value={value}
-              />
+            <Controller
+              control={control}
+              rules={{
+                required: true,
+              }}
+              render={({ field: { onChange, onBlur, value } }) => (
+                <TextInput
+                  // placeholder={'defualt placeholder'}
+                  label="Title"
+                  onBlur={onBlur}
+                  onChangeText={onChange}
+                  value={value}
+                  mode="outlined"
+                  style={styles.input}
+                />
+              )}
+              name="title"
+            />
+            {errors.title && (
+              <Text>A {entityType.toLowerCase()} title is required.</Text>
             )}
-            name="description"
-          />
-          {errors.description && (
-            <Text>{entityType} description is too long.</Text>
-          )}
-
-          <Button onPress={handleSubmit(onSubmit)}>Submit changes</Button>
+            <Controller
+              control={control}
+              rules={{
+                maxLength: 200,
+              }}
+              render={({ field: { onChange, onBlur, value } }) => (
+                <TextInput
+                  // placeholder={'defualt placeholder'}
+                  label={'Description'}
+                  onBlur={onBlur}
+                  onChangeText={onChange}
+                  value={value}
+                  mode="outlined"
+                  style={styles.input}
+                />
+              )}
+              name="description"
+            />
+            {errors.description && (
+              <Text>{entityType} description is too long.</Text>
+            )}
+            <Button onPress={handleSubmit(onSubmit)}>Submit changes</Button>
+          </KeyboardAwareScrollView>
         </Modal>
         <ConfirmRemoveModal />
       </Portal>
