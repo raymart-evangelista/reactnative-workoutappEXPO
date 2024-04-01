@@ -20,13 +20,44 @@ export default function TabNavigator() {
       <Tab.Screen
         name="Programs"
         component={ExistingProgramsStackScreen}
-        options={{ headerShown: false }}
+        options={{
+          headerShown: true,
+          headerTintColor: 'white',
+        }}
       />
-      <Tab.Screen name="Home" component={HomeScreen} />
+      <Tab.Screen
+        name="Home"
+        component={HomeScreen}
+        options={{
+          headerShown: true,
+          headerTintColor: 'white',
+        }}
+      />
       {/* <Tab.Screen name="Programs" component={ExistingProgramsScreen} /> */}
-      <Tab.Screen name="Log" component="" />
-      <Tab.Screen name="Friends" component={FriendsScreen} />
-      <Tab.Screen name="You" component={ProfileScreen} />
+      <Tab.Screen
+        name="Log"
+        component=""
+        options={{
+          headerShown: true,
+          headerTintColor: 'white',
+        }}
+      />
+      <Tab.Screen
+        name="Friends"
+        component={FriendsScreen}
+        options={{
+          headerShown: true,
+          headerTintColor: 'white',
+        }}
+      />
+      <Tab.Screen
+        name="You"
+        component={ProfileScreen}
+        options={{
+          headerShown: true,
+          headerTintColor: 'white',
+        }}
+      />
     </Tab.Navigator>
   )
 }
