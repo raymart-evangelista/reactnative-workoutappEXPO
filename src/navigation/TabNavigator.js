@@ -22,7 +22,7 @@ export default function TabNavigator() {
         component={ExistingProgramsStackScreen}
         options={{
           headerShown: true,
-          headerTintColor: 'white',
+          headerTintColor: theme.colors.onBackground,
         }}
       />
       <Tab.Screen
@@ -30,7 +30,7 @@ export default function TabNavigator() {
         component={HomeScreen}
         options={{
           headerShown: true,
-          headerTintColor: 'white',
+          headerTintColor: theme.colors.onBackground,
         }}
       />
       {/* <Tab.Screen name="Programs" component={ExistingProgramsScreen} /> */}
@@ -39,7 +39,7 @@ export default function TabNavigator() {
         component=""
         options={{
           headerShown: true,
-          headerTintColor: 'white',
+          headerTintColor: theme.colors.onBackground,
         }}
       />
       <Tab.Screen
@@ -47,7 +47,7 @@ export default function TabNavigator() {
         component={FriendsScreen}
         options={{
           headerShown: true,
-          headerTintColor: 'white',
+          headerTintColor: theme.colors.onBackground,
         }}
       />
       <Tab.Screen
@@ -55,7 +55,7 @@ export default function TabNavigator() {
         component={ProfileScreen}
         options={{
           headerShown: true,
-          headerTintColor: 'white',
+          headerTintColor: theme.colors.onBackground,
         }}
       />
     </Tab.Navigator>
