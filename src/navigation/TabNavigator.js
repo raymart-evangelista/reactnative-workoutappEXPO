@@ -16,7 +16,6 @@ export default function TabNavigator() {
         tabBarInactiveTintColor: theme.colors.onPrimary,
         tabBarStyle: { backgroundColor: theme.colors.background },
       }}
-      theme={theme}
     >
       <Tab.Screen
         name="Programs"
