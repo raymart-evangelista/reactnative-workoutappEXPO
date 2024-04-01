@@ -52,7 +52,7 @@ export const ThemeContextProvider = ({ children }) => {
   const colorScheme = useColorScheme()
   const isDarkTheme = colorScheme === 'dark'
   const theme = useMemo(
-    () => (isDarkTheme ? darkTheme : lightTheme),
+    () => (isDarkTheme ? customDarkTheme : customLightTheme),
     [isDarkTheme]
   )
   // const [themeType, setThemeType] = useState(
