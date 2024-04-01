@@ -6,53 +6,12 @@ import {
   Dimensions,
   SafeAreaView,
 } from 'react-native'
-import {
-  Button,
-  Text,
-  Title,
-  RadioButton,
-  List,
-  useTheme,
-} from 'react-native-paper'
-import * as Yup from 'yup'
-import { FlatList } from 'react-native'
+import { Button } from 'react-native-paper'
 
-// import TextInput from "../components/TextInput";
-
-import { TextInput } from 'react-native-paper'
-import SegmentedButtonWithSelectedCheck from '../components/SegmentedButtonWithSelectedCheck'
-
-import programsService from '../services/programs'
-
-import { useFieldArray, useWatch, useForm, Controller } from 'react-hook-form'
-
-import Animated, {
-  runOnJS,
-  useSharedValue,
-  withSpring,
-  useAnimatedStyle,
-  useAnimatedProps,
-  withTiming,
-  Easing,
-  FadeIn,
-  useDerivedValue,
-} from 'react-native-reanimated'
-import { Circle, Svg } from 'react-native-svg'
-import {
-  Gesture,
-  GestureDetector,
-  ScrollView,
-} from 'react-native-gesture-handler'
-
-import uuid from 'react-native-uuid'
 import DraggableFlatList, {
   ScaleDecorator,
-  ShadowDecorator,
-  OpacityDecorator,
 } from 'react-native-draggable-flatlist'
 
-import CollapsibleCard from '../components/CollapsibleCard'
-import { AnimatedFAB as AniFAB } from 'react-native-paper'
 import { WeekCard, DayCard, ExerciseCard } from '../components/Card'
 
 import { useDispatch, useSelector } from 'react-redux'
@@ -66,11 +25,6 @@ import {
 } from '../features/weeksSlice'
 
 import { useThemedStyles } from '../styles/globalStyles'
-
-const AnimatedBoxHeightValue = 50
-const AnimatedDayBoxClosedWidthValue = '100%'
-const AnimatedDayBoxClosedHeightValue = 80
-const AnimatedDayBoxOpenHeightValue = 200
 
 const EditWeekScreen = ({ route, navigation }) => {
   const dispatch = useDispatch()
@@ -249,28 +203,7 @@ const CreateProgramScreen = ({ navigation }) => {
   const styles = useThemedStyles()
   const [disableAddWeekButton, setDisabledAddWeekButton] = useState(false)
 
-  // const { control, handleSubmit, formState: { errors } } = useForm({
-  //     defaultValues: {
-  //         programName: "",
-  //         weeks: []
-  //     }
-  // })
-
   const onSubmit = (weeks) => console.log(weeks)
-
-  // const { fields: weekFields, append: appendWeek } = useFieldArray({
-  //     control,
-  //     name: "weeks"
-  // })
-
-  // Function to append a week and initialize its animation
-  // const handleAddWeek = () => {
-  //     appendWeek({ days: [] })
-  //     appendWeek({ days: [] })
-  //     const newWeekAnimation = useSharedValue(0)
-  //     newWeekAnimation.value = withTiming(1, { duration: 500 })
-  //     weekAnimations.push(newWeekAnimation)
-  // }
 
   const handleRemoveWeek = (weekToRemove) => {
     const keyToRemove = weekToRemove.key
@@ -320,29 +253,6 @@ const CreateProgramScreen = ({ navigation }) => {
   }, [weeks])
 
   return (
-    // <SafeAreaView>
-    //     <Controller
-    //         control={control}
-    //         rules={{ required: true }}
-    //         render={({ field: { onChange, onBlur, value } }) => (
-    //             <TextInput
-    //                 placeholder="Program Name"
-    //                 onBlur={onBlur}
-    //                 onChangeText={onChange}
-    //                 value={value}
-    //             />
-    //         )}
-    //         name="programName"
-    //     />
-    //     {errors.programName && <Text>Program name is needed.</Text>}
-    //     {/* button to add weeks */}
-    //     <Button onPress={handleAddWeek}>Add Week</Button>
-    //     {weekFields.map((week, weekIndex) => (
-    //         <TouchableOpacity key={week.id} onPress={() => {/* navigate to day screen */}}>
-    //         <Text>Week {weekIndex + 1}</Text>
-    //         </TouchableOpacity>
-    //         ))}
-    // </SafeAreaView>
     <View className="h-full">
       <SafeAreaView className="flex-1">
         <Button
@@ -367,91 +277,4 @@ const CreateProgramScreen = ({ navigation }) => {
     </View>
   )
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    height: '100%',
-  },
-  buttonContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-  },
-  fabStyle: {
-    bottom: 16,
-    right: 16,
-    position: 'absolute',
-  },
-  box: {
-    height: 120,
-    width: 120,
-    backgroundColor: '#b58df1',
-    borderRadius: 20,
-    marginVertical: 50,
-  },
-  svg: {
-    height: 250,
-    width: '100%',
-  },
-  circle: {
-    height: 120,
-    width: 120,
-    borderRadius: 500,
-  },
-  weekBox: {
-    height: AnimatedBoxHeightValue,
-    width: '90%',
-    // alignSelf: 'center',
-    // flexDirection: 'row',
-
-    alignItems: 'center',
-    // justifyContent: 'left',
-    // backgroundColor: '#e0e0e0',
-    // backgroundColor: 'lightwhite',
-    borderColor: 'black',
-    borderWidth: 1,
-    borderRadius: 10,
-    marginVertical: 10,
-    marginHorizontal: '5%',
-    // paddingVertical: 15,
-    overflow: 'hidden',
-  },
-  gestureTapArea: {
-    width: '100%',
-    height: 50, // Fixed height for the tap area
-    borderRadius: 10,
-    // marginVertical: -1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#e0e0e0',
-    borderBottomLeftRadius: 0,
-    borderBottomRightRadius: 0,
-  },
-  dayBox: {
-    width: AnimatedDayBoxClosedWidthValue,
-    height: AnimatedDayBoxClosedHeightValue,
-    backgroundColor: 'beige',
-    borderRadius: 10,
-    justifyContent: 'center',
-    alignItems: 'center',
-    // margin: 5,
-    borderColor: 'black',
-    borderWidth: 1,
-  },
-  box: {
-    width: 100,
-    height: 100,
-    backgroundColor: 'blue',
-    margin: 5,
-  },
-  header: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-  },
-  expandedContent: {},
-})
-
 export { CreateProgramScreen, EditWeekScreen, EditDayScreen }
