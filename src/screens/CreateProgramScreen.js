@@ -65,6 +65,8 @@ import {
   weeksReordered,
 } from '../features/weeksSlice'
 
+import { useThemedStyles } from '../styles/globalStyles'
+
 const AnimatedBoxHeightValue = 50
 const AnimatedDayBoxClosedWidthValue = '100%'
 const AnimatedDayBoxClosedHeightValue = 80
@@ -244,6 +246,7 @@ const WeekContainer = ({ week, onDelete, onDrag, isActive, navigation }) => {
 }
 
 const CreateProgramScreen = ({ navigation }) => {
+  const styles = useThemedStyles()
   const [disableAddWeekButton, setDisabledAddWeekButton] = useState(false)
 
   // const { control, handleSubmit, formState: { errors } } = useForm({
@@ -342,7 +345,14 @@ const CreateProgramScreen = ({ navigation }) => {
     // </SafeAreaView>
     <View className="h-full">
       <SafeAreaView className="flex-1">
-        <Button onPress={() => console.log(weeks)}>Submit</Button>
+        <Button
+          onPress={() => console.log(weeks)}
+          style={styles.button}
+          mode="contained"
+          icon="check-all"
+        >
+          Submit New Program
+        </Button>
         <DraggableFlatList
           data={weeks}
           onDragEnd={({ data }) => dispatch(weeksReordered(data))}
