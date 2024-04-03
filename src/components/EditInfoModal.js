@@ -8,7 +8,7 @@ import { useState } from 'react'
 import { useForm, Controller } from 'react-hook-form'
 import { Modal, Portal, Text, Button, TextInput } from 'react-native-paper'
 import { useDispatch } from 'react-redux'
-import { RemoveWeek } from '../features/weeks/RemoveWeek'
+import { RemoveWeek } from '../features/programs/weeks/RemoveWeek'
 import { useThemedStyles } from '../styles/globalStyles'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 

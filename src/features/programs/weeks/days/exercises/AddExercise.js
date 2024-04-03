@@ -15,8 +15,8 @@ import { StyleSheet, View } from 'react-native'
 import { useForm, Controller } from 'react-hook-form'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
-import { useTheme } from '../../../../themes/ThemeContext'
-import { useThemedStyles } from '../../../../styles/globalStyles'
+import { useTheme } from '../../../../../themes/ThemeContext'
+import { useThemedStyles } from '../../../../../styles/globalStyles'
 
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'

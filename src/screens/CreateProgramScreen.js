@@ -15,14 +15,14 @@ import DraggableFlatList, {
 import { WeekCard, DayCard, ExerciseCard } from '../components/Card'
 
 import { useDispatch, useSelector } from 'react-redux'
-import { AddWeek } from '../features/weeks/AddWeek'
-import { AddDay } from '../features/weeks/days/AddDay'
-import { AddExercise } from '../features/weeks/days/exercises/AddExercise'
+import { AddWeek } from '../features/programs/weeks/AddWeek'
+import { AddDay } from '../features/programs/weeks/days/AddDay'
+import { AddExercise } from '../features/programs/weeks/days/exercises/AddExercise'
 import {
   daysReordered,
   exercisesReordered,
   weeksReordered,
-} from '../features/weeksSlice'
+} from '../features/programs/weeksSlice'
 
 import { useThemedStyles } from '../styles/globalStyles'
 

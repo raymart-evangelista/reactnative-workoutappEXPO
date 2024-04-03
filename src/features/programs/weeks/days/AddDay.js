@@ -4,7 +4,7 @@ import { AnimatedFAB, Button } from 'react-native-paper'
 import { dayAdded } from '../../weeksSlice'
 import { nanoid } from '@reduxjs/toolkit'
 import { StyleSheet } from 'react-native'
-import { useThemedStyles } from '../../../styles/globalStyles'
+import { useThemedStyles } from '../../../../styles/globalStyles'
 
 export const AddDay = ({ weekId }) => {
   const styles = useThemedStyles()
