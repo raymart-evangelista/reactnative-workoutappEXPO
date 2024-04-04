@@ -333,6 +333,7 @@ export const programSlice = createSlice({
 export const {
   programAdded,
   programRemoved,
+  programUpdated,
   weekAdded,
   weekRemoved,
   weekUpdated,
