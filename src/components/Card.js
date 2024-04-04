@@ -1,9 +1,9 @@
 import { View } from 'react-native'
 import { Avatar, Card, Text, Button } from 'react-native-paper'
 import { StyleSheet } from 'react-native'
-import { RemoveWeek } from '../features/programs/weeks/RemoveWeek'
-import { RemoveDay } from '../features/programs/weeks/days/RemoveDay'
-import { RemoveExercise } from '../features/programs/weeks/days/exercises/RemoveExercise'
+import { RemoveWeek } from '../features/program/weeks/RemoveWeek'
+import { RemoveDay } from '../features/program/weeks/days/RemoveDay'
+import { RemoveExercise } from '../features/program/weeks/days/exercises/RemoveExercise'
 import { useDispatch, useSelector } from 'react-redux'
 import {
   dayRemoved,
@@ -12,7 +12,7 @@ import {
   exerciseUpdated,
   weekRemoved,
   weekUpdated,
-} from '../features/programs/weeksSlice'
+} from '../features/program/weeksSlice'
 import EditInfoModal from './EditInfoModal'
 
 const LeftContent = (props) => <Avatar.Icon {...props} icon="folder" />
