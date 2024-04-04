@@ -2,13 +2,8 @@ import { createSlice } from '@reduxjs/toolkit'
 import uuid from 'react-native-uuid'
 import { nanoid } from '@reduxjs/toolkit'
 
-// const generateUniqueId = () => {
-//   return uuid.v4()
-// }
-
 const initialState = [
   {
-    // id: generateUniqueId(),
     id: nanoid(),
     title: 'Loading week',
     description: 'During this week, get muscles used to movements.',
