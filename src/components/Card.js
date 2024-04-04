@@ -12,7 +12,7 @@ import {
   exerciseUpdated,
   weekRemoved,
   weekUpdated,
-} from '../features/program/weeksSlice'
+} from '../features/programSlice'
 import EditInfoModal from './EditInfoModal'
 
 const LeftContent = (props) => <Avatar.Icon {...props} icon="folder" />
@@ -36,8 +36,9 @@ export const WeekCard = ({
   isActive,
 }) => {
   const dispatch = useDispatch()
+  // console.log(`this is the weekId: ${weekId}`)
   const days = useSelector((state) => {
-    const week = state.weeks.find((week) => week.id === weekId)
+    const week = state.program.weeks.find((week) => week.id === weekId)
     return week ? week.days : []
   })
 
