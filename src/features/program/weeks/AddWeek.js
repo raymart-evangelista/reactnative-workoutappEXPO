@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { AnimatedFAB } from 'react-native-paper'
 
 import { nanoid } from '@reduxjs/toolkit'
-import { weekAdded } from '../weeksSlice'
+import { weekAdded } from '../../programSlice'
 import { StyleSheet } from 'react-native'
 import { useThemedStyles } from '../../../styles/globalStyles'
 

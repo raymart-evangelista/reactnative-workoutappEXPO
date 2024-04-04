@@ -9,7 +9,7 @@ import {
   Text,
   Switch,
 } from 'react-native-paper'
-import { exerciseAdded } from '../../../weeksSlice'
+import { exerciseAdded } from '../../../../programSlice'
 import { nanoid } from '@reduxjs/toolkit'
 import { StyleSheet, View } from 'react-native'
 import { useForm, Controller } from 'react-hook-form'

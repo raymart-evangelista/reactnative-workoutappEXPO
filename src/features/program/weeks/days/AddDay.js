@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { AnimatedFAB, Button } from 'react-native-paper'
-import { dayAdded } from '../../weeksSlice'
+import { dayAdded } from '../../../programSlice'
 import { nanoid } from '@reduxjs/toolkit'
 import { StyleSheet } from 'react-native'
 import { useThemedStyles } from '../../../../styles/globalStyles'

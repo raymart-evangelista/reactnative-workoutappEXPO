@@ -1,18 +1,18 @@
-import { useDispatch } from "react-redux";
-import { dayRemoved } from "../../weeksSlice";
-import { Button } from "react-native-paper";
+import { useDispatch } from 'react-redux'
+import { dayRemoved } from '../../../programSlice'
+import { Button } from 'react-native-paper'
 
 export const RemoveDay = ({ weekId, dayId }) => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
 
   const onRemoveDayClicked = () => {
     dispatch(
       dayRemoved({
         weekId,
         dayId,
-      }),
-    );
-  };
+      })
+    )
+  }
 
   return (
     <Button
@@ -22,5 +22,5 @@ export const RemoveDay = ({ weekId, dayId }) => {
     >
       Remove
     </Button>
-  );
-};
+  )
+}
