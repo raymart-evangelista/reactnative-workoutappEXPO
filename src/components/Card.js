@@ -29,11 +29,8 @@ export const WeekCard = ({
   weekId,
   title,
   description,
-  onRemove,
-  onEdit,
   onClick,
   onDrag,
-  isActive,
 }) => {
   const dispatch = useDispatch()
   // console.log(`this is the weekId: ${weekId}`)
