@@ -6,7 +6,7 @@ import {
   Dimensions,
   SafeAreaView,
 } from 'react-native'
-import { Button } from 'react-native-paper'
+import { Button, TextInput } from 'react-native-paper'
 
 import DraggableFlatList, {
   ScaleDecorator,
@@ -18,13 +18,23 @@ import { useDispatch, useSelector } from 'react-redux'
 import { AddWeek } from '../features/program/weeks/AddWeek'
 import { AddDay } from '../features/program/weeks/days/AddDay'
 import { AddExercise } from '../features/program/weeks/days/exercises/AddExercise'
+// import {
+//   daysReordered,
+//   exercisesReordered,
+//   weeksReordered,
+// } from '../features/program/weeksSlice'
+
 import {
+  programRemoved,
+  programUpdated,
   daysReordered,
   exercisesReordered,
   weeksReordered,
-} from '../features/program/weeksSlice'
+} from '../features/programSlice'
 
 import { useThemedStyles } from '../styles/globalStyles'
+import { Controller, useForm } from 'react-hook-form'
+import EditInfoModal from '../components/EditInfoModal'
 
 const EditWeekScreen = ({ route, navigation }) => {
   const dispatch = useDispatch()
@@ -32,7 +42,7 @@ const EditWeekScreen = ({ route, navigation }) => {
   const week = route.params.week
 
   const days = useSelector((state) => {
-    const week = state.weeks.find((week) => week.id === weekId)
+    const week = state.program.weeks.find((week) => week.id === weekId)
     return week ? week.days : []
   })
 
@@ -88,7 +98,7 @@ const EditDayScreen = ({ route, navigation }) => {
   const dayId = route.params.day.id
 
   const exercises = useSelector((state) => {
-    const week = state.weeks.find((week) => week.id === weekId)
+    const week = state.program.weeks.find((week) => week.id === weekId)
     if (!week) return []
 
     const day = week.days.find((day) => day.id === dayId)
@@ -181,7 +191,7 @@ const DayContainer = ({
   )
 }
 
-const WeekContainer = ({ week, onDelete, onDrag, isActive, navigation }) => {
+const WeekContainer = ({ week, onDrag, navigation }) => {
   const handleEditWeek = () => {
     navigation.navigate('EditWeek', { weekId: week.id, week })
   }
@@ -192,7 +202,6 @@ const WeekContainer = ({ week, onDelete, onDrag, isActive, navigation }) => {
       weekId={week.id}
       title={week.title}
       description={week.description}
-      onEdit={handleEditWeek}
       onClick={handleEditWeek}
       onDrag={onDrag}
     />
@@ -201,24 +210,23 @@ const WeekContainer = ({ week, onDelete, onDrag, isActive, navigation }) => {
 
 const CreateProgramScreen = ({ navigation }) => {
   const styles = useThemedStyles()
-  const [disableAddWeekButton, setDisabledAddWeekButton] = useState(false)
 
-  const onSubmit = (weeks) => console.log(weeks)
+  // const [disableAddWeekButton, setDisabledAddWeekButton] = useState(false)
+  // const handleRemoveWeek = (weekToRemove) => {
+  //   const keyToRemove = weekToRemove.key
+  //   setWeeks((currentWeeks) =>
+  //     currentWeeks.filter((week, index) => week.key !== keyToRemove)
+  //   )
+  //   console.log(`week with key [${keyToRemove}] removed`)
 
-  const handleRemoveWeek = (weekToRemove) => {
-    const keyToRemove = weekToRemove.key
-    setWeeks((currentWeeks) =>
-      currentWeeks.filter((week, index) => week.key !== keyToRemove)
-    )
-    console.log(`week with key [${keyToRemove}] removed`)
-
-    if (weeks.length < 8) {
-      setDisabledAddWeekButton(false)
-    }
-  }
+  //   if (weeks.length < 8) {
+  //     setDisabledAddWeekButton(false)
+  //   }
+  // }
 
   const dispatch = useDispatch()
-  const weeks = useSelector((state) => state.weeks)
+  const program = useSelector((state) => state.program)
+  const weeks = program.weeks
 
   const renderItem = ({ item, drag, isActive }) => {
     return (
@@ -226,9 +234,7 @@ const CreateProgramScreen = ({ navigation }) => {
         <WeekContainer
           week={item}
           index={item.index}
-          onDelete={() => handleRemoveWeek(item)}
           onDrag={drag}
-          isActive={isActive}
           navigation={navigation}
         />
       </ScaleDecorator>
@@ -244,25 +250,50 @@ const CreateProgramScreen = ({ navigation }) => {
 
   const flatListRef = useRef(0)
 
-  useEffect(() => {
-    if (weeks.length > 7) {
-      setDisabledAddWeekButton(true)
-    } else {
-      setDisabledAddWeekButton(false)
-    }
-  }, [weeks])
+  // useEffect(() => {
+  //   console.log(`weeks have been effected: ${weeks.length}`)
+  //   if (weeks.length > 7) {
+  //     setDisabledAddWeekButton(true)
+  //   } else {
+  //     setDisabledAddWeekButton(false)
+  //   }
+  // }, [weeks])
+
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    defaultValues: {
+      title: program.title,
+      description: program.description,
+    },
+  })
 
   return (
     <View className="h-full">
       <SafeAreaView className="flex-1">
         <Button
-          onPress={() => console.log(weeks)}
+          onPress={() => console.log(program)}
           style={styles.button}
           mode="contained"
           icon="check-all"
         >
           Submit New Program
         </Button>
+        <EditInfoModal
+          data={{ ...program }}
+          updateAction={(info) => {
+            dispatch(
+              programUpdated({
+                title: info.title,
+                description: info.description,
+              })
+            )
+          }}
+          entityType="Program"
+          onRemove={() => dispatch(programRemoved({ id: program.id }))}
+        />
         <DraggableFlatList
           data={weeks}
           onDragEnd={({ data }) => dispatch(weeksReordered(data))}
