@@ -228,7 +228,7 @@ export const programSlice = createSlice({
       state.weeks.push(action.payload)
     },
     weekRemoved: (state, action) => {
-      return state.weeks.filter((week) => week.id !== action.payload.id)
+      state.weeks = state.weeks.filter((week) => week.id !== action.payload.id)
     },
     weekUpdated: (state, action) => {
       const { id, title, description } = action.payload
