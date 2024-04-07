@@ -270,16 +270,9 @@ const CreateProgramScreen = ({ navigation }) => {
   //   }
   // }, [weeks])
 
-  const {
-    control,
-    handleSubmit,
-    formState: { errors },
-  } = useForm({
-    defaultValues: {
-      title: program.title,
-      description: program.description,
-    },
-  })
+  const onSubmit = () => {
+    console.log(program)
+  }
 
   return (
     <View className="h-full">
@@ -287,7 +280,7 @@ const CreateProgramScreen = ({ navigation }) => {
         {weeks.length > 0 ? (
           <>
             <Button
-              onPress={() => console.log(program)}
+              onPress={() => onSubmit()}
               style={styles.button}
               mode="contained"
               icon="check-all"
