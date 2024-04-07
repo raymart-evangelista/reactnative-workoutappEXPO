@@ -21,11 +21,7 @@ export const AddDay = ({ weekId }) => {
           id: nanoid(),
           title,
           description,
-          exercises: [
-            {
-              id: nanoid(),
-            },
-          ],
+          exercises: [],
         },
       })
     )
