@@ -272,6 +272,9 @@ const CreateProgramScreen = ({ navigation }) => {
 
   const onSubmit = () => {
     console.log(program)
+    // this function will add the program to the user's local storage
+    // it will also send it to the backend?
+    // once that process is valid, it will return the user to the home page
   }
 
   return (
