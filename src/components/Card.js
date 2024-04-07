@@ -47,11 +47,15 @@ export const WeekCard = ({
         <Text variant="bodyMedium" className="italic">
           {description}
         </Text>
-        {days.length > 0 && days.length == 1 && (
-          <Text variant="bodySmall">Contains {days.length} day</Text>
+        {week.days && days.length === 1 && (
+          <Text variant="bodyMedium" className="italic">
+            contains {week.days.length} day
+          </Text>
         )}
-        {days.length > 0 && days.length > 1 && (
-          <Text variant="bodySmall">Contains {days.length} days</Text>
+        {week.days && days.length !== 1 && (
+          <Text variant="bodyMedium" className="italic">
+            contains {week.days.length} days
+          </Text>
         )}
       </Card.Content>
       <Card.Actions style={styles.cardActions}>
@@ -94,6 +98,16 @@ export const DayCard = ({
         <Text variant="bodyMedium" className="italic">
           {content}
         </Text>
+        {day.exercises && day.exercises.length === 1 && (
+          <Text variant="bodyMedium" className="italic">
+            contains {day.exercises.length} exercise
+          </Text>
+        )}
+        {day.exercises && day.exercises.length !== 1 && (
+          <Text variant="bodyMedium" className="italic">
+            contains {day.exercises.length} exercises
+          </Text>
+        )}
       </Card.Content>
       <Card.Actions style={styles.cardActions}>
         <EditInfoModal
