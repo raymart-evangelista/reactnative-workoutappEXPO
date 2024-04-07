@@ -6,7 +6,7 @@ import {
   Dimensions,
   SafeAreaView,
 } from 'react-native'
-import { Button, TextInput } from 'react-native-paper'
+import { Button, Text, TextInput } from 'react-native-paper'
 
 import DraggableFlatList, {
   ScaleDecorator,
@@ -55,6 +55,7 @@ const EditWeekScreen = ({ route, navigation }) => {
     setIsExtended(offset < threshold)
   }
 
+  console.log(days.length)
   const renderItem = ({ item, drag, isActive }) => {
     return (
       <ScaleDecorator>
@@ -74,18 +75,24 @@ const EditWeekScreen = ({ route, navigation }) => {
   return (
     <View className="h-full">
       <SafeAreaView className="flex-1">
-        <DraggableFlatList
-          dragHitSlop={{ left: -50 }}
-          data={days}
-          onDragEnd={({ data }) =>
-            dispatch(daysReordered({ weekId, newDaysOrder: data }))
-          }
-          keyExtractor={(item) => item.id}
-          renderItem={renderItem}
-          containerStyle={{ flex: 1 }}
-          onScrollOffsetChange={handleScrollOffsetChange}
-          ref={flatListRef}
-        />
+        {days.length > 0 ? (
+          <DraggableFlatList
+            dragHitSlop={{ left: -50 }}
+            data={days}
+            onDragEnd={({ data }) =>
+              dispatch(daysReordered({ weekId, newDaysOrder: data }))
+            }
+            keyExtractor={(item) => item.id}
+            renderItem={renderItem}
+            containerStyle={{ flex: 1 }}
+            onScrollOffsetChange={handleScrollOffsetChange}
+            ref={flatListRef}
+          />
+        ) : (
+          <View>
+            <Text>No days added yet.</Text>
+          </View>
+        )}
         <AddDay weekId={weekId} />
       </SafeAreaView>
     </View>
@@ -122,18 +129,22 @@ const EditDayScreen = ({ route, navigation }) => {
   return (
     <View className="h-full">
       <SafeAreaView className="flex-1">
-        <DraggableFlatList
-          dragHitSlop={{ left: -50 }}
-          data={exercises}
-          onDragEnd={({ data }) =>
-            dispatch(
-              exercisesReordered({ weekId, dayId, newExercisesOrder: data })
-            )
-          }
-          keyExtractor={(item) => item.id}
-          renderItem={renderItem}
-          containerStyle={{ flex: 1 }}
-        />
+        {exercises.length > 0 ? (
+          <DraggableFlatList
+            dragHitSlop={{ left: -50 }}
+            data={exercises}
+            onDragEnd={({ data }) =>
+              dispatch(
+                exercisesReordered({ weekId, dayId, newExercisesOrder: data })
+              )
+            }
+            keyExtractor={(item) => item.id}
+            renderItem={renderItem}
+            containerStyle={{ flex: 1 }}
+          />
+        ) : (
+          <Text>No exercises added yet.</Text>
+        )}
         <AddExercise weekId={weekId} dayId={dayId} />
       </SafeAreaView>
     </View>
@@ -273,36 +284,42 @@ const CreateProgramScreen = ({ navigation }) => {
   return (
     <View className="h-full">
       <SafeAreaView className="flex-1">
-        <Button
-          onPress={() => console.log(program)}
-          style={styles.button}
-          mode="contained"
-          icon="check-all"
-        >
-          Submit New Program
-        </Button>
-        <EditInfoModal
-          data={{ ...program }}
-          updateAction={(info) => {
-            dispatch(
-              programUpdated({
-                title: info.title,
-                description: info.description,
-              })
-            )
-          }}
-          entityType="Program"
-          onRemove={() => dispatch(programRemoved({ id: program.id }))}
-        />
-        <DraggableFlatList
-          data={weeks}
-          onDragEnd={({ data }) => dispatch(weeksReordered(data))}
-          keyExtractor={(item) => item.id}
-          renderItem={renderItem}
-          containerStyle={{ flex: 1 }}
-          onScrollOffsetChange={handleScrollOffsetChange}
-          ref={flatListRef}
-        />
+        {weeks.length > 0 ? (
+          <>
+            <Button
+              onPress={() => console.log(program)}
+              style={styles.button}
+              mode="contained"
+              icon="check-all"
+            >
+              Submit New Program
+            </Button>
+            <EditInfoModal
+              data={{ ...program }}
+              updateAction={(info) => {
+                dispatch(
+                  programUpdated({
+                    title: info.title,
+                    description: info.description,
+                  })
+                )
+              }}
+              entityType="Program"
+              onRemove={() => dispatch(programRemoved({ id: program.id }))}
+            />
+            <DraggableFlatList
+              data={weeks}
+              onDragEnd={({ data }) => dispatch(weeksReordered(data))}
+              keyExtractor={(item) => item.id}
+              renderItem={renderItem}
+              containerStyle={{ flex: 1 }}
+              onScrollOffsetChange={handleScrollOffsetChange}
+              ref={flatListRef}
+            />
+          </>
+        ) : (
+          <Text>No weeks added yet.</Text>
+        )}
         <AddWeek />
       </SafeAreaView>
     </View>
