@@ -35,6 +35,7 @@ import {
 import { useThemedStyles } from '../styles/globalStyles'
 import { Controller, useForm } from 'react-hook-form'
 import EditInfoModal from '../components/EditInfoModal'
+import { addProgram } from '../features/programsSlice'
 
 const EditWeekScreen = ({ route, navigation }) => {
   const dispatch = useDispatch()
@@ -275,6 +276,7 @@ const CreateProgramScreen = ({ navigation }) => {
     // this function will add the program to the user's local storage
     // it will also send it to the backend?
     // once that process is valid, it will return the user to the home page
+    dispatch(addProgram(program))
   }
 
   return (
