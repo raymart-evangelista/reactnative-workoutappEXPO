@@ -1,7 +1,7 @@
 import { createSlice, nanoid } from '@reduxjs/toolkit'
 
 const initialState = {
-  id: nanoid(),
+  // id: nanoid(),
   title: 'New Program',
   description: 'Description of the program.',
   weeks: [
