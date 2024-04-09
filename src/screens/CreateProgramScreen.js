@@ -277,6 +277,7 @@ const CreateProgramScreen = ({ navigation }) => {
     // it will also send it to the backend?
     // once that process is valid, it will return the user to the home page
     dispatch(addProgram(program))
+    navigation.navigate('MyPrograms')
   }
 
   return (

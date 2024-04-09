@@ -21,7 +21,7 @@ export default function HomeScreen({ navigation, route }) {
       <Button
         style={[styles.button, { width: buttonWidth }]}
         mode="outlined"
-        onPress={() => navigation.navigate()}
+        onPress={() => navigation.navigate('MyPrograms')}
         icon="text-box-check-outline"
       >
         My programs
