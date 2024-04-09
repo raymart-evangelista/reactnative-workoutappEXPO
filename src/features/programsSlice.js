@@ -11,6 +11,10 @@ export const programsSlice = createSlice({
   reducers: {
     addProgram: (state, action) => {
       state.programs.push({ ...action.payload, id: nanoid() })
+      console.log(
+        `\t---program was added. There are now: ${state.programs.length} programs`
+      )
+      console.log('\n\n')
     },
     updateProgram: (state, action) => {
       const { id, ...updates } = action.payload
