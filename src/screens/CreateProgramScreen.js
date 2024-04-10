@@ -30,6 +30,7 @@ import {
   daysReordered,
   exercisesReordered,
   weeksReordered,
+  resetProgram,
 } from '../features/programSlice'
 
 import { useThemedStyles } from '../styles/globalStyles'
@@ -277,8 +278,16 @@ const CreateProgramScreen = ({ navigation }) => {
     // it will also send it to the backend?
     // once that process is valid, it will return the user to the home page
     dispatch(addProgram(program))
+    dispatch(resetProgram())
     navigation.navigate('MyPrograms')
   }
+
+  // useEffect(() => {
+  //   return () => {
+  //     console.log('inside the return')
+  //     dispatch(resetProgram())
+  //   }
+  // }, [dispatch])
 
   return (
     <View className="h-full">
