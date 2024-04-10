@@ -56,7 +56,6 @@ import TabNavigator from './src/navigation/TabNavigator'
 
 import { Provider as ReduxProvider } from 'react-redux'
 import store from './src/app/store'
-import MyProgramsScreen from './src/screens/MyProgramsScreen'
 
 export default function App() {
   return (
@@ -82,7 +81,6 @@ function AppContent() {
         initialRouteName="TabNavigator"
         screenOptions={{ headerShown: false }}
       >
-        <Stack.Screen name="MyPrograms" component={MyProgramsScreen} />
         <Stack.Screen name="Settings" component={SettingsScreen} />
         <Stack.Screen
           name="TabNavigator"

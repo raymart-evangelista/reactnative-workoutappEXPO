@@ -20,6 +20,7 @@ import {
   EditWeekScreen,
   EditDayScreen,
 } from './CreateProgramScreen'
+import MyProgramsScreen from './MyProgramsScreen'
 const ExistingProgramsStack = createNativeStackNavigator()
 
 export function ExistingProgramsStackScreen() {
@@ -36,6 +37,10 @@ export function ExistingProgramsStackScreen() {
       <ExistingProgramsStack.Screen
         name="EditWeek"
         component={EditWeekScreen}
+      />
+      <ExistingProgramsStack.Screen
+        name="MyPrograms"
+        component={MyProgramsScreen}
       />
       <ExistingProgramsStack.Screen name="EditDay" component={EditDayScreen} />
     </ExistingProgramsStack.Navigator>
