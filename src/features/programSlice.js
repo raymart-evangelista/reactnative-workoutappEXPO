@@ -219,6 +219,12 @@ export const programSlice = createSlice({
   reducers: {
     programAdded: (state, action) => {},
     programRemoved: (state, action) => {},
+    resetProgram: (state) => {
+      state.title = 'New Program'
+      state.description = 'Description of the program.'
+      state.weeks = []
+      console.log(`\t\t--program reset`)
+    },
     programUpdated: (state, action) => {
       const { title, description } = action.payload
       state.title = title
@@ -331,6 +337,7 @@ export const programSlice = createSlice({
 })
 
 export const {
+  resetProgram,
   programAdded,
   programRemoved,
   programUpdated,
