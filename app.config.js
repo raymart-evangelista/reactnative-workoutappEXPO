@@ -18,10 +18,12 @@ export default {
     },
     assetBundlePatterns: ['**/*'],
     ios: {
+      bundleIdentifier: 'com.raymartevangelista.WorkoutAppExpo',
       supportsTablet: true,
       userInterfaceStyle: 'automatic',
     },
     android: {
+      package: 'com.raymartevangelista.WorkoutAppExpo',
       adaptiveIcon: {
         foregroundImage: './assets/adaptive-icon.png',
         backgroundColor: '#FFFFFF',
@@ -33,6 +35,10 @@ export default {
     },
     extra: {
       BASE_URL: process.env.BASE_URL,
+      GOOGLE_WEB_ID: process.env.GOOGLE_WEB_ID,
+      GOOGLE_IOS_ID: process.env.GOOGLE_IOS_ID,
+      GOOGLE_ANDROID_ID: process.env.GOOGLE_ANDROID_ID,
     },
+    scheme: 'WorkoutAppExpo',
   },
 }
