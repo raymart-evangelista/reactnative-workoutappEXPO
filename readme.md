@@ -29,7 +29,12 @@
   - when adding functionality that works by calling the backend, first start with the server folder by creating the backend routes, middleware, utils. second, start creating the frontend services that talk with both the backend and frontend. third, create hooks if necessary. fourth, implement frontend and add useStates and functions necessary for working through the chain.
 
 - RESOURCES
+
   - Context API
+
     - [react.dev useContext](https://react.dev/reference/react/useContext)
     - [react.dev createContext](https://react.dev/reference/react/createContext)
     - [Guide to React Context API in Functional Components](https://dev.to/danireptor/guide-to-react-context-api-on-functional-components-1kj4)
+
+  - User Authentication
+    - [Sign in with Google](https://www.youtube.com/watch?v=BDeKTPQzvR4)
