@@ -78,9 +78,10 @@ function AppContent() {
     <NavigationContainer theme={theme}>
       {/* <Stack.Navigator initialRouteName='CreateProgram' screenOptions={{headerShown: true}}> */}
       <Stack.Navigator
-        initialRouteName="TabNavigator"
+        initialRouteName="Landing"
         screenOptions={{ headerShown: false }}
       >
+        <Stack.Screen name="Landing" component={LandingPage} />
         <Stack.Screen name="Settings" component={SettingsScreen} />
         <Stack.Screen
           name="TabNavigator"
