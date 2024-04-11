@@ -37,4 +37,4 @@
     - [Guide to React Context API in Functional Components](https://dev.to/danireptor/guide-to-react-context-api-on-functional-components-1kj4)
 
   - User Authentication
-    - [Sign in with Google](https://www.youtube.com/watch?v=BDeKTPQzvR4)
+    - [Sign in with Google](https://youtu.be/BDeKTPQzvR4?si=DnjRL84vsmrnR0oH)
