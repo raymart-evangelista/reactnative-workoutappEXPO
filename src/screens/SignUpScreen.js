@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useState } from 'react'
 import {
   Button,
   Image,
@@ -8,65 +8,61 @@ import {
   TextInput,
   TouchableOpacity,
   View,
-} from "react-native";
-import { defaultStyles } from "../styles/globalStyles";
-import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-import axios from "axios";
+} from 'react-native'
+import { defaultStyles } from '../styles/globalStyles'
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+import axios from 'axios'
 
-import { TextInput as PaperInput } from "react-native-paper";
+import { TextInput as PaperInput } from 'react-native-paper'
 
-import signUpService from "../services/users";
-import Notification from "../components/Notification";
-import LogInScreen from "./LogInScreen";
+import signUpService from '../services/users'
+import Notification from '../components/Notification'
+import LogInScreen from './LogInScreen'
 
-import loginService from "../services/login";
-import { AuthContext } from "../contexts/AuthContext";
+import loginService from '../services/login'
+import { AuthContext } from '../contexts/AuthContext'
 
 export default function SignUpScreen({ navigation }) {
-  const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [username, setUsername] = useState('')
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
 
-  const [notificationMessage, setNotificationMessage] = useState("");
-  const [notificationColor, setNotificationColor] = useState("");
+  const [notificationMessage, setNotificationMessage] = useState('')
+  const [notificationColor, setNotificationColor] = useState('')
 
-  const { login } = useContext(AuthContext);
+  const { login } = useContext(AuthContext)
 
   const handleSubmit = async () => {
-    if (username === "" || email === "" || password === "") {
-      setNotificationMessage("All fields are required");
-      setNotificationColor("red");
-      return;
+    if (username === '' || email === '' || password === '') {
+      setNotificationMessage('All fields are required')
+      setNotificationColor('red')
+      return
     }
 
     try {
-      const returnedInfo = await signUpService.signUp(
-        username,
-        email,
-        password,
-      );
-      console.log(returnedInfo);
+      const returnedInfo = await signUpService.signUp(username, email, password)
+      console.log(returnedInfo)
       // alert("Sign Up Successful.")
-      setNotificationMessage("Signed up successfully");
-      setNotificationColor("green");
+      setNotificationMessage('Signed up successfully')
+      setNotificationColor('green')
 
       const user = await loginService.login({
         username,
         password,
-      });
+      })
 
-      setNotificationMessage("Logging in");
+      setNotificationMessage('Logging in')
 
-      login({ user: user.username, email: user.email, token: user.token });
+      login({ user: user.username, email: user.email, token: user.token })
 
-      navigation.replace("Home");
+      navigation.replace('Home')
     } catch (error) {
-      console.error(error);
-      setNotificationMessage("Sign up failed");
-      setNotificationColor("red");
+      console.error(error)
+      setNotificationMessage('Sign up failed')
+      setNotificationColor('red')
       // alert("Something went wrong. Please try again.")
     }
-  };
+  }
 
   return (
     <View style={defaultStyles.basic}>
@@ -78,7 +74,7 @@ export default function SignUpScreen({ navigation }) {
           style={defaultStyles.signupInput}
           placeholder="Username"
           onChangeText={(newUsername) => setUsername(newUsername)}
-          autoCapitalize={false}
+          autoCapitalize="none"
           autoCorrect={false}
         />
       </View>
@@ -87,7 +83,7 @@ export default function SignUpScreen({ navigation }) {
           style={defaultStyles.signupInput}
           placeholder="Email"
           onChangeText={(newEmail) => setEmail(newEmail)}
-          autoCapitalize={false}
+          autoCapitalize="none"
           autoCorrect={false}
           autoComplete="email"
           keyboardType="email-address"
@@ -98,7 +94,7 @@ export default function SignUpScreen({ navigation }) {
           style={defaultStyles.signupInput}
           placeholder="Password"
           onChangeText={(newPassword) => setPassword(newPassword)}
-          autoCapitalize={false}
+          autoCapitalize="none"
           autoCorrect={false}
           autoComplete="password"
           secureTextEntry={true}
@@ -110,6 +106,17 @@ export default function SignUpScreen({ navigation }) {
       >
         <Text style={defaultStyles.buttonText}>Sign Up</Text>
       </TouchableOpacity>
+      <Text
+        style={{
+          color: 'black',
+          fontWeight: 'bold',
+          fontSize: 12,
+          textAlign: 'center',
+        }}
+        onPress={() => navigation.navigate('LogIn')}
+      >
+        Already have an account? Log in
+      </Text>
     </View>
-  );
+  )
 }
