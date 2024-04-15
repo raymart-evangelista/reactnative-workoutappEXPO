@@ -6,12 +6,15 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 import { useEffect, useState } from 'react'
 
 import { ScrollView } from 'react-native-gesture-handler'
+import { SafeAreaView } from 'react-native-safe-area-context'
 
 WebBrowser.maybeCompleteAuthSession()
 
 import Constants from 'expo-constants'
+import { useThemedStyles } from '../styles/globalStyles'
 
 export default function LandingPage({ navigation, route }) {
+  const styles = useThemedStyles()
   const [userInfo, setUserInfo] = useState(null)
   const [request, response, promptAsync] = Google.useAuthRequest({
     androidClientId: Constants.expoConfig.extra.GOOGLE_ANDROID_ID,
@@ -31,6 +34,7 @@ export default function LandingPage({ navigation, route }) {
     try {
       const user = await getUserInfo(token)
       setUserInfo(user)
+      console.log(user)
       await AsyncStorage.setItem('@user', JSON.stringify(user))
     } catch (error) {
       console.error('Failed to sign in with Google:', error)
@@ -45,45 +49,50 @@ export default function LandingPage({ navigation, route }) {
   }
 
   return (
-    <View className="flex-1">
-      <ImageBackground
-        source={require('../images/landing-image.png')}
-        className="flex-1	justify-center"
-      >
-        <ScrollView>
-          <Text className="text-center text-6xl">PeakPlanner</Text>
-          {/* auth sign in buttons, use google or apple id */}
-          <Text className="text-center text-6xl">
-            {JSON.stringify(userInfo, null, 2)}
-          </Text>
-          <View className="flex-row justify-evenly">
-            <Button
-              mode="elevated"
-              onPress={() => navigation.navigate('LogIn')}
-            >
-              Log In
-            </Button>
-            <Button
-              mode="elevated"
-              onPress={() => navigation.navigate('SignUp')}
-            >
-              Sign Up
-            </Button>
-            <Button mode="elevated" onPress={() => promptAsync()}>
-              Sign in with Google
-            </Button>
-            <Button
-              mode="elevated"
-              onPress={async () => {
-                await AsyncStorage.removeItem('@user')
-                setUserInfo(null)
-              }}
-            >
-              Delete local storage
-            </Button>
-          </View>
-        </ScrollView>
-      </ImageBackground>
-    </View>
+    <ImageBackground
+      source={require('../images/landing-image.png')}
+      className="flex-1"
+    >
+      <SafeAreaView style={styles.screenWithOptions}>
+        <Text className="text-center text-6xl">PeakPlanner</Text>
+        {/* auth sign in buttons, use google or apple id */}
+        <Text className="text-center text-6xl">
+          {JSON.stringify(userInfo, null, 2)}
+        </Text>
+        <View className="flex-column justify-evenly">
+          <Button
+            style={[styles.button]}
+            mode="elevated"
+            onPress={() => navigation.navigate('LogIn')}
+          >
+            Log In
+          </Button>
+          <Button
+            style={[styles.button]}
+            mode="elevated"
+            onPress={() => navigation.navigate('SignUp')}
+          >
+            Sign Up
+          </Button>
+          <Button
+            style={[styles.button]}
+            mode="elevated"
+            onPress={() => promptAsync()}
+          >
+            Sign in with Google
+          </Button>
+          <Button
+            style={[styles.button]}
+            mode="elevated"
+            onPress={async () => {
+              await AsyncStorage.removeItem('@user')
+              setUserInfo(null)
+            }}
+          >
+            Delete local storage
+          </Button>
+        </View>
+      </SafeAreaView>
+    </ImageBackground>
   )
 }
