@@ -57,15 +57,19 @@ import TabNavigator from './src/navigation/TabNavigator'
 import { Provider as ReduxProvider } from 'react-redux'
 import store from './src/app/store'
 
+import { SafeAreaProvider } from 'react-native-safe-area-context'
+
 export default function App() {
   return (
     <ReduxProvider store={store}>
       <GestureHandlerRootView style={{ flex: 1 }}>
-        <AuthProvider>
-          <ThemeContextProvider>
-            <AppContent />
-          </ThemeContextProvider>
-        </AuthProvider>
+        <SafeAreaProvider>
+          <AuthProvider>
+            <ThemeContextProvider>
+              <AppContent />
+            </ThemeContextProvider>
+          </AuthProvider>
+        </SafeAreaProvider>
       </GestureHandlerRootView>
     </ReduxProvider>
   )
