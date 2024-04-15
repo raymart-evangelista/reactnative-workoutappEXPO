@@ -1,52 +1,53 @@
-import { useState, useEffect, useContext } from "react";
-import { Button, Text, TextInput, TouchableOpacity, View } from "react-native";
-import { defaultStyles } from "../styles/globalStyles";
-import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import { useState, useEffect, useContext } from 'react'
+import { Button, Text, TextInput, TouchableOpacity, View } from 'react-native'
+import { defaultStyles } from '../styles/globalStyles'
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
-import loginService from "../services/login";
-import Notification from "../components/Notification";
-import { AuthContext } from "../contexts/AuthContext";
+import loginService from '../services/login'
+import Notification from '../components/Notification'
+import { AuthContext } from '../contexts/AuthContext'
 
 export default function LogInScreen({ navigation }) {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const [username, setUsername] = useState('')
+  const [password, setPassword] = useState('')
+  const [user, setUser] = useState(null)
+  const [loading, setLoading] = useState(false)
 
-  const [notificationMessage, setNotificationMessage] = useState("");
-  const [notificationColor, setNotificationColor] = useState("");
+  const [notificationMessage, setNotificationMessage] = useState('')
+  const [notificationColor, setNotificationColor] = useState('')
 
-  const { login } = useContext(AuthContext);
+  const { login } = useContext(AuthContext)
 
   const handleLogin = async () => {
-    if (username === "" || password === "") {
-      setNotificationMessage("All fields are required");
-      setNotificationColor("red");
-      return;
+    if (username === '' || password === '') {
+      setNotificationMessage('All fields are required')
+      setNotificationColor('red')
+      return
     }
 
     try {
-      setLoading(true);
+      setLoading(true)
       const user = await loginService.login({
         username,
         password,
-      });
-      setUser(user);
+      })
+      setUser(user)
 
-      setNotificationMessage(`Success. Welcome ${user.username}.`);
-      setNotificationColor("green");
-      navigation.replace("Home");
+      setNotificationMessage(`Success. Welcome ${user.username}.`)
+      setNotificationColor('green')
+      navigation.replace('TabNavigator', { screen: 'Home' })
       // updates AuthContext
 
-      login({ user: user.username, email: user.email, token: user.token });
+      login({ user: user.username, email: user.email, token: user.token })
     } catch (error) {
-      console.error(error);
-      setNotificationMessage("Log in failed. Wrong credentials");
-      setNotificationColor("red");
+      console.error(error)
+      // setNotificationMessage('Log in failed. Wrong credentials')
+      setNotificationMessage(error.message)
+      setNotificationColor('red')
     } finally {
-      setLoading(false);
+      setLoading(false)
     }
-  };
+  }
 
   // useEffect(() => {
   //   if (user) {
@@ -65,7 +66,7 @@ export default function LogInScreen({ navigation }) {
             style={defaultStyles.signupInput}
             placeholder="Username"
             onChangeText={(newUsername) => setUsername(newUsername)}
-            autoCapitalize={false}
+            autoCapitalize="none"
             autoCorrect={false}
           />
         </View>
@@ -74,7 +75,7 @@ export default function LogInScreen({ navigation }) {
             style={defaultStyles.signupInput}
             placeholder="Password"
             onChangeText={(newPassword) => setPassword(newPassword)}
-            autoCapitalize={false}
+            autoCapitalize="none"
             autoCorrect={false}
             autoComplete="password"
             secureTextEntry={true}
@@ -93,19 +94,19 @@ export default function LogInScreen({ navigation }) {
         </TouchableOpacity>
         <Text
           style={{
-            color: "black",
-            fontWeight: "bold",
+            color: 'black',
+            fontWeight: 'bold',
             fontSize: 12,
-            textAlign: "center",
+            textAlign: 'center',
           }}
-          onPress={() => navigation.navigate("SignUp")}
+          onPress={() => navigation.navigate('SignUp')}
         >
           Not registered? Sign Up
         </Text>
-        <Text style={{ fontSize: 12, textAlign: "center", marginTop: 10 }}>
+        <Text style={{ fontSize: 12, textAlign: 'center', marginTop: 10 }}>
           Forgot password?
         </Text>
       </View>
     </KeyboardAwareScrollView>
-  );
+  )
 }
