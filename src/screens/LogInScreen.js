@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext } from 'react'
+import { useState, useEffect, useContext, useRef } from 'react'
 import { Text, TouchableOpacity, View } from 'react-native'
 import { TextInput, Button } from 'react-native-paper'
 import { defaultStyles, useThemedStyles } from '../styles/globalStyles'
@@ -19,6 +19,7 @@ const loginSchema = yup.object({
 
 export default function LogInScreen({ navigation }) {
   const styles = useThemedStyles()
+  const passwordInputRef = useRef(null)
   const {
     control,
     handleSubmit,
@@ -37,13 +38,6 @@ export default function LogInScreen({ navigation }) {
   const [notificationColor, setNotificationColor] = useState('')
 
   const { login } = useContext(AuthContext)
-
-  // const handleLogin = async () => {
-  //   if (username === '' || password === '') {
-  //     setNotificationMessage('All fields are required')
-  //     setNotificationColor('red')
-  //     return
-  //   }
 
   const onLoginSubmit = async ({ username, password }) => {
     try {
@@ -95,6 +89,8 @@ export default function LogInScreen({ navigation }) {
               mode="outlined"
               autoCapitalize="none"
               style={styles.input}
+              returnKeyType="next"
+              onSubmitEditing={() => passwordInputRef.current?.focus()}
             />
           </View>
         )}
@@ -111,6 +107,7 @@ export default function LogInScreen({ navigation }) {
         }) => (
           <View style={styles.inputContainer}>
             <TextInput
+              ref={passwordInputRef}
               label="Password"
               onBlur={onBlur}
               onChangeText={onChange}
@@ -120,6 +117,8 @@ export default function LogInScreen({ navigation }) {
               autoCapitalize="none"
               style={styles.input}
               secureTextEntry
+              returnKeyType="next"
+              onSubmitEditing={handleSubmit(onLoginSubmit)}
             />
           </View>
         )}
@@ -131,8 +130,9 @@ export default function LogInScreen({ navigation }) {
         mode="contained"
         style={styles.button}
         onPress={handleSubmit(onLoginSubmit)}
+        disabled={loading}
       >
-        {loading ? <Text>Loading</Text> : <Text>Log In</Text>}
+        {loading ? 'Loading...' : 'Log In'}
       </Button>
       <View style={defaultStyles.basic}>
         {/* <TouchableOpacity
