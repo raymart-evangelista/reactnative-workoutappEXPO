@@ -136,17 +136,6 @@ export default function LogInScreen({ navigation }) {
         {loading ? 'Loading...' : 'Log In'}
       </Button>
       <View style={defaultStyles.basic}>
-        {/* <TouchableOpacity
-          onPress={handleLogin}
-          style={[defaultStyles.buttonStyle, user !== null && { opacity: 0.5 }]}
-          disabled={user !== null}
-        >
-          {loading ? (
-            <Text style={defaultStyles.buttonText}>Loading</Text>
-          ) : (
-            <Text style={defaultStyles.buttonText}>Log In</Text>
-          )}
-        </TouchableOpacity> */}
         <Text
           style={{
             color: 'black',
