@@ -131,6 +131,7 @@ export default function LogInScreen({ navigation }) {
         style={styles.button}
         onPress={handleSubmit(onLoginSubmit)}
         disabled={loading}
+        loading={loading}
       >
         {loading ? 'Loading...' : 'Log In'}
       </Button>
