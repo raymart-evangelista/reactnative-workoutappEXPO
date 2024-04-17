@@ -34,7 +34,7 @@ export default {
       favicon: './assets/favicon.png',
     },
     extra: {
-      BASE_URL: process.env.BASE_URL,
+      BASE_LOGIN_URL: process.env.BASE_LOGIN_URL,
       GOOGLE_WEB_ID: process.env.GOOGLE_WEB_ID,
       GOOGLE_IOS_ID: process.env.GOOGLE_IOS_ID,
       GOOGLE_ANDROID_ID: process.env.GOOGLE_ANDROID_ID,

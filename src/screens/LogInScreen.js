@@ -117,7 +117,7 @@ export default function LogInScreen({ navigation }) {
               autoCapitalize="none"
               style={styles.input}
               secureTextEntry
-              returnKeyType="next"
+              returnKeyType="go"
               onSubmitEditing={handleSubmit(onLoginSubmit)}
             />
           </View>
