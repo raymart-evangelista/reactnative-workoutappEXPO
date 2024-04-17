@@ -5,7 +5,7 @@ const baseUrl = Constants.expoConfig.extra.BASE_LOGIN_URL
 
 const login = async (credentials) => {
   try {
-    console.log(baseUrl)
+    // console.log(baseUrl)
     const res = await axios.post(baseUrl, credentials)
     return res.data
   } catch (error) {
