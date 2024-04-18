@@ -30,25 +30,20 @@ export default function SignUpScreen({ navigation }) {
   const emailInputRef = useRef(null)
   const passwordInputRef = useRef(null)
 
-  const [username, setUsername] = useState('')
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-
   const [notificationMessage, setNotificationMessage] = useState('')
   const [notificationColor, setNotificationColor] = useState('')
   const [loading, setLoading] = useState(false)
 
   const { login } = useContext(AuthContext)
 
-  const onSignupSubmit = async () => {
-    if (username === '' || email === '' || password === '') {
-      setNotificationMessage('All fields are required')
-      setNotificationColor('red')
-      return
-    }
-
+  const onSignupSubmit = async ({ username, email, password }) => {
     try {
-      const returnedInfo = await signUpService.signUp(username, email, password)
+      setLoading(true)
+      const returnedInfo = await signUpService.signUp({
+        username,
+        email,
+        password,
+      })
       console.log(returnedInfo)
       // alert("Sign Up Successful.")
       setNotificationMessage('Signed up successfully')
@@ -63,12 +58,17 @@ export default function SignUpScreen({ navigation }) {
 
       login({ user: user.username, email: user.email, token: user.token })
 
-      navigation.replace('Home')
+      navigation.reset({
+        index: 0,
+        routes: [{ name: 'TabNavigator', params: { screen: 'Home' } }],
+      })
     } catch (error) {
       console.error(error)
-      setNotificationMessage('Sign up failed')
+      setNotificationMessage(error.message)
       setNotificationColor('red')
       // alert("Something went wrong. Please try again.")
+    } finally {
+      setLoading(false)
     }
   }
 
@@ -122,6 +122,9 @@ export default function SignUpScreen({ navigation }) {
           </View>
         )}
       />
+      {errors.username && (
+        <Text style={styles.errorText}>{errors.username.message}</Text>
+      )}
       <Controller
         control={control}
         name="email"
@@ -148,6 +151,9 @@ export default function SignUpScreen({ navigation }) {
           </View>
         )}
       />
+      {errors.email && (
+        <Text style={styles.errorText}>{errors.email.message}</Text>
+      )}
       <Controller
         control={control}
         name="password"
@@ -174,6 +180,9 @@ export default function SignUpScreen({ navigation }) {
           </View>
         )}
       />
+      {errors.password && (
+        <Text style={styles.errorText}>{errors.password.message}</Text>
+      )}
       <Button
         mode="contained"
         style={styles.button}
