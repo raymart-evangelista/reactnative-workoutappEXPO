@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react'
+import { useContext, useState, useRef } from 'react'
 import { defaultStyles } from '../styles/globalStyles'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import axios from 'axios'
@@ -27,6 +27,9 @@ import { View } from 'react-native'
 
 export default function SignUpScreen({ navigation }) {
   const styles = useThemedStyles()
+  const emailInputRef = useRef(null)
+  const passwordInputRef = useRef(null)
+
   const [username, setUsername] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -114,6 +117,7 @@ export default function SignUpScreen({ navigation }) {
               autoCapitalize="none"
               style={styles.input}
               returnKeyType="next"
+              onSubmitEditing={() => emailInputRef.current?.focus()}
             />
           </View>
         )}
@@ -127,6 +131,7 @@ export default function SignUpScreen({ navigation }) {
         }) => (
           <View style={styles.inputContainer}>
             <TextInput
+              ref={emailInputRef}
               label="Email"
               onBlur={onBlur}
               onChangeText={onChange}
@@ -138,6 +143,7 @@ export default function SignUpScreen({ navigation }) {
               returnKeyType="next"
               autoComplete="email"
               keyboardType="email-address"
+              onSubmitEditing={() => passwordInputRef.current?.focus()}
             />
           </View>
         )}
@@ -151,6 +157,7 @@ export default function SignUpScreen({ navigation }) {
         }) => (
           <View style={styles.inputContainer}>
             <TextInput
+              ref={passwordInputRef}
               label="Password"
               onBlur={onBlur}
               onChangeText={onChange}
@@ -162,6 +169,7 @@ export default function SignUpScreen({ navigation }) {
               returnKeyType="go"
               autoComplete="password-new"
               secureTextEntry
+              onSubmitEditing={handleSubmit(onSignupSubmit)}
             />
           </View>
         )}
