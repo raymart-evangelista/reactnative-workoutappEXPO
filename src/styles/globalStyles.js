@@ -167,6 +167,16 @@ const darkStyles = StyleSheet.create({
 const useThemedStyles = () => {
   const { theme } = useTheme()
   const styles = StyleSheet.create({
+    notificationContainer: {
+      padding: 10,
+      borderRadius: 5,
+      marginTop: 20,
+    },
+    notificationMessage: {
+      textAlign: 'center',
+      fontSize: 16,
+      marginHorizontal: 20,
+    },
     validText: {
       color: 'green',
       fontSize: 14,
