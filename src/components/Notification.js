@@ -11,9 +11,7 @@ export default function Notification({ message, type }) {
     type === 'error' ? '#CC0000' : type === 'success' ? '#006600' : '#666600'
   return (
     <View style={[styles.notificationContainer, { backgroundColor }]}>
-      <Text style={styles.notificationMessage}>
-        {type}: {message}
-      </Text>
+      <Text style={styles.notificationMessage}>{message}</Text>
     </View>
   )
 }
