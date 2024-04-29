@@ -1,4 +1,4 @@
-import { useContext, useState, useRef } from 'react'
+import { useContext, useState, useRef, useEffect } from 'react'
 import { defaultStyles } from '../styles/globalStyles'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import axios from 'axios'
@@ -10,8 +10,9 @@ import {
   TextInput,
 } from 'react-native-paper'
 
-import signUpService from '../services/users'
 import Notification from '../components/Notification'
+
+import signUpService from '../services/users'
 import LogInScreen from './LogInScreen'
 
 import loginService from '../services/login'
@@ -30,9 +31,9 @@ export default function SignUpScreen({ navigation }) {
   const emailInputRef = useRef(null)
   const passwordInputRef = useRef(null)
 
-  const [notificationMessage, setNotificationMessage] = useState('')
-  const [notificationColor, setNotificationColor] = useState('')
   const [loading, setLoading] = useState(false)
+  const [notificationMessage, setNotificationMessage] = useState('')
+  const [notificationType, setNotificationType] = useState('')
 
   const { login } = useContext(AuthContext)
 
@@ -47,14 +48,12 @@ export default function SignUpScreen({ navigation }) {
       console.log(returnedInfo)
       // alert("Sign Up Successful.")
       setNotificationMessage('Signed up successfully')
-      setNotificationColor('green')
+      setNotificationType('success')
 
       const user = await loginService.login({
         username,
         password,
       })
-
-      setNotificationMessage('Logging in')
 
       login({ user: user.username, email: user.email, token: user.token })
 
@@ -63,10 +62,8 @@ export default function SignUpScreen({ navigation }) {
         routes: [{ name: 'TabNavigator', params: { screen: 'Home' } }],
       })
     } catch (error) {
-      console.error(error)
       setNotificationMessage(error.message)
-      setNotificationColor('red')
-      // alert("Something went wrong. Please try again.")
+      setNotificationType('error')
     } finally {
       setLoading(false)
     }
@@ -94,11 +91,12 @@ export default function SignUpScreen({ navigation }) {
       password: '',
     },
   })
+
   return (
     <SafeAreaView style={styles.screenWithOptions}>
       <Text className="text-center text-6xl">PeakPlanner</Text>
       <Text style={defaultStyles.signupText}>Sign Up</Text>
-      <Notification message={notificationMessage} color={notificationColor} />
+      <Notification message={notificationMessage} type={notificationType} />
       <Controller
         control={control}
         name="username"
