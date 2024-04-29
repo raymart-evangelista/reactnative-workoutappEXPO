@@ -5,8 +5,9 @@ import { defaultStyles, useThemedStyles } from '../styles/globalStyles'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
 import loginService from '../services/login'
-import Notification from '../components/Notification'
 import { AuthContext } from '../contexts/AuthContext'
+
+import Notification from '../components/Notification'
 
 import { useForm, Controller } from 'react-hook-form'
 import { SafeAreaView } from 'react-native-safe-area-context'
@@ -32,10 +33,10 @@ export default function LogInScreen({ navigation }) {
       password: '',
     },
   })
-  const [loading, setLoading] = useState(false)
 
+  const [loading, setLoading] = useState(false)
   const [notificationMessage, setNotificationMessage] = useState('')
-  const [notificationColor, setNotificationColor] = useState('')
+  const [notificationType, setNotificationType] = useState('')
 
   const { login } = useContext(AuthContext)
 
@@ -47,31 +48,26 @@ export default function LogInScreen({ navigation }) {
         password,
       })
       setNotificationMessage(`Success. Welcome ${user.username}.`)
-      setNotificationColor('green')
+      setNotificationType('success')
+
       navigation.reset({
         index: 0,
         routes: [{ name: 'TabNavigator', params: { screen: 'Home' } }],
       })
       login({ user: user.username, email: user.email, token: user.token })
     } catch (error) {
-      console.error(error)
       setNotificationMessage(error.message)
-      setNotificationColor('red')
+      setNotificationType('error')
     } finally {
       setLoading(false)
     }
   }
 
   return (
-    <SafeAreaView
-      className="border-2 border-red-500"
-      // contentContainerStyle={defaultStyles.basic}
-      style={styles.screenWithOptions}
-    >
+    <SafeAreaView style={styles.screenWithOptions}>
       <Text className="text-center text-6xl">PeakPlanner</Text>
       <Text style={defaultStyles.signupText}>Log In</Text>
-      <Notification message={notificationMessage} color={notificationColor} />
-
+      <Notification message={notificationMessage} type={notificationType} />
       <Controller
         control={control}
         name="username"
