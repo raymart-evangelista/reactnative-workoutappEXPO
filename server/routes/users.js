@@ -12,12 +12,12 @@ usersRouter.post('/', async (req, res) => {
     // check if username or email is already in DB
     const existingUsername = await User.findOne({ username })
     if (existingUsername) {
-      return res.status(400).json({ error: 'Username already taken' })
+      return res.status(400).json({ error: 'Username or email already taken' })
     }
 
     const existingEmail = await User.findOne({ email })
     if (existingEmail) {
-      return res.status(400).json({ error: 'Email already taken' })
+      return res.status(400).json({ error: 'Username or email already taken' })
     }
 
     const saltRounds = 10
