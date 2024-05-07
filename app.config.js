@@ -42,17 +42,11 @@ export default {
     },
     scheme: 'WorkoutAppExpo',
     plugins: [
+      ['@morrowdigital/watermelondb-expo-plugin'],
       'expo-build-properties',
       {
         ios: {
-          extraPods: [
-            {
-              name: 'simdjson',
-              configurations: ['Debug', 'Release'],
-              path: '../node_modules/@nozbe/simdjson',
-              modular_headers: true,
-            },
-          ],
+          extraPods: [],
         },
       },
     ],
