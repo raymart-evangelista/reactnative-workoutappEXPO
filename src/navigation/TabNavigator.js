@@ -4,6 +4,7 @@ import { ExistingProgramsStackScreen } from '../screens/ExistingProgramScreen'
 import ProfileScreen from '../screens/ProfileScreen'
 import FriendsScreen from '../screens/FriendsScreen'
 import { useTheme } from '../themes/ThemeContext'
+import HomeStackNavigator from './HomeNavigator'
 
 const Tab = createBottomTabNavigator()
 
@@ -27,7 +28,7 @@ export default function TabNavigator() {
       />
       <Tab.Screen
         name="Home"
-        component={HomeScreen}
+        component={HomeStackNavigator}
         options={{
           headerShown: true,
           headerTintColor: theme.colors.onBackground,

@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { StyleSheet, View, Dimensions } from 'react-native'
 import { Button, Text } from 'react-native-paper'
 import { useThemedStyles } from '../styles/globalStyles'
+import MyProgramsScreen from './MyProgramsScreen'
 
 export default function HomeScreen({ navigation, route }) {
   const styles = useThemedStyles()
@@ -13,7 +14,7 @@ export default function HomeScreen({ navigation, route }) {
       <Button
         style={[styles.button, { width: buttonWidth }]}
         mode="outlined"
-        onPress={() => navigation.navigate('CreateProgram')}
+        onPress={() => navigation.navigate('Programs')}
         icon="plus-box-multiple-outline"
       >
         Create program
