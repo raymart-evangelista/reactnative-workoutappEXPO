@@ -25,7 +25,11 @@ export default function LandingPage({ navigation, route }) {
   useEffect(() => {
     if (response?.type === 'success') {
       handleSignInWithGoogle(response.authentication.accessToken)
-      navigation.navigate('TabNavigator')
+      // navigation.navigate('TabNavigator')
+      navigation.reset({
+        index: 0,
+        routes: [{ name: 'TabNavigator', params: { screen: 'Home' } }],
+      })
     }
   }, [response])
 
