@@ -27,7 +27,14 @@
       <dict>
         <key>CFBundleURLSchemes</key>
         <array>
+          <string>WorkoutAppExpo</string>
           <string>com.raymartevangelista.WorkoutAppExpo</string>
+        </array>
+      </dict>
+      <dict>
+        <key>CFBundleURLSchemes</key>
+        <array>
+          <string>exp+workoutappexpo</string>
         </array>
       </dict>
     </array>
