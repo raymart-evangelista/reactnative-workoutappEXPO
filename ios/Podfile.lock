@@ -571,7 +571,11 @@ PODS:
     - React-Core
   - RNVectorIcons (9.2.0):
     - React-Core
+  - simdjson (3.1.0-wmelon1)
   - SocketRocket (0.6.1)
+  - WatermelonDB (0.27.1):
+    - React
+    - simdjson
   - Yoga (1.14.0)
 
 DEPENDENCIES:
@@ -642,6 +646,8 @@ DEPENDENCIES:
   - RNScreens (from `../node_modules/react-native-screens`)
   - RNSVG (from `../node_modules/react-native-svg`)
   - RNVectorIcons (from `../node_modules/react-native-vector-icons`)
+  - "simdjson (from `../node_modules/@nozbe/simdjson`)"
+  - "WatermelonDB (from `../node_modules/@nozbe/watermelondb`)"
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
 SPEC REPOS:
@@ -783,6 +789,10 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-svg"
   RNVectorIcons:
     :path: "../node_modules/react-native-vector-icons"
+  simdjson:
+    :path: "../node_modules/@nozbe/simdjson"
+  WatermelonDB:
+    :path: "../node_modules/@nozbe/watermelondb"
   Yoga:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
@@ -856,7 +866,9 @@ SPEC CHECKSUMS:
   RNScreens: 50ffe2fa2342eabb2d0afbe19f7c1af286bc7fb3
   RNSVG: 53c661b76829783cdaf9b7a57258f3d3b4c28315
   RNVectorIcons: fcc2f6cb32f5735b586e66d14103a74ce6ad61f8
+  simdjson: e6bfae9ce4bcdc80452d388d593816f1ca2106f3
   SocketRocket: f32cd54efbe0f095c4d7594881e52619cfe80b17
+  WatermelonDB: 842d22ba555425aa9f3ce551239a001200c539bc
   Yoga: d0003f849d2b5224c072cef6568b540d8bb15cd3
 
 PODFILE CHECKSUM: 49011db1b27bf3eb6234d72f661e00b0577eb8fc
