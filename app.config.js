@@ -41,22 +41,5 @@ export default {
       GOOGLE_ANDROID_ID: process.env.GOOGLE_ANDROID_ID,
     },
     scheme: 'WorkoutAppExpo',
-    plugins: [
-      [
-        'expo-build-properties',
-        {
-          ios: {
-            extraPods: [
-              {
-                name: 'simdjson',
-                configurations: ['Debug', 'Release'],
-                path: '../node_modules/@nozbe/simdjson',
-                modular_headers: true,
-              },
-            ],
-          },
-        },
-      ],
-    ],
   },
 }
