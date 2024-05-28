@@ -37,6 +37,9 @@ import { useThemedStyles } from '../styles/globalStyles'
 import { Controller, useForm } from 'react-hook-form'
 import EditInfoModal from '../components/EditInfoModal'
 import { addProgram } from '../features/programsSlice'
+import { BSON } from 'realm'
+import { useRealm } from '@realm/react'
+import { Program } from '../models/Program'
 
 const EditWeekScreen = ({ route, navigation }) => {
   const dispatch = useDispatch()
@@ -272,9 +275,37 @@ const CreateProgramScreen = ({ navigation }) => {
   //   }
   // }, [weeks])
 
+  const realm = useRealm()
+
   const onSubmit = () => {
-    console.log(program)
+    console.log(`\t\t -----Submitting-----`)
+    console.log(JSON.stringify(program, null, 2))
     // this function will add the program to the user's local storage
+    realm.write(() => {
+      realm.create(Program, {
+        _id: new BSON.ObjectId(),
+        title: program.title,
+        description: program.description,
+        weeks: program.weeks.map((week) => ({
+          _id: new BSON.ObjectId(),
+          title: week.title,
+          description: week.description,
+          days: week.days.map((day) => ({
+            _id: new BSON.ObjectId(),
+            title: day.title,
+            description: day.description,
+            exercises: day.exercises.map((exercise) => ({
+              _id: new BSON.ObjectId(),
+              name: exercise.name,
+              warmup: exercise.warmup,
+              working: exercise.working,
+              reps: exercise.reps,
+              rpe: exercise.rpe,
+            })),
+          })),
+        })),
+      })
+    })
     // it will also send it to the backend?
     // once that process is valid, it will return the user to the home page
     dispatch(addProgram(program))
