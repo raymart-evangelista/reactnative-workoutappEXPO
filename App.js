@@ -59,19 +59,24 @@ import store from './src/app/store'
 
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 
+import { RealmProvider } from '@realm/react'
+import { Program } from './src/models/Program'
+
 export default function App() {
   return (
-    <ReduxProvider store={store}>
-      <GestureHandlerRootView style={{ flex: 1 }}>
-        <SafeAreaProvider>
-          <AuthProvider>
-            <ThemeContextProvider>
-              <AppContent />
-            </ThemeContextProvider>
-          </AuthProvider>
-        </SafeAreaProvider>
-      </GestureHandlerRootView>
-    </ReduxProvider>
+    <RealmProvider schema={[Program]}>
+      <ReduxProvider store={store}>
+        <GestureHandlerRootView style={{ flex: 1 }}>
+          <SafeAreaProvider>
+            <AuthProvider>
+              <ThemeContextProvider>
+                <AppContent />
+              </ThemeContextProvider>
+            </AuthProvider>
+          </SafeAreaProvider>
+        </GestureHandlerRootView>
+      </ReduxProvider>
+    </RealmProvider>
   )
 }
 
