@@ -60,11 +60,21 @@ import store from './src/app/store'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 
 import { RealmProvider } from '@realm/react'
-import { Program } from './src/models/Program'
-
+import {
+  Program,
+  Week,
+  Day,
+  Exercise,
+  Sets,
+  Reps,
+  RPE,
+} from './src/models/Program'
 export default function App() {
   return (
-    <RealmProvider schema={[Program]}>
+    <RealmProvider
+      schema={[Program, Week, Day, Exercise, Sets, Reps, RPE]}
+      deleteRealmIfMigrationNeeded={true}
+    >
       <ReduxProvider store={store}>
         <GestureHandlerRootView style={{ flex: 1 }}>
           <SafeAreaProvider>
