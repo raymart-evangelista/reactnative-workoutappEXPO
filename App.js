@@ -1,3 +1,4 @@
+import 'react-native-get-random-values'
 import {
   DarkTheme as NavigationDarkTheme,
   DefaultTheme as NavigationDefaultTheme,
