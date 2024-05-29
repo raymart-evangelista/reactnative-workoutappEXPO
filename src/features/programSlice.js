@@ -1,23 +1,24 @@
 import { createSlice, nanoid } from '@reduxjs/toolkit'
+import { BSON } from 'realm'
 
 const initialState = {
-  // id: nanoid(),
+  _id: new BSON.ObjectId(),
   title: 'New Program',
   description: 'Description of the program.',
   weeks: [
     {
-      id: nanoid(),
+      _id: new BSON.ObjectId(),
       title: 'PREPARATION week',
       description:
         'During this week, get muscles used to movements. Test maxes',
       days: [
         {
-          id: nanoid(),
+          _id: new BSON.ObjectId(),
           title: 'Push',
           description: 'chest, triceps, and shoulders',
           exercises: [
             {
-              id: '-950OHZxdV8NO5waHS5TB',
+              _id: new BSON.ObjectId(),
               name: 'chest press',
               warmup: {
                 sets: {
@@ -61,7 +62,7 @@ const initialState = {
               },
             },
             {
-              id: '1DB0_3Y5RHcWVsQ9qr1xt',
+              _id: new BSON.ObjectId(),
               name: 'shoulder press',
               warmup: {
                 sets: {
@@ -109,17 +110,17 @@ const initialState = {
       ],
     },
     {
-      id: nanoid(),
+      _id: new BSON.ObjectId(),
       title: 'START week',
       description: 'During this week, get muscles used to movements.',
       days: [
         {
-          id: nanoid(),
+          _id: new BSON.ObjectId(),
           title: 'Push',
           description: 'chest, triceps, and shoulders',
           exercises: [
             {
-              id: '-950OHZxdV8NO5waHS5TB',
+              _id: new BSON.ObjectId(),
               name: 'chest press',
               warmup: {
                 sets: {
@@ -163,7 +164,7 @@ const initialState = {
               },
             },
             {
-              id: '1DB0_3Y5RHcWVsQ9qr1xt',
+              _id: new BSON.ObjectId(),
               name: 'shoulder press',
               warmup: {
                 sets: {
@@ -234,11 +235,13 @@ export const programSlice = createSlice({
       state.weeks.push(action.payload)
     },
     weekRemoved: (state, action) => {
-      state.weeks = state.weeks.filter((week) => week.id !== action.payload.id)
+      state.weeks = state.weeks.filter(
+        (week) => week._id !== action.payload._id
+      )
     },
     weekUpdated: (state, action) => {
-      const { id, title, description } = action.payload
-      const week = state.weeks.find((week) => week.id === id)
+      const { _id, title, description } = action.payload
+      const week = state.weeks.find((week) => week._id === _id)
       if (week) {
         week.title = title
         week.description = description
@@ -249,23 +252,23 @@ export const programSlice = createSlice({
     },
     dayAdded: (state, action) => {
       const { weekId, day } = action.payload
-      const week = state.weeks.find((week) => week.id === weekId)
+      const week = state.weeks.find((week) => week._id === weekId)
       if (week) {
         week.days.push(day)
       }
     },
     dayRemoved: (state, action) => {
       const { weekId, dayId } = action.payload
-      const week = state.weeks.find((week) => week.id === weekId)
+      const week = state.weeks.find((week) => week._id === weekId)
       if (week) {
-        week.days = week.days.filter((day) => day.id !== dayId)
+        week.days = week.days.filter((day) => day._id !== dayId)
       }
     },
     dayUpdated: (state, action) => {
       const { weekId, dayId, title, description } = action.payload
-      const week = state.weeks.find((week) => week.id === weekId)
+      const week = state.weeks.find((week) => week._id === weekId)
       if (week) {
-        const day = week.days.find((day) => day.id === dayId)
+        const day = week.days.find((day) => day._id === dayId)
         if (day) {
           day.title = title
           day.description = description
@@ -274,16 +277,16 @@ export const programSlice = createSlice({
     },
     daysReordered: (state, action) => {
       const { weekId, newDaysOrder } = action.payload
-      const weekIndex = state.weeks.findIndex((week) => week.id === weekId)
+      const weekIndex = state.weeks.findIndex((week) => week._id === weekId)
       if (weekIndex !== -1) {
         state.weeks[weekIndex].days = newDaysOrder
       }
     },
     exerciseAdded: (state, action) => {
       const { weekId, dayId, exercise } = action.payload
-      const week = state.weeks.find((week) => week.id === weekId)
+      const week = state.weeks.find((week) => week._id === weekId)
       if (week) {
-        const day = week.days.find((day) => day.id === dayId)
+        const day = week.days.find((day) => day._id === dayId)
         if (day) {
           const newExercise = { ...exercise }
           day.exercises.push(newExercise)
@@ -292,24 +295,24 @@ export const programSlice = createSlice({
     },
     exerciseRemoved: (state, action) => {
       const { weekId, dayId, exerciseId } = action.payload
-      const week = state.weeks.find((week) => week.id === weekId)
+      const week = state.weeks.find((week) => week._id === weekId)
       if (week) {
-        const day = week.days.find((day) => day.id === dayId)
+        const day = week.days.find((day) => day._id === dayId)
         if (day) {
           day.exercises = day.exercises.filter(
-            (exercise) => exercise.id !== exerciseId
+            (exercise) => exercise._id !== exerciseId
           )
         }
       }
     },
     exerciseUpdated: (state, action) => {
       const { weekId, dayId, exerciseId, updates } = action.payload
-      const week = state.weeks.find((week) => week.id === weekId)
+      const week = state.weeks.find((week) => week._id === weekId)
       if (week) {
-        const day = week.days.find((day) => day.id === dayId)
+        const day = week.days.find((day) => day._id === dayId)
         if (day) {
           const exerciseIndex = day.exercises.findIndex(
-            (exercise) => exercise.id === exerciseId
+            (exercise) => exercise._id === exerciseId
           )
           if (exerciseIndex !== -1) {
             // update logic here
@@ -323,10 +326,10 @@ export const programSlice = createSlice({
     },
     exercisesReordered: (state, action) => {
       const { weekId, dayId, newExercisesOrder } = action.payload
-      const weekIndex = state.weeks.findIndex((week) => week.id === weekId)
+      const weekIndex = state.weeks.findIndex((week) => week._id === weekId)
       if (weekIndex !== -1) {
         const dayIndex = state[weekIndex].days.findIndex(
-          (day) => day.id === dayId
+          (day) => day._id === dayId
         )
         if (dayIndex !== -1) {
           state.weeks[weekIndex].days[dayIndex].exercises = newExercisesOrder
