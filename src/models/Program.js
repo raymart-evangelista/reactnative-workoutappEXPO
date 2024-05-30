@@ -9,7 +9,6 @@ export class Program extends Realm.Object {
       title: 'string',
       description: 'string',
       weeks: 'Week[]',
-      creator: 'User',
     },
   }
 }

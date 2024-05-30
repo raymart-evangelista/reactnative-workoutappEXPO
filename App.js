@@ -71,12 +71,10 @@ import {
   RPE,
 } from './src/models/Program'
 
-import { User } from './src/models/User'
-
 export default function App() {
   return (
     <RealmProvider
-      schema={[User, Program, Week, Day, Exercise, Sets, Reps, RPE]}
+      schema={[Program, Week, Day, Exercise, Sets, Reps, RPE]}
       deleteRealmIfMigrationNeeded={true}
     >
       <ReduxProvider store={store}>
