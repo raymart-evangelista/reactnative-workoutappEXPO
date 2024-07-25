@@ -13,9 +13,19 @@ WebBrowser.maybeCompleteAuthSession()
 import Constants from 'expo-constants'
 import { useThemedStyles } from '../styles/globalStyles'
 
+import { useRealm } from '@realm/react'
+import { BSON } from 'realm'
+
+import { useDispatch } from 'react-redux'
+import { setUser } from '../features/userSlice'
+import { generateUniqueId } from '../utils/idGenerator'
+
 export default function LandingPage({ navigation, route }) {
   const styles = useThemedStyles()
   const [userInfo, setUserInfo] = useState(null)
+  const dispatch = useDispatch()
+  const realm = useRealm()
+
   const [request, response, promptAsync] = Google.useAuthRequest({
     androidClientId: Constants.expoConfig.extra.GOOGLE_ANDROID_ID,
     iosClientId: Constants.expoConfig.extra.GOOGLE_IOS_ID,
@@ -36,12 +46,28 @@ export default function LandingPage({ navigation, route }) {
   const handleSignInWithGoogle = async (token) => {
     if (!token) return
     try {
-      const user = await getUserInfo(token)
-      setUserInfo(user)
-      console.log(user)
-      await AsyncStorage.setItem('@user', JSON.stringify(user))
+      const googleUser = await getUserInfo(token)
+      console.log('User info from Google: ', googleUser)
+
+      // transform Google user data to match Realm schema
+      const realmUser = {
+        _id: generateUniqueId(),
+        firstName: googleUser.given_name || '',
+        lastName: googleUser.firstName || '',
+        email: googleUser.email,
+        googleId: googleUser.id,
+      }
+
+      realm.write(() => {
+        realm.create('User', realmUser, 'modified')
+      })
+
+      setUserInfo(realmUser)
+      await AsyncStorage.setItem('@user', JSON.stringify(realmUser))
+      dispatch(setUser(realmUser))
     } catch (error) {
       console.error('Failed to sign in with Google:', error)
+      console.error('Error stack:', error.stack)
     }
   }
 
