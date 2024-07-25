@@ -6,7 +6,7 @@ export class User extends Realm.Object {
     name: 'User',
     primaryKey: '_id',
     properties: {
-      _id: 'objectId',
+      _id: 'string',
       firstName: 'string',
       lastName: 'string',
       email: 'string',
