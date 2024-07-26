@@ -5,8 +5,10 @@ import { useSelector } from 'react-redux'
 
 import { useQuery } from '@realm/react'
 import { Program } from '../models/Program'
+import { useThemedStyles } from '../styles/globalStyles'
 
 export default function MyProgramsScreen({ navigation }) {
+  const styles = useThemedStyles()
   return (
     <View>
       <Text>This screen shows your programs</Text>
@@ -20,13 +22,6 @@ const ProgramList = () => {
   const realmPrograms = useQuery(Program)
   console.log(realmPrograms)
 
-  const renderItem = ({ item }) => (
-    <View style={{ flex: 1, padding: 20 }}>
-      <Text>{item.title}</Text>
-      <Text>{item.description}</Text>
-    </View>
-  )
-
   const renderRealm = ({ item }) => (
     <View style={{ flex: 1, padding: 20 }}>
       <Text>{item.title}</Text>
@@ -36,11 +31,6 @@ const ProgramList = () => {
 
   return (
     <>
-      {/* <FlatList
-        data={programs}
-        renderItem={renderItem}
-        keyExtractor={(item) => item.id}
-      /> */}
       <FlatList
         data={realmPrograms}
         renderItem={renderRealm}
