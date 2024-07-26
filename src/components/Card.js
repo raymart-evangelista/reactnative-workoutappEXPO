@@ -24,6 +24,19 @@ const LeftContent = (props) => <Avatar.Icon {...props} icon="folder" />
 */
 }
 
+export const ProgramCard = ({ program, onClick }) => {
+  return (
+    <Card style={styles.container} onPress={onClick}>
+      <Card.Content>
+        <Text variant="titleLarge">{program.title}</Text>
+        <Text variant="bodyMedium" className="italic">
+          {program.description}
+        </Text>
+      </Card.Content>
+    </Card>
+  )
+}
+
 export const WeekCard = ({
   week,
   weekId,
