@@ -6,6 +6,7 @@ import { useSelector } from 'react-redux'
 import { useQuery } from '@realm/react'
 import { Program } from '../models/Program'
 import { useThemedStyles } from '../styles/globalStyles'
+import { ProgramCard } from '../components/Card'
 
 export default function MyProgramsScreen({ navigation }) {
   const styles = useThemedStyles()
@@ -22,11 +23,12 @@ const ProgramList = () => {
   const realmPrograms = useQuery(Program)
   console.log(realmPrograms)
 
+  const handleProgramCardPress = () => {
+    console.log('testing the handling of programcard press')
+  }
+
   const renderRealm = ({ item }) => (
-    <View style={{ flex: 1, padding: 20 }}>
-      <Text>{item.title}</Text>
-      <Text>{item.description}</Text>
-    </View>
+    <ProgramCard program={item} onClick={handleProgramCardPress} />
   )
 
   return (
