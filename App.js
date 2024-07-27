@@ -44,6 +44,8 @@ import {
   ContinueDayScreen,
 } from './src/screens/ContinueProgramScreen'
 import SettingsScreen from './src/screens/SettingsScreen'
+import ProgramDetailsScreen from './src/screens/ProgramDetailsScreen'
+
 import { ThemeContextProvider, useTheme } from './src/themes/ThemeContext'
 
 import LandingPage from './src/screens/LandingPage'
@@ -108,6 +110,7 @@ function AppContent() {
         <Stack.Screen name="LogIn" component={LogInScreen} />
         <Stack.Screen name="SignUp" component={SignUpScreen} />
         <Stack.Screen name="Settings" component={SettingsScreen} />
+        <Stack.Screen name="ProgramDetails" component={ProgramDetailsScreen} />
         <Stack.Screen
           name="TabNavigator"
           component={TabNavigator}
