@@ -25,12 +25,16 @@ const LeftContent = (props) => <Avatar.Icon {...props} icon="folder" />
 }
 
 export const ProgramCard = ({ program, onClick }) => {
+  const weekCount = program.weeks ? program.weeks.length : 0
   return (
     <Card style={styles.container} onPress={onClick}>
       <Card.Content>
         <Text variant="titleLarge">{program.title}</Text>
         <Text variant="bodyMedium" className="italic">
           {program.description}
+        </Text>
+        <Text variant="bodySmall">
+          {weekCount === 1 ? '1 week long' : `${weekCount} weeks long`}
         </Text>
       </Card.Content>
     </Card>
