@@ -7,6 +7,7 @@ import { useQuery } from '@realm/react'
 import { Program } from '../models/Program'
 import { useThemedStyles } from '../styles/globalStyles'
 import { ProgramCard } from '../components/Card'
+import { useNavigation } from '@react-navigation/native'
 
 export default function MyProgramsScreen({ navigation }) {
   const styles = useThemedStyles()
@@ -23,12 +24,15 @@ const ProgramList = () => {
   const realmPrograms = useQuery(Program)
   console.log(realmPrograms)
 
-  const handleProgramCardPress = () => {
-    console.log('testing the handling of programcard press')
+  const navigation = useNavigation()
+
+  const handleProgramCardPress = (program) => {
+    console.log(program._id)
+    navigation.navigate('ProgramDetails', { programId: program._id })
   }
 
   const renderRealm = ({ item }) => (
-    <ProgramCard program={item} onClick={handleProgramCardPress} />
+    <ProgramCard program={item} onClick={() => handleProgramCardPress(item)} />
   )
 
   return (
