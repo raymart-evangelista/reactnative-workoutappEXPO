@@ -22,6 +22,7 @@ export class Sets extends Realm.Object {
       min: 'int?',
       max: 'int?',
       useRange: 'bool',
+      weight: 'double?',
     },
   }
 }
