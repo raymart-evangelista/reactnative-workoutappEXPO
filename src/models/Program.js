@@ -60,8 +60,6 @@ export class Exercise extends Realm.Object {
       name: 'string',
       warmup: 'Sets',
       working: 'Sets',
-      reps: 'Reps',
-      rpe: 'RPE',
     },
   }
 }
