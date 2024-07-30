@@ -281,33 +281,64 @@ const CreateProgramScreen = ({ navigation }) => {
     console.log(`\t\t -----Submitting-----`)
     console.log(JSON.stringify(program, null, 2))
     // this function will add the program to the user's local storage
-    realm.write(() => {
-      realm.create(Program, {
-        _id: new BSON.ObjectId(),
-        title: program.title,
-        description: program.description,
-        weeks: program.weeks.map((week) => ({
+    try {
+      realm.write(() => {
+        realm.create(Program, {
           _id: new BSON.ObjectId(),
-          title: week.title,
-          description: week.description,
-          days: week.days.map((day) => ({
+          title: program.title,
+          description: program.description,
+          weeks: program.weeks.map((week) => ({
             _id: new BSON.ObjectId(),
-            title: day.title,
-            description: day.description,
-            exercises: day.exercises.map((exercise) => ({
+            title: week.title,
+            description: week.description,
+            days: week.days.map((day) => ({
               _id: new BSON.ObjectId(),
-              name: exercise.name,
-              warmup: exercise.warmup,
-              working: exercise.working,
-              reps: exercise.reps,
-              rpe: exercise.rpe,
+              title: day.title,
+              description: day.description,
+              exercises: day.exercises.map((exercise) => ({
+                _id: new BSON.ObjectId(),
+                name: exercise.name,
+                warmup: {
+                  ...exercise.warmup,
+                  sets: {
+                    ...exercise.warmup.sets,
+                    useRange: exercise.warmup.sets.useRange ?? false,
+                  },
+                  reps: {
+                    ...exercise.warmup.reps,
+                    useRange: exercise.warmup.reps.useRange ?? false,
+                  },
+                  rpe: {
+                    ...exercise.warmup.rpe,
+                    useRange: exercise.warmup.rpe.useRange ?? false,
+                  },
+                },
+                working: {
+                  ...exercise.working,
+                  sets: {
+                    ...exercise.working.sets,
+                    useRange: exercise.working.sets.useRange ?? false,
+                  },
+                  reps: {
+                    ...exercise.working.reps,
+                    useRange: exercise.working.reps.useRange ?? false,
+                  },
+                  rpe: {
+                    ...exercise.working.rpe,
+                    useRange: exercise.working.rpe.useRange ?? false,
+                  },
+                },
+              })),
             })),
           })),
-        })),
+        })
       })
-    })
+    } catch (error) {
+      console.log(error.stack)
+    }
     // it will also send it to the backend?
     // once that process is valid, it will return the user to the home page
+
     dispatch(addProgram(program))
     dispatch(resetProgram())
     navigation.navigate('MyPrograms')
