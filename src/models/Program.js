@@ -21,7 +21,7 @@ export class Sets extends Realm.Object {
       single: 'int?',
       min: 'int?',
       max: 'int?',
-      useRange: 'bool',
+      useRange: 'bool?',
       weight: 'double?',
     },
   }
@@ -34,7 +34,7 @@ export class Reps extends Realm.Object {
       single: 'int?',
       min: 'int?',
       max: 'int?',
-      useRange: 'bool',
+      useRange: 'bool?',
     },
   }
 }
@@ -46,7 +46,7 @@ export class RPE extends Realm.Object {
       single: 'int?',
       min: 'int?',
       max: 'int?',
-      useRange: 'bool',
+      useRange: 'bool?',
     },
   }
 }
@@ -86,7 +86,7 @@ export class Week extends Realm.Object {
       _id: 'objectId',
       title: 'string',
       description: 'string',
-      exercises: 'Day[]',
+      days: 'Day[]',
     },
   }
 }
