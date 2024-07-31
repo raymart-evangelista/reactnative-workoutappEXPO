@@ -1,4 +1,5 @@
 import { createSlice, nanoid } from '@reduxjs/toolkit'
+import { BSON } from 'realm'
 
 const initialState = {
   // id: nanoid(),
@@ -6,18 +7,18 @@ const initialState = {
   description: 'Description of the program.',
   weeks: [
     {
-      id: nanoid(),
+      id: new BSON.ObjectId().toHexString(),
       title: 'PREPARATION week',
       description:
         'During this week, get muscles used to movements. Test maxes',
       days: [
         {
-          id: nanoid(),
+          id: new BSON.ObjectId().toHexString(),
           title: 'Push',
           description: 'chest, triceps, and shoulders',
           exercises: [
             {
-              id: '-950OHZxdV8NO5waHS5TB',
+              id: new BSON.ObjectId().toHexString(),
               name: 'chest press',
               warmup: {
                 sets: {
@@ -61,7 +62,7 @@ const initialState = {
               },
             },
             {
-              id: '1DB0_3Y5RHcWVsQ9qr1xt',
+              id: new BSON.ObjectId().toHexString(),
               name: 'shoulder press',
               warmup: {
                 sets: {
@@ -109,17 +110,17 @@ const initialState = {
       ],
     },
     {
-      id: nanoid(),
+      id: new BSON.ObjectId().toHexString(),
       title: 'START week',
       description: 'During this week, get muscles used to movements.',
       days: [
         {
-          id: nanoid(),
+          id: new BSON.ObjectId().toHexString(),
           title: 'Push',
           description: 'chest, triceps, and shoulders',
           exercises: [
             {
-              id: '-950OHZxdV8NO5waHS5TB',
+              id: new BSON.ObjectId().toHexString(),
               name: 'chest press',
               warmup: {
                 sets: {
@@ -163,7 +164,7 @@ const initialState = {
               },
             },
             {
-              id: '1DB0_3Y5RHcWVsQ9qr1xt',
+              id: new BSON.ObjectId().toHexString(),
               name: 'shoulder press',
               warmup: {
                 sets: {
@@ -220,10 +221,11 @@ export const programSlice = createSlice({
     programAdded: (state, action) => {},
     programRemoved: (state, action) => {},
     resetProgram: (state) => {
-      state.title = 'New Program'
-      state.description = 'Description of the program.'
-      state.weeks = []
-      console.log(`\t\t--program reset`)
+      initialState
+      // state.title = 'New Program'
+      // state.description = 'Description of the program.'
+      // state.weeks = []
+      // console.log(`\t\t--program reset`)
     },
     programUpdated: (state, action) => {
       const { title, description } = action.payload
