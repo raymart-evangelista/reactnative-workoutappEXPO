@@ -71,6 +71,8 @@ import {
   Sets,
   Reps,
   RPE,
+  Warmup,
+  Working,
 } from './src/models/Program'
 
 import { User } from './src/models/User'
@@ -78,7 +80,18 @@ import { User } from './src/models/User'
 export default function App() {
   return (
     <RealmProvider
-      schema={[User, Program, Week, Day, Exercise, Sets, Reps, RPE]}
+      schema={[
+        User,
+        Program,
+        Week,
+        Day,
+        Exercise,
+        Sets,
+        Reps,
+        RPE,
+        Warmup,
+        Working,
+      ]}
       deleteRealmIfMigrationNeeded={true}
     >
       <ReduxProvider store={store}>
