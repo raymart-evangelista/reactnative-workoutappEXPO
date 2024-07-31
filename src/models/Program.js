@@ -58,8 +58,30 @@ export class Exercise extends Realm.Object {
     properties: {
       _id: 'objectId',
       name: 'string',
-      warmup: 'Sets',
-      working: 'Sets',
+      warmup: 'Warmup',
+      working: 'Working',
+    },
+  }
+}
+
+export class Warmup extends Realm.Object {
+  static schema = {
+    name: 'Warmup',
+    properties: {
+      sets: 'Sets',
+      reps: 'Reps',
+      rpe: 'RPE',
+    },
+  }
+}
+
+export class Working extends Realm.Object {
+  static schema = {
+    name: 'Working',
+    properties: {
+      sets: 'Sets',
+      reps: 'Reps',
+      rpe: 'RPE',
     },
   }
 }
