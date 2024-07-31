@@ -2,6 +2,7 @@ import { useRoute } from '@react-navigation/native'
 import { ScrollView, SafeAreaView, View, Text } from 'react-native'
 import { useQuery } from '@realm/react'
 import { Program } from '../models/Program'
+import { TextInput } from 'react-native-paper'
 
 export default function ProgramDetailsScreen() {
   const route = useRoute()
@@ -10,7 +11,7 @@ export default function ProgramDetailsScreen() {
   console.log(program)
 
   return (
-    <SafeAreaView>
+    <ScrollView>
       <Text>ProgramDetails</Text>
       <Text>Title: {program.title}</Text>
       <Text>Description: {program.description}</Text>
@@ -29,7 +30,7 @@ export default function ProgramDetailsScreen() {
           </Text>
           {week.days.map((day, dayIndex) => (
             <View key={day._id}>
-              {/* <Text>{JSON.stringify(week, null, 2)}</Text> */}
+              <Text>{JSON.stringify(week, null, 2)}</Text>
               <Text>
                 Day {dayIndex + 1} - {day.title} - {day.description}
               </Text>
@@ -43,6 +44,6 @@ export default function ProgramDetailsScreen() {
           ))}
         </View>
       ))}
-    </SafeAreaView>
+    </ScrollView>
   )
 }
