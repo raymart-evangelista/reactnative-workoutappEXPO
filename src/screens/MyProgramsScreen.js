@@ -1,9 +1,9 @@
 import { View } from 'react-native'
 import { FlatList } from 'react-native-gesture-handler'
-import { Text } from 'react-native-paper'
+import { Button, Text } from 'react-native-paper'
 import { useSelector } from 'react-redux'
 
-import { useQuery } from '@realm/react'
+import { useQuery, useRealm } from '@realm/react'
 import { Program } from '../models/Program'
 import { useThemedStyles } from '../styles/globalStyles'
 import { ProgramCard } from '../components/Card'
@@ -20,8 +20,11 @@ export default function MyProgramsScreen({ navigation }) {
 }
 
 const ProgramList = () => {
+  const styles = useThemedStyles()
+  const realm = useRealm()
   const programs = useSelector((state) => state.programs.programs)
-  const realmPrograms = useQuery(Program)
+  const realmPrograms = useQuery('Program')
+  console.log('these are the programs')
   console.log(realmPrograms)
 
   const navigation = useNavigation()
@@ -35,8 +38,24 @@ const ProgramList = () => {
     <ProgramCard program={item} onClick={() => handleProgramCardPress(item)} />
   )
 
+  const deleteAllPrograms = () => {
+    console.log('inside')
+    realm.write(() => {
+      const allPrograms = realm.objects('Program')
+      realm.delete(allPrograms)
+    })
+    console.log('All Programs have been deleted from Realm DB')
+  }
+
   return (
     <>
+      <Button
+        style={[styles.button]}
+        mode="outlined"
+        onPress={deleteAllPrograms}
+      >
+        Delete programs
+      </Button>
       <FlatList
         data={realmPrograms}
         renderItem={renderRealm}
