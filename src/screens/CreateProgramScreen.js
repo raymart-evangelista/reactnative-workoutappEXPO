@@ -283,7 +283,7 @@ const CreateProgramScreen = ({ navigation }) => {
     // this function will add the program to the user's local storage
     try {
       realm.write(() => {
-        realm.create(Program, {
+        realm.create('Program', {
           _id: new BSON.ObjectId(),
           title: program.title,
           description: program.description,
@@ -299,33 +299,81 @@ const CreateProgramScreen = ({ navigation }) => {
                 _id: new BSON.ObjectId(),
                 name: exercise.name,
                 warmup: {
-                  ...exercise.warmup,
                   sets: {
-                    ...exercise.warmup.sets,
-                    useRange: exercise.warmup.sets.useRange ?? false,
+                    single: exercise.warmup.sets.single
+                      ? parseInt(exercise.warmup.sets.single, 10)
+                      : null,
+                    min: exercise.warmup.sets.min
+                      ? parseInt(exercise.warmup.sets.min, 10)
+                      : null,
+                    max: exercise.warmup.sets.max
+                      ? parseInt(exercise.warmup.sets.max, 10)
+                      : null,
+                    useRange: exercise.warmup.sets.useRange,
+                    weight: 0.0,
                   },
                   reps: {
-                    ...exercise.warmup.reps,
-                    useRange: exercise.warmup.reps.useRange ?? false,
+                    single: exercise.warmup.reps.single
+                      ? parseInt(exercise.warmup.reps.single, 10)
+                      : null,
+                    min: exercise.warmup.reps.min
+                      ? parseInt(exercise.warmup.reps.min, 10)
+                      : null,
+                    max: exercise.warmup.reps.max
+                      ? parseInt(exercise.warmup.reps.max, 10)
+                      : null,
+                    useRange: exercise.warmup.reps.useRange,
                   },
                   rpe: {
-                    ...exercise.warmup.rpe,
-                    useRange: exercise.warmup.rpe.useRange ?? false,
+                    single: exercise.warmup.rpe.single
+                      ? parseInt(exercise.warmup.rpe.single, 10)
+                      : null,
+                    min: exercise.warmup.rpe.min
+                      ? parseInt(exercise.warmup.rpe.min, 10)
+                      : null,
+                    max: exercise.warmup.rpe.max
+                      ? parseInt(exercise.warmup.rpe.max, 10)
+                      : null,
+                    useRange: exercise.warmup.rpe.useRange,
                   },
                 },
                 working: {
-                  ...exercise.working,
                   sets: {
-                    ...exercise.working.sets,
-                    useRange: exercise.working.sets.useRange ?? false,
+                    single: exercise.working.sets.single
+                      ? parseInt(exercise.working.sets.single, 10)
+                      : null,
+                    min: exercise.working.sets.min
+                      ? parseInt(exercise.working.sets.min, 10)
+                      : null,
+                    max: exercise.working.sets.max
+                      ? parseInt(exercise.working.sets.max, 10)
+                      : null,
+                    useRange: exercise.working.sets.useRange,
+                    weight: 0.0,
                   },
                   reps: {
-                    ...exercise.working.reps,
-                    useRange: exercise.working.reps.useRange ?? false,
+                    single: exercise.working.reps.single
+                      ? parseInt(exercise.working.reps.single, 10)
+                      : null,
+                    min: exercise.working.reps.min
+                      ? parseInt(exercise.working.reps.min, 10)
+                      : null,
+                    max: exercise.working.reps.max
+                      ? parseInt(exercise.working.reps.max, 10)
+                      : null,
+                    useRange: exercise.working.reps.useRange,
                   },
                   rpe: {
-                    ...exercise.working.rpe,
-                    useRange: exercise.working.rpe.useRange ?? false,
+                    single: exercise.working.rpe.single
+                      ? parseInt(exercise.working.rpe.single, 10)
+                      : null,
+                    min: exercise.working.rpe.min
+                      ? parseInt(exercise.working.rpe.min, 10)
+                      : null,
+                    max: exercise.working.rpe.max
+                      ? parseInt(exercise.working.rpe.max, 10)
+                      : null,
+                    useRange: exercise.working.rpe.useRange,
                   },
                 },
               })),
@@ -333,6 +381,8 @@ const CreateProgramScreen = ({ navigation }) => {
           })),
         })
       })
+
+      console.log('program added onSubmit')
     } catch (error) {
       console.log(error.stack)
     }
