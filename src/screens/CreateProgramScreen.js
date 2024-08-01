@@ -277,6 +277,13 @@ const CreateProgramScreen = ({ navigation }) => {
 
   const realm = useRealm()
 
+  const parseValue = (value) => {
+    if (value === null || value === undefined || value === '') {
+      return null
+    }
+    return parseInt(value, 10)
+  }
+
   const onSubmit = () => {
     console.log(`\t\t -----Submitting-----`)
     console.log(JSON.stringify(program, null, 2))
@@ -300,79 +307,43 @@ const CreateProgramScreen = ({ navigation }) => {
                 name: exercise.name,
                 warmup: {
                   sets: {
-                    single: exercise.warmup.sets.single
-                      ? parseInt(exercise.warmup.sets.single, 10)
-                      : null,
-                    min: exercise.warmup.sets.min
-                      ? parseInt(exercise.warmup.sets.min, 10)
-                      : null,
-                    max: exercise.warmup.sets.max
-                      ? parseInt(exercise.warmup.sets.max, 10)
-                      : null,
+                    single: parseValue(exercise.warmup.sets.single),
+                    min: parseValue(exercise.warmup.sets.min),
+                    max: parseValue(exercise.warmup.sets.max),
                     useRange: exercise.warmup.sets.useRange,
                     weight: 0.0,
                   },
                   reps: {
-                    single: exercise.warmup.reps.single
-                      ? parseInt(exercise.warmup.reps.single, 10)
-                      : null,
-                    min: exercise.warmup.reps.min
-                      ? parseInt(exercise.warmup.reps.min, 10)
-                      : null,
-                    max: exercise.warmup.reps.max
-                      ? parseInt(exercise.warmup.reps.max, 10)
-                      : null,
+                    single: parseValue(exercise.warmup.reps.single),
+                    min: parseValue(exercise.warmup.reps.min),
+                    max: parseValue(exercise.warmup.reps.max),
                     useRange: exercise.warmup.reps.useRange,
                   },
                   rpe: {
-                    single: exercise.warmup.rpe.single
-                      ? parseInt(exercise.warmup.rpe.single, 10)
-                      : null,
-                    min: exercise.warmup.rpe.min
-                      ? parseInt(exercise.warmup.rpe.min, 10)
-                      : null,
-                    max: exercise.warmup.rpe.max
-                      ? parseInt(exercise.warmup.rpe.max, 10)
-                      : null,
+                    single: parseValue(exercise.warmup.rpe.single),
+                    min: parseValue(exercise.warmup.rpe.min),
+                    max: parseValue(exercise.warmup.rpe.max),
                     useRange: exercise.warmup.rpe.useRange,
                   },
                 },
                 working: {
                   sets: {
-                    single: exercise.working.sets.single
-                      ? parseInt(exercise.working.sets.single, 10)
-                      : null,
-                    min: exercise.working.sets.min
-                      ? parseInt(exercise.working.sets.min, 10)
-                      : null,
-                    max: exercise.working.sets.max
-                      ? parseInt(exercise.working.sets.max, 10)
-                      : null,
+                    single: parseValue(exercise.working.sets.single),
+                    min: parseValue(exercise.working.sets.min),
+                    max: parseValue(exercise.working.sets.max),
                     useRange: exercise.working.sets.useRange,
                     weight: 0.0,
                   },
                   reps: {
-                    single: exercise.working.reps.single
-                      ? parseInt(exercise.working.reps.single, 10)
-                      : null,
-                    min: exercise.working.reps.min
-                      ? parseInt(exercise.working.reps.min, 10)
-                      : null,
-                    max: exercise.working.reps.max
-                      ? parseInt(exercise.working.reps.max, 10)
-                      : null,
+                    single: parseValue(exercise.working.reps.single),
+                    min: parseValue(exercise.working.reps.min),
+                    max: parseValue(exercise.working.reps.max),
                     useRange: exercise.working.reps.useRange,
                   },
                   rpe: {
-                    single: exercise.working.rpe.single
-                      ? parseInt(exercise.working.rpe.single, 10)
-                      : null,
-                    min: exercise.working.rpe.min
-                      ? parseInt(exercise.working.rpe.min, 10)
-                      : null,
-                    max: exercise.working.rpe.max
-                      ? parseInt(exercise.working.rpe.max, 10)
-                      : null,
+                    single: parseValue(exercise.working.rpe.single),
+                    min: parseValue(exercise.working.rpe.min),
+                    max: parseValue(exercise.working.rpe.max),
                     useRange: exercise.working.rpe.useRange,
                   },
                 },
