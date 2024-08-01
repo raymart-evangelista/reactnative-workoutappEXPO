@@ -1,13 +1,14 @@
 import { View } from 'react-native'
 import { FlatList } from 'react-native-gesture-handler'
 import { Button, Text } from 'react-native-paper'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
 import { useQuery, useRealm } from '@realm/react'
 import { Program } from '../models/Program'
 import { useThemedStyles } from '../styles/globalStyles'
 import { ProgramCard } from '../components/Card'
 import { useNavigation } from '@react-navigation/native'
+import { deleteAllPrograms } from '../features/programsSlice'
 
 export default function MyProgramsScreen({ navigation }) {
   const styles = useThemedStyles()
@@ -22,6 +23,7 @@ export default function MyProgramsScreen({ navigation }) {
 const ProgramList = () => {
   const styles = useThemedStyles()
   const realm = useRealm()
+  const dispatch = useDispatch()
   const programs = useSelector((state) => state.programs.programs)
   const realmPrograms = useQuery('Program')
   console.log('these are the programs')
@@ -38,13 +40,17 @@ const ProgramList = () => {
     <ProgramCard program={item} onClick={() => handleProgramCardPress(item)} />
   )
 
-  const deleteAllPrograms = () => {
+  // delete programs from DB
+  const handleDeleteAllPrograms = () => {
     console.log('inside')
     realm.write(() => {
       const allPrograms = realm.objects('Program')
       realm.delete(allPrograms)
     })
     console.log('All Programs have been deleted from Realm DB')
+    // Update Redux store
+    // dispatch(deleteAllPrograms())
+    dispatch(deleteAllPrograms())
   }
 
   return (
@@ -52,7 +58,7 @@ const ProgramList = () => {
       <Button
         style={[styles.button]}
         mode="outlined"
-        onPress={deleteAllPrograms}
+        onPress={handleDeleteAllPrograms}
       >
         Delete programs
       </Button>
