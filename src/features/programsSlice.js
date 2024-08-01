@@ -32,9 +32,15 @@ export const programsSlice = createSlice({
         (program) => program.id !== action.payload.id
       )
     },
+    deleteAllPrograms: (state) => {
+      state.programs = []
+      console.log(
+        `All programs deleted. There are now: ${state.programs.length} programs`
+      )
+    },
   },
 })
 
-export const { addProgram, updateProgram, deleteProgram } =
+export const { addProgram, updateProgram, deleteProgram, deleteAllPrograms } =
   programsSlice.actions
 export default programsSlice.reducer
