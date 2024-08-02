@@ -1,10 +1,18 @@
 import { useRoute } from '@react-navigation/native'
-import { ScrollView, SafeAreaView, View, Text } from 'react-native'
+import {
+  ScrollView,
+  SafeAreaView,
+  View,
+  Text,
+  TextComponent,
+} from 'react-native'
 import { useQuery } from '@realm/react'
 import { Program } from '../models/Program'
-import { TextInput } from 'react-native-paper'
+import { Card, Divider, TextInput } from 'react-native-paper'
+import { useThemedStyles } from '../styles/globalStyles'
 
 export default function ProgramDetailsScreen() {
+  const styles = useThemedStyles()
   const route = useRoute()
   const { programId } = route.params
   const program = useQuery(Program).filtered('_id == $0', programId)[0]
@@ -43,6 +51,8 @@ export default function ProgramDetailsScreen() {
     const workingRepsDescription = formatReps(exercise.working.reps)
     const workingRpeDescription = formatRPE(exercise.working.rpe)
 
+    console.log(exercise.working.sets)
+
     return (
       <View>
         <Text>
@@ -53,43 +63,53 @@ export default function ProgramDetailsScreen() {
           Working: {workingSetsDescription} x {workingRepsDescription}{' '}
           {workingRpeDescription}
         </Text>
+        <Text>Weight: {exercise.working.sets.weight}</Text>
       </View>
     )
   }
 
+  const ExerciseCard = ({ exercise }) => {
+    return (
+      <Card key={exercise._id}>
+        <Card.Title title={exercise.name} subtitle={exercise.description} />
+        <Card.Content>
+          <ExerciseDescription exercise={exercise} />
+        </Card.Content>
+      </Card>
+    )
+  }
+
   return (
-    <SafeAreaView>
-      <ScrollView>
-        <Text>ProgramDetails</Text>
-        <Text>Title: {program.title}</Text>
-        <Text>Description: {program.description}</Text>
-        {/* have different sections for each week,
-            when the user clicks on a week, they are sent to
-            another page that has each day
-            and each day will show the exercises for that day
-            as well as a place to input weight if wanted
-         */}
+    <SafeAreaView style={styles.safeArea}>
+      <ScrollView contentContainerStyle={styles.contentContainer}>
+        <Text style={styles.headerText}>{program.title}</Text>
+        <Text style={styles.descriptionText}>{program.description}</Text>
         {program.weeks.map((week, weekIndex) => (
-          <View key={week._id}>
-            <Text>
-              Week {weekIndex + 1} - {week.title} - {week.description}
-            </Text>
-            {week.days.map((day, dayIndex) => (
-              <View key={day._id}>
-                {/* <Text>{JSON.stringify(week, null, 2)}</Text> */}
-                <Text>
-                  Day {dayIndex + 1} - {day.title} - {day.description}
-                </Text>
-                {day.exercises.map((exercise, exerciseIndex) => (
-                  <View key={exercise._id}>
-                    <Text>Exercise {exerciseIndex + 1}</Text>
-                    <Text>{exercise.name}</Text>
-                    <ExerciseDescription exercise={exercise} />
-                  </View>
-                ))}
-              </View>
-            ))}
-          </View>
+          <Card key={week._id} style={styles.weekCard}>
+            <Card.Title
+              title={`Week ${weekIndex + 1} - ${week.title}`}
+              subtitle={week.description}
+              titleStyle={styles.cardTitle}
+              subtitleStyle={styles.cardSubtitle}
+              subtitleNumberOfLines={4}
+            />
+            <Card.Content>
+              <Divider style={styles.divider} />
+              {week.days.map((day, dayIndex) => (
+                <View key={day._id} style={styles.dayContainer}>
+                  <Text style={styles.dayText}>
+                    Day {dayIndex + 1} - {day.title}
+                  </Text>
+                  <Text style={styles.dayDescription}>{day.description}</Text>
+                  {day.exercises.map((exercise, exerciseIndex) => (
+                    <View key={exercise._id} style={styles.exerciseContainer}>
+                      <ExerciseCard exercise={exercise} />
+                    </View>
+                  ))}
+                </View>
+              ))}
+            </Card.Content>
+          </Card>
         ))}
       </ScrollView>
     </SafeAreaView>
