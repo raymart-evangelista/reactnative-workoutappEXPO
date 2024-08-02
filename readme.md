@@ -14,6 +14,7 @@
     - buttons/clickable entities
       - must be accessible
   - work on..
+
     - update ui/ux
       - Home screen
       - Create program screen
@@ -24,9 +25,15 @@
       SAVE
     - use [this video](https://www.youtube.com/watch?v=LngU_qwAhQA) as reference for passing params to previous screen
 
+    - ability to copy and paste exercises, days, week
+
 - LEARNING OUTCOMES
 
   - when adding functionality that works by calling the backend, first start with the server folder by creating the backend routes, middleware, utils. second, start creating the frontend services that talk with both the backend and frontend. third, create hooks if necessary. fourth, implement frontend and add useStates and functions necessary for working through the chain.
+
+  - design decision to make application first before implementing the backend
+  - usage of Realm as a database
+  - usage of Redux to manage application state
 
 - RESOURCES
 
