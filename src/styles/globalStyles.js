@@ -301,6 +301,54 @@ const useThemedStyles = () => {
       // borderWidth: 1,
       // borderColor: 'orange',
     },
+    safeArea: {
+      flex: 1,
+    },
+    contentContainer: {
+      padding: 16,
+    },
+    exerciseContainer: {
+      marginBottom: 16,
+    },
+    headerText: {
+      fontSize: 24,
+      fontWeight: 'bold',
+      marginBottom: 16,
+    },
+    descriptionText: {
+      fontSize: 16,
+      marginBottom: 16,
+      fontStyle: 'italic',
+    },
+    weekCard: {
+      marginBottom: 16,
+    },
+    dayContainer: {
+      marginBottom: 16,
+    },
+    dayText: {
+      marginBottom: 16,
+      // flexWrap: 'wrap', // Ensures text wraps within the container
+      fontWeight: 'bold',
+    },
+    dayDescription: {
+      marginBottom: 16,
+      flexWrap: 'wrap', // Ensures text wraps within the container
+      fontStyle: 'italic',
+    },
+    cardTitle: {
+      // fontSize: 20,
+      fontWeight: 'bold',
+      marginTop: 16,
+      textAlign: 'center',
+    },
+    cardSubtitle: {
+      fontWeight: '600',
+      fontStyle: 'italic',
+    },
+    divider: {
+      marginVertical: 16,
+    },
   })
 
   return styles
