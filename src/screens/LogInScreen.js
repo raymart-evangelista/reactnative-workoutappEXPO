@@ -5,7 +5,8 @@ import { defaultStyles, useThemedStyles } from '../styles/globalStyles'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
 import loginService from '../services/login'
-import { AuthContext } from '../contexts/AuthContext'
+import { useDispatch } from 'react-redux'
+import { login } from '../features/authSlice'
 
 import Notification from '../components/Notification'
 
@@ -38,7 +39,7 @@ export default function LogInScreen({ navigation }) {
   const [notificationMessage, setNotificationMessage] = useState('')
   const [notificationType, setNotificationType] = useState('')
 
-  const { login } = useContext(AuthContext)
+  const dispatch = useDispatch()
 
   const onLoginSubmit = async ({ username, password }) => {
     try {
@@ -49,6 +50,10 @@ export default function LogInScreen({ navigation }) {
       })
       setNotificationMessage(`Success. Welcome ${user.username}.`)
       setNotificationType('success')
+
+      dispatch(
+        login({ username: user.username, email: user.email, token: user.token })
+      )
 
       navigation.reset({
         index: 0,

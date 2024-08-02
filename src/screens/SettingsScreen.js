@@ -1,28 +1,29 @@
-import { View, ScrollView } from "react-native";
-import { defaultStyles } from "../styles/globalStyles";
-import { Text, Switch } from "react-native-paper";
-import { useContext, useState } from "react";
-import { useColorScheme } from "nativewind";
-import { ThemeContextProvider, useTheme } from "../themes/ThemeContext";
-import { Button, Headline } from "react-native-paper";
+import { View, ScrollView } from 'react-native'
+import { defaultStyles } from '../styles/globalStyles'
+import { Text, Switch } from 'react-native-paper'
+import { useContext, useState } from 'react'
+import { useColorScheme } from 'nativewind'
+import { ThemeContextProvider, useTheme } from '../themes/ThemeContext'
+import { Button, Headline } from 'react-native-paper'
 
-import { AuthContext } from "../contexts/AuthContext";
+import { useDispatch } from 'react-redux'
+import { logout } from '../features/authSlice'
 
 export default function SettingsScreen({ navigation }) {
-  const { toggleThemeType, themeType, isDarkTheme, theme } = useTheme();
-  const getOppositeTheme = () => (themeType === "light" ? "dark" : "light");
+  const { toggleThemeType, themeType, isDarkTheme, theme } = useTheme()
+  const getOppositeTheme = () => (themeType === 'light' ? 'dark' : 'light')
 
-  const iconType = theme.dark ? "white-balance-sunny" : "moon-waxing-crescent";
+  const iconType = theme.dark ? 'white-balance-sunny' : 'moon-waxing-crescent'
 
-  const { logout } = useContext(AuthContext);
+  const dispatch = useDispatch()
 
   const handleLogout = () => {
-    logout();
+    dispatch(logout())
     navigation.reset({
       index: 0,
-      routes: [{ name: "Landing" }],
-    });
-  };
+      routes: [{ name: 'Landing' }],
+    })
+  }
 
   return (
     <View className="flex-1 justify-center items-center">
@@ -33,7 +34,7 @@ export default function SettingsScreen({ navigation }) {
           mode="contained"
           onPress={toggleThemeType}
           icon={iconType}
-          contentStyle={{ flexDirection: "row-reverse" }}
+          contentStyle={{ flexDirection: 'row-reverse' }}
         >
           {`${getOppositeTheme()}`}
         </Button>
@@ -55,5 +56,5 @@ export default function SettingsScreen({ navigation }) {
       {/* button for connecting apple watch */}
       {/* button for changing units of measurement */}
     </View>
-  );
+  )
 }

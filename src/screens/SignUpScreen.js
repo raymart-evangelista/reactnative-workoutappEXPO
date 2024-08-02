@@ -16,7 +16,6 @@ import signUpService from '../services/users'
 import LogInScreen from './LogInScreen'
 
 import loginService from '../services/login'
-import { AuthContext } from '../contexts/AuthContext'
 
 import { useForm, Controller } from 'react-hook-form'
 import { SafeAreaView } from 'react-native-safe-area-context'
@@ -25,6 +24,8 @@ import * as yup from 'yup'
 
 import { useThemedStyles } from '../styles/globalStyles'
 import { View } from 'react-native'
+import { useDispatch } from 'react-redux'
+import { login } from '../features/authSlice'
 
 export default function SignUpScreen({ navigation }) {
   const styles = useThemedStyles()
@@ -34,8 +35,6 @@ export default function SignUpScreen({ navigation }) {
   const [loading, setLoading] = useState(false)
   const [notificationMessage, setNotificationMessage] = useState('')
   const [notificationType, setNotificationType] = useState('')
-
-  const { login } = useContext(AuthContext)
 
   const onSignupSubmit = async ({ username, email, password }) => {
     try {
@@ -55,7 +54,9 @@ export default function SignUpScreen({ navigation }) {
         password,
       })
 
-      login({ user: user.username, email: user.email, token: user.token })
+      dispatch(
+        login({ username: user.username, email: user.email, token: user.token })
+      )
 
       navigation.reset({
         index: 0,

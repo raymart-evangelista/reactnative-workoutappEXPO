@@ -52,8 +52,6 @@ import LandingPage from './src/screens/LandingPage'
 
 const Stack = createNativeStackNavigator()
 
-import AuthProvider from './src/contexts/AuthContext'
-
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import TabNavigator from './src/navigation/TabNavigator'
 
@@ -97,11 +95,9 @@ export default function App() {
       <ReduxProvider store={store}>
         <GestureHandlerRootView style={{ flex: 1 }}>
           <SafeAreaProvider>
-            <AuthProvider>
-              <ThemeContextProvider>
-                <AppContent />
-              </ThemeContextProvider>
-            </AuthProvider>
+            <ThemeContextProvider>
+              <AppContent />
+            </ThemeContextProvider>
           </SafeAreaProvider>
         </GestureHandlerRootView>
       </ReduxProvider>
