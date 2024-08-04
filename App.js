@@ -107,24 +107,30 @@ export default function App() {
 
 function AppContent() {
   const { theme } = useTheme()
+  const isAuthenticated = true
 
   return (
     <NavigationContainer theme={theme}>
       {/* <Stack.Navigator initialRouteName='CreateProgram' screenOptions={{headerShown: true}}> */}
       <Stack.Navigator
         initialRouteName="Landing"
-        screenOptions={{ headerShown: false }}
+        // screenOptions={{ headerShown: false }}
       >
-        <Stack.Screen name="Landing" component={LandingPage} />
-        <Stack.Screen name="LogIn" component={LogInScreen} />
-        <Stack.Screen name="SignUp" component={SignUpScreen} />
-        <Stack.Screen name="Settings" component={SettingsScreen} />
-        <Stack.Screen name="ProgramDetails" component={ProgramDetailsScreen} />
-        <Stack.Screen
-          name="TabNavigator"
-          component={TabNavigator}
-          options={{ headerShown: false }}
-        />
+        {isAuthenticated ? (
+          <Stack.Screen
+            name="TabNavigator"
+            component={TabNavigator}
+            options={{ headerShown: false }}
+          />
+        ) : (
+          <>
+            <Stack.Screen name="Landing" component={LandingPage} />
+            <Stack.Screen name="LogIn" component={LogInScreen} />
+            <Stack.Screen name="SignUp" component={SignUpScreen} />
+          </>
+        )}
+        {/* <Stack.Screen name="Settings" component={SettingsScreen} /> */}
+        {/* <Stack.Screen name="ProgramDetails" component={ProgramDetailsScreen} /> */}
       </Stack.Navigator>
     </NavigationContainer>
   )
