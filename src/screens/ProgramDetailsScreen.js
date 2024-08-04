@@ -10,13 +10,14 @@ import { useQuery } from '@realm/react'
 import { Program } from '../models/Program'
 import { Card, Divider, TextInput } from 'react-native-paper'
 import { useThemedStyles } from '../styles/globalStyles'
+import { BSON } from 'realm'
 
 export default function ProgramDetailsScreen() {
   const styles = useThemedStyles()
   const route = useRoute()
   const { programId } = route.params
-  const program = useQuery(Program).filtered('_id == $0', programId)[0]
-  console.log(program)
+  const programObjectId = new BSON.ObjectId(programId)
+  const program = useQuery(Program).filtered('_id == $0', programObjectId)[0]
 
   const formatSets = (sets) => {
     if (sets.useRange) {
@@ -50,8 +51,6 @@ export default function ProgramDetailsScreen() {
     const workingSetsDescription = formatSets(exercise.working.sets)
     const workingRepsDescription = formatReps(exercise.working.reps)
     const workingRpeDescription = formatRPE(exercise.working.rpe)
-
-    console.log(exercise.working.sets)
 
     return (
       <View>
