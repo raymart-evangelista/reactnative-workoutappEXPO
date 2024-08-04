@@ -1,4 +1,4 @@
-import { View } from 'react-native'
+import { View, SafeAreaView } from 'react-native'
 import { FlatList } from 'react-native-gesture-handler'
 import { Button, Text } from 'react-native-paper'
 import { useDispatch, useSelector } from 'react-redux'
@@ -13,10 +13,10 @@ import { deleteAllPrograms } from '../features/programsSlice'
 export default function MyProgramsScreen({ navigation }) {
   const styles = useThemedStyles()
   return (
-    <View>
+    <SafeAreaView style={styles.safeArea}>
       <Text>This screen shows your programs</Text>
       <ProgramList />
-    </View>
+    </SafeAreaView>
   )
 }
 
@@ -26,14 +26,12 @@ const ProgramList = () => {
   const dispatch = useDispatch()
   const programs = useSelector((state) => state.programs.programs)
   const realmPrograms = useQuery('Program')
-  console.log('these are the programs')
-  console.log(realmPrograms)
-
   const navigation = useNavigation()
 
   const handleProgramCardPress = (program) => {
-    console.log(program._id)
-    navigation.navigate('ProgramDetails', { programId: program._id })
+    navigation.navigate('ProgramDetails', {
+      programId: program._id.toHexString(),
+    })
   }
 
   const renderRealm = ({ item }) => (
@@ -42,7 +40,6 @@ const ProgramList = () => {
 
   // delete programs from DB
   const handleDeleteAllPrograms = () => {
-    console.log('inside')
     realm.write(() => {
       const allPrograms = realm.objects('Program')
       realm.delete(allPrograms)
