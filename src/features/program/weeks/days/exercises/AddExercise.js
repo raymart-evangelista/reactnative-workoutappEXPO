@@ -880,7 +880,7 @@ export const AddExercise = ({ weekId, dayId }) => {
           </KeyboardAwareScrollView>
         </Modal>
       </Portal>
-      <AnimatedFAB
+      {/* <AnimatedFAB
         icon="plus"
         label="Add Exercise"
         onPress={onAddExerciseClicked}
@@ -888,7 +888,10 @@ export const AddExercise = ({ weekId, dayId }) => {
         iconMode="dynamic"
         style={styles.fabStyle}
         extended="true"
-      />
+      /> */}
+      <Button icon={'plus'} onPress={onAddExerciseClicked}>
+        Add Exercise
+      </Button>
     </>
   )
 }

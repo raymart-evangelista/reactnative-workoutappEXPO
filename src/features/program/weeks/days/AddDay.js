@@ -28,14 +28,8 @@ export const AddDay = ({ weekId }) => {
   }
 
   return (
-    <AnimatedFAB
-      icon="plus"
-      label="Add Day"
-      onPress={onAddDayClicked}
-      animateFrom="right"
-      iconMode="dynamic"
-      style={styles.fabStyle}
-      extended="true"
-    />
+    <Button icon={'plus'} onPress={onAddDayClicked}>
+      Add Day
+    </Button>
   )
 }
