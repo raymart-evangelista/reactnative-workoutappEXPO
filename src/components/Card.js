@@ -1,6 +1,5 @@
 import { View } from 'react-native'
 import { Avatar, Card, Text, Button } from 'react-native-paper'
-import { StyleSheet } from 'react-native'
 import { RemoveWeek } from '../features/program/weeks/RemoveWeek'
 import { RemoveDay } from '../features/program/weeks/days/RemoveDay'
 import { RemoveExercise } from '../features/program/weeks/days/exercises/RemoveExercise'
@@ -27,7 +26,7 @@ const LeftContent = (props) => <Avatar.Icon {...props} icon="folder" />
 export const ProgramCard = ({ program, onClick }) => {
   const weekCount = program.weeks ? program.weeks.length : 0
   return (
-    <Card style={styles.container} onPress={onClick}>
+    <Card onPress={onClick}>
       <Card.Content>
         <Text variant="titleLarge">{program.title}</Text>
         <Text variant="bodyMedium" className="italic">
@@ -57,7 +56,7 @@ export const WeekCard = ({
   })
 
   return (
-    <Card style={styles.container} onPress={onClick} onLongPress={onDrag}>
+    <Card onPress={onClick} onLongPress={onDrag}>
       {/* <Card.Title title="Card Title" subtitle="Card Subtitle" left={LeftContent} /> */}
       <Card.Content>
         <Text variant="titleLarge">{title}</Text>
@@ -75,7 +74,7 @@ export const WeekCard = ({
           </Text>
         )}
       </Card.Content>
-      <Card.Actions style={styles.cardActions}>
+      <Card.Actions>
         <EditInfoModal
           data={{ ...week }}
           updateAction={(info) => {
@@ -108,7 +107,7 @@ export const DayCard = ({
 }) => {
   const dispatch = useDispatch()
   return (
-    <Card style={styles.container} onPress={onClick} onLongPress={onDrag}>
+    <Card onPress={onClick} onLongPress={onDrag}>
       {/* <Card.Title title="Card Title" subtitle="Card Subtitle" left={LeftContent} /> */}
       <Card.Content>
         <Text variant="titleLarge">{title}</Text>
@@ -126,7 +125,7 @@ export const DayCard = ({
           </Text>
         )}
       </Card.Content>
-      <Card.Actions style={styles.cardActions}>
+      <Card.Actions>
         <EditInfoModal
           data={{ ...day, weekId }}
           updateAction={(info) => {
@@ -162,7 +161,7 @@ export const ExerciseCard = ({
   const dispatch = useDispatch()
   console.log(exercise)
   return (
-    <Card style={styles.container} onPress={onClick} onLongPress={onDrag}>
+    <Card onPress={onClick} onLongPress={onDrag}>
       {/* <Card.Title title="Card Title" subtitle="Card Subtitle" left={LeftContent} /> */}
       <Card.Content className="border-2 border-red-500">
         <Text variant="titleLarge">{exercise.name}</Text>
@@ -245,10 +244,7 @@ export const ExerciseCard = ({
           </View>
         </View>
       </Card.Content>
-      <Card.Actions
-        style={styles.cardActions}
-        className="border-2 border-green-500"
-      >
+      <Card.Actions className="border-2 border-green-500">
         <EditInfoModal
           data={{ exerciseId, weekId, dayId }}
           updateAction={(info) => {
@@ -270,12 +266,3 @@ export const ExerciseCard = ({
     </Card>
   )
 }
-
-const styles = StyleSheet.create({
-  container: {
-    margin: 8,
-  },
-  cardActions: {
-    justifyContent: 'flex-end',
-  },
-})
