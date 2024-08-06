@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { AnimatedFAB } from 'react-native-paper'
+import { AnimatedFAB, Button } from 'react-native-paper'
 
 import { nanoid } from '@reduxjs/toolkit'
 import { weekAdded } from '../../programSlice'
@@ -23,20 +23,11 @@ export const AddWeek = () => {
         days: [],
       })
     )
-
-    // setTitle()
-    // setDescription()
   }
 
   return (
-    <AnimatedFAB
-      icon={'plus'}
-      label={'Add Week'}
-      onPress={onAddWeekClicked}
-      animateFrom={'right'}
-      iconMode={'dynamic'}
-      style={styles.fabStyle}
-      extended={'true'}
-    />
+    <Button icon={'plus'} onPress={onAddWeekClicked}>
+      Add Week
+    </Button>
   )
 }
