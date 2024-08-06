@@ -264,8 +264,6 @@ const CreateProgramScreen = ({ navigation }) => {
     setIsExtended(offset < threshold)
   }
 
-  const flatListRef = useRef(0)
-
   // useEffect(() => {
   //   console.log(`weeks have been effected: ${weeks.length}`)
   //   if (weeks.length > 7) {
@@ -372,6 +370,16 @@ const CreateProgramScreen = ({ navigation }) => {
   //   }
   // }, [dispatch])
 
+  const flatListRef = useRef(null)
+
+  useEffect(() => {
+    if (weeks.length > 0) {
+      setTimeout(() => {
+        flatListRef.current.scrollToEnd({ animated: true })
+      }, 100)
+    }
+  }, [weeks])
+
   return (
     <View className="h-full">
       <SafeAreaView className="flex-1">
@@ -411,8 +419,8 @@ const CreateProgramScreen = ({ navigation }) => {
         ) : (
           <Text>No weeks added yet.</Text>
         )}
-        <AddWeek />
       </SafeAreaView>
+      <AddWeek />
     </View>
   )
 }
