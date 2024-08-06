@@ -221,11 +221,9 @@ export const programSlice = createSlice({
     programAdded: (state, action) => {},
     programRemoved: (state, action) => {},
     resetProgram: (state) => {
-      initialState
+      return initialState
       // state.title = 'New Program'
       // state.description = 'Description of the program.'
-      // state.weeks = []
-      // console.log(`\t\t--program reset`)
     },
     programUpdated: (state, action) => {
       const { title, description } = action.payload
