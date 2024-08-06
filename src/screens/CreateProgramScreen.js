@@ -18,11 +18,6 @@ import { useDispatch, useSelector } from 'react-redux'
 import { AddWeek } from '../features/program/weeks/AddWeek'
 import { AddDay } from '../features/program/weeks/days/AddDay'
 import { AddExercise } from '../features/program/weeks/days/exercises/AddExercise'
-// import {
-//   daysReordered,
-//   exercisesReordered,
-//   weeksReordered,
-// } from '../features/program/weeksSlice'
 
 import {
   programRemoved,
@@ -60,7 +55,6 @@ const EditWeekScreen = ({ route, navigation }) => {
     setIsExtended(offset < threshold)
   }
 
-  console.log(days.length)
   const renderItem = ({ item, drag, isActive }) => {
     return (
       <ScaleDecorator>
@@ -227,19 +221,6 @@ const WeekContainer = ({ week, onDrag, navigation }) => {
 const CreateProgramScreen = ({ navigation }) => {
   const styles = useThemedStyles()
 
-  // const [disableAddWeekButton, setDisabledAddWeekButton] = useState(false)
-  // const handleRemoveWeek = (weekToRemove) => {
-  //   const keyToRemove = weekToRemove.key
-  //   setWeeks((currentWeeks) =>
-  //     currentWeeks.filter((week, index) => week.key !== keyToRemove)
-  //   )
-  //   console.log(`week with key [${keyToRemove}] removed`)
-
-  //   if (weeks.length < 8) {
-  //     setDisabledAddWeekButton(false)
-  //   }
-  // }
-
   const dispatch = useDispatch()
   const program = useSelector((state) => state.program)
   const weeks = program.weeks
@@ -263,15 +244,6 @@ const CreateProgramScreen = ({ navigation }) => {
     const threshold = 10
     setIsExtended(offset < threshold)
   }
-
-  // useEffect(() => {
-  //   console.log(`weeks have been effected: ${weeks.length}`)
-  //   if (weeks.length > 7) {
-  //     setDisabledAddWeekButton(true)
-  //   } else {
-  //     setDisabledAddWeekButton(false)
-  //   }
-  // }, [weeks])
 
   const realm = useRealm()
 
@@ -362,13 +334,6 @@ const CreateProgramScreen = ({ navigation }) => {
     dispatch(resetProgram())
     navigation.navigate('MyPrograms')
   }
-
-  // useEffect(() => {
-  //   return () => {
-  //     console.log('inside the return')
-  //     dispatch(resetProgram())
-  //   }
-  // }, [dispatch])
 
   const flatListRef = useRef(null)
 
