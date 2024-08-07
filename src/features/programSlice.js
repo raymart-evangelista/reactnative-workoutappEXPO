@@ -325,7 +325,7 @@ export const programSlice = createSlice({
       const { weekId, dayId, newExercisesOrder } = action.payload
       const weekIndex = state.weeks.findIndex((week) => week.id === weekId)
       if (weekIndex !== -1) {
-        const dayIndex = state[weekIndex].days.findIndex(
+        const dayIndex = state.weeks[weekIndex].days.findIndex(
           (day) => day.id === dayId
         )
         if (dayIndex !== -1) {
