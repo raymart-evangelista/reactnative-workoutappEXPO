@@ -46,14 +46,17 @@ const EditWeekScreen = ({ route, navigation }) => {
     return week ? week.days : []
   })
 
-  const [isExtended, setIsExtended] = useState(false)
+  const flatListRef = useRef(null)
 
-  const flatListRef = useRef(0)
-
-  const handleScrollOffsetChange = (offset) => {
-    const threshold = 10
-    setIsExtended(offset < threshold)
-  }
+  useEffect(() => {
+    if (days && days.length > 0) {
+      setTimeout(() => {
+        if (flatListRef.current) {
+          flatListRef.current.scrollToEnd({ animated: true })
+        }
+      }, 100)
+    }
+  }, [days])
 
   const renderItem = ({ item, drag, isActive }) => {
     return (
@@ -74,7 +77,7 @@ const EditWeekScreen = ({ route, navigation }) => {
   return (
     <View className="h-full">
       <SafeAreaView className="flex-1">
-        {days.length > 0 ? (
+        {days && days.length > 0 ? (
           <DraggableFlatList
             dragHitSlop={{ left: -50 }}
             data={days}
@@ -84,7 +87,6 @@ const EditWeekScreen = ({ route, navigation }) => {
             keyExtractor={(item) => item.id}
             renderItem={renderItem}
             containerStyle={{ flex: 1 }}
-            onScrollOffsetChange={handleScrollOffsetChange}
             ref={flatListRef}
           />
         ) : (
@@ -92,8 +94,8 @@ const EditWeekScreen = ({ route, navigation }) => {
             <Text>No days added yet.</Text>
           </View>
         )}
-        <AddDay weekId={weekId} />
       </SafeAreaView>
+      <AddDay weekId={weekId} />
     </View>
   )
 }
@@ -110,6 +112,21 @@ const EditDayScreen = ({ route, navigation }) => {
     const day = week.days.find((day) => day.id === dayId)
     return day ? day.exercises : []
   })
+
+  const flatListRef = useRef(null)
+
+  useEffect(() => {
+    if (exercises && exercises.length > 0) {
+      setTimeout(() => {
+        if (flatListRef.current) {
+          console.log('Scrolling to the end')
+          flatListRef.current.scrollToEnd({ animated: true })
+        } else {
+          console.log('flatListRef.current is null')
+        }
+      }, 150)
+    }
+  }, [exercises])
 
   const renderItem = ({ item, drag, isActive }) => {
     return (
@@ -128,7 +145,7 @@ const EditDayScreen = ({ route, navigation }) => {
   return (
     <View className="h-full">
       <SafeAreaView className="flex-1">
-        {exercises.length > 0 ? (
+        {exercises && exercises.length > 0 ? (
           <DraggableFlatList
             dragHitSlop={{ left: -50 }}
             data={exercises}
@@ -140,12 +157,13 @@ const EditDayScreen = ({ route, navigation }) => {
             keyExtractor={(item) => item.id}
             renderItem={renderItem}
             containerStyle={{ flex: 1 }}
+            ref={flatListRef}
           />
         ) : (
           <Text>No exercises added yet.</Text>
         )}
-        <AddExercise weekId={weekId} dayId={dayId} />
       </SafeAreaView>
+      <AddExercise weekId={weekId} dayId={dayId} />
     </View>
   )
 }
