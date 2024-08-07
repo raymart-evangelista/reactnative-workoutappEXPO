@@ -159,7 +159,6 @@ export const ExerciseCard = ({
   onDrag,
 }) => {
   const dispatch = useDispatch()
-  console.log(exercise)
   return (
     <Card onPress={onClick} onLongPress={onDrag}>
       {/* <Card.Title title="Card Title" subtitle="Card Subtitle" left={LeftContent} /> */}
