@@ -119,10 +119,8 @@ const EditDayScreen = ({ route, navigation }) => {
     if (exercises && exercises.length > 0) {
       setTimeout(() => {
         if (flatListRef.current) {
-          console.log('Scrolling to the end')
           flatListRef.current.scrollToEnd({ animated: true })
         } else {
-          console.log('flatListRef.current is null')
         }
       }, 150)
     }
@@ -178,7 +176,6 @@ const ExerciseContainer = ({
 }) => {
   const handleEditExercise = () => {
     // navigation.navigate('EditExercise', { weekId, dayId, exercise })
-    console.log('inside handleEditExercise')
   }
   return (
     <ExerciseCard
