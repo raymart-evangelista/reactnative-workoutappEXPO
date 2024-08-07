@@ -19,6 +19,182 @@ const initialState = {
           exercises: [
             {
               id: new BSON.ObjectId().toHexString(),
+              name: 'face pulls',
+              warmup: {
+                sets: {
+                  single: 1,
+                  min: '',
+                  max: '',
+                  useRange: false,
+                },
+                reps: {
+                  single: 1,
+                  min: '',
+                  max: '',
+                  useRange: false,
+                },
+                rpe: {
+                  single: 3,
+                  min: '',
+                  max: '',
+                  useRange: false,
+                },
+              },
+              working: {
+                sets: {
+                  single: 4,
+                  min: '',
+                  max: '',
+                  useRange: false,
+                },
+                reps: {
+                  single: 4,
+                  min: '',
+                  max: '',
+                  useRange: false,
+                },
+                rpe: {
+                  single: 6,
+                  min: '',
+                  max: '',
+                  useRange: false,
+                },
+              },
+            },
+            {
+              id: new BSON.ObjectId().toHexString(),
+              name: 'inclined dumbbell chest press',
+              warmup: {
+                sets: {
+                  single: 1,
+                  min: '',
+                  max: '',
+                  useRange: false,
+                },
+                reps: {
+                  single: 1,
+                  min: '',
+                  max: '',
+                  useRange: false,
+                },
+                rpe: {
+                  single: 3,
+                  min: '',
+                  max: '',
+                  useRange: false,
+                },
+              },
+              working: {
+                sets: {
+                  single: 4,
+                  min: '',
+                  max: '',
+                  useRange: false,
+                },
+                reps: {
+                  single: 4,
+                  min: '',
+                  max: '',
+                  useRange: false,
+                },
+                rpe: {
+                  single: 6,
+                  min: '',
+                  max: '',
+                  useRange: false,
+                },
+              },
+            },
+            {
+              id: new BSON.ObjectId().toHexString(),
+              name: 'tricep pushdown',
+              warmup: {
+                sets: {
+                  single: 1,
+                  min: '',
+                  max: '',
+                  useRange: false,
+                },
+                reps: {
+                  single: 1,
+                  min: '',
+                  max: '',
+                  useRange: false,
+                },
+                rpe: {
+                  single: 3,
+                  min: '',
+                  max: '',
+                  useRange: false,
+                },
+              },
+              working: {
+                sets: {
+                  single: 4,
+                  min: '',
+                  max: '',
+                  useRange: false,
+                },
+                reps: {
+                  single: 4,
+                  min: '',
+                  max: '',
+                  useRange: false,
+                },
+                rpe: {
+                  single: 6,
+                  min: '',
+                  max: '',
+                  useRange: false,
+                },
+              },
+            },
+            {
+              id: new BSON.ObjectId().toHexString(),
+              name: 'shoulder fly',
+              warmup: {
+                sets: {
+                  single: 1,
+                  min: '',
+                  max: '',
+                  useRange: false,
+                },
+                reps: {
+                  single: 1,
+                  min: '',
+                  max: '',
+                  useRange: false,
+                },
+                rpe: {
+                  single: 3,
+                  min: '',
+                  max: '',
+                  useRange: false,
+                },
+              },
+              working: {
+                sets: {
+                  single: 4,
+                  min: '',
+                  max: '',
+                  useRange: false,
+                },
+                reps: {
+                  single: 4,
+                  min: '',
+                  max: '',
+                  useRange: false,
+                },
+                rpe: {
+                  single: 6,
+                  min: '',
+                  max: '',
+                  useRange: false,
+                },
+              },
+            },
+            {
+              id: new BSON.ObjectId().toHexString(),
               name: 'chest press',
               warmup: {
                 sets: {
