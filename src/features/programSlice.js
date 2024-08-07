@@ -323,15 +323,36 @@ export const programSlice = createSlice({
     },
     exercisesReordered: (state, action) => {
       const { weekId, dayId, newExercisesOrder } = action.payload
-      const weekIndex = state.weeks.findIndex((week) => week.id === weekId)
-      if (weekIndex !== -1) {
-        const dayIndex = state.weeks[weekIndex].days.findIndex(
-          (day) => day.id === dayId
-        )
-        if (dayIndex !== -1) {
-          state.weeks[weekIndex].days[dayIndex].exercises = newExercisesOrder
-        }
+      // console.log('Payload:: ', { weekId, dayId, newExercisesOrder })
+
+      if (!Array.isArray(state.weeks)) {
+        console.error('state.weeks is not an array')
+        return
       }
+
+      const weekIndex = state.weeks.findIndex((week) => week.id === weekId)
+
+      if (weekIndex === -1) {
+        console.error(`Week with id ${weekId} not found`)
+        return
+      }
+
+      const week = state.weeks[weekIndex]
+      if (!Array.isArray(week.days)) {
+        console.error(`days for week ${weekId} is not an array`)
+        return
+      }
+
+      const dayIndex = week.days.findIndex((day) => day.id === dayId)
+      if (dayIndex === -1) {
+        console.error(`Day iwth id ${dayId} not ofund in week ${weekId}`)
+        return
+      }
+
+      state.weeks[weekIndex].days[dayIndex].exercises = newExercisesOrder
+      console.log(
+        '[programSlice.js/exercisesReordered]: state updated successfully'
+      )
     },
   },
 })
