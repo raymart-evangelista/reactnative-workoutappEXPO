@@ -19,6 +19,7 @@ import { BSON } from 'realm'
 import { useDispatch } from 'react-redux'
 import { setUser } from '../features/userSlice'
 import { generateUniqueId } from '../utils/idGenerator'
+import { setAuthenticated, signInWithGoogle } from '../features/authSlice'
 
 export default function LandingPage({ navigation, route }) {
   const styles = useThemedStyles()
@@ -36,35 +37,22 @@ export default function LandingPage({ navigation, route }) {
     if (response?.type === 'success') {
       handleSignInWithGoogle(response.authentication.accessToken)
       // navigation.navigate('TabNavigator')
-      navigation.reset({
-        index: 0,
-        routes: [{ name: 'TabNavigator', params: { screen: 'Home' } }],
-      })
+      // navigation.reset({
+      //   index: 0,
+      //   routes: [{ name: 'TabNavigator', params: { screen: 'Home' } }],
+      // })
     }
   }, [response])
 
   const handleSignInWithGoogle = async (token) => {
     if (!token) return
     try {
-      const googleUser = await getUserInfo(token)
-      console.log('User info from Google: ', googleUser)
-
-      // transform Google user data to match Realm schema
-      const realmUser = {
-        _id: generateUniqueId(),
-        firstName: googleUser.given_name || '',
-        lastName: googleUser.firstName || '',
-        email: googleUser.email,
-        googleId: googleUser.id,
-      }
-
-      realm.write(() => {
-        realm.create('User', realmUser, 'modified')
-      })
-
-      setUserInfo(realmUser)
-      await AsyncStorage.setItem('@user', JSON.stringify(realmUser))
-      dispatch(setUser(realmUser))
+      await dispatch(signInWithGoogle(token)).unwrap()
+      dispatch(setAuthenticated(true))
+      // navigation.reset({
+      //   index: 0,
+      //   routes: [{ name: 'TabNavigator', params: { screen: 'Home' } }],
+      // })
     } catch (error) {
       console.error('Failed to sign in with Google:', error)
       console.error('Error stack:', error.stack)
