@@ -49,6 +49,9 @@ const authSlice = createSlice({
       state.user = null
       AsyncStorage.removeItem('@user')
     },
+    setAuthenticated: (state, action) => {
+      state.isAuthenticated = action.payload
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -67,5 +70,5 @@ const authSlice = createSlice({
   },
 })
 
-export const { logout } = authSlice.actions
+export const { setAuthenticated, logout } = authSlice.actions
 export default authSlice.reducer
