@@ -21,7 +21,6 @@ export const signInWithGoogle = createAsyncThunk(
       }
 
       await AsyncStorage.setItem('@user', JSON.stringify(user))
-
       return user
     } catch (error) {
       return rejectWithValue(error.message)
@@ -46,6 +45,7 @@ const authSlice = createSlice({
     // },
     logout: (state) => {
       state.isAuthenticated = false
+      state.status = 'idle'
       state.user = null
       AsyncStorage.removeItem('@user')
     },
