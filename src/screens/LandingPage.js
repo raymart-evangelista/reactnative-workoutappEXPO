@@ -36,11 +36,6 @@ export default function LandingPage({ navigation, route }) {
   useEffect(() => {
     if (response?.type === 'success') {
       handleSignInWithGoogle(response.authentication.accessToken)
-      // navigation.navigate('TabNavigator')
-      // navigation.reset({
-      //   index: 0,
-      //   routes: [{ name: 'TabNavigator', params: { screen: 'Home' } }],
-      // })
     }
   }, [response])
 
@@ -48,22 +43,10 @@ export default function LandingPage({ navigation, route }) {
     if (!token) return
     try {
       await dispatch(signInWithGoogle(token)).unwrap()
-      dispatch(setAuthenticated(true))
-      // navigation.reset({
-      //   index: 0,
-      //   routes: [{ name: 'TabNavigator', params: { screen: 'Home' } }],
-      // })
     } catch (error) {
       console.error('Failed to sign in with Google:', error)
       console.error('Error stack:', error.stack)
     }
-  }
-
-  const getUserInfo = async (token) => {
-    const response = await fetch('https://www.googleapis.com/userinfo/v2/me', {
-      headers: { Authorization: `Bearer ${token}` },
-    })
-    return response.json()
   }
 
   return (
