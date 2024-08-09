@@ -19,10 +19,6 @@ export default function SettingsScreen({ navigation }) {
 
   const handleLogout = () => {
     dispatch(logout())
-    // navigation.reset({
-    //   index: 0,
-    //   routes: [{ name: 'Landing' }],
-    // })
   }
 
   return (
