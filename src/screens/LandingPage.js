@@ -16,7 +16,7 @@ import { useThemedStyles } from '../styles/globalStyles'
 import { useRealm } from '@realm/react'
 import { BSON } from 'realm'
 
-import { useDispatch } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { setUser } from '../features/userSlice'
 import { generateUniqueId } from '../utils/idGenerator'
 import { setAuthenticated, signInWithGoogle } from '../features/authSlice'
@@ -26,6 +26,7 @@ export default function LandingPage({ navigation, route }) {
   const [userInfo, setUserInfo] = useState(null)
   const dispatch = useDispatch()
   const realm = useRealm()
+  const authStatus = useSelector((state) => state.auth.status)
 
   const [request, response, promptAsync] = Google.useAuthRequest({
     androidClientId: Constants.expoConfig.extra.GOOGLE_ANDROID_ID,
@@ -42,7 +43,9 @@ export default function LandingPage({ navigation, route }) {
   const handleSignInWithGoogle = async (token) => {
     if (!token) return
     try {
-      await dispatch(signInWithGoogle(token)).unwrap()
+      user = await dispatch(signInWithGoogle(token)).unwrap()
+      console.log(user)
+      setUserInfo(user)
     } catch (error) {
       console.error('Failed to sign in with Google:', error)
       console.error('Error stack:', error.stack)
@@ -58,7 +61,7 @@ export default function LandingPage({ navigation, route }) {
         <Text className="text-center text-6xl">PeakPlanner</Text>
         {/* auth sign in buttons, use google or apple id */}
         <Text className="text-center text-6xl">
-          {JSON.stringify(userInfo, null, 2)}
+          {JSON.stringify(authStatus, null, 2)}
         </Text>
         <View className="flex-column justify-evenly">
           <Button
